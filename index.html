@@ -1,0 +1,1885 @@
+<html lang="en" class="lenis" style="--bgc: rgb(8,8,8); --fg-rgb: 244,241,234;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aluma. One membership for hair and beauty</title>
+<meta name="description" content="Aluma is one membership for hair and beauty. Book trusted salons, earn cashback and save with Aluma Money. Now live in Bengaluru.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#080808; --ivory:#F4F1EA; --sage:#C9D8C5; --mint:#DCE8DF; --sand:#D8C8B5; --nude:#E6D5CA;
+  --blush:#E8D6D1; --olive:#AEB9A5; --champagne:#CBB892; --chrome:#BFC4C7;
+  --bg:#080808; --fg-rgb:244,241,234; --bgc:#080808;
+  --pad:clamp(20px,4vw,60px);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+/* The page is art-directed per section; the theme tokens stay identical in both schemes. */
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#080808; } }
+:root[data-theme="dark"]{ --bg:#080808; }
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg); color:rgb(var(--fg-rgb));
+  font-family:'Jost',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-size:17px; line-height:1.55; font-weight:400;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  transition:color .45s ease;
+}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid rgb(var(--fg-rgb));outline-offset:4px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:12px;top:-60px;z-index:100;background:#fff;color:#000;padding:10px 16px;border-radius:999px;text-decoration:none}
+.skip:focus{top:calc(env(safe-area-inset-top,0px) + 12px)}
+
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;display:block}
+.layer{position:fixed;inset:0;pointer-events:none;will-change:transform,opacity}
+.layer.under{z-index:0}
+.layer.over{z-index:2}
+.layer.over a,.layer.over button,.layer.over input,.layer.over .hit{pointer-events:auto}
+section.pin{position:relative}
+section.flow{position:relative;z-index:2}
+
+/* ---------- Atmosphere (per-section light, behind everything) ---------- */
+#atmo{position:fixed;inset:0;z-index:-1;pointer-events:none;--glow:255,255,255;--ga:0;--va:0;
+  background:radial-gradient(85% 70% at 58% 40%, rgba(var(--glow),var(--ga)) 0%, rgba(var(--glow),0) 70%),
+             radial-gradient(150% 125% at 50% 45%, rgba(0,0,0,0) 52%, rgba(0,0,0,var(--va)) 100%)}
+
+/* ---------- Loader ---------- */
+#loader{position:fixed;inset:0;z-index:60;background:#080808;color:#F4F1EA;display:grid;place-items:center}
+.ld{display:flex;flex-direction:column;align-items:center;gap:30px}
+.ld-sc{width:min(44vw,210px);height:auto;overflow:visible}
+.ld-sc .st{fill:none;stroke:#F4F1EA;stroke-width:2.4;stroke-linecap:round}
+.ld-sc .bl{fill:#F4F1EA}
+.ld-sc .pv{fill:#CBB892}
+.ld-a,.ld-b{transform-box:view-box;transform-origin:110px 60px}
+.ld-a{animation:la 1.15s ease-in-out infinite}
+.ld-b{animation:lb 1.15s ease-in-out infinite}
+@keyframes la{0%,100%{transform:rotate(-16deg)}50%{transform:rotate(-1deg)}}
+@keyframes lb{0%,100%{transform:rotate(16deg)}50%{transform:rotate(1deg)}}
+#loader.go .ld-a,#loader.go .ld-b{animation:none}
+.ld-word{display:flex;overflow:hidden;font-weight:400;font-size:clamp(26px,4.6vw,44px);letter-spacing:.42em;padding-left:.42em;line-height:1.2}
+.ld-word span{display:inline-block;transform:translateY(110%)}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:calc(env(safe-area-inset-top,0px) + 18px) var(--pad) 18px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:30px;height:auto}
+.brand svg circle{fill:rgb(var(--fg-rgb));transition:fill .45s}
+.brand b{font-weight:500;font-size:15px;letter-spacing:.28em}
+.nav nav{display:flex;gap:30px;margin-left:auto}
+.nav nav a{text-decoration:none;font-size:14px;opacity:.72;transition:opacity .25s}
+.nav nav a:hover{opacity:1}
+.menu-btn{display:none;position:relative;flex:none;width:44px;height:44px;border-radius:50%;border:1px solid rgba(var(--fg-rgb),.4);background:transparent;cursor:pointer}
+.menu-btn i{position:absolute;left:13px;right:13px;height:1.5px;background:rgb(var(--fg-rgb));transition:transform .35s ease}
+.menu-btn i:first-child{top:17px}
+.menu-btn i:last-child{top:25px}
+.menu-open .menu-btn i:first-child{transform:translateY(4px) rotate(45deg)}
+.menu-open .menu-btn i:last-child{transform:translateY(-4px) rotate(-45deg)}
+.menu-open .nav{--fg-rgb:244,241,234;--bgc:#080808}
+.menu{position:fixed;inset:0;z-index:19;background:#080808;color:#F4F1EA;display:flex;flex-direction:column;justify-content:space-between;
+  padding:calc(env(safe-area-inset-top,0px) + 96px) var(--pad) calc(env(safe-area-inset-bottom,0px) + 28px);overflow-y:auto;--fg-rgb:244,241,234;--bgc:#080808}
+.menu[hidden]{display:none}
+.menu nav{display:flex;flex-direction:column}
+.menu nav a{display:flex;align-items:baseline;gap:16px;text-decoration:none;font-weight:300;font-size:clamp(34px,9.5vw,56px);letter-spacing:-.02em;line-height:1.15;padding:10px 0;border-bottom:1px solid rgba(244,241,234,.12)}
+.menu nav a small{font-size:12px;font-weight:400;letter-spacing:.1em;opacity:.45;min-width:22px}
+.menu-foot{display:grid;gap:12px;margin-top:32px}
+.menu-foot .stores .btn{flex:1}
+.menu-foot .small{margin-top:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;height:48px;padding:0 24px;border-radius:999px;
+  font:500 15px/1 'Jost',sans-serif;letter-spacing:.01em;text-decoration:none;cursor:pointer;white-space:nowrap;
+  border:1px solid rgba(var(--fg-rgb),.55);background:transparent;color:rgb(var(--fg-rgb));transition:background .3s,color .3s,border-color .3s}
+.btn:hover{border-color:rgb(var(--fg-rgb))}
+.btn.solid{background:rgb(var(--fg-rgb));color:var(--bgc);border-color:rgb(var(--fg-rgb))}
+.btn.solid:hover{opacity:.88}
+.btn.sm{height:40px;padding:0 18px;font-size:14px}
+.btn[disabled]{opacity:.35;cursor:not-allowed}
+.btn svg{width:16px;height:16px;flex:none}
+
+.rail{position:fixed;right:0;top:0;bottom:0;width:18px;z-index:21;background:transparent;cursor:grab;touch-action:none}
+.rail:active{cursor:grabbing}
+.rail::before{content:'';position:absolute;right:0;top:0;bottom:0;width:3px;background:rgba(var(--fg-rgb),.12)}
+.rail i{position:absolute;right:0;top:0;bottom:0;width:3px;background:rgb(var(--fg-rgb));transform-origin:top;transform:scaleY(0)}
+
+/* ---------- Type ---------- */
+h2,.h2{font-weight:200;font-size:clamp(42px,6.2vw,108px);letter-spacing:-.03em;line-height:.94}
+h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spacing:-.01em}
+.lead{font-size:clamp(17px,1.3vw,21px);line-height:1.5;max-width:36ch}
+.small{font-size:13px;line-height:1.45;opacity:.7}
+.muted{opacity:.72}
+.ph{border-bottom:1px dashed currentColor;opacity:.85;cursor:help}
+
+/* ---------- Hero ---------- */
+.hero-word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-weight:400;font-size:clamp(92px,22.5vw,440px);letter-spacing:.14em;padding-left:.14em;line-height:.9;transform-origin:50% 50%}
+.hero-word .m{display:inline-block;overflow:hidden;padding:.04em 0}
+.hero-word .m span{display:inline-block}
+.hero-bottom{position:absolute;left:var(--pad);right:var(--pad);bottom:calc(var(--pad) + 10px);display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
+.hero-bottom .lead{margin-bottom:22px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero-side{text-align:right;max-width:22ch}
+.cue{position:absolute;left:50%;bottom:calc(var(--pad) + 6px);transform:translateX(-50%);font-size:12px;opacity:.6;display:flex;flex-direction:column;align-items:center;gap:10px}
+.cue i{display:block;width:1px;height:34px;background:rgb(var(--fg-rgb));transform-origin:top;animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.snip-btn{position:absolute;left:50%;top:48%;width:min(46vw,560px);height:min(34vh,340px);transform:translate(-50%,-50%);background:transparent;border:0;cursor:pointer;border-radius:40px}
+.snip-btn span{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);font-size:12px;opacity:.55;white-space:nowrap;transition:opacity .3s}
+.snip-btn:hover span{opacity:1}
+
+/* ---------- Intro (cut) ---------- */
+.cut-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.cutline{position:relative;font-weight:300;letter-spacing:-.035em;white-space:nowrap;line-height:1.05;font-size:10vw}
+.cut-part{position:absolute;left:0;top:0;width:100%;height:100%;will-change:clip-path,transform}
+.intro-copy{position:absolute;left:var(--pad);bottom:12vh;max-width:40ch;opacity:0}
+.intro-copy .lead{max-width:40ch}
+.intro-side{position:absolute;right:var(--pad);bottom:12vh;max-width:24ch;text-align:right;opacity:0}
+
+/* ---------- Experience ---------- */
+.exp-head{position:absolute;left:var(--pad);top:18vh;max-width:9.5em}
+.exp-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.exp-svg path{fill:none;stroke:rgb(var(--fg-rgb));stroke-width:1;transition:stroke-opacity .5s}
+.exp-svg .orbit{fill:none;stroke:rgba(var(--fg-rgb),.28);stroke-dasharray:2 7}
+.exp-svg .dot{fill:rgb(var(--fg-rgb))}
+.callout{position:absolute;max-width:25ch;transition:opacity .5s ease,transform .5s ease;opacity:.3}
+.callout.on{opacity:1}
+.callout h3{margin-bottom:8px}
+.callout p{font-size:16px;opacity:.78}
+.callout.c0{right:var(--pad);top:22vh}
+.callout.c1{right:var(--pad);bottom:13vh}
+.callout.c2{left:var(--pad);bottom:13vh}
+
+/* ---------- Services ---------- */
+.svc-head{position:absolute;left:var(--pad);top:16vh}
+.svc-list{position:absolute;left:var(--pad);top:52%;transform:translateY(-50%);list-style:none}
+.svc-list button{display:block;background:none;border:0;cursor:pointer;text-align:left;
+  font:200 clamp(34px,4.4vw,76px)/1.1 'Jost',sans-serif;letter-spacing:-.025em;opacity:.2;transition:opacity .45s,transform .45s}
+.svc-list li.on button{opacity:1;transform:translateX(.22em);color:var(--sage)}
+.svc-num{position:absolute;right:var(--pad);top:15vh;font-weight:200;font-size:clamp(46px,5.4vw,96px);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.svc-num small{font-size:.26em;opacity:.45;margin-left:.35em;letter-spacing:.04em}
+.svc-list button:hover{opacity:.6}
+.svc-detail{position:absolute;right:var(--pad);bottom:13vh;max-width:30ch;transition:opacity .35s}
+.svc-detail.swap{opacity:0}
+.svc-detail h3{margin-bottom:8px}
+.svc-detail .small{margin-top:14px}
+
+/* ---------- Salon ---------- */
+.salon-copy{position:absolute;left:var(--pad);top:50%;transform:translateY(-50%);max-width:32ch}
+.salon-copy h2{margin-bottom:24px;max-width:7em}
+
+/* ---------- Locations ---------- */
+.loc-copy{position:absolute;left:var(--pad);top:17vh;max-width:30ch}
+.loc-copy h2{margin-bottom:20px;max-width:6em}
+.map,.map-hit{position:absolute;left:52%;top:52%;width:min(60vh,35vw);aspect-ratio:1;transform:translate(-50%,-50%)}
+.map svg{width:100%;height:100%;overflow:visible}
+.map .ring{fill:none;stroke:rgba(var(--fg-rgb),.22)}
+.map .road{fill:none;stroke:rgba(var(--fg-rgb),.14)}
+.map text{fill:rgba(var(--fg-rgb),.55);font:400 11px 'Jost',sans-serif}
+.pin-btn{position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;border:0;background:transparent;cursor:pointer;display:grid;place-items:center}
+.pin-btn i{display:block;width:12px;height:12px;border-radius:50%;background:rgb(var(--fg-rgb));box-shadow:0 0 0 6px rgba(var(--fg-rgb),.12);transition:box-shadow .4s}
+.pin-btn.on i{background:rgb(var(--fg-rgb));box-shadow:0 0 0 10px rgba(var(--fg-rgb),.16),0 0 0 22px rgba(var(--fg-rgb),.07)}
+.pin-btn b{position:absolute;left:34px;top:50%;transform:translateY(-50%);font-weight:400;font-size:13px;white-space:nowrap;opacity:.8}
+.loc-panel{position:absolute;right:var(--pad);bottom:11vh;width:min(340px,30vw);padding:26px;border-radius:22px;background:rgba(var(--fg-rgb),.06);
+  border:1px solid rgba(var(--fg-rgb),.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.loc-panel .area{font-size:13px;opacity:.65}
+.loc-panel h3{margin:4px 0 16px}
+.loc-panel dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px;margin-bottom:20px}
+.loc-panel dt{opacity:.55}
+.loc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+
+/* ---------- App ---------- */
+.app-copy{position:absolute;left:var(--pad);top:50%;transform:translateY(-50%);max-width:30ch}
+.app-copy h2{margin-bottom:22px;max-width:6em}
+.app-copy .lead{margin-bottom:26px}
+.stores{display:flex;gap:10px;flex-wrap:wrap}
+.rating{margin-top:22px}
+.feat{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);list-style:none;width:min(300px,24vw)}
+.feat li{padding:16px 0;border-top:1px solid rgba(var(--fg-rgb),.16);opacity:.32;transition:opacity .45s}
+.feat li:last-child{border-bottom:1px solid rgba(var(--fg-rgb),.16)}
+.feat li.on{opacity:1}
+.feat h3{font-size:20px;margin-bottom:4px}
+.feat p{font-size:14.5px;opacity:.75}
+
+/* ---------- Booking ---------- */
+#book{padding:calc(16vh + env(safe-area-inset-top,0px)) var(--pad) 14vh}
+.book-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.8fr);gap:clamp(32px,5vw,90px);max-width:1440px;margin:0 auto;align-items:start}
+.book-intro{margin-bottom:48px}
+.book-intro h2{margin-bottom:20px;max-width:8em}
+.steps{list-style:none;display:grid;gap:36px}
+.step h3{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+.step h3 span{font-size:14px;font-weight:500;width:28px;height:28px;border-radius:50%;border:1px solid rgba(var(--fg-rgb),.5);display:inline-grid;place-items:center;flex:none;transform:translateY(-3px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid rgba(var(--fg-rgb),.32);background:transparent;border-radius:999px;padding:10px 18px;font-size:15px;cursor:pointer;transition:background .25s,color .25s,border-color .25s;line-height:1.2;min-height:44px}
+.chip:hover{border-color:rgb(var(--fg-rgb))}
+.chip[aria-pressed="true"]{background:rgb(var(--fg-rgb));color:var(--bgc);border-color:rgb(var(--fg-rgb))}
+.chip.date{display:flex;flex-direction:column;align-items:center;min-width:64px;padding:10px 12px;border-radius:18px}
+.chip.date small{font-size:12px;opacity:.7}
+.chip.date b{font-weight:500;font-size:19px}
+.chips.times{margin-top:10px}
+.summary{position:sticky;top:110px;background:#F4F1EA;color:#080808;border-radius:26px;padding:30px;--fg-rgb:8,8,8;--bgc:#F4F1EA}
+.summary h3{margin-bottom:18px}
+.summary dl{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:15px;margin-bottom:26px}
+.summary dt{opacity:.55}
+.summary dd.empty{opacity:.4}
+.summary .btn{width:100%}
+.handoff{margin-top:18px;display:none}
+.handoff.show{display:block}
+.handoff p{font-size:14px;opacity:.75;margin-bottom:14px}
+.handoff .stores .btn{flex:1}
+.note{font-size:13px;opacity:.6;margin-top:18px}
+
+/* ---------- Reviews ---------- */
+.big-rating{position:absolute;left:var(--pad);top:50%;transform:translateY(-52%);font-weight:200;font-size:clamp(160px,33vw,620px);letter-spacing:-.06em;line-height:.8;opacity:.16}
+.quotes{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);width:min(520px,40vw)}
+.quotes blockquote{margin-bottom:44px}
+.quotes blockquote p{font-weight:300;font-size:clamp(26px,2.5vw,40px);line-height:1.18;letter-spacing:-.015em}
+.quotes cite{display:block;font-style:normal;font-size:14px;opacity:.6;margin-top:14px}
+.quotes .stats{font-size:14px;opacity:.7;border-top:1px solid rgba(var(--fg-rgb),.2);padding-top:18px}
+
+/* ---------- Final ---------- */
+.final-word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:400;font-size:clamp(92px,22.5vw,440px);letter-spacing:.14em;padding-left:.14em;line-height:.9;color:var(--champagne);opacity:.92}
+.final-cta{position:absolute;left:0;right:0;bottom:calc(var(--pad) + 10px);display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;padding:0 var(--pad)}
+.final-cta h2{font-size:clamp(34px,4.4vw,72px)}
+
+footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(var(--fg-rgb),.14)}
+.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px;max-width:1440px;margin:0 auto}
+.foot ul{list-style:none;display:grid;gap:8px}
+.foot a{text-decoration:none;opacity:.75}
+.foot a:hover{opacity:1}
+.foot h4{font-weight:500;font-size:14px;margin-bottom:12px;opacity:.55}
+.legal{max-width:1440px;margin:56px auto 0;font-size:13px;opacity:.5}
+
+/* ---------- No WebGL ---------- */
+.no-webgl #gl{display:none}
+
+/* ---------- Portrait / mobile ---------- */
+@media (max-aspect-ratio: 9/10), (max-width: 760px){
+  .nav nav{display:none}
+  .nav{gap:10px}
+  .nav > .btn.sm{margin-left:auto;height:44px;padding:0 20px}
+  .nav-book .long{display:none}
+  .brand b{letter-spacing:.22em}
+  .menu-btn{display:block}
+  .brand b{font-size:13px}
+  .hero-word{font-size:25vw;letter-spacing:.1em;padding-left:.1em;align-items:flex-start;padding-top:22vh}
+  .hero-bottom{flex-direction:column;align-items:flex-start;gap:14px;bottom:calc(var(--pad) + 40px)}
+  .hero-side{text-align:left}
+  .cue{display:none}
+  .snip-btn{top:50%;width:80vw;height:26vh}
+  .intro-copy{bottom:10vh;right:var(--pad)}
+  .intro-side{display:none}
+  .exp-head{top:13vh;right:var(--pad);max-width:none;font-size:clamp(32px,9.4vw,44px)}
+  .snip-btn span{display:none}
+  .exp-svg{display:none}
+  .callout{left:var(--pad)!important;right:var(--pad)!important;top:auto!important;bottom:9vh!important;max-width:none;opacity:0}
+  .callout.on{opacity:1}
+  .svc-head{top:12vh}
+  .svc-num{top:10.5vh;font-size:40px}
+  .svc-list{top:auto;bottom:calc(7vh + 150px);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);transform:none;left:0;right:0;display:flex;gap:26px;overflow-x:auto;padding:0 var(--pad);scrollbar-width:none}
+  .svc-list::-webkit-scrollbar{display:none}
+  .svc-list li{flex:none}
+  .svc-list button{font-size:34px}
+  .svc-list li.on button{transform:none}
+  .svc-detail{left:var(--pad);right:var(--pad);bottom:7vh;max-width:none}
+  .svc-detail h3{display:none}
+  .salon-copy{top:auto;bottom:8vh;transform:none;right:var(--pad)}
+  .salon-copy h2{font-size:44px}
+  .loc-copy{top:11vh;right:var(--pad)}
+  .loc-copy h2{font-size:40px}
+  .loc-copy .lead{font-size:15px}
+  .map,.map-hit{left:50%;top:48%;width:min(78vw,44vh)}
+  .loc-panel{left:var(--pad);right:var(--pad);width:auto;bottom:4vh;padding:18px}
+  .pin-btn b{left:auto;right:34px}
+  .loc-panel dl{font-size:13px;margin-bottom:12px}
+  .loc-panel h3{margin-bottom:10px}
+  .app-copy{top:auto;bottom:6vh;transform:none;right:var(--pad);max-width:none}
+  .app-copy h2{font-size:38px;margin-bottom:10px}
+  .app-copy .lead{margin-bottom:14px;font-size:15px}
+  .rating{margin-top:12px}
+  .feat{top:auto;bottom:calc(6vh + 330px);left:var(--pad);right:var(--pad);transform:none;width:auto}
+  .feat li{display:none;border:0!important;padding:0}
+  .feat li.on{display:block}
+  .book-grid{grid-template-columns:1fr}
+  .summary{position:relative;top:0}
+  .big-rating{top:22vh;transform:none;font-size:48vw}
+  .quotes{left:var(--pad);right:var(--pad);width:auto;top:auto;bottom:8vh;transform:none}
+  .quotes blockquote{margin-bottom:24px}
+  .quotes blockquote p{font-size:22px}
+  .final-word{font-size:25vw;letter-spacing:.1em;padding-left:.1em;align-items:flex-start;padding-top:24vh}
+  .foot{grid-template-columns:1fr}
+}
+/* short phones: give the 3D room to breathe */
+@media (max-aspect-ratio: 9/10) and (max-height: 780px), (max-width: 760px) and (max-height: 780px){
+  .loc-copy .lead{display:none}
+  .map,.map-hit{top:42%;width:min(62vw,30vh)}
+  .loc-panel{padding:14px 16px}
+  .loc-panel h3{font-size:19px;margin-bottom:8px}
+  .loc-panel dl{gap:4px 12px;margin-bottom:10px}
+  .feat{display:none}
+  .app-copy h2{font-size:34px}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body style="background: rgb(8, 8, 8);">
+<a class="skip" href="#book">Skip to booking</a>
+
+
+
+<div id="atmo" aria-hidden="true" style="--glow: 191,196,199; --ga: 0.131; --va: 0.549;"></div>
+<canvas id="gl" aria-hidden="true" width="550" height="1195"></canvas>
+
+
+<header class="nav" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+  <a class="brand" href="#top" aria-label="Aluma, back to top">
+    <svg viewBox="0 0 116 96" aria-hidden="true"><circle cx="58" cy="25" r="23"></circle><circle cx="25" cy="71" r="23"></circle><circle cx="91" cy="71" r="23"></circle></svg>
+    <b>ALUMA.SALON</b>
+  </a>
+  <nav aria-label="Main">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#services">Services</a>
+    <a href="#locations">Locations</a>
+    <a href="#app">App</a>
+  </nav>
+  <a class="btn sm solid nav-book" href="#book">Book<span class="long"> appointment</span></a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
+</header><div id="menu" class="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden="">
+  <nav aria-label="Mobile">
+    <a href="#about"><small>01</small>About</a>
+    <a href="#experience"><small>02</small>Experience</a>
+    <a href="#services"><small>03</small>Services</a>
+    <a href="#locations"><small>04</small>Locations</a>
+    <a href="#app"><small>05</small>App</a>
+  </nav>
+  <div class="menu-foot">
+    <a class="btn solid" href="#book">Book an appointment</a>
+    <div class="stores"><a class="btn solid" href="https://play.google.com/store/apps/details?id=com.aluma.salon" target="_blank" rel="noopener">Google Play</a><a class="btn" href="https://apps.apple.com/in/app/aluma-salon/id6498151574" target="_blank" rel="noopener">App Store</a></div>
+    <p class="small">One membership for hair and beauty. Now live in Bengaluru.</p>
+  </div>
+</div>
+<div class="rail" role="scrollbar" aria-label="Page scroll position" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i style="transform: scaleY(0);"></i></div>
+
+<main>
+
+<!-- 01 HERO -->
+<section id="top" class="pin" data-hd="250" data-hm="220" aria-labelledby="h-hero" style="height: 2103px;">
+  <div class="layer under" style="transform: translate3d(0px, 0px, 0px); opacity: 1; visibility: visible;">
+    <div class="hero-word" aria-hidden="true" style="transform: scale(1); opacity: 1;"><span class="m"><span style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">A</span></span><span class="m"><span style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">L</span></span><span class="m"><span style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">U</span></span><span class="m"><span style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">M</span></span><span class="m"><span style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">A</span></span></div>
+  </div>
+  <div class="layer over" style="transform: translate3d(0px, 0px, 0px); opacity: 1; visibility: visible;">
+    <h1 id="h-hero" class="sr">Aluma, one membership for hair and beauty</h1>
+    <button class="snip-btn" type="button" aria-label="Snip the scissors"><span class="snip-label">Click the scissors</span></button>
+    <div class="hero-bottom">
+      <div style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+        <p class="lead">Book trusted salons, earn cashback and save with Aluma Money. One membership for hair and beauty.</p>
+        <div class="ctas">
+          <a class="btn solid" href="#book">Book an appointment</a>
+          <a class="btn" href="#about">Explore Aluma</a>
+        </div>
+      </div>
+      <p class="small hero-side" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 0.7;">Now live in Bengaluru</p>
+    </div>
+    <div class="cue" aria-hidden="true">Scroll to continue<i></i></div>
+  </div>
+</section>
+
+<!-- 02 BRAND -->
+<section id="about" class="pin" data-hd="230" data-hm="210" aria-labelledby="h-about" style="height: 2008px;">
+  <div class="layer under" style="transform: translate3d(0px, 2103px, 0px); opacity: 0; visibility: hidden;">
+    <div class="cut-wrap">
+      <div class="cutline" id="cutline" style="font-size: 57.4746px;">
+        <span class="cut-full" id="cutFull" style="clip-path: inset(0px 0px 0px 0%);">One membership.</span>
+        <span class="cut-part" id="cutTop" aria-hidden="true" style="clip-path: inset(0px 100% 48% 0px); transform: translate(0vw, -0.05em) rotate(0deg);">One membership.</span>
+        <span class="cut-part" id="cutBot" aria-hidden="true" style="clip-path: inset(52% 100% 0px 0px); transform: translate(0vw, 0.05em) rotate(0deg);">One membership.</span>
+      </div>
+    </div>
+  </div>
+  <div class="layer over" style="transform: translate3d(0px, 2103px, 0px); opacity: 0; visibility: hidden;">
+    <h2 id="h-about" class="sr">One membership.</h2>
+    <div class="intro-copy" style="opacity: 0; transform: translateY(24px);">
+      <p class="lead">A single membership plan for hair and beauty, built to work across India. Aluma is live now in Bengaluru.</p>
+    </div>
+    <p class="intro-side small" style="opacity: 0;">Haircuts, beard, spa, facials, waxing and threading, booked from one app.</p>
+  </div>
+</section>
+
+<!-- 03 EXPERIENCE -->
+<section id="experience" class="pin" data-hd="330" data-hm="290" aria-labelledby="h-exp" style="height: 2772px;">
+  <div class="layer over" style="transform: translate3d(0px, 4111px, 0px); opacity: 0; visibility: hidden;">
+    <svg class="exp-svg" aria-hidden="true">
+      <circle class="orbit" id="orbA" r="122" cx="1153.7905089762314" cy="-359.38607310162416"></circle><circle class="orbit" id="orbB" r="203.33333333333334" cx="1153.7905089762314" cy="-359.38607310162416"></circle>
+      <g id="orbDots"><circle class="dot" r="2" cx="1082.4" cy="-260.5"></circle><circle class="dot" r="2" cx="980.7" cy="-252.6"></circle><circle class="dot" r="2" cx="1033.4" cy="-339.9"></circle><circle class="dot" r="2" cx="955.9" cy="-406.3"></circle><circle class="dot" r="2" cx="1054.9" cy="-430.8"></circle><circle class="dot" r="2" cx="1047.0" cy="-532.4"></circle><circle class="dot" r="2" cx="1134.3" cy="-479.8"></circle><circle class="dot" r="2" cx="1200.7" cy="-557.2"></circle><circle class="dot" r="2" cx="1225.2" cy="-458.3"></circle><circle class="dot" r="2" cx="1326.8" cy="-466.2"></circle><circle class="dot" r="2" cx="1274.2" cy="-378.8"></circle><circle class="dot" r="2" cx="1351.6" cy="-312.5"></circle><circle class="dot" r="2" cx="1252.7" cy="-288.0"></circle><circle class="dot" r="2" cx="1260.6" cy="-186.3"></circle><circle class="dot" r="2" cx="1173.2" cy="-238.9"></circle><circle class="dot" r="2" cx="1106.9" cy="-161.5"></circle></g>
+      <path id="ln0" d="M1253.6,-470.5 L1137.8,177.0 L1183.8,177.0" style="stroke-opacity: 0.9;"></path><path id="ln1" d="M1153.8,-359.4 L1137.8,529.3 L1183.8,529.3" style="stroke-opacity: 0.22;"></path><path id="ln2" d="M1089.2,-211.9 L375.0,504.4 L329.0,504.4" style="stroke-opacity: 0.22;"></path>
+      <circle class="dot" id="dt0" r="3.5" cx="1253.6" cy="-470.5" style="opacity: 1;"></circle><circle class="dot" id="dt1" r="3.5" cx="1153.8" cy="-359.4" style="opacity: 0.35;"></circle><circle class="dot" id="dt2" r="3.5" cx="1089.2" cy="-211.9" style="opacity: 0.35;"></circle>
+    </svg>
+    <h2 id="h-exp" class="exp-head">Less waiting. More looking good.</h2>
+    <div class="callout c0 on" data-k="0"><h3>Easily book appointments</h3><p>Pick a salon, a barber, a date and a time in a few taps. No standing in line.</p></div>
+    <div class="callout c1" data-k="1"><h3>Cashbacks and rewards</h3><p>Earn cashback and unlock rewards as you book your visits.</p></div>
+    <div class="callout c2" data-k="2"><h3>Aluma Money saving plans</h3><p>Put hair and beauty on a plan and save towards the visits you already make.</p></div>
+  </div>
+</section>
+
+<!-- 04 SERVICES -->
+<section id="services" class="pin" data-hd="540" data-hm="460" aria-labelledby="h-svc" style="height: 4398px;">
+  <div class="layer over" style="transform: translate3d(0px, 6883px, 0px); opacity: 0; visibility: hidden;">
+    <p class="svc-head small" id="h-svc">Services at Aluma salons</p>
+    <p class="svc-num" id="svcNum" aria-hidden="true">01<small>/ 06</small></p>
+    <ul class="svc-list" id="svcList"><li class="on"><button type="button" data-j="0">Haircut</button></li><li class=""><button type="button" data-j="1">Beard and shave</button></li><li class=""><button type="button" data-j="2">Styling and blow-dry</button></li><li class=""><button type="button" data-j="3">Hair spa</button></li><li class=""><button type="button" data-j="4">Facials</button></li><li class=""><button type="button" data-j="5">Waxing and threading</button></li></ul>
+    <div class="svc-detail" id="svcDetail" aria-live="polite">
+      <h3>Haircut</h3><p class="muted">Classic cuts, fades and fresh shapes from barbers whose profiles and reviews you can check first.</p>
+      <p class="small">Prices vary by salon. You see the live price in the app before you book.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 SALON WORLD -->
+<section id="salon" class="pin" data-hd="270" data-hm="230" aria-labelledby="h-salon" style="height: 2199px;">
+  <div class="layer over" style="transform: translate3d(0px, 16635px, 0px); opacity: 0; visibility: hidden;">
+    <div class="salon-copy">
+      <h2 id="h-salon">Your chair is waiting.</h2>
+      <p class="lead">Aluma works with certified, experienced barbers and stylists. Read their profiles, specialties and reviews before you pick your seat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 LOCATIONS -->
+<section id="locations" class="pin" data-hd="170" data-hm="150" aria-labelledby="h-loc" style="height: 1434px;">
+  <div class="layer under" style="transform: translate3d(0px, 18834px, 0px); opacity: 0; visibility: hidden;">
+    <div class="map" aria-hidden="true">
+      <svg viewBox="0 0 600 600">
+        <circle class="ring" cx="300" cy="300" r="90"></circle><circle class="ring" cx="300" cy="300" r="180"></circle><circle class="ring" cx="300" cy="300" r="270"></circle>
+        <path class="road" d="M300 20V580M20 300H580M102 102L498 498M498 102L102 498"></path>
+        <path class="road" d="M300 300C380 280 450 240 540 230M300 300C360 350 400 400 440 470"></path>
+        <circle cx="300" cy="300" r="4" fill="currentColor" opacity=".5"></circle>
+        <text x="312" y="292">City centre</text>
+        <text x="300" y="596" text-anchor="middle">Bengaluru, diagram not to scale</text>
+      </svg>
+    </div>
+  </div>
+  <div class="layer over" style="transform: translate3d(0px, 18834px, 0px); opacity: 0; visibility: hidden;">
+    <div class="loc-copy">
+      <h2 id="h-loc">Now live in Bengaluru.</h2>
+      <p class="lead">Choose a salon to see the details. The app always has the full, current list.</p>
+      <div class="loc-tabs" id="locTabs" role="group" aria-label="Choose a salon"><button class="chip" type="button" data-i="0" aria-pressed="true">Whitefield</button><button class="chip" type="button" data-i="1" aria-pressed="false">Sarjapur Main Road</button></div>
+    </div>
+    <div class="map-hit" id="mapHit"><button class="pin-btn on" type="button" data-i="0" aria-label="Show Whitefield" style="left: 87%; top: 40%;"><i></i><b>Whitefield</b></button><button class="pin-btn" type="button" data-i="1" aria-label="Show Sarjapur Main Road" style="left: 72%; top: 77%;"><i></i><b>Sarjapur Main Road</b></button></div>
+    <div class="loc-panel" id="locPanel" aria-live="polite"><p class="area">Whitefield, Bengaluru</p><h3>Aluma Salon, Hair Revive Studio</h3>
+    <dl><dt>Type</dt><dd>Unisex salon</dd><dt>Address</dt><dd><span class="ph" title="Placeholder: confirm with Aluma">Street address</span></dd><dt>Hours</dt><dd><span class="ph" title="Placeholder: confirm with Aluma">Opening hours</span></dd><dt>Phone</dt><dd><span class="ph" title="Placeholder: confirm with Aluma">Phone</span></dd><dt>Services</dt><dd>Haircuts, facials, waxing, hair spa, threading</dd></dl>
+    <a class="btn solid sm" href="#book" data-book-area="0">Book at this salon</a></div>
+  </div>
+</section>
+
+<!-- 07 APP -->
+<section id="app" class="pin" data-hd="380" data-hm="330" aria-labelledby="h-app" style="height: 3155px;">
+  <div class="layer over" style="transform: translate3d(0px, 20268px, 0px); opacity: 0; visibility: hidden;">
+    <div class="app-copy">
+      <h2 id="h-app">Aluma in your pocket.</h2>
+      <p class="lead">Find, book, and style: your haircut, your way.</p>
+      <div class="stores">
+        <a class="btn solid" href="https://play.google.com/store/apps/details?id=com.aluma.salon" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.5v19l16.5-9.5z"></path></svg>Get it on Google Play</a>
+        <a class="btn" href="https://apps.apple.com/in/app/aluma-salon/id6498151574" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.7c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9s-1.8-.8-3-.8C6.9 7.4 5.4 8.3 4.6 9.8c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7 0 0-2.8-1-2.8-4zM14.1 5.5c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"></path></svg>Download on the App Store</a>
+      </div>
+      <p class="small rating">Rated 4.7 on Google Play from 40 reviews, with 1K+ downloads.</p>
+    </div>
+    <ul class="feat" id="feat">
+      <li class="on"><h3>Find salons near you</h3><p>Location search shows convenient salons wherever you are.</p></li>
+      <li class=""><h3>Book in a few taps</h3><p>Choose your date, time and barber. Reminders keep you on schedule.</p></li>
+      <li class=""><h3>Cashbacks and rewards</h3><p>Earn as you book, and see your rewards in one place.</p></li>
+      <li class=""><h3>Aluma Money</h3><p>Saving plans for the hair and beauty you already spend on.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 08 BOOKING -->
+<section id="book" class="flow" aria-labelledby="h-book">
+  <div class="book-grid">
+    <div>
+      <div class="book-intro">
+        <h2 id="h-book">Book your appointment</h2>
+        <p class="lead">Pick where, what and when. You confirm and pay in the Aluma app.</p>
+      </div>
+      <ol class="steps">
+        <li class="step"><h3><span>1</span>Where</h3><div class="chips" id="chArea" role="group" aria-label="Salon area"><button type="button" class="chip" data-v="Whitefield" aria-pressed="false" aria-label="Whitefield">Whitefield</button><button type="button" class="chip" data-v="Sarjapur Main Road" aria-pressed="false" aria-label="Sarjapur Main Road">Sarjapur Main Road</button><button type="button" class="chip" data-v="Another area in Bengaluru" aria-pressed="false" aria-label="Another area in Bengaluru">Another area in Bengaluru</button></div></li>
+        <li class="step"><h3><span>2</span>What</h3><div class="chips" id="chSvc" role="group" aria-label="Service"><button type="button" class="chip" data-v="Haircut" aria-pressed="false" aria-label="Haircut">Haircut</button><button type="button" class="chip" data-v="Beard and shave" aria-pressed="false" aria-label="Beard and shave">Beard and shave</button><button type="button" class="chip" data-v="Styling and blow-dry" aria-pressed="false" aria-label="Styling and blow-dry">Styling and blow-dry</button><button type="button" class="chip" data-v="Hair spa" aria-pressed="false" aria-label="Hair spa">Hair spa</button><button type="button" class="chip" data-v="Facials" aria-pressed="false" aria-label="Facials">Facials</button><button type="button" class="chip" data-v="Waxing and threading" aria-pressed="false" aria-label="Waxing and threading">Waxing and threading</button></div></li>
+        <li class="step"><h3><span>3</span>Who</h3><div class="chips" id="chWho" role="group" aria-label="Barber"><button type="button" class="chip" data-v="Any available barber" aria-pressed="false" aria-label="Any available barber">Any available barber</button><button type="button" class="chip" data-v="I’ll choose from profiles in the app" aria-pressed="false" aria-label="Choose from profiles in the app">Choose from profiles in the app</button></div></li>
+        <li class="step"><h3><span>4</span>When</h3><div class="chips" id="chDate" role="group" aria-label="Date"><button type="button" class="chip date" data-v="Tuesday, 29 September" aria-pressed="false" aria-label="Tuesday, 29 September"><small>Today</small><b>29</b></button><button type="button" class="chip date" data-v="Wednesday, 30 September" aria-pressed="false" aria-label="Wednesday, 30 September"><small>Wed</small><b>30</b></button><button type="button" class="chip date" data-v="Thursday, 1 October" aria-pressed="false" aria-label="Thursday, 1 October"><small>Thu</small><b>1</b></button><button type="button" class="chip date" data-v="Friday, 2 October" aria-pressed="false" aria-label="Friday, 2 October"><small>Fri</small><b>2</b></button><button type="button" class="chip date" data-v="Saturday, 3 October" aria-pressed="false" aria-label="Saturday, 3 October"><small>Sat</small><b>3</b></button><button type="button" class="chip date" data-v="Sunday, 4 October" aria-pressed="false" aria-label="Sunday, 4 October"><small>Sun</small><b>4</b></button><button type="button" class="chip date" data-v="Monday, 5 October" aria-pressed="false" aria-label="Monday, 5 October"><small>Mon</small><b>5</b></button></div><div class="chips times" id="chTime" role="group" aria-label="Time"><button type="button" class="chip" data-v="10:00" aria-pressed="false" aria-label="10:00">10:00</button><button type="button" class="chip" data-v="11:30" aria-pressed="false" aria-label="11:30">11:30</button><button type="button" class="chip" data-v="13:00" aria-pressed="false" aria-label="13:00">13:00</button><button type="button" class="chip" data-v="15:00" aria-pressed="false" aria-label="15:00">15:00</button><button type="button" class="chip" data-v="16:30" aria-pressed="false" aria-label="16:30">16:30</button><button type="button" class="chip" data-v="18:00" aria-pressed="false" aria-label="18:00">18:00</button><button type="button" class="chip" data-v="19:30" aria-pressed="false" aria-label="19:30">19:30</button></div></li>
+      </ol>
+    </div>
+    <aside class="summary" aria-live="polite">
+      <h3>Your booking</h3>
+      <dl id="sumList"><dt>Where</dt><dd class="empty">Not chosen yet</dd><dt>What</dt><dd class="empty">Not chosen yet</dd><dt>Who</dt><dd class="empty">Not chosen yet</dd><dt>When</dt><dd class="empty">Not chosen yet</dd></dl>
+      <button class="btn solid" id="toApp" type="button" disabled="">Continue in the Aluma app</button>
+      <div class="handoff" id="handoff">
+        <p>Open Aluma to see live availability and confirm this booking.</p>
+        <div class="stores">
+          <a class="btn solid sm" href="https://play.google.com/store/apps/details?id=com.aluma.salon" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn sm" href="https://apps.apple.com/in/app/aluma-salon/id6498151574" target="_blank" rel="noopener">App Store</a>
+        </div>
+      </div>
+      <p class="note">Times shown here are examples. Live slots appear in the app.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- 09 REVIEWS -->
+<section id="reviews" class="pin" data-hd="180" data-hm="160" aria-labelledby="h-rev" style="height: 1530px;">
+  <div class="layer under" style="transform: translate3d(0px, 25129px, 0px); opacity: 0; visibility: hidden;"><div class="big-rating" aria-hidden="true">4.7</div></div>
+  <div class="layer over" style="transform: translate3d(0px, 25129px, 0px); opacity: 0; visibility: hidden;">
+    <div class="quotes">
+      <h2 id="h-rev" class="sr">What members say</h2>
+      <blockquote><p>“Aluma has transformed my salon experience.”</p><cite>Priyanshu Kumar, Google Play review</cite></blockquote>
+      <blockquote><p>“Aluma is the one of the Best app in Bangalore for Beauty &amp; Hairs.”</p><cite>Harpreet Sandhu, Google Play review</cite></blockquote>
+      <p class="stats">4.7 average from 40 reviews on Google Play.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 FINAL -->
+<section id="final" class="pin" data-hd="170" data-hm="150" aria-labelledby="h-final" style="height: 1434px;">
+  <div class="layer under" style="transform: translate3d(0px, 26659px, 0px); opacity: 0; visibility: hidden;"><div class="final-word" aria-hidden="true">ALUMA</div></div>
+  <div class="layer over" style="transform: translate3d(0px, 26659px, 0px); opacity: 0; visibility: hidden;">
+    <div class="final-cta">
+      <h2 id="h-final">Your next look starts here.</h2>
+      <div class="ctas"><a class="btn solid" href="#book">Book an appointment</a><a class="btn" href="#app">Download the app</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot">
+    <div>
+      <a class="brand" href="#top" aria-label="Aluma, back to top"><svg viewBox="0 0 116 96" aria-hidden="true"><circle cx="58" cy="25" r="23"></circle><circle cx="25" cy="71" r="23"></circle><circle cx="91" cy="71" r="23"></circle></svg><b>ALUMA.SALON</b></a>
+      <p class="small" style="margin-top:16px;max-width:32ch">One membership for hair and beauty. Now live in Bengaluru.</p>
+    </div>
+    <div><h4>Get the app</h4><ul>
+      <li><a href="https://play.google.com/store/apps/details?id=com.aluma.salon" target="_blank" rel="noopener">Google Play</a></li>
+      <li><a href="https://apps.apple.com/in/app/aluma-salon/id6498151574" target="_blank" rel="noopener">App Store</a></li></ul></div>
+    <div><h4>Aluma</h4><ul>
+      <li><a href="https://www.instagram.com/aluma.salon/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://aluma.salon/#/privacy" target="_blank" rel="noopener">Privacy policy</a></li>
+      <li><span class="ph" title="Placeholder: confirm contact email with Aluma">Contact email</span></li></ul></div>
+  </div>
+  <p class="legal">© 2026 Aluma</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(() => {
+'use strict';
+/* =========================================================
+   Content (sourced from Play Store listing, App Store, Instagram
+   and public salon listings; unknowns are marked as placeholders)
+   ========================================================= */
+const SERVICES = [
+  {id:'scissor', name:'Haircut', text:'Classic cuts, fades and fresh shapes from barbers whose profiles and reviews you can check first.'},
+  {id:'razor',   name:'Beard and shave', text:'Beard shaping, line-ups and clean shaves.'},
+  {id:'dryer',   name:'Styling and blow-dry', text:'Wash, blow-dry and a finish that holds through the day.'},
+  {id:'spray',   name:'Hair spa', text:'Conditioning hair spa treatments for dry or tired hair.'},
+  {id:'serum',   name:'Facials', text:'Clean-ups and facials when your skin needs a reset.'},
+  {id:'jar',     name:'Waxing and threading', text:'Brows, waxing and the quick fixes between cuts.'}
+];
+const PH = t => `<span class="ph" title="Placeholder: confirm with Aluma">${t}</span>`;
+const LOCS = [
+  {area:'Whitefield', name:'Aluma Salon, Hair Revive Studio', kind:'Unisex salon', addr:PH('Street address'), hours:PH('Opening hours'), phone:PH('Phone'), svc:'Haircuts, facials, waxing, hair spa, threading', pos:[.87,.40]},
+  {area:'Sarjapur Main Road', name:'Aluma Unisex Salon', kind:'Unisex salon', addr:PH('Street address'), hours:PH('Opening hours'), phone:PH('Phone'), svc:PH('Services offered'), pos:[.72,.77]}
+];
+
+/* ================= helpers ================= */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const clamp = (v,a=0,b=1) => Math.min(b, Math.max(a, v));
+const lerp = (a,b,t) => a + (b-a)*t;
+const smooth = t => t*t*(3-2*t);
+const ease = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+const outCubic = t => 1 - Math.pow(1-t,3);
+const seg = (p,a,b) => clamp((p-a)/(b-a));
+const L3 = (a,b,t) => [lerp(a[0],b[0],t), lerp(a[1],b[1],t), lerp(a[2],b[2],t)];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const coarse = matchMedia('(pointer: coarse)').matches;
+const lowPower = coarse || innerWidth < 760 || (navigator.hardwareConcurrency||8) <= 4;
+const C = {ink:[8,8,8], ivory:[244,241,234], sage:[201,216,197], mint:[220,232,223], sand:[216,200,181], nude:[230,213,202],
+  blush:[232,214,209], olive:[174,185,165], champ:[203,184,146], chrome:[191,196,199], pale:[233,238,229]};
+C.por = C.ivory;
+const FG = {l:'244,241,234', d:'8,8,8'};
+const lum = c => (0.299*c[0] + 0.587*c[1] + 0.114*c[2])/255;
+// Services: black, drifting through deep muted greens as each service comes up
+const SVC_T = [[8,8,8],[11,14,11],[9,12,12],[13,15,11],[12,12,12],[12,14,10]];
+
+/* ================= The Cut: shared geometry maths ================= */
+// Deform a unit direction into a faceless, editorial head (porcelain bust)
+function headShape(x, y, z){
+  const sz = 0.9 + 0.08*clamp(-z*1.3 + 0.1);
+  let px = x*0.78, py = y, pz = z*sz;
+  if(y < 0){ const k = -y; px *= 1 - 0.3*k*k; pz *= 1 - 0.12*k*k; py *= 1 + 0.18*k; }
+  if(z > 0){
+    const ax = Math.abs(x);
+    pz += z*( 0.12*Math.exp(-(x*x/0.008 + (y+0.08)*(y+0.08)/0.05))
+            + 0.035*Math.exp(-((y-0.3)*(y-0.3))/0.012)*(1 - Math.min(1, x*x*3))
+            - 0.05*Math.exp(-(((ax-0.3)*(ax-0.3))/0.01 + ((y-0.14)*(y-0.14))/0.008))
+            + 0.028*Math.exp(-(x*x/0.02 + (y+0.42)*(y+0.42)/0.006)) );
+  }
+  return [px, py, pz];
+}
+// > 0 where hair grows (on the unit direction)
+function hairline(x, y, z){
+  const ax = Math.abs(x);
+  const ear = Math.exp(-(((ax-0.9)*(ax-0.9))/0.035 + ((z+0.02)*(z+0.02))/0.05 + ((y+0.05)*(y+0.05))/0.08));
+  let lim = -0.34 + 0.52*ear;
+  const fr = smooth(clamp((z - 0.05)/0.5));
+  lim = lerp(lim, 0.42 - 0.1*Math.min(1, ax/0.55), fr);
+  return y - lim;
+}
+const CUT_A = [1.2, 2.15, 3.14, 4.13, 5.08, 6.283];
+const CUT_T0 = 0.16, CUT_T1 = 0.62, CUT_W = (CUT_T1 - CUT_T0)/6;
+const cutPoint = j => j===5 ? [0, 1.03, 0.6] : [Math.sin(CUT_A[j])*1.0, -0.4, Math.cos(CUT_A[j])*1.08];
+const CAPS = ['Before.', 'Sides first.', 'Into the back.', 'The nape.', 'The other side.', 'Even it out.', 'The fringe.', 'Now, the shape.'];
+let cutYaw = 0, yawT = 0, cmpOverride = null;
+
+let W, H, P, hw, hh, VH;
+function metrics(){
+  W = innerWidth; H = innerHeight; P = (W/H < 0.9) || W < 760;
+  hh = 10*Math.tan(17.5*Math.PI/180); hw = hh*W/H;
+}
+metrics(); VH = H;
+const X = f => f*hw, Y = f => f*hh;
+const S = (d, m) => P ? m*Math.min(hw/1.45, hh/2.75) : d*Math.min(hw/5.6, hh/3.15);
+
+/* ================= DOM building ================= */
+// Services list
+const svcList = $('#svcList');
+SERVICES.forEach((s,j) => {
+  const li = document.createElement('li');
+  li.innerHTML = `<button type="button" data-j="${j}">${s.name}</button>`;
+  svcList.appendChild(li);
+});
+// Location tabs, pins, panel
+const locTabs = $('#locTabs'), mapHit = $('#mapHit'), locPanel = $('#locPanel');
+let locSel = 0;
+LOCS.forEach((l,i) => {
+  const t = document.createElement('button');
+  t.className = 'chip'; t.type = 'button'; t.dataset.i = i; t.textContent = l.area;
+  t.setAttribute('aria-pressed', i===0);
+  locTabs.appendChild(t);
+  const p = document.createElement('button');
+  p.className = 'pin-btn' + (i===0?' on':''); p.type='button'; p.dataset.i = i;
+  p.style.left = (l.pos[0]*100)+'%'; p.style.top = (l.pos[1]*100)+'%';
+  p.setAttribute('aria-label', 'Show ' + l.area);
+  p.innerHTML = `<i></i><b>${l.area}</b>`;
+  mapHit.appendChild(p);
+});
+function renderLoc(){
+  const l = LOCS[locSel];
+  locPanel.innerHTML = `<p class="area">${l.area}, Bengaluru</p><h3>${l.name}</h3>
+    <dl><dt>Type</dt><dd>${l.kind}</dd><dt>Address</dt><dd>${l.addr}</dd><dt>Hours</dt><dd>${l.hours}</dd><dt>Phone</dt><dd>${l.phone}</dd><dt>Services</dt><dd>${l.svc}</dd></dl>
+    <a class="btn solid sm" href="#book" data-book-area="${locSel}">Book at this salon</a>`;
+  $$('.pin-btn').forEach((b,i)=>b.classList.toggle('on', i===locSel));
+  $$('#locTabs .chip').forEach((b,i)=>b.setAttribute('aria-pressed', i===locSel));
+}
+renderLoc();
+function selectLoc(i){ if(i===locSel) return; locSel = i; renderLoc(); cacheRects(); snip(); }
+locTabs.addEventListener('click', e => { const b=e.target.closest('[data-i]'); if(b) selectLoc(+b.dataset.i); });
+mapHit.addEventListener('click', e => { const b=e.target.closest('[data-i]'); if(b) selectLoc(+b.dataset.i); });
+
+// Booking
+const book = {area:null, svc:null, who:null, date:null, time:null};
+const dates = [];
+{ const d0 = new Date(); d0.setHours(0,0,0,0);
+  for(let i=0;i<7;i++){ const d = new Date(d0); d.setDate(d0.getDate()+i);
+    dates.push({key:d.toISOString().slice(0,10), wd: i===0?'Today':d.toLocaleDateString('en-IN',{weekday:'short'}), n:d.getDate(), long:d.toLocaleDateString('en-IN',{weekday:'long', day:'numeric', month:'long'})}); } }
+const TIMES = ['10:00','11:30','13:00','15:00','16:30','18:00','19:30'];
+function chipGroup(el, items, key){
+  el.innerHTML = '';
+  items.forEach(it => {
+    const b = document.createElement('button');
+    b.type='button'; b.className = 'chip' + (key==='date'?' date':''); b.dataset.v = it.v;
+    b.setAttribute('aria-pressed','false');
+    b.innerHTML = it.html || it.label;
+    b.setAttribute('aria-label', it.label);
+    el.appendChild(b);
+  });
+  el.addEventListener('click', e => {
+    const b = e.target.closest('.chip'); if(!b) return;
+    book[key] = b.dataset.v;
+    $$('.chip', el).forEach(c => c.setAttribute('aria-pressed', c===b));
+    updateSummary(); snip();
+  });
+}
+chipGroup($('#chArea'), [...LOCS.map((l,i)=>({v:l.area,label:l.area})), {v:'Another area in Bengaluru', label:'Another area in Bengaluru'}], 'area');
+chipGroup($('#chSvc'), SERVICES.map(s=>({v:s.name,label:s.name})), 'svc');
+chipGroup($('#chWho'), [{v:'Any available barber',label:'Any available barber'},{v:'I’ll choose from profiles in the app',label:'Choose from profiles in the app'}], 'who');
+chipGroup($('#chDate'), dates.map(d=>({v:d.long, label:d.long, html:`<small>${d.wd}</small><b>${d.n}</b>`})), 'date');
+chipGroup($('#chTime'), TIMES.map(t=>({v:t,label:t})), 'time');
+function updateSummary(){
+  const rows = [['Where',book.area],['What',book.svc],['Who',book.who],['When', book.date ? book.date + (book.time?', '+book.time:'') : null]];
+  $('#sumList').innerHTML = rows.map(([k,v]) => `<dt>${k}</dt><dd class="${v?'':'empty'}">${v||'Not chosen yet'}</dd>`).join('');
+  $('#toApp').disabled = !(book.area && book.svc && book.who && book.date && book.time);
+}
+updateSummary();
+$('#toApp').addEventListener('click', () => {
+  const h = $('#handoff'); h.classList.add('show');
+  const ua = navigator.userAgent;
+  if(/Android/i.test(ua)) h.querySelector('a[href*="play.google"]').focus();
+  else if(/iPhone|iPad|iPod/i.test(ua)) h.querySelector('a[href*="apps.apple"]').focus();
+  snip();
+});
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-book-area]'); if(!b) return;
+  const area = LOCS[+b.dataset.bookArea].area;
+  const chip = $$('#chArea .chip').find(c => c.dataset.v === area);
+  if(chip) chip.click();
+});
+if(coarse) $('.snip-label').textContent = 'Tap the scissors';
+
+/* ================= Sections & scroll-layers ================= */
+const secEls = ['top','about','experience','services','salon','locations','app','book','reviews','final'].map(id => document.getElementById(id));
+const SEC = secEls.map(el => ({el, id:el.id, pinned:el.classList.contains('pin'), layers:$$(':scope > .layer', el), ty:0, start:0, end:0, p:0}));
+const byId = Object.fromEntries(SEC.map(s=>[s.id,s]));
+
+function layoutHeights(){
+  SEC.forEach(s => { if(!s.pinned) return;
+    const h = +(P ? s.el.dataset.hm : s.el.dataset.hd);
+    s.el.style.height = Math.round(h*VH/100) + 'px';
+  });
+}
+function measure(){
+  SEC.forEach(s => {
+    s.start = s.el.offsetTop;
+    s.end = s.start + Math.max(0, s.el.offsetHeight - VH);
+  });
+}
+function positionLayers(y){
+  for(const s of SEC){
+    if(!s.pinned) continue;
+    let ty = 0;
+    if(y < s.start) ty = s.start - y;
+    else if(y > s.end) ty = s.end - y;
+    s.ty = ty;
+    const vis = Math.abs(ty) < VH;
+    const op = 1 - smooth(clamp(Math.abs(ty)/(VH*0.75)));
+    for(const L of s.layers){
+      L.style.transform = `translate3d(0,${ty.toFixed(1)}px,0)`;
+      L.style.opacity = op.toFixed(3);
+      L.style.visibility = vis ? 'visible' : 'hidden';
+    }
+  }
+}
+
+/* cached rects (in pinned-state coordinates) */
+const R = {cutY:0.5, map:null, pins:[], labels:[]};
+function relRect(el, s){ const r = el.getBoundingClientRect(); return {l:r.left, t:r.top - s.ty, w:r.width, h:r.height}; }
+function cacheRects(){
+  const sa = byId.about; const cr = relRect($('#cutline'), sa);
+  R.cutY = cr.t + cr.h*0.52;
+  const sl = byId.locations;
+  R.map = relRect(mapHit, sl);
+  R.pins = $$('.pin-btn').map(p => { const r = relRect(p, sl); return [r.l + r.w/2, r.t + r.h/2]; });
+  const se = byId.experience;
+  R.labels = $$('.callout').map(c => relRect(c, se));
+}
+function fitCutline(){
+  const el = $('#cutline'); el.style.fontSize = '100px';
+  const w = el.scrollWidth || 700;
+  el.style.fontSize = Math.min(0.9*W/w*100, 260) + 'px';
+}
+// screen px -> world (z=0 plane, default camera)
+const sw = (sx, sy) => [ (sx/W*2-1)*hw, -(sy/H*2-1)*hh ];
+
+/* ================= Three.js ================= */
+let THREE = window.THREE, renderer = null, scene, camera, envOK = false;
+let keyL = null, rimL = null, hemiL = null, MATS = null, avatar = null;
+try{
+  if(!THREE) throw new Error('three missing');
+  renderer = new THREE.WebGLRenderer({canvas: $('#gl'), antialias: !lowPower, alpha: true, powerPreference: 'high-performance'});
+  renderer.setClearColor(0x000000, 0);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+}catch(e){ renderer = null; document.documentElement.classList.add('no-webgl'); }
+
+const actors = {};
+let scissor = null, phoneTex = null, strands = null, dust = null;
+
+if(renderer){
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(35, W/H, 0.1, 100);
+  camera.position.set(0,0,10);
+
+  // --- studio environment for reflections
+  (function buildEnv(){
+    const es = new THREE.Scene();
+    es.add(new THREE.Mesh(new THREE.SphereGeometry(20, 32, 16), new THREE.MeshBasicMaterial({color:0x080808, side:THREE.BackSide})));
+    const panel = (w,h,pos,k,tint=0xffffff) => {
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(w,h), new THREE.MeshBasicMaterial({color:new THREE.Color(tint).multiplyScalar(k), side:THREE.DoubleSide}));
+      m.position.set(...pos); m.lookAt(0,0,0); es.add(m);
+    };
+    panel(14,3.5,[0,9,2],5);
+    panel(2.2,12,[-9,1,3],4);
+    panel(1.6,10,[9,0,-2],3.2,0xffe6c4);
+    panel(12,2.5,[0,-1,-11],1.6);
+    panel(20,8,[0,1.5,14],2.6);
+    panel(24,1.1,[0,-0.2,12.6],0.02);
+    panel(3,9,[-6,0,11],3.2);
+    panel(22,1.2,[0,-7,0],0.5,0xcbb592);
+    const pm = new THREE.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(es, 0.02).texture;
+    pm.dispose(); envOK = true;
+  })();
+  keyL = new THREE.DirectionalLight(0xffffff, 1.4); keyL.position.set(4,6,8); scene.add(keyL);
+  rimL = new THREE.DirectionalLight(0xffeeda, 0.9); rimL.position.set(-6,2,-4); scene.add(rimL);
+  hemiL = new THREE.HemisphereLight(0xffffff, 0x222222, 0.35); scene.add(hemiL);
+
+  // --- materials
+  const Phys = lowPower ? THREE.MeshStandardMaterial : THREE.MeshPhysicalMaterial;
+  const M = (o) => { if(lowPower){ o = Object.assign({}, o); delete o.clearcoat; delete o.clearcoatRoughness; } return new Phys(o); };
+  const MAT = {
+    chrome: M({color:0xe3e6e9, metalness:1, roughness:0.13, clearcoat:0.6, clearcoatRoughness:0.08, envMapIntensity:1.3}),
+    satin:  M({color:0xa9aeb3, metalness:1, roughness:0.3, envMapIntensity:1.2}),
+    gold:   M({color:0xd7bf93, metalness:1, roughness:0.2, envMapIntensity:1.25}),
+    blackGloss: M({color:0x0d0d0d, metalness:0.1, roughness:0.22, clearcoat:1, clearcoatRoughness:0.1}),
+    leather: M({color:0x0c0c0c, metalness:0, roughness:0.55, clearcoat:0.3, clearcoatRoughness:0.45, envMapIntensity:0.55}),
+    ceramic: M({color:0xeceae6, metalness:0, roughness:0.35, clearcoat:0.6, clearcoatRoughness:0.2}),
+    titanium: M({color:0x34353a, metalness:0.85, roughness:0.32}),
+    glass: M({color:0xdfe6ea, metalness:0, roughness:0.1, clearcoat:1, transparent:true, opacity:0.26, depthWrite:false}),
+    liquid: M({color:0xb8955c, metalness:0.2, roughness:0.2, envMapIntensity:0.8}),
+    mirror: M({color:0x9aa0a6, metalness:1, roughness:0.05, envMapIntensity:0.75}),
+    black: new THREE.MeshBasicMaterial({color:0x050505})
+  };
+  MATS = MAT; MAT.chrome.userData.base = MAT.chrome.color.clone(); MAT.satin.userData.base = MAT.satin.color.clone();
+  const Q = !lowPower;
+  const V2 = (x,y) => new THREE.Vector2(x,y);
+  const V3 = (x,y,z) => new THREE.Vector3(x,y,z);
+  const mesh = (g,m) => new THREE.Mesh(g,m);
+  const lathe = (pts, n) => new THREE.LatheGeometry(pts.map(([x,y])=>V2(x,y)), n || (Q?64:28));
+  const roundRect = (w,h,r) => { const s = new THREE.Shape(), x=-w/2, y=-h/2;
+    s.moveTo(x+r,y); s.lineTo(x+w-r,y); s.quadraticCurveTo(x+w,y,x+w,y+r); s.lineTo(x+w,y+h-r); s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    s.lineTo(x+r,y+h); s.quadraticCurveTo(x,y+h,x,y+h-r); s.lineTo(x,y+r); s.quadraticCurveTo(x,y,x+r,y); return s; };
+  const centerGroup = (g) => { const inner = new THREE.Group(); while(g.children.length) inner.add(g.children[0]);
+    const b = new THREE.Box3().setFromObject(inner); const c = b.getCenter(V3()); inner.position.sub(c); g.add(inner); return g; };
+  const textTex = (txt, w, h, font, color, spacing) => {
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; t.userData = t.userData || {};
+    t.userData.draw = () => { const g = c.getContext('2d'); g.clearRect(0,0,w,h); g.fillStyle = color; g.font = font;
+      if('letterSpacing' in g) g.letterSpacing = spacing; g.textAlign='center'; g.textBaseline='middle'; g.fillText(txt, w/2, h/2); t.needsUpdate = true; };
+    t.userData.draw(); return t;
+  };
+
+  /* ---------- The scissors (protagonist) ---------- */
+  function buildScissors(){
+    const root = new THREE.Group();
+    const bladeShape = (sg) => { const s = new THREE.Shape(); const p = (x,y) => [x, y*sg];
+      s.moveTo(...p(-0.34,-0.04));
+      s.quadraticCurveTo(...p(-0.43,0.13), ...p(-0.2,0.19));
+      s.bezierCurveTo(...p(0.45,0.25), ...p(1.45,0.2), ...p(2.38,0.012));
+      s.bezierCurveTo(...p(1.6,-0.018), ...p(0.8,-0.034), ...p(0.18,-0.042));
+      s.lineTo(...p(-0.34,-0.04)); return s; };
+    const ext = {depth:0.034, bevelEnabled:true, bevelThickness:0.013, bevelSize:0.012, bevelSegments:Q?3:2, curveSegments:Q?56:24};
+    const half = (sg) => {
+      const h = new THREE.Group();
+      const g = new THREE.ExtrudeGeometry(bladeShape(sg), ext); g.translate(0,0,-0.017);
+      const blade = mesh(g, MAT.chrome); blade.position.z = 0.03*sg; h.add(blade);
+      const shank = new THREE.CatmullRomCurve3([V3(-0.14,-0.03*sg,0.03*sg), V3(-0.48,-0.12*sg,0.028*sg), V3(-0.78,-0.28*sg,0.022*sg), V3(-0.99,-0.51*sg,0.02*sg)]);
+      h.add(mesh(new THREE.TubeGeometry(shank, Q?48:20, 0.066, Q?14:8), MAT.satin));
+      const ring = mesh(new THREE.TorusGeometry(0.30, 0.062, Q?18:10, Q?80:36), MAT.satin);
+      ring.position.set(-1.36, -0.53*sg, 0.02*sg); ring.scale.set(1.22,1,1); h.add(ring);
+      if(sg > 0){
+        const tang = new THREE.CatmullRomCurve3([V3(-1.40,-0.86,0.02), V3(-1.53,-1.0,0.02), V3(-1.54,-1.16,0.02), V3(-1.45,-1.27,0.02)]);
+        h.add(mesh(new THREE.TubeGeometry(tang, Q?32:14, 0.048, Q?12:8), MAT.satin));
+        const ball = mesh(new THREE.SphereGeometry(0.066, 20, 12), MAT.satin); ball.position.set(-1.45,-1.27,0.02); h.add(ball);
+        // engraving
+        const tex = textTex('ALUMA', 1024, 128, '500 84px Jost, sans-serif', 'rgba(24,24,24,0.72)', '34px');
+        const plate = mesh(new THREE.PlaneGeometry(0.62, 0.078), new THREE.MeshBasicMaterial({map:tex, transparent:true, depthWrite:false, toneMapped:false}));
+        plate.position.set(0.98, 0.083, 0.03+0.017+0.0135); h.add(plate);
+        h.userData.tex = tex;
+      }
+      return h;
+    };
+    const A = half(1), B = half(-1);
+    const screw = mesh(new THREE.CylinderGeometry(0.085,0.085,0.15,32), MAT.gold); screw.rotation.x = Math.PI/2;
+    const cap = mesh(new THREE.SphereGeometry(0.087, 24, 12), MAT.gold); cap.scale.z = 0.35; cap.position.z = 0.075;
+    const cap2 = cap.clone(); cap2.position.z = -0.075;
+    root.add(A, B, screw, cap, cap2);
+    return {root, A, B};
+  }
+
+  function buildRazor(){
+    const g = new THREE.Group();
+    const s = new THREE.Shape();
+    s.moveTo(-0.42,0.0); s.lineTo(1.55,0.05); s.quadraticCurveTo(1.8,-0.02,1.7,-0.32);
+    s.quadraticCurveTo(1.1,-0.42,0.25,-0.33); s.quadraticCurveTo(0.02,-0.18,-0.42,-0.1); s.closePath();
+    const blade = mesh(new THREE.ExtrudeGeometry(s,{depth:0.02,bevelEnabled:true,bevelThickness:0.006,bevelSize:0.006,bevelSegments:2,curveSegments:Q?40:18}), MAT.chrome);
+    blade.geometry.translate(0,0,-0.01); g.add(blade);
+    const hs = new THREE.Shape(); hs.moveTo(-2.25,0.02); hs.lineTo(-0.3,0.05); hs.absarc(-0.3,-0.05,0.1,Math.PI/2,-Math.PI/2,true);
+    hs.lineTo(-2.25,-0.16); hs.absarc(-2.25,-0.07,0.09,-Math.PI/2,Math.PI/2,true);
+    const handle = mesh(new THREE.ExtrudeGeometry(hs,{depth:0.07,bevelEnabled:true,bevelThickness:0.02,bevelSize:0.02,bevelSegments:3,curveSegments:Q?24:10}), MAT.blackGloss);
+    handle.geometry.translate(0,0,-0.035); handle.position.set(0,-0.02,0); g.add(handle);
+    const pin = mesh(new THREE.CylinderGeometry(0.045,0.045,0.16,20), MAT.gold); pin.rotation.x = Math.PI/2; pin.position.set(-0.3,-0.05,0); g.add(pin);
+    const pin2 = pin.clone(); pin2.position.set(-2.2,-0.07,0); g.add(pin2);
+    return centerGroup(g);
+  }
+
+  function buildDryer(){
+    const g = new THREE.Group();
+    const body = mesh(lathe([[0,-0.96],[0.2,-0.96],[0.37,-0.9],[0.45,-0.7],[0.47,-0.4],[0.47,0.34],[0.44,0.62],[0.33,0.77],[0.25,0.86],[0.22,1.3],[0.24,1.34],[0,1.34]]), MAT.ceramic);
+    body.rotation.z = -Math.PI/2; g.add(body);
+    const grille = mesh(new THREE.CircleGeometry(0.33, 48), MAT.black); grille.rotation.y = -Math.PI/2; grille.position.x = -0.965; g.add(grille);
+    const band = mesh(new THREE.TorusGeometry(0.472,0.02,12,80), MAT.gold); band.rotation.y = Math.PI/2; band.position.x = 0.36; g.add(band);
+    const tip = mesh(new THREE.TorusGeometry(0.228,0.022,12,60), MAT.blackGloss); tip.rotation.y = Math.PI/2; tip.position.x = 1.34; g.add(tip);
+    const handle = mesh(new THREE.CylinderGeometry(0.15,0.13,1.3,Q?40:16), MAT.ceramic); handle.position.set(-0.28,-0.78,0); handle.rotation.z = 0.22; g.add(handle);
+    const hEnd = mesh(new THREE.SphereGeometry(0.13,24,12), MAT.ceramic); hEnd.position.set(-0.42,-1.42,0); g.add(hEnd);
+    const btn = mesh(new THREE.BoxGeometry(0.08,0.22,0.06), MAT.blackGloss); btn.position.set(-0.13,-0.6,0.13); btn.rotation.z = 0.22; g.add(btn);
+    return centerGroup(g);
+  }
+
+  function buildComb(){
+    const g = new THREE.Group();
+    const spine = mesh(new THREE.ExtrudeGeometry(roundRect(2.3,0.3,0.1),{depth:0.05,bevelEnabled:true,bevelThickness:0.015,bevelSize:0.015,bevelSegments:2}), MAT.gold);
+    spine.geometry.translate(0,0,-0.025); g.add(spine);
+    const n = 32, teeth = new THREE.InstancedMesh(new THREE.BoxGeometry(0.036,0.62,0.046), MAT.gold, n);
+    const m4 = new THREE.Matrix4();
+    for(let i=0;i<n;i++){ m4.makeTranslation(-1.06 + i*(2.12/(n-1)), -0.44, 0); teeth.setMatrixAt(i, m4); }
+    g.add(teeth);
+    return centerGroup(g);
+  }
+
+  function buildSpray(){
+    const g = new THREE.Group();
+    const liquid = mesh(lathe([[0,0.05],[0.36,0.05],[0.36,1.0],[0,1.0]], 40), MAT.liquid); g.add(liquid);
+    const body = mesh(lathe([[0,0],[0.4,0],[0.44,0.05],[0.44,1.3],[0.38,1.48],[0.2,1.6],[0.16,1.68],[0,1.68]]), MAT.glass); g.add(body);
+    const collar = mesh(new THREE.CylinderGeometry(0.19,0.19,0.12,40), MAT.gold); collar.position.y = 1.72; g.add(collar);
+    const head = mesh(new THREE.ExtrudeGeometry(roundRect(0.62,0.34,0.12),{depth:0.3,bevelEnabled:true,bevelThickness:0.03,bevelSize:0.03,bevelSegments:3}), MAT.blackGloss);
+    head.geometry.translate(0,0,-0.15); head.position.set(0.12,1.95,0); g.add(head);
+    const nozzle = mesh(new THREE.CylinderGeometry(0.05,0.06,0.14,20), MAT.blackGloss); nozzle.rotation.z = Math.PI/2; nozzle.position.set(0.5,1.98,0); g.add(nozzle);
+    const ts = new THREE.Shape(); ts.moveTo(0,0); ts.quadraticCurveTo(0.2,-0.1,0.18,-0.45); ts.lineTo(0.1,-0.46); ts.quadraticCurveTo(0.1,-0.15,-0.04,-0.04); ts.closePath();
+    const trig = mesh(new THREE.ExtrudeGeometry(ts,{depth:0.14,bevelEnabled:true,bevelThickness:0.02,bevelSize:0.02,bevelSegments:2}), MAT.blackGloss);
+    trig.geometry.translate(0,0,-0.07); trig.position.set(0.22,1.8,0); g.add(trig);
+    return centerGroup(g);
+  }
+
+  function buildSerum(){
+    const g = new THREE.Group();
+    const liquid = mesh(lathe([[0,0.04],[0.28,0.04],[0.28,0.62],[0,0.62]], 36), MAT.liquid); g.add(liquid);
+    g.add(mesh(lathe([[0,0],[0.3,0],[0.33,0.04],[0.33,0.86],[0.24,1.0],[0.13,1.04],[0,1.04]]), MAT.glass));
+    const collar = mesh(new THREE.CylinderGeometry(0.16,0.16,0.2,40), MAT.gold); collar.position.y = 1.13; g.add(collar);
+    g.add(Object.assign(mesh(lathe([[0,1.22],[0.13,1.22],[0.15,1.35],[0.14,1.55],[0.09,1.66],[0,1.68]], 36), MAT.blackGloss)));
+    return centerGroup(g);
+  }
+
+  function buildJar(){
+    const g = new THREE.Group();
+    g.add(mesh(lathe([[0,0],[0.6,0],[0.66,0.05],[0.67,0.48],[0.6,0.55],[0,0.55]]), MAT.ceramic));
+    g.add(mesh(lathe([[0,0.55],[0.66,0.55],[0.69,0.6],[0.69,0.76],[0.65,0.8],[0,0.8]]), MAT.gold));
+    return centerGroup(g);
+  }
+
+  function buildChair(){
+    const g = new THREE.Group();
+    g.add(mesh(lathe([[0,0],[1.0,0],[1.03,0.04],[0.96,0.1],[0.22,0.16],[0.14,0.22],[0.14,0.98],[0,0.98]]), MAT.chrome));
+    const seat = mesh(new THREE.ExtrudeGeometry(roundRect(1.5,1.4,0.28),{depth:0.3,bevelEnabled:true,bevelThickness:0.08,bevelSize:0.08,bevelSegments:Q?4:2,curveSegments:Q?16:8}), MAT.leather);
+    seat.geometry.translate(0,0,-0.15); seat.rotation.x = -Math.PI/2; seat.position.set(0,1.18,0.05); g.add(seat);
+    const back = mesh(new THREE.ExtrudeGeometry(roundRect(1.42,1.65,0.32),{depth:0.24,bevelEnabled:true,bevelThickness:0.07,bevelSize:0.07,bevelSegments:Q?4:2,curveSegments:Q?16:8}), MAT.leather);
+    back.geometry.translate(0,0,-0.12); back.position.set(0,2.2,-0.72); back.rotation.x = -0.13; g.add(back);
+    const head = mesh(new THREE.ExtrudeGeometry(roundRect(0.8,0.34,0.15),{depth:0.2,bevelEnabled:true,bevelThickness:0.05,bevelSize:0.05,bevelSegments:3}), MAT.leather);
+    head.position.set(0,3.25,-0.95); head.rotation.x = -0.13; g.add(head);
+    const post = mesh(new THREE.CylinderGeometry(0.035,0.035,0.4,12), MAT.chrome); post.position.set(0,3.02,-0.9); g.add(post);
+    [-1,1].forEach(sx => {
+      const arm = new THREE.CatmullRomCurve3([V3(0.8*sx,1.25,-0.6), V3(0.86*sx,1.75,-0.45), V3(0.86*sx,1.8,0.35), V3(0.82*sx,1.3,0.7)]);
+      g.add(mesh(new THREE.TubeGeometry(arm, 32, 0.04, 10), MAT.chrome));
+      const pad = mesh(new THREE.ExtrudeGeometry(roundRect(0.2,1.0,0.09),{depth:0.1,bevelEnabled:true,bevelThickness:0.03,bevelSize:0.03,bevelSegments:2}), MAT.leather);
+      pad.rotation.x = -Math.PI/2; pad.position.set(0.86*sx,1.86,-0.05); g.add(pad);
+    });
+    const foot = mesh(new THREE.TorusGeometry(0.5,0.035,10,40,Math.PI), MAT.chrome); foot.rotation.x = -Math.PI/2; foot.position.set(0,0.55,0.55); g.add(foot);
+    // soft contact shadow
+    const sc = document.createElement('canvas'); sc.width = sc.height = 128; const sg = sc.getContext('2d');
+    const gr = sg.createRadialGradient(64,64,4,64,64,64); gr.addColorStop(0,'rgba(0,0,0,.45)'); gr.addColorStop(1,'rgba(0,0,0,0)'); sg.fillStyle = gr; sg.fillRect(0,0,128,128);
+    const sh = mesh(new THREE.PlaneGeometry(4.2,4.2), new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc), transparent:true, depthWrite:false}));
+    sh.rotation.x = -Math.PI/2; sh.position.y = 0.005; g.add(sh);
+    return g;
+  }
+
+  function buildMirror(){
+    const g = new THREE.Group();
+    const back = mesh(new THREE.CircleGeometry(1.64, 72), MAT.black); back.position.z = -0.04; g.add(back);
+    g.add(mesh(new THREE.CircleGeometry(1.52, 72), MAT.mirror));
+    g.add(mesh(new THREE.TorusGeometry(1.56, 0.05, 12, 120), MAT.gold));
+    const bulbM = new THREE.MeshBasicMaterial({color:new THREE.Color(0xfff1da).multiplyScalar(1.6), toneMapped:false});
+    const bulbG = new THREE.SphereGeometry(0.075, 16, 10);
+    for(let i=0;i<18;i++){ const a = i/18*Math.PI*2; const b = mesh(bulbG, bulbM); b.position.set(Math.cos(a)*1.82, Math.sin(a)*1.82, 0.05); g.add(b); }
+    return g;
+  }
+
+  function buildPhone(){
+    const g = new THREE.Group();
+    const body = mesh(new THREE.ExtrudeGeometry(roundRect(1.5,3.1,0.24),{depth:0.13,bevelEnabled:true,bevelThickness:0.03,bevelSize:0.03,bevelSegments:Q?4:2,curveSegments:Q?18:8}), MAT.titanium);
+    body.geometry.translate(0,0,-0.065); g.add(body);
+    const bezel = mesh(new THREE.ShapeGeometry(roundRect(1.47,3.07,0.22), 16), MAT.black); bezel.position.z = 0.0965; g.add(bezel);
+    const sgeo = new THREE.ShapeGeometry(roundRect(1.38,2.98,0.18), 16);
+    const uv = sgeo.attributes.uv, pos = sgeo.attributes.position;
+    for(let i=0;i<uv.count;i++) uv.setXY(i, (pos.getX(i)+0.69)/1.38, (pos.getY(i)+1.49)/2.98);
+    const pc = document.createElement('canvas'); pc.width = 600; pc.height = 1296;
+    phoneTex = new THREE.CanvasTexture(pc); phoneTex.encoding = THREE.sRGBEncoding; phoneTex.anisotropy = 4;
+    const screen = mesh(sgeo, new THREE.MeshBasicMaterial({map:phoneTex, toneMapped:false})); screen.position.z = 0.0975; g.add(screen);
+    const cam = mesh(new THREE.ExtrudeGeometry(roundRect(0.62,0.62,0.16),{depth:0.04,bevelEnabled:true,bevelThickness:0.01,bevelSize:0.01,bevelSegments:2}), MAT.titanium);
+    cam.position.set(-0.32,1.08,-0.14); cam.rotation.y = Math.PI; g.add(cam);
+    [[-0.44,1.2],[-0.2,1.2],[-0.32,0.96]].forEach(([x,y]) => { const l = mesh(new THREE.CylinderGeometry(0.1,0.1,0.05,28), MAT.blackGloss); l.rotation.x = Math.PI/2; l.position.set(x,y,-0.2); g.add(l); });
+    return g;
+  }
+
+  function weldNormals(g){
+    const p = g.attributes.position, n = g.attributes.normal, map = new Map();
+    for(let i=0;i<p.count;i++){ const k = Math.round(p.getX(i)*1e4)+'|'+Math.round(p.getY(i)*1e4)+'|'+Math.round(p.getZ(i)*1e4);
+      let a = map.get(k); if(!a){ a = []; map.set(k, a); } a.push(i); }
+    map.forEach(a => { if(a.length < 2) return; let x=0,y=0,z=0; a.forEach(i => { x+=n.getX(i); y+=n.getY(i); z+=n.getZ(i); });
+      const l = Math.hypot(x,y,z) || 1; a.forEach(i => n.setXYZ(i, x/l, y/l, z/l)); });
+    n.needsUpdate = true;
+  }
+
+  /* ---------- THE CUT: porcelain avatar with cuttable hair ---------- */
+  function buildAvatar(){
+    const root = new THREE.Group();
+    const porcelain = M({color:0xf1efe9, metalness:0, roughness:0.4, clearcoat:0.3, clearcoatRoughness:0.35, envMapIntensity:0.9});
+    const sgN = Q ? 96 : 56;
+    const hg = new THREE.SphereGeometry(1, sgN, Math.round(sgN*0.75));
+    const hp = hg.attributes.position, dirs = new Float32Array(hp.count*3);
+    for(let i=0;i<hp.count;i++){
+      let x = hp.getX(i), y = hp.getY(i), z = hp.getZ(i); const l = Math.hypot(x,y,z) || 1; x/=l; y/=l; z/=l;
+      dirs[i*3] = x; dirs[i*3+1] = y; dirs[i*3+2] = z;
+      const q = headShape(x,y,z); hp.setXYZ(i, q[0], q[1], q[2]);
+    }
+    hg.computeVertexNormals(); weldNormals(hg);
+    root.add(mesh(hg, porcelain));
+    // hair cap follows the hairline
+    const cg = new THREE.BufferGeometry(), cp = new Float32Array(hp.count*3);
+    for(let i=0;i<hp.count;i++){ cp[i*3] = hp.getX(i)*1.012; cp[i*3+1] = hp.getY(i)*1.012 + 0.004; cp[i*3+2] = hp.getZ(i)*1.012; }
+    cg.setAttribute('position', new THREE.BufferAttribute(cp, 3)); cg.setAttribute('normal', hg.attributes.normal.clone());
+    const ix = hg.index.array, keep = [];
+    for(let t=0;t<ix.length;t+=3){ let m = 0; for(let k=0;k<3;k++){ const v = ix[t+k]; m += hairline(dirs[v*3], dirs[v*3+1], dirs[v*3+2]); } if(m/3 > 0.015) keep.push(ix[t], ix[t+1], ix[t+2]); }
+    cg.setIndex(keep);
+    const hairRoot = [0.017, 0.012, 0.009], hairTip = [0.055, 0.04, 0.029];
+    root.add(mesh(cg, new THREE.MeshStandardMaterial({color:new THREE.Color().setRGB(...hairRoot), roughness:0.62, metalness:0})));
+    // ears, neck, bust, plinth
+    [-1,1].forEach(sx => { const e = mesh(new THREE.SphereGeometry(0.2, 24, 16), porcelain); e.scale.set(0.32, 1, 0.62); e.position.set(0.765*sx, -0.06, -0.04); e.rotation.y = sx*0.35; root.add(e); });
+    const neck = mesh(new THREE.CylinderGeometry(0.34, 0.42, 1.55, Q?48:24, 1, true), porcelain); neck.position.set(0, -1.36, -0.1); neck.rotation.x = 0.08; root.add(neck);
+    const bust = mesh(lathe([[0.001,-1.78],[0.42,-1.78],[0.64,-1.95],[1.05,-2.12],[1.46,-2.3],[1.66,-2.55],[1.72,-2.9],[1.64,-3.3],[1.5,-3.5],[0.001,-3.5]], Q?72:36), porcelain);
+    bust.scale.z = 0.56; bust.position.z = -0.08; root.add(bust);
+    const plinth = mesh(new THREE.CylinderGeometry(1.2, 1.26, 0.3, Q?72:36), MAT.ceramic); plinth.position.y = -3.66; root.add(plinth);
+    const band = mesh(new THREE.TorusGeometry(1.265, 0.012, 8, Q?120:60), MAT.chrome); band.rotation.x = Math.PI/2; band.position.y = -3.52; root.add(band);
+
+    // hair: ribbon strands (hair cards) rebuilt on the CPU only when the cut changes
+    const NS = lowPower ? 760 : 1450, K = 9, NP = K + 1, W0 = lowPower ? 0.1 : 0.08;
+    const rootP = new Float32Array(NS*3), rootN = new Float32Array(NS*3), sd = new Float32Array(NS*6), jit = new Float32Array(NS*2), sec = new Uint8Array(NS);
+    let n = 0;
+    while(n < NS){
+      let x = Math.random()*2-1, y = Math.random()*2-1, z = Math.random()*2-1; const l = Math.hypot(x,y,z);
+      if(l > 1 || l < 0.1) continue; x/=l; y/=l; z/=l;
+      if(hairline(x,y,z) < 0.01) continue;
+      const q = headShape(x,y,z);
+      rootP[n*3] = q[0]*1.018; rootP[n*3+1] = q[1]*1.018; rootP[n*3+2] = q[2]*1.018;
+      let gx = q[0]/0.61, gy = q[1], gz = q[2]/0.81; const gl = Math.hypot(gx,gy,gz); rootN[n*3] = gx/gl; rootN[n*3+1] = gy/gl; rootN[n*3+2] = gz/gl;
+      let az = Math.atan2(x, z); if(az < 0) az += Math.PI*2;
+      let best = 0, bd = 9; for(let j=0;j<6;j++){ let da = Math.abs(az - CUT_A[j]); da = Math.min(da, Math.PI*2 - da); if(da < bd){ bd = da; best = j; } }
+      sec[n] = best;
+      sd[n*6] = y; sd[n*6+1] = smooth(clamp((z-0.1)/0.5))*smooth(clamp((y-0.1)/0.5)); sd[n*6+2] = clamp(y);
+      sd[n*6+3] = Math.random(); sd[n*6+4] = Math.random(); sd[n*6+5] = Math.random();
+      jit[n*2] = Math.random()-.5; jit[n*2+1] = Math.random()-.5;
+      n++;
+    }
+    const NV = NS*NP*2;
+    const pos = new Float32Array(NV*3), nor = new Float32Array(NV*3), col = new Float32Array(NV*3), index = new Uint16Array(NS*K*6);
+    for(let i=0;i<NS;i++) for(let k=0;k<NP;k++){
+      const v = (i*NP + k)*2, t = Math.pow(k/K, 0.8);
+      for(let e=0;e<2;e++) for(let c=0;c<3;c++) col[(v+e)*3+c] = lerp(hairRoot[c], hairTip[c], t);
+      if(k < K){ const o = (i*K + k)*6; index[o]=v; index[o+1]=v+1; index[o+2]=v+2; index[o+3]=v+1; index[o+4]=v+3; index[o+5]=v+2; }
+    }
+    const hgeo = new THREE.BufferGeometry();
+    hgeo.setAttribute('position', new THREE.BufferAttribute(pos, 3).setUsage(THREE.DynamicDrawUsage));
+    hgeo.setAttribute('normal', new THREE.BufferAttribute(nor, 3).setUsage(THREE.DynamicDrawUsage));
+    hgeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    hgeo.setIndex(new THREE.BufferAttribute(index, 1));
+    const hairMesh = mesh(hgeo, new THREE.MeshStandardMaterial({vertexColors:true, roughness:0.56, metalness:0.05, side:THREE.DoubleSide, envMapIntensity:0.7}));
+    hairMesh.frustumCulled = false; root.add(hairMesh);
+    const E0 = 0.84, E1 = 1.07, E2 = 0.99;
+    function update(cv, st){
+      const g = lerp(3.6, 2.3, st), gn = lerp(0.22, 0.36, st), damp = lerp(0.35, 0.05, st);
+      for(let i=0;i<NS;i++){
+        const o3 = i*3, o6 = i*6;
+        const yy = sd[o6], fr = sd[o6+1], top = sd[o6+2], r0 = sd[o6+3], r1 = sd[o6+4], r2 = sd[o6+5];
+        const c = cv[sec[i]];
+        const Llong = (1.7 + 0.5*r0)*(yy < 0.05 ? 0.78 : 1);
+        const Lcut = 0.56 + 0.14*r1;
+        const Lsty = (0.12 + 0.22*smooth(clamp((yy+0.1)/0.9)))*(0.85 + 0.3*r2) + 0.08*fr;
+        const L = lerp(lerp(Llong, Lcut, c), Lsty, st), ds = L/K;
+        let dx = rootN[o3]*gn, dy = rootN[o3+1]*gn, dz = rootN[o3+2]*gn;
+        dz -= 0.95*fr*(1-st); dy += 0.05*fr*(1-st);
+        dy += st*(0.16*top + 0.08*fr); dz += st*(0.4*fr + 0.1*top - 0.2*(1-top));
+        dx += jit[i*2]*lerp(0.35, 0.28, st); dz += jit[i*2+1]*lerp(0.35, 0.28, st) - 0.35*top*top*(1-st);
+        let l = Math.hypot(dx,dy,dz); dx/=l; dy/=l; dz/=l;
+        let px = rootP[o3], py = rootP[o3+1], pz = rootP[o3+2];
+        let v = i*NP*6, hit = true;
+        const wr = W0*(0.75 + 0.5*r2)*0.5;
+        for(let k=0;k<=K;k++){
+          let ox = px, oy = py, oz = pz + 0.02; const ol = Math.hypot(ox,oy,oz) || 1; ox/=ol; oy/=ol; oz/=ol;
+          let sx = dy*oz - dz*oy, sy = dz*ox - dx*oz, sz = dx*oy - dy*ox; let sl = Math.hypot(sx,sy,sz);
+          if(sl < 0.08){ sx = dy; sy = -dx; sz = 0; sl = Math.hypot(sx, sy); if(sl < 0.08){ sx = 0; sy = dz; sz = -dy; sl = Math.hypot(sy, sz) || 1; } }
+          const w = wr*(1 - 0.78*k/K)/sl; sx*=w; sy*=w; sz*=w;
+          pos[v] = px-sx; pos[v+1] = py-sy; pos[v+2] = pz-sz; pos[v+3] = px+sx; pos[v+4] = py+sy; pos[v+5] = pz+sz;
+          nor[v] = nor[v+3] = ox; nor[v+1] = nor[v+4] = oy; nor[v+2] = nor[v+5] = oz;
+          v += 6;
+          if(k === K) break;
+          dy -= g*ds;
+          if(py < -0.2 && !hit){ dx *= 1 - damp; dz *= 1 - damp; }
+          if(st > 0){ dx += st*0.06*Math.sin(k*1.7 + r0*9); dz += st*0.06*Math.cos(k*1.3 + r1*9); }
+          l = Math.hypot(dx,dy,dz); dx/=l; dy/=l; dz/=l;
+          px += dx*ds; py += dy*ds; pz += dz*ds;
+          const qx = px/E0, qy = py/E1, qz = (pz + 0.02)/E2, ql = Math.hypot(qx,qy,qz);
+          hit = ql < 1;
+          if(hit){
+            px = qx/ql*E0; py = qy/ql*E1; pz = qz/ql*E2 - 0.02;
+            const gx = qx/ql, gy = qy/ql, gz = qz/ql, dd = dx*gx + dy*gy + dz*gz;
+            if(dd < 0){ dx -= dd*gx; dy -= dd*gy; dz -= dd*gz; l = Math.hypot(dx,dy,dz) || 1; dx/=l; dy/=l; dz/=l; }
+          }
+        }
+      }
+      hgeo.attributes.position.needsUpdate = true; hgeo.attributes.normal.needsUpdate = true;
+    }
+    update([0,0,0,0,0,0], 0);
+    return {root, update};
+  }
+
+  function buildHalo(){
+    const g = new THREE.Group();
+    g.add(mesh(new THREE.TorusGeometry(1.3, 0.011, 8, Q?160:80), MAT.satin));
+    g.add(mesh(new THREE.TorusGeometry(1.55, 0.005, 6, Q?160:80), MAT.gold));
+    return g;
+  }
+
+  // --- create actors
+  scissor = buildScissors();
+  const add = (name, obj, seed=0) => { scene.add(obj); obj.visible = false;
+    actors[name] = {obj, cur:{p:[0,0,0],r:[0,0,0],s:1,o:0,v:0,sp:0,sn:0,wob:0,bob:0}, spin:0, seed}; };
+  add('scissor', scissor.root);
+  add('razor', buildRazor(), 1); add('dryer', buildDryer(), 2); add('comb', buildComb(), 3);
+  add('spray', buildSpray(), 4); add('serum', buildSerum(), 5); add('jar', buildJar(), 6);
+  add('chair', buildChair(), 7); add('mirror', buildMirror(), 8); add('phone', buildPhone(), 9);
+  add('halo', buildHalo(), 11);
+  avatar = buildAvatar(); add('avatar', avatar.root, 10);
+
+  // --- ambient dust
+  {
+    const N = lowPower ? 160 : 320, arr = new Float32Array(N*3);
+    for(let i=0;i<N;i++){ arr[i*3] = (Math.random()-.5)*14; arr[i*3+1] = (Math.random()-.5)*9; arr[i*3+2] = (Math.random()-.5)*8; }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(arr,3));
+    const mat = new THREE.PointsMaterial({color:0xfff6e6, size:0.035, transparent:true, opacity:0, depthWrite:false});
+    const pts = new THREE.Points(geo, mat); pts.frustumCulled = false; scene.add(pts);
+    dust = {pts, mat, arr, N, v:0};
+  }
+}
+
+/* ================= Phone screens (illustrative UI) ================= */
+const screens = [];
+function rr(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+function drawScreens(){
+  const F = 'Jost, sans-serif';
+  const mk = (i) => {
+    const c = document.createElement('canvas'); c.width = 600; c.height = 1296; const g = c.getContext('2d');
+    g.fillStyle = '#F6F5F2'; g.fillRect(0,0,600,1296);
+    g.fillStyle = '#000'; g.font = `600 25px ${F}`; g.fillText('9:41', 62, 66);
+    rr(g,228,32,144,44,22); g.fill();
+    rr(g,488,48,44,22,7); g.lineWidth = 2; g.strokeStyle='#000'; g.stroke(); rr(g,492,52,30,14,3); g.fill();
+    const dotm = (x,y,r) => { [[0,-1],[-.95,.72],[.95,.72]].forEach(([a,b]) => { g.beginPath(); g.arc(x+a*r*1.45, y+b*r*1.2, r, 0, 7); g.fill(); }); };
+    dotm(78, 138, 10);
+    g.font = `500 24px ${F}`; if('letterSpacing' in g) g.letterSpacing = '6px'; g.fillText('ALUMA', 116, 148); if('letterSpacing' in g) g.letterSpacing = '0px';
+    const title = ['Salons near you','Book a haircut','Cashback and rewards','Aluma Money'][i];
+    g.font = `300 50px ${F}`; g.fillText(title, 44, 238);
+    const muted = '#77746f', line = '#DDDAD4';
+    if(i===0){
+      rr(g,40,272,520,70,35); g.fillStyle = '#E9E7E2'; g.fill(); g.fillStyle = muted; g.font = `400 24px ${F}`; g.fillText('Search an area or salon', 84, 316);
+      rr(g,40,366,520,430,30); g.fillStyle = '#E4E1DB'; g.fill();
+      g.save(); rr(g,40,366,520,430,30); g.clip(); g.strokeStyle = '#F6F5F2'; g.lineWidth = 12;
+      [[20,520,580,460],[120,366,300,800],[40,700,560,610],[380,366,470,800]].forEach(([a,b,c2,d]) => { g.beginPath(); g.moveTo(a,b); g.quadraticCurveTo(300,560,c2,d); g.stroke(); });
+      g.restore();
+      [[430,500],[360,680]].forEach(([x,y]) => { g.fillStyle='#000'; g.beginPath(); g.arc(x,y,18,0,7); g.fill(); g.fillStyle='#CBB592'; g.beginPath(); g.arc(x,y,7,0,7); g.fill(); });
+      g.fillStyle = '#2f6fe0'; g.beginPath(); g.arc(230,600,11,0,7); g.fill();
+      [['Whitefield',830],['Sarjapur Main Road',990]].forEach(([a,y]) => {
+        rr(g,40,y,520,136,26); g.fillStyle = '#fff'; g.fill(); g.strokeStyle = line; g.lineWidth = 2; g.stroke();
+        rr(g,60,y+20,96,96,20); g.fillStyle = '#111'; g.fill(); g.fillStyle = '#CBB592'; dotm(108, y+70, 9);
+        g.fillStyle = '#000'; g.font = `500 28px ${F}`; g.fillText('Aluma salon', 180, y+60);
+        g.fillStyle = muted; g.font = `400 22px ${F}`; g.fillText(a + ', Bengaluru', 180, y+96);
+        g.strokeStyle = '#000'; g.lineWidth = 3; g.beginPath(); g.moveTo(520,y+56); g.lineTo(534,y+68); g.lineTo(520,y+80); g.stroke();
+      });
+    }
+    if(i===1){
+      g.fillStyle = muted; g.font = `400 24px ${F}`; g.fillText('Choose your barber', 44, 300);
+      ['#1a1a1a','#8a8f94','#CBB592'].forEach((col,k) => { g.fillStyle = col; g.beginPath(); g.arc(100+k*130, 380, 50, 0, 7); g.fill();
+        if(k===0){ g.strokeStyle='#000'; g.lineWidth=3; g.beginPath(); g.arc(100,380,60,0,7); g.stroke(); } });
+      g.fillStyle = muted; g.fillText('Pick a date', 44, 500);
+      for(let k=0;k<5;k++){ const x = 40 + k*106; rr(g,x,522,94,110,24); const on = k===1; g.fillStyle = on?'#000':'#fff'; g.fill();
+        if(!on){ g.strokeStyle=line; g.lineWidth=2; g.stroke(); }
+        g.fillStyle = on?'#fff':muted; g.font = `400 20px ${F}`; g.textAlign='center'; g.fillText(dates[k+1] ? dates[k+1].wd : '', x+47, 566);
+        g.fillStyle = on?'#fff':'#000'; g.font = `500 32px ${F}`; g.fillText(dates[k+1] ? dates[k+1].n : '', x+47, 610); g.textAlign='left'; }
+      g.fillStyle = muted; g.font = `400 24px ${F}`; g.fillText('Pick a time', 44, 700);
+      TIMES.slice(0,6).forEach((t,k) => { const x = 40 + (k%3)*176, y = 722 + Math.floor(k/3)*84; rr(g,x,y,164,68,34); const on = k===3;
+        g.fillStyle = on?'#000':'#fff'; g.fill(); if(!on){ g.strokeStyle=line; g.lineWidth=2; g.stroke(); }
+        g.fillStyle = on?'#fff':'#000'; g.font = `500 26px ${F}`; g.textAlign='center'; g.fillText(t, x+82, y+43); g.textAlign='left'; });
+      rr(g,40,1010,520,96,48); g.fillStyle = '#000'; g.fill(); g.fillStyle = '#fff'; g.font = `500 28px ${F}`; g.textAlign='center'; g.fillText('Book appointment', 300, 1068); g.textAlign='left';
+    }
+    if(i===2){
+      rr(g,40,280,520,300,34); g.fillStyle = '#000'; g.fill();
+      g.fillStyle = '#CBB592'; g.font = `400 24px ${F}`; g.fillText('Your cashback wallet', 80, 344);
+      g.fillStyle = '#EBEAE6'; g.font = `300 48px ${F}`; g.fillText('Earn as you book', 80, 420);
+      for(let k=0;k<12;k++){ g.fillStyle = k<7 ? '#CBB592' : '#333'; g.beginPath(); g.arc(96+k*34, 520, 11, 0, 7); g.fill(); }
+      [['Cashback credited','After your last visit'],['Reward unlocked','See it in your wallet'],['Offer for your next visit','Tap to apply at checkout']].forEach(([a,b],k) => {
+        const y = 630 + k*140; rr(g,40,y,520,120,26); g.fillStyle = '#fff'; g.fill(); g.strokeStyle = line; g.lineWidth = 2; g.stroke();
+        g.strokeStyle = '#000'; g.lineWidth = 3; rr(g,68,y+32,56,56,10); g.stroke(); g.beginPath(); g.moveTo(96,y+32); g.lineTo(96,y+88); g.moveTo(68,y+52); g.lineTo(124,y+52); g.stroke();
+        g.fillStyle = '#000'; g.font = `500 26px ${F}`; g.fillText(a, 150, y+56); g.fillStyle = muted; g.font = `400 21px ${F}`; g.fillText(b, 150, y+90);
+      });
+    }
+    if(i===3){
+      g.lineWidth = 34; g.strokeStyle = '#E4E1DB'; g.beginPath(); g.arc(300,520,180,0,7); g.stroke();
+      g.strokeStyle = '#CBB592'; g.lineCap = 'round'; g.beginPath(); g.arc(300,520,180,-Math.PI/2,Math.PI*0.95); g.stroke(); g.lineCap = 'butt';
+      g.fillStyle = '#000'; g.textAlign='center'; g.font = `300 44px ${F}`; g.fillText('Saving plan', 300, 512); g.fillStyle = muted; g.font = `400 22px ${F}`; g.fillText('On track', 300, 552);
+      g.textAlign='left';
+      [['Plan active','Your visits, planned ahead'],['Next visit','Book it from your plan']].forEach(([a,b],k) => {
+        const y = 770 + k*124; g.strokeStyle = line; g.lineWidth = 2; g.beginPath(); g.moveTo(40,y+108); g.lineTo(560,y+108); g.stroke();
+        g.fillStyle = '#000'; g.font = `500 27px ${F}`; g.fillText(a, 44, y+50); g.fillStyle = muted; g.font = `400 21px ${F}`; g.fillText(b, 44, y+84);
+      });
+      rr(g,40,1040,520,96,48); g.fillStyle = '#000'; g.fill(); g.fillStyle = '#fff'; g.font = `500 28px ${F}`; g.textAlign='center'; g.fillText('Add to my plan', 300, 1098); g.textAlign='left';
+    }
+    // tab bar
+    g.strokeStyle = line; g.lineWidth = 2; g.beginPath(); g.moveTo(0,1180); g.lineTo(600,1180); g.stroke();
+    for(let k=0;k<4;k++){ const x = 90 + k*140; g.fillStyle = k===i ? '#000' : '#bdb9b2'; g.beginPath(); g.arc(x,1228,k===i?12:9,0,7); g.fill(); }
+    rr(g,210,1266,180,8,4); g.fillStyle='#000'; g.fill();
+    return c;
+  };
+  screens.length = 0; for(let i=0;i<4;i++) screens.push(mk(i));
+}
+let scrShown = 0, scrTarget = 0, scrFrom = 0, scrT = 1;
+function paintPhone(){
+  if(!phoneTex || !screens.length) return;
+  const g = phoneTex.image.getContext('2d');
+  g.globalAlpha = 1; g.drawImage(screens[scrFrom], 0, 0);
+  if(scrT < 1){ g.globalAlpha = outCubic(scrT); g.drawImage(screens[scrTarget], 0, 0); g.globalAlpha = 1; }
+  phoneTex.needsUpdate = true;
+}
+/* ================= Scene choreography =================
+   Each section returns target poses for every actor, the page
+   background, and the camera. Between sections, poses blend.
+======================================================== */
+let T = 0;
+const pose = (p, r, s, x={}) => Object.assign({p, r, s, o:0, v:1, sp:0, sn:0, wob:0, bob:0}, x);
+const base = (bg, fg, acc) => ({bg, fg, acc: acc || null, cam:{p:[0,0,10], l:[0,0,0]}, a:{}, dust:0, hair:null});
+const accOf = o => o.acc || (lum(o.bg) > 0.5 ? [255,255,255] : C.chrome);
+function kf(p, K){
+  if(p <= K[0][0]) return K[0][1];
+  for(let i=1;i<K.length;i++) if(p <= K[i][0]) return mixPose(K[i-1][1], K[i][1], smooth((p - K[i-1][0])/(K[i][0] - K[i-1][0])));
+  return K[K.length-1][1];
+}
+function cutPose(j, u){
+  const a = CUT_A[j], cp = cutPoint(j), front = j===5, s = P ? 0.42 : 0.42;
+  const n = front ? [0, 1, 0.2] : [Math.sin(a), 0.12, Math.cos(a)];
+  const t = front ? [1, 0, 0] : [Math.cos(a), 0, -Math.sin(a)];
+  const r = front ? [-1.05, 6.283, -0.1] : [0.05, a, -0.2];
+  const away = 1 - smooth(seg(u, 0, .36)) + smooth(seg(u, .68, 1));
+  const p = [cp[0] - t[0]*1.05*s + n[0]*away, cp[1] + n[1]*away + 0.3*away, cp[2] - t[2]*1.05*s + n[2]*away];
+  const o = u < .36 ? lerp(.1, 1, smooth(seg(u, .1, .36))) : u < .55 ? 1 : u < .63 ? 1 - smooth(seg(u, .55, .63)) : 0.12*seg(u, .63, 1);
+  return pose(p, r, s, {o});
+}
+const RING_A = [-1.36, -0.53];
+
+const FN = {
+  top(p){
+    const o = base(C.ink, 'l');
+    const turn = ease(seg(p, .26, .55)), fly = seg(p, .55, .97);
+    const sF = 2.4;
+    const idle = pose([P?X(0.12):X(-0.06), P?Y(0.08):Y(0.02), 0], [0.35,-0.5,0.62], S(1.08,0.66), {o:0.22, wob:1});
+    const aim = pose([-RING_A[0]*sF, -RING_A[1]*sF, 0], [0,0,0], sF, {o:0, wob:0});
+    let s = mixPose(idle, aim, turn);
+    s.p[2] = lerp(0, 11.4, Math.pow(fly, 1.7));
+    s.v = 1 - seg(p, .955, .985);
+    o.a.scissor = s;
+    const flip = smooth(seg(p, .84, .9));
+    o.bg = L3(C.ink, C.por, flip); o.fg = flip > .5 ? 'd' : 'l';
+    return o;
+  },
+  about(p){
+    const o = base(C.por, 'd');
+    const tr = seg(p, .06, .6);
+    const y = sw(0, R.cutY)[1];
+    const sc = S(0.9, 0.5);
+    o.a.scissor = pose([lerp(-hw - 2.6*sc, hw + 3.4*sc, tr), y, 0.3], [0.12, 0, 0], sc, {o:0.2, sn: tr>0.01 && tr<0.99 ? 1 : 0});
+    return o;
+  },
+  experience(p){
+    const o = base(C.sage, 'd');
+    const rz = lerp(0.32, -0.18, ease(seg(p, .08, .92)));
+    o.a.scissor = pose([P?X(0.05):X(0.06), P?Y(0.2):Y(0.02), 0], [0.18, Math.sin(p*3)*0.25, rz], S(1.18, 0.62), {o:0.42});
+    return o;
+  },
+  services(p){
+    const n = SERVICES.length, q = clamp(p)*n;
+    const fi = clamp(q - 0.5, 0, n-1), i0 = Math.floor(fi), i1 = Math.min(n-1, i0+1);
+    const o = base(L3(SVC_T[i0], SVC_T[i1], smooth(fi - i0)), 'l', C.olive);
+    const bx = P?0:X(0.2), by = P?Y(0.36):Y(0.08);
+    const sc = {razor:[1.15,0.5], dryer:[1.25,0.55], spray:[1.1,0.5], serum:[1.45,0.66], jar:[1.35,0.62]};
+    let v0 = 0;
+    SERVICES.forEach((s, j) => {
+      const d = q - (j+0.5);
+      const v = 1 - smooth(clamp((Math.abs(d) - 0.3)/0.2));
+      if(j===0){ v0 = v; return; }
+      o.a[s.id] = pose([bx, by - d*1.1*S(1,0.45), 0], [0.18, -0.45 + d*0.6, s.id==='razor'?0.35:0.06], S(...sc[s.id]), {v, sp:0.32});
+      if(s.id==='dryer'){
+        o.a.comb = pose([bx + S(1.5,0.55), by - S(0.95,0.42) - d*1.1*S(1,0.45), 0.6], [0.3, -0.3, 0.5], S(0.55,0.24), {v});
+      }
+    });
+    const main = pose([bx - S(0.25,0.1), by, 0.2], [0.28, -0.35, 0.55], S(1.1, 0.58), {o:0.25, sn:1, wob:0.4});
+    const ang = T*0.55;
+    const comp = pose([bx + Math.cos(ang)*S(2.1,0.9), by + S(0.3,0.15) + Math.sin(ang*1.3)*S(0.35,0.15), Math.sin(ang)*1.4], [0.4, -0.6, 0.9 + ang*0.2], S(0.42,0.2), {o:0.2});
+    o.a.scissor = mixPose(comp, main, v0);
+    o.a.halo = pose([bx, by - S(1.5, 0.74), -0.2], [1.3, 0, 0], S(1.0, 0.52), {v:1});
+    return o;
+  },
+  cut(p){
+    const o = base(C.pale, p < 0.1 ? 'l' : 'd', [255,255,255]);
+    o.hair = {c: CUT_A.map((_, j) => smooth(seg(p, CUT_T0 + (j+.55)*CUT_W, CUT_T0 + (j+.63)*CUT_W))), st: smooth(seg(p, .64, .8))};
+    // camera: default framing under the curtain, then an orbit that follows the scissor around the head
+    const keyA = j => j===5 ? 5.95 : CUT_A[j] - 0.8;
+    let a;
+    if(p < CUT_T0) a = lerp(0, keyA(0), smooth(seg(p, .07, CUT_T0)));
+    else if(p < CUT_T1){ const f = (p - CUT_T0)/CUT_W, j = Math.min(5, Math.floor(f)), u = f - j; a = j < 5 ? lerp(keyA(j), keyA(j+1), smooth(seg(u, .6, 1))) : keyA(5); }
+    else a = lerp(keyA(5), 6.283 + 0.4, smooth(seg(p, CUT_T1, .82))) + 0.12*seg(p, .82, 1);
+    a -= cutYaw;
+    const ck = smooth(seg(p, .1, CUT_T0))*(1 - smooth(seg(p, CUT_T1, .8)));
+    const fin = smooth(seg(p, .78, .9));
+    const af = P ? 1 : clamp(1.75/(W/H), 1, 1.4);
+    const r = (P ? lerp(12.6, 12, ck) + 0.6*fin : lerp(8.6, 7.6, ck) + 0.7*fin)*af;
+    const off = P ? 0 : lerp(1.75, 0.95, ck) + 0.2*fin;
+    const ly = P ? lerp(-1.2, -0.3, ck) + 1.0*fin : lerp(-0.45, 0.1, ck) + 0.3*fin;
+    const cy = lerp(0.35, 1.1, ck);
+    const rx = Math.cos(a), rz = -Math.sin(a);
+    const k = smooth(seg(p, .045, .15));
+    o.cam = {p: L3([0,0,10], [Math.sin(a)*r - rx*off, cy, Math.cos(a)*r - rz*off], k), l: L3([0,0,0], [-rx*off, ly, -rz*off], k)};
+    const exitK = ease(seg(p, .93, 1));
+    const rise = smooth(seg(p, .07, .15));
+    o.a.avatar = pose([0, -1.6*(1 - rise) - 4.5*exitK, 0], [0, 0.5*(1 - rise), 0], 1, {v: p > .068 ? 1 : 0});
+    // scissor: cut the curtain, loop behind the head, six cuts, then rest like a signature
+    let sp;
+    if(p < .075){
+      const u = seg(p, 0, .075);
+      sp = pose([lerp(X(1.35), X(-1.35), u), 0, 0.8], [0, 0, Math.PI], S(1.0, 0.55), {o:.25, sn: u > 0 && u < 1 ? 1 : 0});
+    } else if(p < CUT_T0){
+      sp = kf(p, [[.075, pose([X(-1.35), 0, 0.8], [0, 0, Math.PI], S(1.0, 0.55), {o:.25})],
+                  [.11, pose([-1.3, 1.1, -1.9], [0.3, 0.8, 0.6], 0.48, {o:.2})],
+                  [.14, pose([1.1, 0.6, -2.0], [0.2, 1.1, 0.2], 0.44, {o:.2})],
+                  [CUT_T0, cutPose(0, 0)]]);
+    } else if(p < CUT_T1){
+      const f = (p - CUT_T0)/CUT_W, j = Math.min(5, Math.floor(f)); sp = cutPose(j, f - j);
+    } else {
+      const rest = pose(P ? [1.25, -0.8, 0.7] : [1.75, -0.55, 0.7], [0.35, 6.283 + 0.95, -1.05], 0.46, {o:.35});
+      sp = kf(p, [[CUT_T1, cutPose(5, 1)], [.72, pose([0.7, 2.2, 0.5], [0.2, 6.283 + 0.4, -0.5], 0.5, {o:.3})], [.84, rest], [.93, rest],
+                  [1, pose([3.2, 3.4, 0.5], [0.35, 6.283 + 1.6, -1.6], 0.5, {o:.2})]]);
+    }
+    o.a.scissor = sp;
+    return o;
+  },
+  salon(p){
+    const o = base(C.nude, 'd');
+    const e = ease(clamp(p)), a = lerp(-0.62, 0.5, e), r = P ? 13.5 : 11.5;
+    o.bg = L3(C.nude, C.sand, e);
+    const lx = P ? 0 : -2.2, ly = P ? -1.9 : -0.35;
+    o.cam = {p:[Math.sin(a)*r + lx*0.4, 1.5 - 0.6*e, Math.cos(a)*r], l:[lx, ly, -0.6]};
+    o.a.chair = pose([0,-2.25,0], [0, 0.4 - e*0.25, 0], P?0.85:1);
+    o.a.mirror = pose([0,0.6,-2.9], [0,0,0], 1);
+    o.a.dryer = pose([-2.7,0.3,-1.3], [0.1,0.9,0.2], 0.62, {bob:1});
+    o.a.scissor = pose(P?[1.2,1.5,0.4]:[1.85,1.25,0.2], [0.5,0,0.8], P?0.42:0.5, {o:0.3, sp:0.45, bob:1});
+    o.dust = 1;
+    return o;
+  },
+  locations(p){
+    const o = base(C.olive, 'd');
+    if(R.map){
+      const c = sw(R.map.l + R.map.w/2, R.map.t + R.map.h/2);
+      const pin = R.pins[locSel] ? sw(...R.pins[locSel]) : [c[0]+1, c[1]];
+      const dx = pin[0]-c[0], dy = pin[1]-c[1];
+      const dist = Math.hypot(dx, dy);
+      const sc = clamp(dist/2.38*0.86, S(0.35,0.2), S(1.4,0.8));
+      o.a.scissor = pose([c[0], c[1], 0], [0, 0, Math.atan2(dy, dx)], sc, {o:0.14});
+    }
+    return o;
+  },
+  app(p){
+    const o = base(C.mint, 'd');
+    const e = ease(clamp(p));
+    o.a.phone = pose([P?0:X(0.02), P?Y(0.34):Y(-0.01), 0], [0.08, lerp(-0.6, 0.32, e), lerp(0.05,-0.03,e)], S(1.05, 0.52), {v: seg(p, .03, .16)});
+    const u = ease(seg(p, 0, .2));
+    const start = pose([X(-1.25), Y(0.9), 2.4], [0.6, 0.4, -0.4], S(0.8,0.4), {sn:1});
+    const settle = pose(P ? [X(0.64), Y(0.3), 0.8] : [X(0.24), Y(-0.46), 0.8], [0.3, 0.3, 0.55], S(0.5, 0.27), {o:0.2, sp:0.18});
+    o.a.scissor = mixPose(start, settle, u); o.a.scissor.sn = 1 - seg(p, .16, .22);
+    return o;
+  },
+  book(p){
+    const o = base(C.ink, 'l', C.chrome);
+    o.a.scissor = pose([P?X(0.6):X(0.1), P?Y(0.62):Y(0.5), 0], [0.5, -0.3, -0.7], S(0.46, 0.24), {o:0.2, sp:0.15});
+    return o;
+  },
+  reviews(p){
+    const o = base(C.blush, 'd');
+    o.a.scissor = pose([P?0:X(-0.36), P?Y(0.34):Y(0), 0], [0.3, 0, 0.35], S(1.0, 0.5), {o:0.3, sp:0.3});
+    return o;
+  },
+  final(p){
+    const o = base(C.ink, 'l', C.champ);
+    o.a.scissor = pose([P?X(0.12):X(-0.06), P?Y(0.04):Y(0.08), 0], [0.35,-0.5,0.62], S(1.08,0.66), {o:0.22, wob:1});
+    o.dust = 0.5;
+    return o;
+  }
+};
+function mixPose(a, b, t){
+  if(!a && !b) return null;
+  if(!a) a = Object.assign({}, b, {v:0});
+  if(!b) b = Object.assign({}, a, {v:0});
+  return {p:L3(a.p,b.p,t), r:L3(a.r,b.r,t), s:lerp(a.s,b.s,t), o:lerp(a.o,b.o,t), v:lerp(a.v,b.v,t), sp:lerp(a.sp,b.sp,t), sn:lerp(a.sn,b.sn,t), wob:lerp(a.wob,b.wob,t), bob:lerp(a.bob,b.bob,t)};
+}
+function mixOut(A, B, t){
+  const a = {}; new Set([...Object.keys(A.a), ...Object.keys(B.a)]).forEach(k => a[k] = mixPose(A.a[k], B.a[k], t));
+  return {bg:L3(A.bg,B.bg,t), fg: t<.5 ? A.fg : B.fg, acc:L3(accOf(A), accOf(B), t), cam:{p:L3(A.cam.p,B.cam.p,t), l:L3(A.cam.l,B.cam.l,t)}, a, dust:lerp(A.dust,B.dust,t), hair: B.hair || A.hair};
+}
+function evaluate(y){
+  for(let i=0;i<SEC.length;i++){
+    const s = SEC[i];
+    if(y < s.start){
+      if(i===0) return FN[s.id](0);
+      const pr = SEC[i-1];
+      const t = smooth(clamp((y - pr.end)/Math.max(1, s.start - pr.end)));
+      return mixOut(FN[pr.id](1), FN[s.id](0), t);
+    }
+    if(y <= s.end) return FN[s.id](s.end > s.start ? (y - s.start)/(s.end - s.start) : 0);
+  }
+  const l = SEC[SEC.length-1]; return FN[l.id](1);
+}
+
+/* ================= Section DOM effects ================= */
+const heroWord = $('.hero-word'), heroOver = $('#top .layer.over');
+const cutFull = $('#cutFull'), cutTop = $('#cutTop'), cutBot = $('#cutBot');
+const introCopy = $('.intro-copy'), introSide = $('.intro-side');
+const callouts = $$('.callout');
+const svcItems = $$('#svcList li'), svcDetail = $('#svcDetail');
+const featItems = $$('#feat li');
+const svcNum = $('#svcNum');
+let expStep = -1, svcIdx = -1, featIdx = -1, finalSnipped = false;
+function setSvc(j){
+  if(j === svcIdx) return; svcIdx = j;
+  svcItems.forEach((li,k) => li.classList.toggle('on', k===j));
+  svcNum.innerHTML = `${String(j+1).padStart(2,'0')}<small>/ ${String(SERVICES.length).padStart(2,'0')}</small>`;
+  svcDetail.classList.add('swap');
+  setTimeout(() => { svcDetail.querySelector('h3').textContent = SERVICES[j].name; svcDetail.querySelector('.muted').textContent = SERVICES[j].text; svcDetail.classList.remove('swap'); }, reduced?0:200);
+  if(P){ const li = svcItems[j]; svcList.scrollTo({left: li.offsetLeft - (svcList.clientWidth - li.offsetWidth)/2, behavior: reduced?'auto':'smooth'}); }
+}
+function sectionDOM(y){
+  for(const s of SEC){
+    const p = s.end > s.start ? (y - s.start)/(s.end - s.start) : (y >= s.start ? 1 : 0);
+    s.p = p;
+    if(y < s.start - VH*1.2 || y > s.end + VH*1.2) continue;
+    if(s.id==='top'){
+      heroOver.style.opacity = (1 - seg(p, .1, .3)).toFixed(3);
+      const k = ease(seg(p, .24, .58));
+      heroWord.style.transform = `scale(${1 + k*0.45})`;
+      heroWord.style.opacity = (1 - k).toFixed(3);
+    }
+    if(s.id==='about'){
+      const d = seg(p, .6, 1);
+      cutTop.style.transform = `translate(${-d*7}vw, ${-0.05 - d*0.22}em) rotate(${-d*1.5}deg)`;
+      cutBot.style.transform = `translate(${d*7}vw, ${0.05 + d*0.22}em) rotate(${d*1.5}deg)`;
+      const c = seg(p, .55, .75);
+      introCopy.style.opacity = c; introCopy.style.transform = `translateY(${(1-c)*24}px)`;
+      introSide.style.opacity = c;
+      if(!renderer){ const pct = clamp(seg(p,.06,.6))*100; setCut(pct); }
+    }
+    if(s.id==='experience'){
+      const k = p < .36 ? 0 : p < .68 ? 1 : 2;
+      if(k !== expStep){ expStep = k; callouts.forEach((c,i) => c.classList.toggle('on', i===k)); }
+    }
+    if(s.id==='services') setSvc(clamp(Math.floor(clamp(p)*SERVICES.length), 0, SERVICES.length-1));
+    if(s.id==='app'){
+      const k = clamp(Math.floor((p - 0.12)/0.8*4), 0, 3);
+      if(k !== featIdx){ featIdx = k; featItems.forEach((li,i) => li.classList.toggle('on', i===k));
+        if(k !== scrTarget){ scrFrom = scrTarget; scrTarget = k; scrT = 0; } }
+    }
+    if(s.id==='final'){
+      if(p > .3 && !finalSnipped){ finalSnipped = true; snip(); }
+      if(p < .1) finalSnipped = false;
+    }
+  }
+}
+function setCut(pct){
+  const a = pct.toFixed(2);
+  cutFull.style.clipPath = `inset(0 0 0 ${a}%)`;
+  cutTop.style.clipPath = `inset(0 ${(100-pct).toFixed(2)}% 48% 0)`;
+  cutBot.style.clipPath = `inset(52% ${(100-pct).toFixed(2)}% 0 0)`;
+}
+setCut(0);
+
+/* ================= Snips & strands ================= */
+let snipAt = -10, snipEmitted = true, lastSnipPhase = 0;
+function snip(){ if(reduced || !renderer) return; if(T - snipAt < 0.3) return; snipAt = T; snipEmitted = false; }
+const _v = renderer ? new THREE.Vector3() : null;
+function emitStrands(count){
+  if(!strands || !scissor) return;
+  const A = actors.scissor; if(!A.obj.visible || A.cur.v < 0.3) return;
+  const origin = new THREE.Vector3(0.75, 0, 0).applyMatrix4(scissor.root.matrixWorld);
+  const s = A.cur.s;
+  for(let i=0;i<count;i++){
+    const st = strands.pool[strands.next]; strands.next = (strands.next + 1) % strands.N;
+    st.alive = true; st.life = 0;
+    st.p.copy(origin).add(new THREE.Vector3((Math.random()-.5)*0.6*s, (Math.random()-.5)*0.2*s, (Math.random()-.5)*0.3));
+    st.v.set((Math.random()-.5)*1.4, Math.random()*0.9 + 0.2, (Math.random()-.5)*1.2);
+    st.d.set(Math.random()-.5, Math.random()-.5, Math.random()-.5).normalize();
+    st.ax.set(Math.random()-.5, Math.random()-.5, Math.random()-.5).normalize();
+    st.w = (Math.random()-.5)*6; st.len = (0.08 + Math.random()*0.22) * Math.max(0.6, s); st.curl = (Math.random()-.5)*0.06;
+  }
+}
+function emitAt(pt, count){
+  if(!strands || reduced) return;
+  for(let i=0;i<count;i++){
+    const st = strands.pool[strands.next]; strands.next = (strands.next + 1) % strands.N;
+    st.alive = true; st.life = 0;
+    st.p.set(pt[0] + (Math.random()-.5)*0.35, pt[1] + (Math.random()-.5)*0.3, pt[2] + (Math.random()-.5)*0.35);
+    st.v.set((Math.random()-.5)*0.5, Math.random()*0.35 - 0.1, (Math.random()-.5)*0.5);
+    st.d.set((Math.random()-.5)*0.4, 1, (Math.random()-.5)*0.4).normalize();
+    st.ax.set(Math.random()-.5, Math.random()-.5, Math.random()-.5).normalize();
+    st.w = (Math.random()-.5)*2.5; st.len = 0.25 + Math.random()*0.55; st.curl = (Math.random()-.5)*0.1;
+  }
+}
+const _perp = renderer ? new THREE.Vector3() : null, _tmp = renderer ? new THREE.Vector3() : null;
+function updateStrands(dt){
+  if(!strands) return;
+  const a = strands.posArr; let any = false;
+  strands.pool.forEach((st, i) => {
+    const o = i*12;
+    if(!st.alive){ for(let k=0;k<12;k++) a[o+k] = 0; a[o+1]=a[o+4]=a[o+7]=a[o+10] = -999; return; }
+    any = true; st.life += dt;
+    st.v.y -= 1.6*dt; st.v.multiplyScalar(Math.pow(0.35, dt));
+    st.p.addScaledVector(st.v, dt);
+    _tmp.crossVectors(st.ax, st.d).multiplyScalar(st.w*dt); st.d.add(_tmp).normalize();
+    if(st.p.y < -hh - 3 || st.life > 6) st.alive = false;
+    _perp.crossVectors(st.d, st.ax).normalize().multiplyScalar(st.curl);
+    const h = st.len/2;
+    const x0 = st.p.x - st.d.x*h, y0 = st.p.y - st.d.y*h, z0 = st.p.z - st.d.z*h;
+    const x1 = st.p.x + _perp.x, y1 = st.p.y + _perp.y, z1 = st.p.z + _perp.z;
+    const x2 = st.p.x + st.d.x*h, y2 = st.p.y + st.d.y*h, z2 = st.p.z + st.d.z*h;
+    a[o]=x0;a[o+1]=y0;a[o+2]=z0; a[o+3]=x1;a[o+4]=y1;a[o+5]=z1; a[o+6]=x1;a[o+7]=y1;a[o+8]=z1; a[o+9]=x2;a[o+10]=y2;a[o+11]=z2;
+  });
+  strands.geo.attributes.position.needsUpdate = true;
+  strands.lines = any;
+}
+
+/* ================= Input ================= */
+const mouse = {x:0, y:0, tx:0, ty:0};
+addEventListener('pointermove', e => { mouse.tx = (e.clientX/W)*2-1; mouse.ty = (e.clientY/H)*2-1; }, {passive:true});
+$('.snip-btn').addEventListener('click', snip);
+
+// mobile menu
+const menu = $('#menu'), menuBtn = $('.menu-btn');
+const menuOpen = () => document.documentElement.classList.contains('menu-open');
+function setMenu(open){
+  document.documentElement.classList.toggle('menu-open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  menu.hidden = !open;
+  document.body.style.overflow = open ? 'hidden' : '';
+  if(open){
+    if(lenis) lenis.stop();
+    if(window.gsap && !reduced) gsap.fromTo('#menu nav a, .menu-foot > *', {y:28, opacity:0}, {y:0, opacity:1, duration:.6, stagger:.045, ease:'power3.out'});
+    menu.querySelector('a').focus();
+  } else if(lenis) lenis.start();
+}
+menuBtn.addEventListener('click', () => { const o = !menuOpen(); setMenu(o); if(!o) menuBtn.focus(); });
+menu.addEventListener('click', e => { if(e.target.closest('a')) setMenu(false); });
+addEventListener('keydown', e => {
+  if(!menuOpen()) return;
+  if(e.key === 'Escape'){ setMenu(false); menuBtn.focus(); return; }
+  if(e.key === 'Tab'){
+    const f = [menuBtn, ...$$('a', menu)], i = f.indexOf(document.activeElement);
+    if(e.shiftKey && i <= 0){ e.preventDefault(); f[f.length-1].focus(); }
+    else if(!e.shiftKey && i === f.length-1){ e.preventDefault(); f[0].focus(); }
+  }
+});
+
+/* ================= Smooth scroll ================= */
+let lenis = null;
+if(!reduced && window.Lenis){
+  try{ lenis = new window.Lenis({lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9}); }catch(e){ lenis = null; }
+}
+function scrollToY(y){
+  if(lenis) lenis.scrollTo(y, {duration: 1.8}); else window.scrollTo({top:y, behavior: reduced?'auto':'smooth'});
+}
+const railControl = $('.rail');
+let railDragging = false;
+function scrollFromRail(e){
+  const rect = railControl.getBoundingClientRect();
+  const max = Math.max(0, document.documentElement.scrollHeight - innerHeight);
+  const progress = clamp((e.clientY - rect.top)/rect.height);
+  const target = progress*max;
+  window.scrollTo(0, target);
+}
+railControl.addEventListener('pointerdown', e => {
+  if(e.button !== 0) return;
+    smoothing = false;
+  railControl.setPointerCapture(e.pointerId);
+  scrollFromRail(e);
+});
+railControl.addEventListener('pointermove', e => { if(railDragging) scrollFromRail(e); });
+['pointerup','pointercancel','lostpointercapture'].forEach(type => railControl.addEventListener(type, () => { railDragging = false; }));
+railControl.addEventListener('keydown', e => {
+  const max = Math.max(0, document.documentElement.scrollHeight - innerHeight);
+  const steps = {ArrowDown:innerHeight*0.08, ArrowUp:-innerHeight*0.08, PageDown:innerHeight*0.9, PageUp:-innerHeight*0.9};
+  if(e.key === 'Home'){ e.preventDefault(); window.scrollTo({top:0, behavior:reduced?'auto':'smooth'}); }
+  else if(e.key === 'End'){ e.preventDefault(); window.scrollTo({top:max, behavior:reduced?'auto':'smooth'}); }
+  else if(Object.prototype.hasOwnProperty.call(steps, e.key)){ e.preventDefault(); window.scrollTo({top:clamp(scrollY + steps[e.key], 0, max), behavior:reduced?'auto':'smooth'}); }
+});
+/* ---- smooth wheel scrolling (eases toward a target) ---- */
+let smoothY = 0, targetY = 0, smoothing = false;
+const maxScroll = () => Math.max(0, document.documentElement.scrollHeight - innerHeight);
+addEventListener('wheel', e => {
+  if(e.ctrlKey || menuOpen() || reduced) return;   // let pinch-zoom / menu / reduced-motion behave normally
+  e.preventDefault();
+  if(!smoothing){ smoothY = targetY = scrollY; }
+  const d = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1);
+  targetY = clamp(targetY + d, 0, maxScroll());
+  smoothing = true;
+}, {passive:false});
+// keep in sync when scrolling happens by other means (keyboard, rail, touch, anchors)
+addEventListener('scroll', () => { if(!smoothing){ smoothY = targetY = scrollY; } }, {passive:true});
+addEventListener('keydown', () => { smoothing = false; });
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]'); if(!a) return;
+  const id = a.getAttribute('href').slice(1); const el = id ? document.getElementById(id) : null;
+  if(!el){ if(id==='') return; return; }
+  e.preventDefault();
+  const s = byId[id];
+  let y = el.offsetTop;
+  if(s && s.id==='about') y = s.start + (s.end - s.start)*0.02;
+  if(s && s.id==='experience') y = s.start + (s.end - s.start)*0.05;
+  scrollToY(y);
+  history.replaceState(null, '', '#'+id);
+});
+svcList.addEventListener('click', e => {
+  const b = e.target.closest('[data-j]'); if(!b) return;
+  const s = byId.services, j = +b.dataset.j;
+  scrollToY(s.start + (j + 0.5)/SERVICES.length*(s.end - s.start));
+});
+
+/* ================= Resize ================= */
+function resize(force){
+  const oldW = W, oldP = P;
+  metrics();
+  if(force || Math.abs(innerHeight - VH) > 140 || W !== oldW || P !== oldP) VH = innerHeight;
+  if(renderer){
+    prCap = Math.min(prCap, Math.min(devicePixelRatio || 1, lowPower ? 1.5 : 2));
+    renderer.setPixelRatio(prCap);
+    renderer.setSize(W, H, false);
+    camera.aspect = W/H; camera.updateProjectionMatrix();
+  }
+  layoutHeights(); fitCutline(); measure();
+  positionLayers(scrollY); cacheRects();
+  if(lenis) lenis.resize && lenis.resize();
+  if(!P && menuOpen()) setMenu(false);
+}
+let prCap = 2, perfN = 0, perfT = 0;
+// adaptive resolution: if the device can't hold ~40fps, step the pixel ratio down (never below 1)
+function adaptQuality(dt){
+  if(!renderer || document.hidden || T < 4 || $('#loader')) return;
+  perfN++; perfT += dt;
+  if(perfN >= 90){
+    if(perfT/perfN > 1/40 && prCap > 1){ prCap = Math.max(1, prCap - 0.25); renderer.setPixelRatio(prCap); renderer.setSize(W, H, false); }
+    perfN = 0; perfT = 0;
+  }
+}
+let rzT; addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(() => resize(false), 120); });
+
+smoothY = targetY = scrollY;
+/* ================= Render loop ================= */
+const rail = $('.rail i');
+let last = performance.now(), bgStr = '', fgKey = '', boot = reduced ? 1 : 0, booting = false, atmoStr = '';
+const atmo = $('#atmo');
+const hairCur = {c:[0,0,0,0,0,0], st:0}, hairBuilt = {c:[0,0,0,0,0,0], st:0}, prevCut = [0,0,0,0,0,0];
+const lin = v => Math.pow(v/255, 2.2);
+const camCur = {p:[0,0,10], l:[0,0,0]};
+function dampPose(c, t, k, dt){
+  const f = 1 - Math.exp(-k*dt);
+  if(t.v < 0.01 && c.v < 0.04){ c.p = t.p.slice(); c.r = t.r.slice(); c.s = t.s; }
+  for(let i=0;i<3;i++){ c.p[i] += (t.p[i]-c.p[i])*f; c.r[i] += (t.r[i]-c.r[i])*f; }
+  c.s += (t.s-c.s)*f; c.o += (t.o-c.o)*f; c.v += (t.v-c.v)*f; c.sp += (t.sp-c.sp)*f; c.sn += (t.sn-c.sn)*f; c.wob += (t.wob-c.wob)*f; c.bob += (t.bob-c.bob)*f;
+}
+const expSvg = {ln:[$('#ln0'),$('#ln1'),$('#ln2')], dt:[$('#dt0'),$('#dt1'),$('#dt2')], a:$('#orbA'), b:$('#orbB'), dots:$('#orbDots')};
+{ let h = ''; for(let i=0;i<16;i++) h += '<circle class="dot" r="2"/>'; expSvg.dots.innerHTML = h; }
+function project(local, obj){
+  _v.copy(local).applyMatrix4(obj.matrixWorld).project(camera);
+  return [(_v.x+1)/2*W, (1-_v.y)/2*H];
+}
+const LOC_PTS = renderer ? [new THREE.Vector3(2.28,0.03,0.03), new THREE.Vector3(0,0,0), new THREE.Vector3(-1.36,-0.53,0.02)] : [];
+
+function frame(now){
+  const dt = Math.min(0.1, (now - last)/1000); last = now; T += dt;
+  adaptQuality(dt);
+    if(lenis) lenis.raf(now);
+  if(smoothing){
+    smoothY += (targetY - smoothY) * (1 - Math.exp(-9*dt));
+    if(Math.abs(targetY - smoothY) < 0.5){ smoothY = targetY; smoothing = false; }
+    window.scrollTo({top: smoothY, behavior: 'instant'});
+  }
+  const y = window.scrollY;
+  positionLayers(y);
+  sectionDOM(y);
+  const docH = document.documentElement.scrollHeight - H;
+  const progress = clamp(y/Math.max(1,docH));
+  rail.style.transform = `scaleY(${progress.toFixed(4)})`;
+  rail.parentElement.setAttribute('aria-valuenow', String(Math.round(progress*100)));
+
+  const out = evaluate(y);
+  const bs = `rgb(${out.bg.map(v=>Math.round(v)).join(',')})`;
+  const bcs = bs;
+  if(bs + bcs !== bgStr){ bgStr = bs + bcs; document.body.style.background = bs; document.documentElement.style.setProperty('--bgc', bcs); }
+  if(out.fg !== fgKey){ fgKey = out.fg; document.documentElement.style.setProperty('--fg-rgb', FG[out.fg]); }
+  // atmosphere: a soft glow tinted by the section accent, plus a vignette that is deeper on dark sections
+  const lm = smooth(lum(out.bg)), acc = out.acc || accOf(out);
+  const gc = L3(acc, [255,255,255], lm).map(Math.round).join(',');
+  const as = gc + '|' + lerp(0.13, 0.5, lm).toFixed(3) + '|' + lerp(0.55, 0.1, lm).toFixed(3);
+  if(as !== atmoStr){ atmoStr = as; const [g, ga, va] = as.split('|'); atmo.style.setProperty('--glow', g); atmo.style.setProperty('--ga', ga); atmo.style.setProperty('--va', va); }
+  if(renderer){
+    mouse.x += (mouse.tx - mouse.x)*Math.min(1, dt*3); mouse.y += (mouse.ty - mouse.y)*Math.min(1, dt*3);
+    // section lighting: key, rim and fill take the colour of the room
+    keyL.intensity = lerp(1.55, 1.1, lm);
+    rimL.color.setRGB(lin(acc[0])*0.8 + 0.2, lin(acc[1])*0.8 + 0.2, lin(acc[2])*0.8 + 0.2); rimL.intensity = lerp(1.15, 0.75, lm);
+    hemiL.color.setRGB(lerp(1, lin(out.bg[0]), .4), lerp(1, lin(out.bg[1]), .4), lerp(1, lin(out.bg[2]), .4));
+    hemiL.groundColor.setRGB(lin(out.bg[0])*0.5, lin(out.bg[1])*0.5, lin(out.bg[2])*0.5); hemiL.intensity = lerp(0.3, 0.55, lm);
+    renderer.toneMappingExposure = lerp(1.08, 1.0, lm);
+    { const mx = Math.max(acc[0], acc[1], acc[2], 1);
+      ['chrome','satin'].forEach(k => { const m = MATS[k], b = m.userData.base;
+        m.color.setRGB(b.r*0.86 + acc[0]/mx*0.14, b.g*0.86 + acc[1]/mx*0.14, b.b*0.86 + acc[2]/mx*0.14); }); }
+    // camera
+    const cf = 1 - Math.exp(-5*dt);
+    for(let i=0;i<3;i++){ camCur.p[i] += (out.cam.p[i]-camCur.p[i])*cf; camCur.l[i] += (out.cam.l[i]-camCur.l[i])*cf; }
+    camera.position.set(...camCur.p); camera.lookAt(...camCur.l);
+
+    // actors
+    for(const name in actors){
+      const A = actors[name];
+      const t = out.a[name] || Object.assign({}, A.cur, {v:0, p:A.cur.p.slice(), r:A.cur.r.slice()});
+      dampPose(A.cur, t, name==='scissor' ? 7.5 : 6, dt);
+      const c = A.cur, o = A.obj;
+      if(c.v < 0.004){ o.visible = false; continue; }
+      o.visible = true;
+      A.spin += (reduced ? 0 : c.sp)*dt;
+      let rx = c.r[0], ry = c.r[1] + A.spin, rz = c.r[2];
+      if(c.wob > 0 && !reduced){ rx += c.wob*(Math.sin(T*0.5)*0.08 + mouse.y*0.14); ry += c.wob*(Math.sin(T*0.37)*0.12 + mouse.x*0.22); }
+      let py = c.p[1]; if(c.bob > 0 && !reduced) py += Math.sin(T*1.1 + A.seed)*0.1*c.bob;
+      o.position.set(c.p[0], py, c.p[2]); o.rotation.set(rx, ry, rz);
+      o.scale.setScalar(Math.max(1e-4, c.s*outCubic(clamp(c.v))));
+    }
+    // scissor boot entrance
+    const sc = actors.scissor;
+    if(boot < 1 && booting){
+      boot = Math.min(1, boot + dt/2.4);
+      const k = (1 - outCubic(boot)) * (1 - seg(byId.top.p, 0, 0.12));
+      sc.obj.position.y += k*hh*1.9; sc.obj.rotation.z += k*-3.4; sc.obj.rotation.x += k*1.2;
+      if(boot > 0.72 && snipAt < 0) snip();
+    }
+    // open / snip
+    let open = sc.cur.o;
+    const since = T - snipAt;
+    if(since < 0.36) open += Math.sin(Math.PI*since/0.36)*0.75;
+    if(since >= 0.2 && !snipEmitted) snipEmitted = true;
+    if(sc.cur.sn > 0.02 && !reduced){
+      const ph = 0.5 - 0.5*Math.cos(T*13);
+      open += sc.cur.sn*0.55*ph;
+    }
+    open = clamp(open, 0, 1.15);
+    scissor.A.rotation.z = open*0.34; scissor.B.rotation.z = -open*0.34;
+
+    // dust
+    if(dust){ dust.v += (out.dust - dust.v)*(1 - Math.exp(-3*dt)); dust.mat.opacity = dust.v*0.75; dust.pts.visible = dust.v > 0.01;
+      if(dust.pts.visible && !reduced){ const a = dust.arr; for(let i=0;i<dust.N;i++){ a[i*3+1] += Math.sin(T*0.3 + i)*0.0015 + 0.002; if(a[i*3+1] > 4.5) a[i*3+1] = -4.5; } dust.pts.geometry.attributes.position.needsUpdate = true; } }
+
+    scene.updateMatrixWorld();
+
+    // intro cut follows the real scissor position
+    const sa = byId.about;
+    if(Math.abs(sa.ty) < VH || (y >= sa.start && y <= sa.end)){
+      const r = cutFull.getBoundingClientRect();
+      let pct;
+      if(!sc.obj.visible || sc.cur.v < 0.2) pct = sa.p > 0.5 ? 100 : 0;
+      else { const sx = project(new THREE.Vector3(0.55,0,0), scissor.root)[0]; pct = clamp((sx - r.left)/Math.max(1, r.width))*100; }
+      if(sa.p < 0) pct = 0;
+      setCut(pct);
+    }
+    // experience callout lines
+    const se = byId.experience;
+    if(Math.abs(se.ty) < VH && !P && sc.obj.visible){
+      const pts = [project(LOC_PTS[0], scissor.A), project(LOC_PTS[1], scissor.root), project(LOC_PTS[2], scissor.A)];
+      const ty = se.ty;
+      pts.forEach((pt, i) => {
+        const L = R.labels[i]; if(!L) return;
+        const ax = pt[0], ay = pt[1] - ty;
+        const right = i < 2;
+        const lx = right ? L.l - 14 : L.l + L.w + 14, ly = L.t + 16;
+        const ex = right ? lx - 46 : lx + 46;
+        expSvg.ln[i].setAttribute('d', `M${ax.toFixed(1)},${ay.toFixed(1)} L${ex.toFixed(1)},${ly.toFixed(1)} L${lx.toFixed(1)},${ly.toFixed(1)}`);
+        expSvg.ln[i].style.strokeOpacity = i===expStep ? 0.9 : 0.22;
+        expSvg.dt[i].setAttribute('cx', ax.toFixed(1)); expSvg.dt[i].setAttribute('cy', ay.toFixed(1));
+        expSvg.dt[i].style.opacity = i===expStep ? 1 : 0.35;
+      });
+      const cx = pts[1][0], cy = pts[1][1] - ty, k = Math.min(W,H)/900;
+      expSvg.a.setAttribute('cx', cx); expSvg.a.setAttribute('cy', cy); expSvg.a.setAttribute('r', 150*k);
+      expSvg.b.setAttribute('cx', cx); expSvg.b.setAttribute('cy', cy); expSvg.b.setAttribute('r', 250*k);
+      [...expSvg.dots.children].forEach((d, i) => { const a = i/16*Math.PI*2 + T*0.08; const rr2 = (i%2 ? 250 : 150)*k;
+        d.setAttribute('cx', (cx + Math.cos(a)*rr2).toFixed(1)); d.setAttribute('cy', (cy + Math.sin(a)*rr2).toFixed(1)); });
+    }
+    // phone screen crossfade
+    if(scrT < 1 && actors.phone.obj.visible){ scrT = Math.min(1, scrT + dt/0.45); paintPhone(); if(scrT >= 1){ scrFrom = scrTarget; } }
+    renderer.render(scene, camera);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ================= Boot ================= */
+function start(){
+  resize(true);
+  drawScreens(); scrFrom = scrTarget = 0; scrT = 1; paintPhone();
+  if(scissor && scissor.A.userData.tex) scissor.A.userData.tex.userData.draw();
+  if(renderer){ // warm-up compile
+    for(const n in actors) actors[n].obj.visible = true;
+    renderer.compile(scene, camera);
+    for(const n in actors) actors[n].obj.visible = false;
+  }
+  requestAnimationFrame(t => { last = t; frame(t); });
+  const loader = $('#loader');
+  const done = () => { if(loader) loader.remove(); booting = scrollY < VH; if(!booting) boot = 1; };
+  if(loader && window.gsap && !reduced){
+    // scissor opens, snips shut, ALUMA appears, then the hero takes over
+    loader.classList.add('go');
+    const so = {svgOrigin:'110 60'};
+    const tl = gsap.timeline();
+    tl.to('.ld-a', Object.assign({rotation:-24, duration:.38, ease:'power2.out'}, so), 0)
+      .to('.ld-b', Object.assign({rotation:24, duration:.38, ease:'power2.out'}, so), 0)
+      .to(['.ld-a','.ld-b'], Object.assign({rotation:0, duration:.14, ease:'power4.in'}, so), .5)
+      .to('.ld-sc', {scale:1.04, duration:.12, yoyo:true, repeat:1, transformOrigin:'50% 50%'}, .64)
+      .to('.ld-word span', {y:0, duration:.9, ease:'expo.out', stagger:.06}, .66)
+      .to('.ld', {opacity:0, y:-14, duration:.5, ease:'power2.in'}, 1.5)
+      .to(loader, {opacity:0, duration:.55, ease:'power2.out', onComplete:done}, 1.75);
+    gsap.from('.hero-word .m span', {yPercent:110, duration:1.5, ease:'expo.out', stagger:0.07, delay:1.95});
+    gsap.from('.hero-bottom > *, .nav', {opacity:0, y:16, duration:1.1, ease:'power3.out', stagger:0.1, delay:2.4});
+  } else { if(loader) loader.style.display = 'none'; done(); }
+}
+const fontsReady = document.fonts ? Promise.race([document.fonts.load('300 40px Jost'), new Promise(r => setTimeout(r, 2500))]).then(() => document.fonts.ready) : Promise.resolve();
+Promise.race([fontsReady, new Promise(r => setTimeout(r, 3000))]).then(start);
+})();
+</script>
+
+
+</body></html>
