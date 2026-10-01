@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Aluma Salon | Editorial Scrapbook Menu</title>
+  <meta name="description" content="Aluma Salon luxury scrapbook lookbook menu. Browse authentic grooming treatments and services for men and women.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --ink: #080808;
+      --ivory: #F4F1EA;
+      --sage: #C9D8C5;
+      --mint: #DCE8DF;
+      --sand: #D8C8B5;
+      --nude: #E6D5CA;
+      --blush: #E8D6D1;
+      --olive: #AEB9A5;
+      --champagne: #CBB892;
+      --chrome: #BFC4C7;
+      --bg: #080808;
+      --fg-rgb: 244, 241, 234;
+      --bgc: #080808;
+      --pad: clamp(20px, 4vw, 60px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background: var(--bg);
+      color: rgb(var(--fg-rgb));
+      font-family: 'Jost', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+      overflow-y: hidden; /* App view with wheel driven flipbook */
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .font-serif-title { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* Atmosphere Lighting from index.html */
+    #atmo {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      --glow: 191, 196, 199;
+      --ga: 0.08;
+      --va: 0.6;
+      background: 
+        radial-gradient(85% 70% at 58% 40%, rgba(var(--glow), var(--ga)) 0%, rgba(var(--glow), 0) 70%),
+        radial-gradient(150% 125% at 50% 45%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, var(--va)) 100%);
+    }
+
+    .book-viewport {
+      perspective: 2600px;
+      perspective-origin: 50% 50%;
+      position: relative;
+      z-index: 10;
+    }
+
+    .book-container {
+      position: relative;
+      width: 100%;
+      max-width: 980px;
+      height: min(84vh, 660px);
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Hardcover Spine Depth Shadow */
+    .book-container::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 52px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, 
+        rgba(0,0,0,0.3) 0%, 
+        rgba(0,0,0,0.12) 30%, 
+        rgba(255,255,255,0.06) 50%, 
+        rgba(0,0,0,0.12) 70%, 
+        rgba(0,0,0,0.3) 100%
+      );
+      pointer-events: none;
+      z-index: 50;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    /* Flip Leaf Definition */
+    .flip-leaf {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+      cursor: pointer;
+    }
+
+    .flip-leaf.flipped {
+      transform: rotateY(-180deg);
+    }
+
+    .leaf-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      overflow: hidden;
+      background: var(--ivory);
+      color: var(--ink);
+      box-shadow: 
+        inset 0 0 45px rgba(0, 0, 0, 0.04), 
+        0 12px 35px -8px rgba(0, 0, 0, 0.6);
+    }
+
+    .leaf-face.front {
+      border-radius: 0 16px 16px 0;
+      border-left: 1px solid rgba(8, 8, 8, 0.12);
+      transform: rotateY(0deg);
+    }
+
+    .leaf-face.back {
+      border-radius: 16px 0 0 16px;
+      border-right: 1px solid rgba(8, 8, 8, 0.12);
+      transform: rotateY(180deg);
+    }
+
+    /* Inner Gutter Gradients */
+    .inner-gutter-right {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to right, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.03) 6%, transparent 18%);
+    }
+
+    .inner-gutter-left {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to left, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.03) 6%, transparent 18%);
+    }
+
+    /* Luxury Editorial Paper Background */
+    .paper-look {
+      background-color: var(--ivory);
+      background-image: 
+        radial-gradient(circle at 85% 15%, rgba(203,184,146,0.16) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(216,200,181,0.2) 0%, transparent 55%),
+        linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(244,241,234,0.95));
+    }
+
+    /* Cover Page Texture */
+    .paper-cover-light {
+      background-color: #ECE7DC;
+      background-image: 
+        radial-gradient(circle at 50% 45%, rgba(203,184,146,0.25) 0%, transparent 70%),
+        radial-gradient(circle at 15% 20%, rgba(191,196,199,0.18) 0%, transparent 40%);
+    }
+
+    /* Paper curl cue at edge */
+    .edge-curl {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, transparent 50%, rgba(203,184,146,0.3) 50%, rgba(0,0,0,0.12) 100%);
+      clip-path: polygon(100% 0, 0 100%, 100% 100%);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .flip-leaf:hover .edge-curl {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, transparent 50%, #CBB892 50%, rgba(0,0,0,0.22) 100%);
+    }
+
+    /* Custom Minimal Scrollbar for item lists */
+    .page-scroll::-webkit-scrollbar { width: 4px; }
+    .page-scroll::-webkit-scrollbar-thumb { background: rgba(203,184,146,0.4); border-radius: 4px; }
+    .page-scroll::-webkit-scrollbar-track { background: transparent; }
+
+    /* Single page on Mobile Screens */
+    @media (max-width: 768px) {
+      .book-container::after { display: none; }
+      .flip-leaf {
+        width: 100%;
+        right: 0;
+        left: 0;
+      }
+      .flip-leaf.flipped {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="relative">
+
+  <div id="atmo" aria-hidden="true"></div>
+
+  <!-- FLOATING TOP BAR: Back Link + Gender Toggle Pill + Controls (NO HEADER BAR) -->
+  <div class="fixed top-0 left-0 right-0 z-40 px-4 md:px-8 pt-5 pb-3 flex items-center justify-between pointer-events-none">
+    
+    <!-- Left: Minimal Back to Home link -->
+    <a href="index.html" class="pointer-events-auto inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212]/80 hover:bg-[#1f1f1f] border border-white/10 text-xs md:text-sm text-[#F4F1EA] hover:text-[#CBB892] transition-all backdrop-blur-md shadow-lg group">
+      <svg class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      <span>Back</span>
+    </a>
+
+    <!-- Center: Floating Men / Women Luxury Segment Pill -->
+    <div class="pointer-events-auto bg-[#121212]/85 backdrop-blur-md border border-[#CBB892]/30 p-1 rounded-full flex items-center shadow-2xl">
+      <button 
+        id="btnWomen" 
+        onclick="switchMenu('women')"
+        class="px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 bg-[#CBB892] text-[#080808] shadow-sm"
+      >
+        <span>Women's Menu</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#080808]/70"></span>
+      </button>
+      <button 
+        id="btnMen" 
+        onclick="switchMenu('men')"
+        class="px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 text-[#F4F1EA]/70 hover:text-white"
+      >
+        <span>Men's Menu</span>
+      </button>
+    </div>
+
+    <!-- Right: Audio toggle & Quick book -->
+    <div class="pointer-events-auto flex items-center gap-2 md:gap-3">
+      <!-- Sound toggle -->
+      <button 
+        id="soundBtn" 
+        onclick="toggleSound()" 
+        class="w-8 h-8 rounded-full bg-[#121212]/80 hover:bg-[#1f1f1f] border border-white/10 flex items-center justify-center text-[#CBB892] backdrop-blur-md transition shadow"
+        title="Toggle paper flip sound"
+      >
+        <svg id="soundOnIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+        <svg id="soundOffIcon" class="w-3.5 h-3.5 hidden text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
+      </button>
+
+      <!-- Book CTA -->
+      <a 
+        href="index.html#book" 
+        class="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#CBB892] text-[#080808] hover:bg-[#DFCEAC] text-xs md:text-sm font-medium transition shadow-md"
+      >
+        <span>Book Now</span>
+      </a>
+    </div>
+
+  </div>
+
+  <main class="flex-1 flex flex-col items-center justify-center p-3 md:p-6 w-full relative z-10 pt-16">
+    
+    <!-- Flipbook Viewport Container -->
+    <div class="book-viewport w-full max-w-5xl flex items-center justify-center my-auto">
+      
+      <!-- 3D Book Leaves Container -->
+      <div id="book" class="book-container">
+        <!-- Rendered by JS Engine into 3D Flip Leaves -->
+      </div>
+
+    </div>
+
+    <div class="w-full max-w-3xl mt-4 flex items-center justify-between px-3 md:px-6 z-20">
+      
+      <!-- Prev Spread -->
+      <button 
+        id="btnPrev" 
+        onclick="flipPrev()" 
+        class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#121212]/80 hover:bg-[#1c1c1e] border border-white/10 hover:border-[#CBB892]/50 text-xs md:text-sm text-[#F4F1EA] transition backdrop-blur-md disabled:opacity-20 disabled:pointer-events-none group"
+      >
+        <svg class="w-4 h-4 text-[#CBB892] group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        <span class="hidden sm:inline">Previous</span>
+      </button>
+
+      <!-- Spread Scrubbing & Page Dots -->
+      <div class="flex flex-col items-center gap-1">
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] uppercase tracking-widest text-white/40">Spread</span>
+          <span id="pageIndicator" class="text-xs md:text-sm tracking-widest text-[#CBB892] font-semibold">1 / 7</span>
+        </div>
+        <div id="dotTrack" class="flex items-center gap-1.5">
+          <!-- Spread dots injected here -->
+        </div>
+      </div>
+
+      <!-- Next Spread -->
+      <button 
+        id="btnNext" 
+        onclick="flipNext()" 
+        class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#121212]/80 hover:bg-[#1c1c1e] border border-white/10 hover:border-[#CBB892]/50 text-xs md:text-sm text-[#F4F1EA] transition backdrop-blur-md disabled:opacity-20 disabled:pointer-events-none group"
+      >
+        <span class="hidden sm:inline">Next</span>
+        <svg class="w-4 h-4 text-[#CBB892] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+
+    </div>
+
+    <!-- Interaction hints (Wheel / Arrow keys / Drag) -->
+    <p class="text-[11px] text-white/40 mt-2 tracking-widest text-center flex items-center justify-center gap-3">
+      <span>Scroll wheel / Touch swipe to turn pages</span>
+      <span>•</span>
+      <span>Click any item to book</span>
+    </p>
+
+  </main>
+
+  <div id="quickBookModal" class="fixed inset-0 z-50 bg-[#080808]/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-[#121212] border border-[#CBB892]/40 max-w-sm w-full rounded-2xl p-6 shadow-2xl text-center relative">
+      <button onclick="closeBookModal()" class="absolute top-4 right-4 text-white/40 hover:text-white text-lg">&times;</button>
+      
+      <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-[#CBB892]/10 border border-[#CBB892]/30 flex items-center justify-center text-[#CBB892]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      </div>
+
+      <p class="text-[10px] tracking-widest uppercase text-[#CBB892] mb-1">Selected Treatment</p>
+      <h3 id="modalServiceTitle" class="text-lg font-medium text-[#F4F1EA] mb-1">Haircut</h3>
+      <p id="modalServicePrice" class="text-xl font-semibold text-[#CBB892] mb-4">₹999</p>
+      <p class="text-xs text-white/60 mb-6">Experience this service at Aluma salon with certified stylists. Continue to appointment booking.</p>
+
+      <div class="flex gap-2.5">
+        <button onclick="closeBookModal()" class="flex-1 py-2 rounded-full border border-white/20 text-xs text-white hover:bg-white/5 transition">Close</button>
+        <a id="modalBookLink" href="index.html#book" class="flex-1 py-2 rounded-full bg-[#CBB892] text-[#080808] font-medium text-xs hover:bg-[#DFCEAC] transition flex items-center justify-center">Proceed to Book</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WOMEN_DATA = [
+      // Spread 1: Cover (Light luxury linen style)
+      {
+        type: 'cover',
+        tag: "WOMEN'S GROOMING",
+        title: "ALUMA",
+        subtitle: "One membership for hair and beauty",
+        salonRef: "Bengaluru Salons",
+        footer: "WWW.ALUMA.SALON"
+      },
+      // Spread 2: Hair Cut, Wash & Style + Threading
+      {
+        category: "Hair Cut, Wash & Style",
+        tag: "PRECISION & FINISH",
+        columns: [
+          {
+            title: "Haircuts & Styling",
+            items: [
+              { name: "Kids Haircut", price: 499, tag: "Gentle" },
+              { name: "Basic Hair Cut (U, V & Straight)", price: 699, tag: "Classic" },
+              { name: "Advance Hair Cut", price: 999, tag: "Signature" },
+              { name: "Hair Wash Regular", price: 499 },
+              { name: "Hair Wash (Sulphate Free)", price: 2799, tag: "Care" },
+              { name: "Hair Wash (Dandruff Wash)", price: 999 },
+              { name: "Blow Dry (Straight)", price: 399 },
+              { name: "Blow Dry (Out Curls & In Curls)", price: 799 },
+              { name: "Hair Wash & Blow Dry", price: 599 },
+              { name: "Ironing", price: 999 },
+              { name: "Ironing Curls", price: 1299 },
+              { name: "Hair Do", price: 21599, tag: "Artisan" }
+            ]
+          },
+          {
+            title: "Threading Essentials",
+            items: [
+              { name: "Upper Lip", price: 49 },
+              { name: "Chin", price: 49 },
+              { name: "Eyebrows", price: 59, tag: "Quick" },
+              { name: "Side Locks", price: 89 },
+              { name: "Forehead", price: 89 },
+              { name: "Full Face", price: 299, tag: "Popular" },
+              { name: "Lower Lip", price: 49 },
+              { name: "Neck", price: 99 }
+            ]
+          }
+        ]
+      },
+      // Spread 3: Rica Waxing
+      {
+        category: "Rica Waxing",
+        tag: "GENTLE DERMA CARE",
+        columns: [
+          {
+            title: "Waxing (Part 1)",
+            items: [
+              { name: "Lower Lip Wax Rica", price: 149 },
+              { name: "Upper Lip Wax Rica", price: 149 },
+              { name: "Blouse Line Wax Rica", price: 299 },
+              { name: "Buttock Crack Wax Rica", price: 399 },
+              { name: "Front Wax Rica", price: 599 },
+              { name: "Neck Wax Rica", price: 599 },
+              { name: "Full Wax (Full Arms, Legs, Underarms)", price: 1699, tag: "Value" },
+              { name: "Full Body Wax Rica", price: 3499, tag: "Complete" }
+            ]
+          },
+          {
+            title: "Waxing (Part 2)",
+            items: [
+              { name: "Bikini Wax Rica", price: 2599, tag: "Hygiene" },
+              { name: "Bikini Line Wax Rica", price: 1399 },
+              { name: "Front Bikini Area Wax Rica", price: 1399 },
+              { name: "Full Arms Wax Rica", price: 2699 },
+              { name: "Half Arm Wax Rica", price: 499 },
+              { name: "Full Legs Wax Rica", price: 999 },
+              { name: "Half Leg Wax Rica", price: 599 },
+              { name: "Back Wax Rica", price: 1499 },
+              { name: "Rica Stomach Wax", price: 599 },
+              { name: "Under Arms Wax Rica", price: 299 },
+              { name: "Face Wax Rica", price: 399 }
+            ]
+          }
+        ]
+      },
+      // Spread 4: Face Clean Up & Facials + Body De-Tan
+      {
+        category: "Face Care & De-Tan Therapy",
+        tag: "RADIANCE & DETOX",
+        columns: [
+          {
+            title: "Facials & Clean Up",
+            items: [
+              { name: "Basic Clean Up", price: 999 },
+              { name: "Premium Clean Up", price: 1499 },
+              { name: "Face D-Tan", price: 599 },
+              { name: "Neck D-Tan", price: 599 },
+              { name: "Routine Care Facial", price: 1899 },
+              { name: "Instant Glow Facial", price: 3199, tag: "Radiant" },
+              { name: "Purifying Facial", price: 3199 },
+              { name: "Glass Skin Luxury Facial", price: 5299, tag: "Signature" },
+              { name: "Vitamin C Facial", price: 5299 },
+              { name: "Hydra Facial", price: 6999, tag: "Clinical" },
+              { name: "Anti Acne Facial", price: 5299 },
+              { name: "Anti Ageing Facial", price: 5299 }
+            ]
+          },
+          {
+            title: "Full Body De-Tan",
+            items: [
+              { name: "Face Detan", price: 499 },
+              { name: "Neck Detan", price: 499 },
+              { name: "Underarms Detan", price: 249 },
+              { name: "Detan Lower / Upper Back / Midriff", price: 499 },
+              { name: "Detan Full Back", price: 799 },
+              { name: "Detan Feet", price: 699 },
+              { name: "Detan Half Arms", price: 699 },
+              { name: "Detan Full Arms", price: 1299 },
+              { name: "Detan Half Legs", price: 799 },
+              { name: "Detan Full Legs", price: 1299 },
+              { name: "Detan Full Body", price: 4999, tag: "All-Over" }
+            ]
+          }
+        ]
+      },
+      // Spread 5: Hair Colour & Nail Bar + Manicure & Pedicure
+      {
+        category: "Hair Colour & Nail Rituals",
+        tag: "PIGMENT & POLISH",
+        columns: [
+          {
+            title: "Hair Colour & Nail Bar",
+            items: [
+              { name: "Global Hair Colour (Ammonia Based)", price: 3999 },
+              { name: "Global Hair Colour (Ammonia Free)", price: 4999, tag: "Gentle" },
+              { name: "Root Touch Up (Ammonia Based)", price: 1299 },
+              { name: "Root Touch Up (Ammonia Free)", price: 1499 },
+              { name: "Highlights (Per Streak)", price: 449 },
+              { name: "Highlights Pre-Lightning (Streak)", price: 599 },
+              { name: "Crazy Colour (Streak)", price: 799 },
+              { name: "Balayage", price: 5999, tag: "Artisan" },
+              { name: "Ombre", price: 5999 },
+              { name: "Nailcut & Filing", price: 299 },
+              { name: "Nail Paint", price: 299 }
+            ]
+          },
+          {
+            title: "Manicure & Pedicure",
+            items: [
+              { name: "Nail Cut & File", price: 200 },
+              { name: "Signature Manicure", price: 599 },
+              { name: "Premium Manicure", price: 899 },
+              { name: "Anti Tan Manicure", price: 999 },
+              { name: "Luxury Bombini Manicure", price: 1399, tag: "Deluxe" },
+              { name: "Lotus Crystal Manicure", price: 2499, tag: "Pure Luxury" },
+              { name: "Signature Pedicure", price: 799 },
+              { name: "Premium Pedicure", price: 1199 },
+              { name: "Anti Tan Pedicure", price: 1399 },
+              { name: "Luxury Bombini Pedicure", price: 1799 },
+              { name: "Lotus Crystal Pedicure", price: 2899, tag: "Signature" }
+            ]
+          }
+        ]
+      },
+      // Spread 6: Hair Treatments Table + Massage & Spa
+      {
+        category: "Treatments, Massage & Spa",
+        tag: "RESTORATION & RELAXATION",
+        type: 'mixed_table',
+        table: {
+          title: "Hair Transformation Treatments",
+          headers: ["Treatment", "Shoulder", "Below Sh.", "Waist"],
+          rows: [
+            { name: "Smoothening", p1: 4999, p2: 5899, p3: 6599 },
+            { name: "Keratin", p1: 5399, p2: 6499, p3: 6999 },
+            { name: "Botox", p1: 5899, p2: 6799, p3: 7299 },
+            { name: "Nanoplastia", p1: 5999, p2: 6999, p3: 7899 },
+            { name: "Anti Dandruff Treatment", p1: 1799, p2: 2299, p3: 2499 },
+            { name: "Anti Hairfall Treatment", p1: 1799, p2: 2299, p3: 2499 },
+            { name: "Frizz Control Treatment", p1: 1799, p2: 2299, p3: 2499 },
+            { name: "Perming", p1: 3999, p2: 4799, p3: 5499 }
+          ]
+        },
+        items: [
+          { name: "Hair Spa (Basic)", price: 1800 },
+          { name: "Hair Spa (Advance)", price: 2500, tag: "Deep Moisture" },
+          { name: "Hair Spa (Moroccan)", price: 3000, tag: "Pure Argan" },
+          { name: "Head Massage (20 Min + Wash)", price: 600, tag: "Favorite" },
+          { name: "Neck & Back Massage (20 Min)", price: 1000 },
+          { name: "Foot Massage (15 Min)", price: 700 }
+        ]
+      },
+      // Spread 7: Nails, Extensions, Bridal & Wigs
+      {
+        category: "Nails, Bridal, Makeup & Extensions",
+        tag: "OCCASION & ELEVATION",
+        columns: [
+          {
+            title: "Nail Extensions & Art",
+            items: [
+              { name: "Acrylic Extension", price: 1600 },
+              { name: "Acrylic with Gel Polish", price: 2400 },
+              { name: "Acrylic with Glitter Gel", price: 2500 },
+              { name: "Acrylic with French Gel", price: 2500 },
+              { name: "Gel Extension", price: 1800 },
+              { name: "Gel Extension with Gel Polish", price: 2400 },
+              { name: "Gel Extension with Chrome Gel", price: 2800 },
+              { name: "Gel Extension Removal", price: 700 },
+              { name: "Soft Gel Extensions", price: 2400 }
+            ]
+          },
+          {
+            title: "Bridal, Makeup & Hair Wigs",
+            items: [
+              { name: "Saree Draping", price: 700 },
+              { name: "Eye Makeup", price: 900 },
+              { name: "Party Makeup", price: 3000 },
+              { name: "Engagement Makeup", price: 6000 },
+              { name: "Bridal Makeup", price: 8000, tag: "Signature" },
+              { name: "I-Tip / U-Tip / Nano Tip (Per Tip)", price: 499 },
+              { name: "Hair Topper", price: "5,000 - 30,000" },
+              { name: "Volumizer & Clip-In", price: "12,000 - 30,000" }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const MEN_DATA = [
+      // Spread 1: Cover (Light luxury linen style)
+      {
+        type: 'cover',
+        tag: "MEN'S GROOMING",
+        title: "ALUMA",
+        subtitle: "Gentlemen's Barbershop & Spa",
+        salonRef: "Bengaluru Salons",
+        footer: "WWW.ALUMA.SALON"
+      },
+      // Spread 2: Hair Cut, Wash & Style + Face Care
+      {
+        category: "Hair Cut, Shave & Face Care",
+        tag: "PRECISION BARBERING",
+        columns: [
+          {
+            title: "Hair Cut & Shave",
+            items: [
+              { name: "Hair Cut", price: 449, tag: "Signature" },
+              { name: "Kids Hair Cut", price: 299 },
+              { name: "Hair Styling", price: 199 },
+              { name: "Beard Styling", price: 249, tag: "Popular" },
+              { name: "Shave", price: 249 },
+              { name: "Beard Colour", price: 299 },
+              { name: "Hair Wash & Blow Dry", price: 299 },
+              { name: "Hair Wash (Dandruff)", price: 999 },
+              { name: "Head Shave", price: 449 }
+            ]
+          },
+          {
+            title: "Face Care & Clean Up",
+            items: [
+              { name: "Basic Clean Up", price: 999 },
+              { name: "Premium Clean Up", price: 1499 },
+              { name: "Face D-Tan", price: 599 },
+              { name: "Neck D-Tan", price: 599 },
+              { name: "Routine Care Facial", price: 1899 },
+              { name: "Instant Glow Facial", price: 3299 },
+              { name: "Glass Skin Luxury Facial", price: 5299, tag: "Signature" },
+              { name: "Hydra Facial", price: 6999, tag: "High-Tech" },
+              { name: "Anti Acne Facial", price: 5299 },
+              { name: "Anti Ageing Facial", price: 5299 }
+            ]
+          }
+        ]
+      },
+      // Spread 3: Hair Colour & Targeted De-Tan
+      {
+        category: "Colour & De-Tan Therapy",
+        tag: "TONE & REJUVENATE",
+        columns: [
+          {
+            title: "Hair Colour",
+            items: [
+              { name: "Ammonia Free Hair Colour", price: 1399, tag: "Natural" },
+              { name: "Ammonia Based Hair Colour", price: 1199 },
+              { name: "Cap Highlights", price: 3799 },
+              { name: "Hair Colour Highlights", price: 2999 }
+            ]
+          },
+          {
+            title: "Targeted De-Tan",
+            items: [
+              { name: "Face Detan", price: 599 },
+              { name: "Neck Detan", price: 599 },
+              { name: "Underarms Detan", price: 299 },
+              { name: "Detan Lower / Upper Back / Midriff", price: 499 },
+              { name: "Detan Full Back", price: 899 },
+              { name: "Detan Feet", price: 899 },
+              { name: "Detan Half Arms / Legs", price: 799 },
+              { name: "Detan Full Arms / Legs", price: 1299 },
+              { name: "Detan Full Body", price: 4999, tag: "Complete" }
+            ]
+          }
+        ]
+      },
+      // Spread 4: Massage, Head Spa & Mani-Pedi
+      {
+        category: "Massage, Spa & Grooming",
+        tag: "THERAPEUTIC RECOVERY",
+        columns: [
+          {
+            title: "Massage & Head Spa",
+            items: [
+              { name: "Hair Spa (Basic)", price: 1299 },
+              { name: "Hair Spa (Advance)", price: 1899 },
+              { name: "Hair Spa (Moroccan)", price: 2299, tag: "Argan Oil" },
+              { name: "Advance Scalp Anti Dandruff", price: 1899 },
+              { name: "Advance Scalp Anti Hairfall", price: 1899 },
+              { name: "Advance Scalp Purifying", price: 1899 },
+              { name: "Advance Scalp Hair Thinning", price: 1999 },
+              { name: "Head Massage (20 Min + Wash)", price: 599, tag: "Classic" },
+              { name: "Neck & Back Massage (20 Min)", price: 999 },
+              { name: "Face Massage (15 Min)", price: 499 },
+              { name: "Foot Massage (15 Min)", price: 799 }
+            ]
+          },
+          {
+            title: "Manicure & Pedicure",
+            items: [
+              { name: "Nail Cut & File", price: 199 },
+              { name: "Signature Manicure", price: 599 },
+              { name: "Premium Manicure", price: 999 },
+              { name: "Anti Tan Manicure", price: 1199 },
+              { name: "Lotus Crystal Manicure", price: 2599 },
+              { name: "Signature Pedicure", price: 799 },
+              { name: "Premium Pedicure", price: 1299 },
+              { name: "Anti Tan Pedicure", price: 1499 },
+              { name: "Lotus Crystal Pedicure", price: 2999 }
+            ]
+          }
+        ]
+      },
+      // Spread 5: Hair Treatments, Waxing & Hair Patches
+      {
+        category: "Treatments, Waxing & Hair Patch",
+        tag: "CONFIDENCE & ELEVATION",
+        columns: [
+          {
+            title: "Hair Treatments & Waxing",
+            items: [
+              { name: "Botox Treatment", price: 3999 },
+              { name: "Keratin Treatment", price: 3499, tag: "Frizz-Free" },
+              { name: "Smoothening", price: 3499 },
+              { name: "Nanoplastia", price: 4999 },
+              { name: "Perming", price: 4500 },
+              { name: "Ears Waxing / Threading", price: 150 },
+              { name: "Nose Waxing", price: 200 },
+              { name: "Forehead / Cheeks", price: 200 },
+              { name: "Underarms Waxing", price: 300 },
+              { name: "Full Face Grooming", price: 700 },
+              { name: "Full Arms", price: 800 },
+              { name: "Full Legs / Back / Front", price: 1000 }
+            ]
+          },
+          {
+            title: "Hair Patches & Wigs",
+            items: [
+              { name: "Front Line Hair Patch", price: "7,500 - 12,000" },
+              { name: "Entry Level Hair Patch", price: "10,000 - 20,000" },
+              { name: "Semi-Premium Hair Patch", price: "20,000 - 30,000" },
+              { name: "Premium Hair Patch", price: "30,000 - 40,000" },
+              { name: "Ultra Premium Imported Patch", price: "40,000 - 50,000", tag: "Undetectable" },
+              { name: "Full Hair Wig", price: "25,000 - 50,000" }
+            ]
+          }
+        ]
+      }
+    ];
+
+    let audioContext = null;
+    let soundEnabled = true;
+
+    function getAudioCtx() {
+      if (!audioContext) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) audioContext = new AudioCtx();
+      }
+      if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+      return audioContext;
+    }
+
+    function playPageTurnAudio() {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+
+        // White noise friction burst for crisp paper sound
+        const duration = 0.16;
+        const buffer = ctx.createBuffer(1, ctx.sampleRate * duration, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < data.length; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (data.length * 0.45));
+        }
+
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+
+        // Bandpass filter to match tactile linen page friction
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1250, now);
+        filter.frequency.exponentialRampToValueAtTime(320, now + duration);
+        filter.Q.setValueAtTime(2.2, now);
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.005, now);
+        gain.gain.linearRampToValueAtTime(0.28, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        source.start(now);
+        source.stop(now + duration);
+      } catch (e) {
+        // audio gracefully falls back if prevented
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundOnIcon').classList.toggle('hidden', !soundEnabled);
+      document.getElementById('soundOffIcon').classList.toggle('hidden', soundEnabled);
+    }
+
+    let activeCatalog = 'women';
+    let currentSpread = 0;
+    let totalSpreads = 0;
+
+    function getCatalogData() {
+      return activeCatalog === 'women' ? WOMEN_DATA : MEN_DATA;
+    }
+
+    function renderItemLine(it) {
+      const pStr = typeof it.price === 'number' ? `₹${it.price}` : `₹${it.price}`;
+      return `
+        <div 
+          onclick="openBookModal('${it.name.replace(/'/g, "\\'")}', '${pStr}')"
+          class="flex items-center justify-between text-xs py-1 px-1.5 rounded hover:bg-black/5 transition cursor-pointer group"
+          title="Click to reserve ${it.name}"
+        >
+          <div class="flex items-center gap-1.5 pr-2">
+            <span class="font-medium text-[#080808] group-hover:text-[#8E7951] transition">${it.name}</span>
+            ${it.tag ? `<span class="text-[9px] px-1.5 py-0.2 rounded bg-[#CBB892]/25 text-[#5e4e31] font-medium tracking-tight">${it.tag}</span>` : ''}
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class="font-semibold text-[#080808] text-[11.5px]">${pStr}</span>
+            <span class="opacity-0 group-hover:opacity-100 text-[10px] text-[#8E7951] transition font-semibold">Book →</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFaceHTML(pageData, spreadIdx, isFront) {
+      if (!pageData) {
+        return `
+          <div class="w-full h-full paper-look flex items-center justify-center text-[#080808]/25 font-light tracking-widest text-xs uppercase">
+            Aluma Salon • Bengaluru
+          </div>
+        `;
+      }
+
+      // Cover Page rendering (Warm, clean ivory linen aesthetic matching index.html)
+      if (pageData.type === 'cover') {
+        return `
+          <div class="w-full h-full paper-cover-light flex flex-col justify-between p-8 md:p-12 text-center relative border border-[#CBB892]/40">
+            
+            <!-- Top Tag -->
+            <div class="pt-6">
+              <span class="inline-block text-[11px] uppercase tracking-[0.28em] px-4 py-1 rounded-full border border-[#CBB892]/50 text-[#8E7951] bg-[#F4F1EA]/80 font-medium">${pageData.tag}</span>
+            </div>
+
+            <!-- Title & Brand -->
+            <div class="my-auto py-4">
+              <h1 class="text-5xl md:text-6xl font-serif-title tracking-wider text-[#080808] font-normal mb-3">${pageData.title}</h1>
+              <div class="w-12 h-[1px] bg-[#CBB892] mx-auto mb-3"></div>
+              <p class="text-xs uppercase tracking-[0.24em] text-[#080808]/75 font-light">${pageData.subtitle}</p>
+            </div>
+
+            <!-- Bottom Note -->
+            <div class="pb-4">
+              <p class="text-[10px] tracking-[0.2em] text-[#8E7951] uppercase mb-1">${pageData.salonRef}</p>
+              <p class="text-[9px] tracking-[0.2em] text-[#080808]/40 uppercase">${pageData.footer}</p>
+            </div>
+
+            <div class="edge-curl"></div>
+          </div>
+        `;
+      }
+
+      // Table layout for treatments
+      if (pageData.type === 'mixed_table') {
+        return `
+          <div class="w-full h-full paper-look flex flex-col justify-between p-6 md:p-8 text-[#080808] relative">
+            <div>
+              <div class="flex items-center justify-between border-b border-[#080808]/10 pb-2 mb-3">
+                <div>
+                  <span class="text-[10px] uppercase font-semibold tracking-widest text-[#8E7951]">${pageData.tag}</span>
+                  <h2 class="text-base md:text-lg font-serif-title font-semibold text-[#080808]">${pageData.category}</h2>
+                </div>
+                <span class="text-[11px] font-mono text-[#080808]/40">Spread ${spreadIdx + 1}</span>
+              </div>
+
+              <!-- Treatment Table -->
+              <div class="mb-4">
+                <h3 class="text-xs uppercase font-bold text-[#8E7951] tracking-wider mb-1.5">${pageData.table.title}</h3>
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="border-b border-[#080808]/15 text-[10px] font-semibold text-[#5a4e37]">
+                      ${pageData.table.headers.map(h => `<th class="py-1.5 px-1">${h}</th>`).join('')}
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#080808]/5">
+                    ${pageData.table.rows.map(r => `
+                      <tr class="hover:bg-black/5 transition cursor-pointer" onclick="openBookModal('${r.name}', 'From ₹${r.p1}')">
+                        <td class="py-1.5 px-1 font-medium text-[#080808]">${r.name}</td>
+                        <td class="py-1.5 px-1 text-[#080808]/80">₹${r.p1}</td>
+                        <td class="py-1.5 px-1 text-[#080808]/80">₹${r.p2}</td>
+                        <td class="py-1.5 px-1 font-semibold text-[#080808]">₹${r.p3}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Spa Items below table -->
+              <div>
+                <h3 class="text-xs uppercase font-bold text-[#8E7951] tracking-wider mb-1.5">Signature Spa & Massages</h3>
+                <div class="space-y-1">
+                  ${pageData.items.map(it => renderItemLine(it)).join('')}
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pt-2 border-t border-[#080808]/10 flex items-center justify-between text-[10px] text-[#080808]/50">
+              <span>*Taxes applicable. Live pricing in Aluma App.</span>
+              <span class="tracking-widest uppercase font-serif-title text-[9px] text-[#8E7951]">Aluma Salon</span>
+            </div>
+          </div>
+        `;
+      }
+
+      // Standard multi-column lookbook page
+      return `
+        <div class="w-full h-full paper-look flex flex-col justify-between p-5 md:p-7 text-[#080808] relative">
+          <div>
+            <div class="flex items-center justify-between border-b border-[#080808]/10 pb-2 mb-3">
+              <div>
+                <span class="text-[10px] uppercase font-semibold tracking-widest text-[#8E7951]">${pageData.tag}</span>
+                <h2 class="text-base md:text-lg font-serif-title font-semibold text-[#080808] tracking-wide">${pageData.category}</h2>
+              </div>
+              <span class="text-[11px] font-mono text-[#080808]/40">Spread ${spreadIdx + 1}</span>
+            </div>
+
+            <div class="page-scroll max-h-[460px] overflow-y-auto space-y-4 pr-1">
+              ${pageData.columns.map(col => `
+                <div>
+                  <h3 class="text-xs uppercase font-bold text-[#8E7951] tracking-wider mb-1.5 pb-0.5 border-b border-[#080808]/10">${col.title}</h3>
+                  <div class="space-y-1">
+                    ${col.items.map(it => renderItemLine(it)).join('')}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-[#080808]/10 flex items-center justify-between text-[10px] text-[#080808]/50">
+            <span>Verified Stylists & Barbers • Bengaluru</span>
+            <span class="tracking-widest uppercase font-serif-title text-[9px] text-[#8E7951]">Aluma Salon</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function buildFlipbook() {
+      const bookEl = document.getElementById('book');
+      const data = getCatalogData();
+      totalSpreads = data.length;
+      bookEl.innerHTML = '';
+
+      data.forEach((spreadItem, idx) => {
+        const leaf = document.createElement('div');
+        leaf.className = 'flip-leaf';
+        leaf.id = `leaf-${idx}`;
+        leaf.style.zIndex = (totalSpreads - idx) * 4;
+
+        // Spread Item used for front and back pages
+        leaf.innerHTML = `
+          <!-- Front Face of Leaf -->
+          <div class="leaf-face front">
+            ${renderFaceHTML(spreadItem, idx, true)}
+            <div class="inner-gutter-right"></div>
+          </div>
+          <!-- Back Face of Leaf -->
+          <div class="leaf-face back">
+            ${renderFaceHTML(data[idx + 1] || null, idx + 1, false)}
+            <div class="inner-gutter-left"></div>
+          </div>
+        `;
+
+        // Direct edge click to flip
+        leaf.addEventListener('click', (e) => {
+          if (e.target.closest('button') || e.target.closest('a')) return;
+          if (idx === currentSpread) {
+            flipNext();
+          } else if (idx === currentSpread - 1) {
+            flipPrev();
+          }
+        });
+
+        bookEl.appendChild(leaf);
+      });
+
+      renderNavigationTrack();
+      updateSpreadState();
+    }
+
+    function updateSpreadState() {
+      for (let i = 0; i < totalSpreads; i++) {
+        const leaf = document.getElementById(`leaf-${i}`);
+        if (!leaf) continue;
+
+        if (i < currentSpread) {
+          leaf.classList.add('flipped');
+          leaf.style.zIndex = 10 + i; // Left stacked
+        } else {
+          leaf.classList.remove('flipped');
+          leaf.style.zIndex = (totalSpreads - i) * 4; // Right stacked
+        }
+      }
+
+      document.getElementById('btnPrev').disabled = currentSpread === 0;
+      document.getElementById('btnNext').disabled = currentSpread >= totalSpreads;
+
+      document.getElementById('pageIndicator').textContent = `${currentSpread + 1} / ${totalSpreads}`;
+      updateNavigationDots();
+    }
+
+    function flipNext() {
+      if (currentSpread < totalSpreads) {
+        currentSpread++;
+        playPageTurnAudio();
+        updateSpreadState();
+      }
+    }
+
+    function flipPrev() {
+      if (currentSpread > 0) {
+        currentSpread--;
+        playPageTurnAudio();
+        updateSpreadState();
+      }
+    }
+
+    function jumpToSpread(targetIndex) {
+      if (targetIndex >= 0 && targetIndex <= totalSpreads && targetIndex !== currentSpread) {
+        currentSpread = targetIndex;
+        playPageTurnAudio();
+        updateSpreadState();
+      }
+    }
+
+    function renderNavigationTrack() {
+      const track = document.getElementById('dotTrack');
+      track.innerHTML = '';
+      for (let i = 0; i < totalSpreads; i++) {
+        const dot = document.createElement('button');
+        dot.className = `w-2 h-2 rounded-full transition-all ${i === currentSpread ? 'bg-[#CBB892] w-5' : 'bg-white/20 hover:bg-white/40'}`;
+        dot.title = `Go to Spread ${i + 1}`;
+        dot.onclick = () => jumpToSpread(i);
+        track.appendChild(dot);
+      }
+    }
+
+    function updateNavigationDots() {
+      const dots = document.getElementById('dotTrack').children;
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].className = `w-2 h-2 rounded-full transition-all ${i === currentSpread ? 'bg-[#CBB892] w-5' : 'bg-white/20 hover:bg-white/40'}`;
+      }
+    }
+
+    function switchMenu(gender) {
+      if (activeCatalog === gender) return;
+      activeCatalog = gender;
+      currentSpread = 0;
+
+      const btnW = document.getElementById('btnWomen');
+      const btnM = document.getElementById('btnMen');
+
+      if (gender === 'women') {
+        btnW.className = 'px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 bg-[#CBB892] text-[#080808] shadow-sm';
+        btnM.className = 'px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 text-[#F4F1EA]/70 hover:text-white';
+      } else {
+        btnM.className = 'px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 bg-[#CBB892] text-[#080808] shadow-sm';
+        btnW.className = 'px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 text-[#F4F1EA]/70 hover:text-white';
+      }
+
+      playPageTurnAudio();
+      buildFlipbook();
+    }
+
+    let wheelCooldown = false;
+
+    window.addEventListener('wheel', (e) => {
+      // Prevent rapid continuous flipping on sensitive trackpads
+      if (wheelCooldown) return;
+
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+
+      if (delta > 35) { // Scrolled down / right -> Flip next
+        flipNext();
+        wheelCooldown = true;
+        setTimeout(() => { wheelCooldown = false; }, 420);
+      } else if (delta < -35) { // Scrolled up / left -> Flip previous
+        flipPrev();
+        wheelCooldown = true;
+        setTimeout(() => { wheelCooldown = false; }, 420);
+      }
+    }, { passive: true });
+
+    // Touch swipe handling
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      const diffX = touchStartX - e.changedTouches[0].screenX;
+      const diffY = touchStartY - e.changedTouches[0].screenY;
+
+      // Ensure horizontal swipe intent
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX > 0) flipNext(); // Swiped left -> Next
+        else flipPrev();          // Swiped right -> Previous
+      }
+    }, { passive: true });
+
+    // Keyboard arrow keys
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') flipNext();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') flipPrev();
+      if (e.key === 'Escape') closeBookModal();
+    });
+
+    // Quick Book Modal
+    function openBookModal(title, price) {
+      document.getElementById('modalServiceTitle').textContent = title;
+      document.getElementById('modalServicePrice').textContent = price;
+      document.getElementById('modalBookLink').href = `index.html#book`;
+      document.getElementById('quickBookModal').classList.remove('hidden');
+    }
+
+    function closeBookModal() {
+      document.getElementById('quickBookModal').classList.add('hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check query parameter (?gender=men)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('gender') === 'men') {
+        activeCatalog = 'men';
+        document.getElementById('btnMen').click();
+      } else {
+        buildFlipbook();
+      }
+    });
+  </script>
+</body>
+</html>
