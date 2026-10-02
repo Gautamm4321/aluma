@@ -186,7 +186,7 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
 .vs-mobile{display:none}
 
 @media (max-aspect-ratio: 9/10), (max-width: 760px){
-  .vs-wrap{grid-template-columns:1fr;grid-template-rows:80% 20%;align-items:stretch;padding:0}
+  .vs-wrap{grid-template-columns:1fr;grid-template-rows:75% 25%;align-items:stretch;padding:0;height:100vh;height:100dvh}
   .vs-media{padding:0;align-items:stretch;justify-content:stretch}
   .vs-cloud{width:100%;max-width:none;height:100%}
   .vs-clip{clip-path:none;-webkit-clip-path:none;border-radius:0}
@@ -378,6 +378,7 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
     <a href="#services">Services</a>
     <a href="#locations">Locations</a>
     <a href="menu.html">Menu</a>
+    <a href="passes.html">Passes</a>
     <a href="#app">App</a>
   </nav>
   <a class="btn sm solid nav-book" href="#book">Book<span class="long"> appointment</span></a>
@@ -389,7 +390,8 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
     <a href="#services"><small>03</small>Services</a>
     <a href="#locations"><small>04</small>Locations</a>
     <a href="menu.html"><small>05</small>Menu</a>
-    <a href="#app"><small>06</small>App</a>
+    <a href="passes.html"><small>06</small>Passes</a>
+    <a href="#app"><small>07</small>App</a>
   </nav>
   <div class="menu-foot">
     <a class="btn solid" href="#book">Book an appointment</a>
@@ -473,7 +475,7 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
 </section>
 
 <!-- 04b SALON VIDEO -->
-<section id="vsalon" class="pin" data-hd="420" data-hm="380" aria-labelledby="h-vs">
+<section id="vsalon" class="pin" data-hd="420" data-hm="140" aria-labelledby="h-vs">
   <div class="layer over">
     <div class="vs-wrap">
       <div class="vs-media">
@@ -1583,10 +1585,16 @@ function sectionDOM(y){
       if(k !== expStep){ expStep = k; callouts.forEach((c,i) => c.classList.toggle('on', i===k)); }
     }
     if(s.id==='services') setSvc(clamp(Math.floor(clamp(p)*SERVICES.length), 0, SERVICES.length-1));
-        if(s.id==='vsalon'){
+      if(s.id==='vsalon'){
       vsPlay(true);
-      const k = p < .12 ? 0 : p < .40 ? 1 : p < .68 ? 2 : 3;   // how many text blocks are visible
-      if(k !== vsStep){ vsStep = k; vsItems.forEach((el,i) => el.classList.toggle('on', i < k)); }
+      if(P){
+        // Mobile: freeze state me video clip aur text direct active
+        if(vsStep !== 1){ vsStep = 1; vsItems.forEach(el => el.classList.add('on')); }
+      } else {
+        // Desktop: multi-step scroll fade sequence
+        const k = p < .12 ? 0 : p < .40 ? 1 : p < .68 ? 2 : 3;
+        if(k !== vsStep){ vsStep = k; vsItems.forEach((el,i) => el.classList.toggle('on', i < k)); }
+      }
     }
     if(s.id==='app'){
       const k = clamp(Math.floor((p - 0.12)/0.8*4), 0, 3);
