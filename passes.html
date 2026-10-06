@@ -1,351 +1,645 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Aluma Salon | Unlimited Yearly Passes</title>
-  <meta name="description" content="Unlimited salon grooming passes for Men and Women at Aluma Salon. Elite, Classic, and Royal tiers.">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aluma Salon | Unlimited Yearly Passes</title>
+<meta name="description" content="Unlimited salon grooming passes for Men and Women at Aluma Salon. Elite, Classic, and Royal tiers.">
 
-  <style>
-    :root {
-      --ink: #080808;
-      --ivory: #F4F1EA;
-      --champagne: #CBB892;
-      --bg: #080808;
-      --fg-rgb: 244, 241, 234;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      background: var(--bg);
-      color: rgb(var(--fg-rgb));
-      font-family: 'Jost', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
+<style>
+:root{
+  --ink:#080808;
+  --ivory:#F4F1EA;
+}
 
-    .font-serif-title { font-family: 'Playfair Display', Georgia, serif; }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    /* Atmosphere Lighting from index.html */
-    #atmo {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background: 
-        radial-gradient(85% 70% at 50% 30%, rgba(191, 196, 199, 0.08) 0%, rgba(191, 196, 199, 0) 70%),
-        radial-gradient(150% 125% at 50% 45%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.7) 100%);
-    }
+html,body{
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+  overscroll-behavior:none;
+}
 
-    /* Glass Card 3D Styling */
-    .pass-card-wrap {
-      perspective: 1200px;
-    }
+body{
+  background:#F4F1EA;
+  color:#080808;
+  font-family:'Jost',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  user-select:none;
+  position:relative;
+}
 
-    .pass-card {
-      position: relative;
-      border-radius: 28px;
-      overflow: hidden;
-      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
-      background: rgba(18, 18, 18, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
+.font-serif-title{
+  font-family:'Playfair Display',Georgia,serif;
+}
 
-    .pass-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8);
-      border-color: rgba(203, 184, 146, 0.35);
-    }
+/* LIQUID BACKGROUND */
 
-    /* Physical 3D Membership Pass Simulation */
-    .sim-card {
-      width: 175px;
-      height: 275px;
-      border-radius: 20px;
-      position: relative;
-      padding: 18px 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.4);
-      transform: rotate(-4deg);
-      transition: transform 0.4s ease;
-    }
+.liquid-canvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+  background:#F4F1EA;
+}
 
-    .pass-card:hover .sim-card {
-      transform: rotate(0deg) scale(1.04);
-    }
+#liquidCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
 
-    /* Card Themes */
-    .sim-elite {
-      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(150,150,150,0.08) 50%, rgba(20,20,20,0.4) 100%);
-      border: 1.5px solid rgba(255,255,255,0.35);
-    }
-    .sim-classic {
-      background: linear-gradient(135deg, rgba(235, 75, 45, 0.45) 0%, rgba(180, 40, 20, 0.2) 50%, rgba(15, 10, 10, 0.6) 100%);
-      border: 1.5px solid rgba(255, 120, 95, 0.45);
-    }
-    .sim-royal {
-      background: linear-gradient(135deg, rgba(215, 175, 95, 0.5) 0%, rgba(170, 125, 45, 0.25) 50%, rgba(20, 15, 5, 0.65) 100%);
-      border: 1.5px solid rgba(245, 215, 145, 0.5);
-    }
+/* CAROUSEL */
 
-    .sim-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      background: linear-gradient(125deg, rgba(255,255,255,0.35) 0%, transparent 45%);
-      pointer-events: none;
-    }
-  </style>
+.carousel-stage{
+  perspective:1600px;
+  perspective-origin:50% 50%;
+  position:relative;
+  width:100%;
+  height:460px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.stage-card{
+  position:absolute;
+  width:min(88vw,385px);
+  height:470px;
+  border-radius:48px;
+  transition:
+    transform .65s cubic-bezier(.22,1,.36,1),
+    opacity .65s cubic-bezier(.22,1,.36,1),
+    filter .65s cubic-bezier(.22,1,.36,1);
+  transform-style:preserve-3d;
+  will-change:transform,opacity,filter;
+  cursor:pointer;
+}
+
+.glass-pill{
+  background:rgba(255,255,255,.78);
+  border:1.5px solid rgba(255,255,255,.95);
+  backdrop-filter:blur(28px);
+  -webkit-backdrop-filter:blur(28px);
+  box-shadow:
+    0 24px 50px -12px rgba(8,8,8,.10),
+    0 8px 20px -6px rgba(8,8,8,.06),
+    inset 0 1px 2px rgba(255,255,255,1);
+}
+
+.tint-elite{
+  background:linear-gradient(
+    170deg,
+    rgba(232,240,233,.88) 0%,
+    rgba(255,255,255,.75) 100%
+  );
+  border-color:rgba(201,216,197,.9);
+}
+
+.tint-classic{
+  background:linear-gradient(
+    170deg,
+    rgba(248,235,230,.88) 0%,
+    rgba(255,255,255,.75) 100%
+  );
+  border-color:rgba(232,214,209,.9);
+}
+
+.tint-royal{
+  background:linear-gradient(
+    170deg,
+    rgba(246,238,222,.88) 0%,
+    rgba(255,255,255,.75) 100%
+  );
+  border-color:rgba(203,184,146,.9);
+}
+
+.stage-card.slot-center{
+  transform:translate3d(0,0,70px) scale(1) rotateY(0deg);
+  opacity:1;
+  filter:blur(0) brightness(1);
+  z-index:20;
+}
+
+.stage-card.slot-prev{
+  transform:translate3d(-270px,0,-110px) scale(.86) rotateY(16deg);
+  opacity:.75;
+  filter:blur(.5px) brightness(.95);
+  z-index:10;
+}
+
+.stage-card.slot-next{
+  transform:translate3d(270px,0,-110px) scale(.86) rotateY(-16deg);
+  opacity:.75;
+  filter:blur(.5px) brightness(.95);
+  z-index:10;
+}
+
+.stage-card.slot-hidden-left{
+  transform:translate3d(-520px,0,-320px) scale(.65) rotateY(26deg);
+  opacity:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.stage-card.slot-hidden-right{
+  transform:translate3d(520px,0,-320px) scale(.65) rotateY(-26deg);
+  opacity:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+@media(max-width:768px){
+  .carousel-stage{
+    height:440px;
+  }
+
+  .stage-card{
+    width:84vw;
+    height:425px;
+    border-radius:42px;
+  }
+
+  .stage-card.slot-prev{
+    transform:translate3d(-165px,0,-130px) scale(.82) rotateY(18deg);
+    opacity:.4;
+  }
+
+  .stage-card.slot-next{
+    transform:translate3d(165px,0,-130px) scale(.82) rotateY(-18deg);
+    opacity:.4;
+  }
+}
+</style>
 </head>
-<body class="relative flex flex-col justify-between">
 
-  <div id="atmo" aria-hidden="true"></div>
+<body class="relative">
 
-  <!-- Top Navigation Bar -->
-  <header class="relative z-30 px-5 md:px-10 pt-6 pb-4 flex items-center justify-between">
-    <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#121212]/80 hover:bg-[#1c1c1e] border border-white/10 text-xs md:text-sm text-[#F4F1EA] hover:text-[#CBB892] transition backdrop-blur-md shadow">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-      <span>Back</span>
-    </a>
+<!-- LIQUID BACKGROUND -->
+<div class="liquid-canvas" aria-hidden="true">
+  <canvas id="liquidCanvas"></canvas>
+</div>
 
-    <!-- Mens / Womens Toggle Pill -->
-    <div class="bg-[#121212]/90 backdrop-blur-md border border-[#CBB892]/30 p-1 rounded-full flex items-center shadow-xl">
-      <button 
-        id="tabMens" 
-        onclick="switchPassCategory('mens')" 
-        class="px-5 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 text-[#F4F1EA]/70 hover:text-white"
-      >
-        Mens
-      </button>
-      <button 
-        id="tabWomens" 
-        onclick="switchPassCategory('womens')" 
-        class="px-5 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 bg-[#CBB892] text-[#080808] shadow-sm font-semibold"
-      >
-        Womens
-      </button>
-    </div>
+<!-- HEADER -->
+<header class="relative z-30 px-5 md:px-10 pt-5 pb-1 flex items-center justify-between flex-none">
 
-    <a href="index.html#book" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#CBB892] text-[#080808] hover:bg-[#DFCEAC] text-xs md:text-sm font-medium transition shadow">
-      Book Visit
-    </a>
-  </header>
+  <a href="index.html"
+     class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 hover:bg-white/90 border border-[#080808]/10 text-xs md:text-sm text-[#080808] transition backdrop-blur-md shadow-sm">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+    </svg>
+    <span>Back</span>
+  </a>
 
-  <!-- Main Content -->
-  <main class="relative z-20 max-w-7xl mx-auto w-full px-5 md:px-10 py-6 md:py-10 flex-1 flex flex-col justify-center">
-    
-    <div class="text-center mb-10 md:mb-14">
-      <p class="text-[11px] md:text-xs uppercase tracking-[0.28em] text-[#CBB892] font-semibold mb-2">Exclusive Annual Membership</p>
-      <h1 class="text-3xl md:text-5xl font-serif-title tracking-tight text-[#F4F1EA]">Unlimited Grooming Passes</h1>
-      <p class="text-xs md:text-sm text-white/50 tracking-wider mt-2 font-light max-w-md mx-auto">Pay once a year, enjoy unlimited visits with certified stylists across Bengaluru salons.</p>
-    </div>
+  <div class="bg-white/60 backdrop-blur-md border border-[#080808]/10 p-1 rounded-full flex items-center shadow-sm">
 
-    <!-- Passes Grid (Elite, Classic, Royal) -->
-    <div id="passesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-      <!-- Dynamic cards injected by JS -->
-    </div>
+    <button id="pillAll"
+      onclick="setFilter('all')"
+      class="px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 bg-[#080808] text-[#F4F1EA] shadow-sm">
+      All (6)
+    </button>
 
-  </main>
+    <button id="pillWomens"
+      onclick="setFilter('womens')"
+      class="px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 text-[#080808]/70 hover:text-[#080808]">
+      Womens
+    </button>
 
-  <footer class="relative z-20 text-center py-6 border-t border-white/5 text-[11px] text-white/35">
-    © 2026 Aluma Salon • Bengaluru • Verified Stylists & Zero Waiting
-  </footer>
+    <button id="pillMens"
+      onclick="setFilter('mens')"
+      class="px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 text-[#080808]/70 hover:text-[#080808]">
+      Mens
+    </button>
 
-  <script>
-    const PASS_DATA = {
-      womens: [
-        {
-          id: 'elite',
-          name: 'Elite',
-          icon: '✨',
-          cardClass: 'sim-elite',
-          bgGlow: 'radial-gradient(circle at 85% 15%, rgba(255,255,255,0.08) 0%, transparent 60%)',
-          price: '7,999',
-          originalPrice: '32,000',
-          unlimited: [
-            'Threading',
-            'Full Arms Wax',
-            'Full Legs Wax',
-            'Underarms Wax'
-          ]
-        },
-        {
-          id: 'classic',
-          name: 'Classic',
-          icon: '⦿',
-          cardClass: 'sim-classic',
-          bgGlow: 'radial-gradient(circle at 85% 15%, rgba(235,75,45,0.12) 0%, transparent 60%)',
-          price: '15,999',
-          originalPrice: '42,000',
-          unlimited: [
-            'Threading',
-            'Full Arms Wax',
-            'Full Legs Wax',
-            'Underarms Wax',
-            'D-tan or Clean Up'
-          ]
-        },
-        {
-          id: 'royal',
-          name: 'Royal',
-          icon: '👑',
-          cardClass: 'sim-royal',
-          bgGlow: 'radial-gradient(circle at 85% 15%, rgba(215,175,95,0.16) 0%, transparent 60%)',
-          price: '20,999',
-          originalPrice: '65,000',
-          unlimited: [
-            'Threading',
-            'Full Arms Wax',
-            'Full Legs Wax',
-            'Underarms Wax',
-            'D-tan or Clean Up',
-            'Pedicure & Manicure'
-          ]
-        }
-      ],
-      mens: [
-        {
-          id: 'elite',
-          name: 'Elite',
-          icon: '✨',
-          cardClass: 'sim-elite',
-          bgGlow: 'radial-gradient(circle at 85% 15%, rgba(255,255,255,0.08) 0%, transparent 60%)',
-          price: '6,999',
-          originalPrice: '30,000',
-          unlimited: [
-            'Hair Cut',
-            'Beard & Shave',
-            'Head Massage'
-          ]
-        },
-        {
-          id: 'classic',
-          name: 'Classic',
-          icon: '⦿',
-          cardClass: 'sim-classic',
-          bgGlow: 'radial-gradient(circle at 85% 15%, rgba(235,75,45,0.12) 0%, transparent 60%)',
-          price: '14,999',
-          originalPrice: '40,000',
-          unlimited: [
-            'Hair Cut',
-            'Beard & Shave',
-            'Head Massage',
-            'D-tan or Clean Up'
-          ]
-        },
-        {
-          id: 'royal',
-          name: 'Royal',
-          icon: '👑',
-          cardClass: 'sim-royal',
-          bgGlow: 'radial-gradient(circle at 85% 15%, rgba(215,175,95,0.16) 0%, transparent 60%)',
-          price: '19,999',
-          originalPrice: '60,000',
-          unlimited: [
-            'Hair Cut',
-            'Beard & Shave',
-            'Head Massage',
-            'D-tan or Clean Up',
-            'Pedicure & Manicure'
-          ]
-        }
-      ]
+  </div>
+
+  <a href="index.html#book"
+     class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#080808] text-[#F4F1EA] hover:bg-[#202020] text-xs md:text-sm font-medium transition shadow-md">
+    Book Visit
+  </a>
+
+</header>
+
+<!-- MAIN -->
+<main class="relative z-20 w-full flex-1 flex flex-col items-center justify-center pt-5 pb-6 overflow-hidden">
+
+  <div class="relative -top-3 text-center mt-0.8 mb-9 px-4 flex-none">
+    <h1 class="text-2xl md:text-4xl font-serif-title tracking-tight text-[#080808]">
+      Select Your Pass
+    </h1>
+  </div>
+
+  <div class="carousel-stage mt-2" id="carouselStage"></div>
+
+  <div class="flex items-center gap-4 mt-6 mb-2 z-30 flex-none">
+
+    <button
+      onclick="prevCard()"
+      class="w-9 h-9 rounded-full bg-white/70 hover:bg-white border border-[#080808]/15 text-[#080808] flex items-center justify-center transition backdrop-blur-md shadow-sm"
+      aria-label="Previous Pass">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <span id="cardBadge"
+      class="text-xs uppercase tracking-widest text-[#080808] px-3 py-1 rounded-full bg-white/60 border border-[#080808]/10 backdrop-blur-md font-mono font-medium">
+      1 / 6
+    </span>
+
+    <button
+      onclick="nextCard()"
+      class="w-9 h-9 rounded-full bg-white/70 hover:bg-white border border-[#080808]/15 text-[#080808] flex items-center justify-center transition backdrop-blur-md shadow-sm"
+      aria-label="Next Pass">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+
+  </div>
+</main>
+
+<script>
+const ALL_PASSES=[
+  {
+    gender:'womens',
+    genderLabel:"Women's",
+    tier:'Elite',
+    icon:'✦',
+    tint:'tint-elite',
+    price:'7,999',
+    strike:'32,000',
+    features:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax']
+  },
+  {
+    gender:'womens',
+    genderLabel:"Women's",
+    tier:'Classic',
+    icon:'⦿',
+    tint:'tint-classic',
+    price:'15,999',
+    strike:'42,000',
+    features:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up']
+  },
+  {
+    gender:'womens',
+    genderLabel:"Women's",
+    tier:'Royal',
+    icon:'👑',
+    tint:'tint-royal',
+    price:'20,999',
+    strike:'65,000',
+    features:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up','Pedicure & Manicure']
+  },
+  {
+    gender:'mens',
+    genderLabel:"Men's",
+    tier:'Elite',
+    icon:'✦',
+    tint:'tint-elite',
+    price:'6,999',
+    strike:'30,000',
+    features:['Hair Cut','Beard & Shave','Head Massage']
+  },
+  {
+    gender:'mens',
+    genderLabel:"Men's",
+    tier:'Classic',
+    icon:'⦿',
+    tint:'tint-classic',
+    price:'14,999',
+    strike:'40,000',
+    features:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up']
+  },
+  {
+    gender:'mens',
+    genderLabel:"Men's",
+    tier:'Royal',
+    icon:'👑',
+    tint:'tint-royal',
+    price:'19,999',
+    strike:'60,000',
+    features:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up','Pedicure & Manicure']
+  }
+];
+
+let currentFilter='all';
+let filteredList=[...ALL_PASSES];
+let currentIndex=0;
+
+function renderStage(){
+  const stage=document.getElementById('carouselStage');
+  stage.innerHTML='';
+
+  filteredList.forEach((pass,idx)=>{
+    const card=document.createElement('div');
+
+    card.className=`stage-card glass-pill ${pass.tint} p-7 flex flex-col justify-between text-[#080808]`;
+    card.id=`card-${idx}`;
+
+    card.onclick=()=>{
+      if(idx!==currentIndex) jumpToCard(idx);
     };
 
-    let activeCategory = 'womens';
+    card.innerHTML=`
+      <div class="flex items-center justify-between">
+        <span class="text-xs uppercase tracking-[0.24em] font-semibold text-[#080808] bg-black/5 px-3.5 py-1.5 rounded-full border border-black/10">
+          ${pass.genderLabel}
+        </span>
 
-    function renderCards() {
-      const container = document.getElementById('passesContainer');
-      const list = PASS_DATA[activeCategory];
+        <div class="w-8 h-8 rounded-full border border-black/15 flex items-center justify-center text-sm font-bold text-[#080808]/80 bg-white/40">
+          ${pass.icon}
+        </div>
+      </div>
 
-      container.innerHTML = list.map(item => `
-        <div class="pass-card p-6 md:p-7 flex flex-col justify-between" style="background-image: ${item.bgGlow}">
-          
-          <!-- Top Row: Card Visual & Title -->
-          <div class="flex items-start justify-between gap-4 mb-6">
-            
-            <div class="sim-card ${item.cardClass} flex-shrink-0">
-              <div class="flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span>
-                <span class="text-[9px] tracking-[0.2em] font-medium uppercase text-white/90">ALUMA</span>
-              </div>
-              <div class="text-right">
-                <span class="text-xs text-white/70 block leading-none mb-1">${item.icon}</span>
-                <span class="text-xs font-semibold tracking-wider text-white uppercase">${item.name}</span>
-              </div>
+      <div class="my-auto py-2">
+        <h2 class="text-3xl md:text-4xl font-serif-title font-semibold tracking-tight text-[#080808] mb-1">
+          ${pass.tier}
+        </h2>
+
+        <p class="text-xs uppercase tracking-widest text-[#8E7951] font-semibold mb-3">
+          Unlimited Treatments
+        </p>
+
+        <ul class="space-y-2 text-sm text-[#080808]/90 font-medium">
+          ${pass.features.map(f=>`
+            <li class="flex items-center gap-2.5">
+              <span class="w-2 h-2 rounded-full bg-[#080808] flex-shrink-0"></span>
+              <span>${f}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+
+      <div class="pt-3">
+        <div class="flex items-baseline justify-between mb-3">
+
+          <div>
+            <span class="text-xs text-[#080808]/50 line-through">
+              ₹${pass.strike}
+            </span>
+
+            <div class="text-2xl md:text-3xl font-bold text-[#080808] leading-tight">
+              ₹${pass.price}
+              <span class="text-xs font-normal text-[#080808]/70">/ year</span>
             </div>
-
-            <div class="flex-1 pl-2">
-              <div class="flex items-center gap-1.5 text-[#CBB892] text-sm font-semibold mb-2">
-                <span>${item.icon}</span>
-                <h3 class="text-xl md:text-2xl font-serif-title font-semibold text-[#F4F1EA]">${item.name}</h3>
-              </div>
-              
-              <p class="text-[11px] uppercase tracking-wider text-white/40 font-semibold mb-2">Unlimited:</p>
-              <ul class="space-y-1.5">
-                ${item.unlimited.map(feat => `
-                  <li class="flex items-center gap-2 text-xs text-white/80">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#CBB892]"></span>
-                    <span>${feat}</span>
-                  </li>
-                `).join('')}
-              </ul>
-            </div>
-
           </div>
 
-          <!-- Bottom: Pricing & CTA -->
-          <div class="pt-5 border-t border-white/10 mt-auto">
-            <div class="mb-4">
-              <span class="text-xs text-white/40 line-through">₹${item.originalPrice}</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span class="text-2xl md:text-3xl font-semibold text-[#CBB892]">₹${item.price}</span>
-                <span class="text-xs text-white/50 font-light">/ year</span>
-              </div>
-            </div>
-
-            <a 
-              href="index.html#book" 
-              class="w-full py-3 rounded-xl bg-white hover:bg-[#F4F1EA] text-[#080808] font-semibold text-xs tracking-wider uppercase transition shadow flex items-center justify-center gap-2 group"
-            >
-              <span>BUY NOW</span>
-              <span class="group-hover:translate-x-0.5 transition-transform">→</span>
-            </a>
-          </div>
+          <span class="text-[10px] tracking-widest font-semibold uppercase text-emerald-900 bg-emerald-600/15 px-3 py-1 rounded-full border border-emerald-600/30">
+            Active Pass
+          </span>
 
         </div>
-      `).join('');
+
+        <a href="index.html#book"
+          class="w-full py-3.5 rounded-2xl bg-[#080808] hover:bg-[#202020] text-[#F4F1EA] text-sm font-semibold uppercase tracking-wider text-center block transition-all shadow-md active:scale-[0.98]">
+          Buy Now →
+        </a>
+      </div>
+    `;
+
+    stage.appendChild(card);
+  });
+
+  updateSlots();
+}
+
+function updateSlots(){
+  filteredList.forEach((_,idx)=>{
+    const card=document.getElementById(`card-${idx}`);
+    if(!card)return;
+
+    card.classList.remove(
+      'slot-center',
+      'slot-prev',
+      'slot-next',
+      'slot-hidden-left',
+      'slot-hidden-right'
+    );
+
+    const offset=idx-currentIndex;
+
+    if(offset===0){
+      card.classList.add('slot-center');
+    }else if(
+      offset===-1 ||
+      (currentIndex===0 && idx===filteredList.length-1 && filteredList.length>2)
+    ){
+      card.classList.add('slot-prev');
+    }else if(
+      offset===1 ||
+      (currentIndex===filteredList.length-1 && idx===0 && filteredList.length>2)
+    ){
+      card.classList.add('slot-next');
+    }else if(offset<0){
+      card.classList.add('slot-hidden-left');
+    }else{
+      card.classList.add('slot-hidden-right');
     }
+  });
 
-    function switchPassCategory(cat) {
-      if (activeCategory === cat) return;
-      activeCategory = cat;
+  document.getElementById('cardBadge').textContent=
+    `${currentIndex+1} / ${filteredList.length}`;
+}
 
-      const btnM = document.getElementById('tabMens');
-      const btnW = document.getElementById('tabWomens');
+function nextCard(){
+  currentIndex=(currentIndex+1)%filteredList.length;
+  updateSlots();
+}
 
-      const on = 'px-5 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 bg-[#CBB892] text-[#080808] shadow-sm';
-      const off = 'px-5 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 text-[#F4F1EA]/70 hover:text-white';
+function prevCard(){
+  currentIndex=(currentIndex-1+filteredList.length)%filteredList.length;
+  updateSlots();
+}
 
-      btnM.className = cat === 'mens' ? on : off;
-      btnW.className = cat === 'womens' ? on : off;
+function jumpToCard(idx){
+  currentIndex=idx;
+  updateSlots();
+}
 
-      renderCards();
-    }
+function setFilter(filter){
+  if(currentFilter===filter)return;
 
-    document.addEventListener('DOMContentLoaded', renderCards);
-  </script>
+  currentFilter=filter;
+  currentIndex=0;
+
+  const pAll=document.getElementById('pillAll');
+  const pW=document.getElementById('pillWomens');
+  const pM=document.getElementById('pillMens');
+
+  const on='px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 bg-[#080808] text-[#F4F1EA] shadow-sm';
+  const off='px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 text-[#080808]/70 hover:text-[#080808]';
+
+  pAll.className=filter==='all'?on:off;
+  pW.className=filter==='womens'?on:off;
+  pM.className=filter==='mens'?on:off;
+
+  filteredList=filter==='all'
+    ? [...ALL_PASSES]
+    : ALL_PASSES.filter(p=>p.gender===filter);
+
+  renderStage();
+}
+
+window.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')nextCard();
+  if(e.key==='ArrowLeft')prevCard();
+});
+
+let touchStartX=0;
+
+window.addEventListener('touchstart',e=>{
+  touchStartX=e.changedTouches[0].screenX;
+},{passive:true});
+
+window.addEventListener('touchend',e=>{
+  const diffX=touchStartX-e.changedTouches[0].screenX;
+
+  if(Math.abs(diffX)>45){
+    diffX>0?nextCard():prevCard();
+  }
+},{passive:true});
+
+document.addEventListener('DOMContentLoaded',renderStage);
+
+
+/* LIQUID ANIMATION */
+
+const canvas=document.getElementById('liquidCanvas');
+const ctx=canvas.getContext('2d');
+
+let width=0;
+let height=0;
+let dpr=1;
+
+function resizeCanvas(){
+  width=window.innerWidth;
+  height=window.innerHeight;
+  dpr=Math.min(window.devicePixelRatio||1,2);
+
+  canvas.width=width*dpr;
+  canvas.height=height*dpr;
+  canvas.style.width=width+'px';
+  canvas.style.height=height+'px';
+
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+
+window.addEventListener('resize',resizeCanvas);
+resizeCanvas();
+
+const colors=[
+  [201,216,197],
+  [232,214,209],
+  [203,184,146],
+  [220,232,223],
+  [246,226,218]
+];
+
+const blobs=Array.from({length:7},(_,i)=>({
+  x:Math.random(),
+  y:Math.random(),
+  size:.28+Math.random()*.22,
+  sx:(Math.random()-.5)*.00035,
+  sy:(Math.random()-.5)*.00035,
+  phase:Math.random()*Math.PI*2,
+  phase2:Math.random()*Math.PI*2,
+  color:colors[i%colors.length]
+}));
+
+function drawBlob(blob,time){
+  const x=
+    blob.x*width+
+    Math.sin(time*.00025+blob.phase)*width*.10;
+
+  const y=
+    blob.y*height+
+    Math.cos(time*.00020+blob.phase2)*height*.10;
+
+  const size=
+    Math.min(width,height)*
+    (blob.size+Math.sin(time*.00035+blob.phase)*.035);
+
+  const [r,g,b]=blob.color;
+
+  const gradient=ctx.createRadialGradient(
+    x,y,0,
+    x,y,size
+  );
+
+  gradient.addColorStop(0,`rgba(${r},${g},${b},.72)`);
+  gradient.addColorStop(.3,`rgba(${r},${g},${b},.48)`);
+  gradient.addColorStop(.62,`rgba(${r},${g},${b},.20)`);
+  gradient.addColorStop(1,`rgba(${r},${g},${b},0)`);
+
+  ctx.fillStyle=gradient;
+  ctx.beginPath();
+  ctx.arc(x,y,size,0,Math.PI*2);
+  ctx.fill();
+}
+
+function animateLiquid(time){
+  ctx.clearRect(0,0,width,height);
+
+  ctx.fillStyle='#F4F1EA';
+  ctx.fillRect(0,0,width,height);
+
+  ctx.filter='blur(55px)';
+
+  blobs.forEach(blob=>{
+    blob.x+=blob.sx;
+    blob.y+=blob.sy;
+
+    if(blob.x<-.25||blob.x>1.25)blob.sx*=-1;
+    if(blob.y<-.25||blob.y>1.25)blob.sy*=-1;
+
+    drawBlob(blob,time);
+  });
+
+  ctx.filter='none';
+
+  const glowX=
+    width*(.5+Math.sin(time*.00015)*.35);
+
+  const glowY=
+    height*(.5+Math.cos(time*.00018)*.30);
+
+  const glow=ctx.createRadialGradient(
+    glowX,glowY,0,
+    glowX,glowY,
+    Math.min(width,height)*.45
+  );
+
+  glow.addColorStop(0,'rgba(255,255,255,.30)');
+  glow.addColorStop(.45,'rgba(255,255,255,.10)');
+  glow.addColorStop(1,'rgba(255,255,255,0)');
+
+  ctx.fillStyle=glow;
+  ctx.fillRect(0,0,width,height);
+
+  requestAnimationFrame(animateLiquid);
+}
+
+requestAnimationFrame(animateLiquid);
+</script>
+
 </body>
 </html>

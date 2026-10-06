@@ -23,9 +23,9 @@
       --olive: #AEB9A5;
       --champagne: #CBB892;
       --chrome: #BFC4C7;
-      --bg: #080808;
+      --bg: #AEB9A5;
       --fg-rgb: 244, 241, 234;
-      --bgc: #080808;
+      --bgc: #AEB9A5;
       --pad: clamp(20px, 4vw, 60px);
     }
 
@@ -80,25 +80,9 @@
       transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    /* Hardcover Spine Depth Shadow */
+   /* Hardcover Spine Depth Shadow - Disabled */
     .book-container::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 52px;
-      transform: translateX(-50%);
-      background: linear-gradient(90deg, 
-        rgba(0,0,0,0.3) 0%, 
-        rgba(0,0,0,0.12) 30%, 
-        rgba(255,255,255,0.06) 50%, 
-        rgba(0,0,0,0.12) 70%, 
-        rgba(0,0,0,0.3) 100%
-      );
-      pointer-events: none;
-      z-index: 50;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      display: none;
     }
 
     /* Flip Leaf Definition */
@@ -125,36 +109,25 @@
       overflow: hidden;
       background: var(--ivory);
       color: var(--ink);
-      box-shadow: 
-        inset 0 0 45px rgba(0, 0, 0, 0.04), 
-        0 12px 35px -8px rgba(0, 0, 0, 0.6);
+      box-shadow: none;
     }
 
     .leaf-face.front {
       border-radius: 0 16px 16px 0;
-      border-left: 1px solid rgba(8, 8, 8, 0.12);
+      border-left: none;
       transform: rotateY(0deg);
     }
 
     .leaf-face.back {
       border-radius: 16px 0 0 16px;
-      border-right: 1px solid rgba(8, 8, 8, 0.12);
+      border-right: none;
       transform: rotateY(180deg);
     }
 
-    /* Inner Gutter Gradients */
-    .inner-gutter-right {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(to right, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.03) 6%, transparent 18%);
-    }
-
+    /* Inner Gutter Gradients - Disabled */
+    .inner-gutter-right,
     .inner-gutter-left {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(to left, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.03) 6%, transparent 18%);
+      display: none;
     }
 
     /* Luxury Editorial Paper Background */
@@ -319,9 +292,9 @@
 
       <!-- Spread Scrubbing & Page Dots -->
       <div class="flex flex-col items-center gap-1">
-        <div class="flex items-center gap-2">
-          <span id="idxLabel" class="text-[10px] uppercase tracking-widest text-white/40">Spread</span>
-          <span id="pageIndicator" class="text-xs md:text-sm tracking-widest text-[#CBB892] font-semibold">1 / 7</span>
+        <div class="flex items-center gap-2 text-xs md:text-sm font-semibold text-[#080808]">
+          <span id="idxLabel" class="uppercase tracking-widest text-[#080808]">Spread</span>
+          <span id="pageIndicator" class="tracking-widest text-[#080808]">1 / 7</span>
         </div>
         <div id="dotTrack" class="flex items-center gap-1.5">
           <!-- Spread dots injected here -->
@@ -996,7 +969,7 @@ let activeCatalog = 'women';
     function updateNavigationDots() {
       const dots = document.getElementById('dotTrack').children;
       for (let i = 0; i < dots.length; i++) {
-        dots[i].className = `h-2 rounded-full transition-all ${i === currentSpread ? 'bg-[#CBB892] w-5' : 'bg-white/20 hover:bg-white/40 w-2'}`;
+        dots[i].className = `h-2 rounded-full transition-all ${i === currentSpread ? 'bg-[#080808] w-5' : 'bg-[#080808]/25 hover:bg-[#080808]/50 w-2'}`;
       }
     }
 
