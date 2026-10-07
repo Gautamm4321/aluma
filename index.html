@@ -263,12 +263,14 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
   border-bottom: 1px solid rgba(var(--fg-rgb), 0.12);
   transition: border-color 0.3s ease;
 }
+
 .faq-question {
   width: 100%;
   padding: 22px 0;
   display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: space-between; /* Pushes question to left, icon to right */
+  gap: 20px;
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -281,26 +283,26 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
 .faq-question:hover {
   opacity: 0.8;
 }
+.faq-title {
+  flex-grow: 1;
+}
 .faq-icon {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 6px;
   background: rgba(var(--fg-rgb), 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 300;
   line-height: 1;
-  transition: transform 0.35s ease, background 0.35s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.35s ease;
 }
 .faq-item.active .faq-icon {
   transform: rotate(45deg);
-  background: rgba(var(--fg-rgb), 0.24);
-}
-.faq-title {
-  flex-grow: 1;
+  background: rgba(var(--fg-rgb), 0.26);
 }
 .faq-answer {
   max-height: 0;
@@ -309,13 +311,15 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
   opacity: 0;
 }
 .faq-answer p {
-  padding-left: 42px;
+  padding-left: 0; /* Clean left alignment with question */
+  padding-right: 42px;
   padding-bottom: 22px;
   font-size: clamp(15px, 1.15vw, 17px);
   line-height: 1.65;
   opacity: 0.68;
   max-width: 72ch;
 }
+
 .faq-item.active .faq-answer {
   opacity: 1;
 }
@@ -652,8 +656,8 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <!-- Item 1 -->
       <div class="faq-item">
         <button class="faq-question" type="button" aria-expanded="false">
-          <span class="faq-icon" aria-hidden="true">+</span>
           <span class="faq-title">How do I book a service?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-answer">
           <p>A few taps on the app and your appointment is confirmed—quick, seamless, and reliable.</p>
@@ -663,8 +667,8 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <!-- Item 2 -->
       <div class="faq-item">
         <button class="faq-question" type="button" aria-expanded="false">
-          <span class="faq-icon" aria-hidden="true">+</span>
           <span class="faq-title">Can I choose between salon and home?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-answer">
           <p>Yes. Experience Aluma in-salon or at home, with the same standards across both.</p>
@@ -674,8 +678,8 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <!-- Item 3 -->
       <div class="faq-item">
         <button class="faq-question" type="button" aria-expanded="false">
-          <span class="faq-icon" aria-hidden="true">+</span>
           <span class="faq-title">How do you ensure hygiene?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-answer">
           <p>We follow strict hygiene protocols, including single-use (monodose) products and sanitized tools for every session.</p>
@@ -685,8 +689,8 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <!-- Item 4 -->
       <div class="faq-item">
         <button class="faq-question" type="button" aria-expanded="false">
-          <span class="faq-icon" aria-hidden="true">+</span>
           <span class="faq-title">Who will be providing the service?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-answer">
           <p>Every service is delivered by trained professionals who understand your preferences and ensure a consistent experience.</p>
@@ -696,8 +700,8 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <!-- Item 5 -->
       <div class="faq-item">
         <button class="faq-question" type="button" aria-expanded="false">
-          <span class="faq-icon" aria-hidden="true">+</span>
           <span class="faq-title">Why choose Aluma?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-answer">
           <p>Because grooming should feel effortless, hygienic, and consistently high-quality—every single time.</p>
@@ -1840,19 +1844,25 @@ function updateStrands(dt){
   strands.lines = any;
 }
 
-/* ================= FAQ Accordion ================= */
-document.querySelectorAll('.faq-question').forEach(btn => {
+/* ================= FAQ Accordion (Single-Open Auto-Close) ================= */
+const faqButtons = document.querySelectorAll('.faq-question');
+faqButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq-item');
     const answer = item.querySelector('.faq-answer');
-    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    const isCurrentlyExpanded = btn.getAttribute('aria-expanded') === 'true';
 
-    // Toggle current item
-    if (isExpanded) {
-      btn.setAttribute('aria-expanded', 'false');
-      item.classList.remove('active');
-      answer.style.maxHeight = null;
-    } else {
+    // Close all other open accordion items first
+    faqButtons.forEach(otherBtn => {
+      const otherItem = otherBtn.closest('.faq-item');
+      const otherAnswer = otherItem.querySelector('.faq-answer');
+      otherBtn.setAttribute('aria-expanded', 'false');
+      otherItem.classList.remove('active');
+      otherAnswer.style.maxHeight = null;
+    });
+
+    // If the clicked item wasn't open, open it
+    if (!isCurrentlyExpanded) {
       btn.setAttribute('aria-expanded', 'true');
       item.classList.add('active');
       answer.style.maxHeight = answer.scrollHeight + 'px';
