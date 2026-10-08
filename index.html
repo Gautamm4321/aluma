@@ -211,6 +211,150 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
   .vs-mobile span{display:block}
 }
 
+/* ---------- Nails Section ---------- */
+#nails {
+  position: relative;
+  width: 100%;
+  background: #E6D5CA;
+  color: #080808;
+}
+
+#nails .layer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #E6D5CA;
+  overflow: hidden;
+}
+
+.nails-container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.nails-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: clamp(24px, 4vh, 40px);
+  width: 100%;
+}
+
+.nails-head h2 {
+  font-family: 'Jost', sans-serif;
+  font-weight: 200;
+  font-size: clamp(34px, 4.5vw, 68px);
+  line-height: 1.1;
+  color: #080808;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+}
+
+/* 360-degree Rotating Stage */
+.nails-wheel-stage {
+  position: relative;
+  width: clamp(320px, 46vw, 480px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto clamp(24px, 4vh, 40px);
+}
+
+.nails-orbit-ring {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: nailsRotateWheel 60s linear infinite;
+  will-change: transform;
+}
+
+.nails-orbit-ring:hover {
+  animation-play-state: paused;
+}
+
+/* Card Slot distance */
+.nail-card-slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--angle)) translate(clamp(115px, 17vw, 175px)) rotate(calc(-1 * var(--angle)));
+}
+
+/* 1:1 Square Card */
+.nail-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(100px, 13vw, 145px);
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid rgba(8, 8, 8, 0.12);
+  box-shadow: 0 16px 32px rgba(8, 8, 8, 0.14);
+  animation: nailsCounterRotate 60s linear infinite;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.nails-orbit-ring:hover .nail-card {
+  animation-play-state: paused;
+}
+
+.nail-card:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 24px 44px rgba(8, 8, 8, 0.22);
+  border-color: rgba(8, 8, 8, 0.4);
+  z-index: 20;
+}
+
+.nail-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+@keyframes nailsRotateWheel {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes nailsCounterRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+.nails-action {
+  position: relative;
+  z-index: 2;
+}
+
+#nails .btn.solid {
+  background: #080808;
+  color: #F4F1EA;
+  border-color: #080808;
+}
+
+#nails .btn.solid:hover {
+  opacity: 0.85;
+}
+
 /* ---------- Locations ---------- */
 .loc-copy{position:absolute;left:var(--pad);top:17vh;max-width:30ch}
 .loc-copy h2{margin-bottom:20px;max-width:6em}
@@ -617,6 +761,88 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
   </div>
 </section>
 
+<!-- 05b NAILS SECTION -->
+<section id="nails" class="pin" data-hd="180" data-hm="160" aria-labelledby="h-nails" style="height: 1530px;">
+  <div class="layer over" style="transform: translate3d(0px, 0px, 0px); opacity: 1; visibility: visible;">
+    <div class="nails-container">
+      
+      <!-- Single Line Heading -->
+      <div class="nails-head">
+        <h2 id="h-nails">Precision nail couture.</h2>
+      </div>
+
+      <!-- 360 Degree Rotating Circular Stage -->
+      <div class="nails-wheel-stage">
+        <div class="nails-orbit-ring">
+          
+          <!-- Card 1 (0 deg) -->
+          <div class="nail-card-slot" style="--angle: 0deg;">
+            <div class="nail-card">
+              <img src="nail-1.jpg" alt="Aluma Nail Art Style 1">
+            </div>
+          </div>
+
+          <!-- Card 2 (45 deg) -->
+          <div class="nail-card-slot" style="--angle: 45deg;">
+            <div class="nail-card">
+              <img src="nail-2.jpg" alt="Aluma Nail Art Style 2">
+            </div>
+          </div>
+
+          <!-- Card 3 (90 deg) -->
+          <div class="nail-card-slot" style="--angle: 90deg;">
+            <div class="nail-card">
+              <img src="nail-3.jpg" alt="Aluma Nail Art Style 3">
+            </div>
+          </div>
+
+          <!-- Card 4 (135 deg) -->
+          <div class="nail-card-slot" style="--angle: 135deg;">
+            <div class="nail-card">
+              <img src="nail-7.jpg" alt="Aluma Nail Art Style 4">
+            </div>
+          </div>
+
+          <!-- Card 5 (180 deg) -->
+          <div class="nail-card-slot" style="--angle: 180deg;">
+            <div class="nail-card">
+              <img src="nail-5.jpg" alt="Aluma Nail Art Style 5">
+            </div>
+          </div>
+
+          <!-- Card 6 (225 deg) -->
+          <div class="nail-card-slot" style="--angle: 225deg;">
+            <div class="nail-card">
+              <img src="nail-6.jpg" alt="Aluma Nail Art Style 6">
+            </div>
+          </div>
+
+          <!-- Card 7 (270 deg) -->
+          <div class="nail-card-slot" style="--angle: 270deg;">
+            <div class="nail-card">
+              <img src="nail-4.jpg" alt="Aluma Nail Art Style 7">
+            </div>
+          </div>
+
+          <!-- Card 8 (315 deg) -->
+          <div class="nail-card-slot" style="--angle: 315deg;">
+            <div class="nail-card">
+              <img src="nail-8.jpg" alt="Aluma Nail Art Style 8">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom Action Button -->
+      <div class="nails-action">
+        <a class="btn solid" href="#book">Book your nails</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- 06 LOCATIONS -->
 <section id="locations" class="pin" data-hd="170" data-hm="150" aria-labelledby="h-loc" style="height: 1434px;">
   <div class="layer under" style="transform: translate3d(0px, 18834px, 0px); opacity: 0; visibility: hidden;">
@@ -975,7 +1201,7 @@ document.addEventListener('click', e => {
 if(coarse) $('.snip-label').textContent = 'Tap the scissors';
 
 /* ================= Sections & scroll-layers ================= */
-const secEls = ['top','about','experience','services','vsalon','salon','locations','app','book','reviews','final'].map(id => document.getElementById(id));
+const secEls = ['top','about','experience','services','vsalon','salon','nails','locations','app','book','reviews','final'].map(id => document.getElementById(id));
 const SEC = secEls.map(el => ({el, id:el.id, pinned:el.classList.contains('pin'), layers:$$(':scope > .layer', el), ty:0, start:0, end:0, p:0}));
 const byId = Object.fromEntries(SEC.map(s=>[s.id,s]));
 
@@ -1641,6 +1867,10 @@ const FN = {
     o.a.dryer = pose([-2.7,0.3,-1.3], [0.1,0.9,0.2], 0.62, {bob:1});
     o.a.scissor = pose(P?[1.2,1.5,0.4]:[1.85,1.25,0.2], [0.5,0,0.8], P?0.42:0.5, {o:0.3, sp:0.45, bob:1});
     o.dust = 1;
+    return o;
+  },
+  nails(p){
+    const o = base(C.nude, 'd');
     return o;
   },
   locations(p){
