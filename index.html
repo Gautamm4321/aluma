@@ -217,34 +217,63 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
   width: 100%;
   background: #E6D5CA;
   color: #080808;
-}
-
-#nails .layer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: #E6D5CA;
+  padding: clamp(40px, 6vh, 60px) var(--pad) clamp(40px, 6vh, 60px); /* Reduced desktop top/bottom padding */
   overflow: hidden;
+  display: block;
 }
 
 .nails-container {
-  width: 100%;
   max-width: 1360px;
   margin: 0 auto;
-  padding: 0 var(--pad);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Side Editorial Text Elements (Desktop Only) */
+.nails-side-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #080808;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.nails-side-left {
+  left: 2vw;
+  text-align: left;
+}
+
+.nails-side-right {
+  right: 2vw;
+  text-align: right;
+}
+
+/* Hide side text on mobile/tablets */
+@media (max-width: 1024px) {
+  .nails-side-text {
+    display: none;
+  }
 }
 
 .nails-head {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: clamp(24px, 4vh, 40px);
+  margin-bottom: clamp(16px, 2.5vh, 28px); /* Reduced bottom margin to tighten vertical footprint */
   width: 100%;
 }
 
@@ -261,12 +290,88 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
 /* 360-degree Rotating Stage */
 .nails-wheel-stage {
   position: relative;
-  width: clamp(320px, 46vw, 480px);
+  width: clamp(280px, 40vw, 460px); /* Slightly reduced width footprint for desktop */
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto clamp(24px, 4vh, 40px);
+  margin: 0 auto clamp(20px, 3vh, 32px); /* Tighter spacing around wheel */
+}
+
+.nails-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Side Editorial Text Elements (Desktop Only) */
+.nails-side-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #080808;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.nails-side-left {
+  left: 2vw;
+  text-align: left;
+}
+
+.nails-side-right {
+  right: 2vw;
+  text-align: right;
+}
+
+/* Hide side text on mobile/tablets */
+@media (max-width: 1024px) {
+  .nails-side-text {
+    display: none;
+  }
+}
+
+.nails-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: clamp(36px, 5vh, 56px);
+  width: 100%;
+}
+
+.nails-head h2 {
+  font-family: 'Jost', sans-serif;
+  font-weight: 200;
+  font-size: clamp(34px, 4.5vw, 68px);
+  line-height: 1.1;
+  color: #080808;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+}
+
+/* 360-degree Rotating Stage */
+.nails-wheel-stage {
+  position: relative;
+  width: clamp(340px, 52vw, 600px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto clamp(36px, 5vh, 52px);
 }
 
 .nails-orbit-ring {
@@ -289,7 +394,7 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
   left: 50%;
   width: 0;
   height: 0;
-  transform: rotate(var(--angle)) translate(clamp(115px, 17vw, 175px)) rotate(calc(-1 * var(--angle)));
+  transform: rotate(var(--angle)) translate(clamp(140px, 19vw, 220px)) rotate(calc(-1 * var(--angle)));
 }
 
 /* 1:1 Square Card */
@@ -298,22 +403,20 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(100px, 13vw, 145px);
+  width: clamp(120px, 15vw, 175px);
   aspect-ratio: 1 / 1;
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
   background: #FFFFFF;
   border: 1px solid rgba(8, 8, 8, 0.12);
-  box-shadow: 0 16px 32px rgba(8, 8, 8, 0.14);
+  box-shadow: 0 18px 36px rgba(8, 8, 8, 0.16);
   animation: nailsCounterRotate 60s linear infinite;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
   cursor: pointer;
   will-change: transform;
 }
 
-.nails-orbit-ring:hover .nail-card {
-  animation-play-state: paused;
-}
+
 
 .nail-card:hover {
   transform: translate(-50%, -50%) scale(1.12);
@@ -762,84 +865,106 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
 </section>
 
 <!-- 05b NAILS SECTION -->
-<section id="nails" class="pin" data-hd="180" data-hm="160" aria-labelledby="h-nails" style="height: 1530px;">
-  <div class="layer over" style="transform: translate3d(0px, 0px, 0px); opacity: 1; visibility: visible;">
-    <div class="nails-container">
-      
-      <!-- Single Line Heading -->
-      <div class="nails-head">
-        <h2 id="h-nails">Precision nail couture.</h2>
-      </div>
-
-      <!-- 360 Degree Rotating Circular Stage -->
-      <div class="nails-wheel-stage">
-        <div class="nails-orbit-ring">
-          
-          <!-- Card 1 (0 deg) -->
-          <div class="nail-card-slot" style="--angle: 0deg;">
-            <div class="nail-card">
-              <img src="nail-1.jpg" alt="Aluma Nail Art Style 1">
-            </div>
-          </div>
-
-          <!-- Card 2 (45 deg) -->
-          <div class="nail-card-slot" style="--angle: 45deg;">
-            <div class="nail-card">
-              <img src="nail-2.jpg" alt="Aluma Nail Art Style 2">
-            </div>
-          </div>
-
-          <!-- Card 3 (90 deg) -->
-          <div class="nail-card-slot" style="--angle: 90deg;">
-            <div class="nail-card">
-              <img src="nail-3.jpg" alt="Aluma Nail Art Style 3">
-            </div>
-          </div>
-
-          <!-- Card 4 (135 deg) -->
-          <div class="nail-card-slot" style="--angle: 135deg;">
-            <div class="nail-card">
-              <img src="nail-7.jpg" alt="Aluma Nail Art Style 4">
-            </div>
-          </div>
-
-          <!-- Card 5 (180 deg) -->
-          <div class="nail-card-slot" style="--angle: 180deg;">
-            <div class="nail-card">
-              <img src="nail-5.jpg" alt="Aluma Nail Art Style 5">
-            </div>
-          </div>
-
-          <!-- Card 6 (225 deg) -->
-          <div class="nail-card-slot" style="--angle: 225deg;">
-            <div class="nail-card">
-              <img src="nail-6.jpg" alt="Aluma Nail Art Style 6">
-            </div>
-          </div>
-
-          <!-- Card 7 (270 deg) -->
-          <div class="nail-card-slot" style="--angle: 270deg;">
-            <div class="nail-card">
-              <img src="nail-4.jpg" alt="Aluma Nail Art Style 7">
-            </div>
-          </div>
-
-          <!-- Card 8 (315 deg) -->
-          <div class="nail-card-slot" style="--angle: 315deg;">
-            <div class="nail-card">
-              <img src="nail-8.jpg" alt="Aluma Nail Art Style 8">
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Bottom Action Button -->
-      <div class="nails-action">
-        <a class="btn solid" href="#book">Book your nails</a>
-      </div>
-
+<section id="nails" class="flow" aria-labelledby="h-nails">
+  <div class="nails-container">
+    
+    <!-- Left Side Desktop Editorial Text (Brand & Style) -->
+    <div class="nails-side-text nails-side-left">
+      <span>ALUMA SIGNATURE</span>
+      <span>HAND-CRAFTED ARTISTRY</span>
+      <span>PRISTINE GEL OVERLAYS</span>
+      <span>BESPOKE FINISHES</span>
+      <span>LUXURY NAIL CARE</span>
+      <span>SUSTAINABLE GLOW</span>
+      <span>EXPERT TECHNICIANS</span>
+      <span>TIMELESS ELEGANCE</span>
     </div>
+
+    <!-- Right Side Desktop Editorial Text (Nail Couture) -->
+    <div class="nails-side-text nails-side-right">
+      <span>CHROME GLOW</span>
+      <span>MATTE VELVET</span>
+      <span>INTATE DETAILS</span>
+      <span>VIBRANT SHADES</span>
+      <span>POLISHED PERFECTION</span>
+      <span>STYLISH EXTENSIONS</span>
+      <span>FLAWLESS CUTICLES</span>
+      <span>COUTURE NAILS</span>
+    </div>
+
+    <!-- Single Line Heading -->
+    <div class="nails-head">
+      <h2 id="h-nails">Precision nail couture.</h2>
+    </div>
+
+    <!-- 360 Degree Rotating Circular Stage -->
+    <div class="nails-wheel-stage">
+      <div class="nails-orbit-ring">
+        
+        <!-- Card 1 (0 deg) -->
+        <div class="nail-card-slot" style="--angle: 0deg;">
+          <div class="nail-card">
+            <img src="nail-1.jpg" alt="Aluma Nail Art Style 1">
+          </div>
+        </div>
+
+        <!-- Card 2 (45 deg) -->
+        <div class="nail-card-slot" style="--angle: 45deg;">
+          <div class="nail-card">
+            <img src="nail-2.jpg" alt="Aluma Nail Art Style 2">
+          </div>
+        </div>
+
+        <!-- Card 3 (90 deg) -->
+        <div class="nail-card-slot" style="--angle: 90deg;">
+          <div class="nail-card">
+            <img src="nail-3.jpg" alt="Aluma Nail Art Style 3">
+          </div>
+        </div>
+
+        <!-- Card 4 (135 deg) -->
+        <div class="nail-card-slot" style="--angle: 135deg;">
+          <div class="nail-card">
+            <img src="nail-7.jpg" alt="Aluma Nail Art Style 4">
+          </div>
+        </div>
+
+        <!-- Card 5 (180 deg) -->
+        <div class="nail-card-slot" style="--angle: 180deg;">
+          <div class="nail-card">
+            <img src="nail-5.jpg" alt="Aluma Nail Art Style 5">
+          </div>
+        </div>
+
+        <!-- Card 6 (225 deg) -->
+        <div class="nail-card-slot" style="--angle: 225deg;">
+          <div class="nail-card">
+            <img src="nail-6.jpg" alt="Aluma Nail Art Style 6">
+          </div>
+        </div>
+
+        <!-- Card 7 (270 deg) -->
+        <div class="nail-card-slot" style="--angle: 270deg;">
+          <div class="nail-card">
+            <img src="nail-4.jpg" alt="Aluma Nail Art Style 7">
+          </div>
+        </div>
+
+        <!-- Card 8 (315 deg) -->
+        <div class="nail-card-slot" style="--angle: 315deg;">
+          <div class="nail-card">
+            <img src="nail-8.jpg" alt="Aluma Nail Art Style 8">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Action Button -->
+    <div class="nails-action">
+      <a class="btn solid" href="#book">Book your nails</a>
+    </div>
+
   </div>
 </section>
 
