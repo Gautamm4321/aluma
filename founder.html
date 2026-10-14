@@ -83,7 +83,49 @@
       flex-direction: column;
       gap: clamp(20px, 3vh, 32px);
     }
-    .f-hero .f-display { max-width: 14ch; }
+    
+      .f-hero .f-display { max-width: 14ch; }
+
+    /* ===== Hero: text left, Instagram card right ===== */
+        .f-hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, .7fr); align-items: center; column-gap: clamp(40px, 6vw, 110px); }
+    .f-hero-copy { display: flex; flex-direction: column; gap: clamp(20px, 3vh, 32px); }
+    .f-ig {
+      justify-self: end;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: clamp(24px, 2.4vw, 32px);
+      border-radius: 24px;
+      border: 1px solid rgba(244, 241, 234, 0.14);
+      background: #111;
+      color: inherit;
+      text-decoration: none;
+      transition: border-color .3s ease, transform .3s ease, background .3s ease;
+    }
+    .f-ig:hover { border-color: rgba(244, 241, 234, 0.35); background: #151515; transform: translateY(-3px); }
+    .f-ig-top { display: flex; align-items: center; gap: 14px; }
+        .f-ig-logo { flex: none; display: grid; place-items: center; color: #F4F1EA; }
+    .f-ig-logo svg { width: 48px; height: 48px; }
+    .f-ig-kick { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; opacity: .6; }
+    .f-ig-user { font-size: clamp(20px, 1.7vw, 24px); font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; }
+    .f-ig-msg { font-size: 15px; line-height: 1.6; opacity: .75; }
+    .f-ig-cta {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: .55em;
+      height: 42px;
+      padding: 0 20px;
+      border-radius: 999px;
+      background: #F4F1EA;
+      color: #080808;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .f-ig-cta svg { width: 14px; height: 14px; transition: transform .3s ease; }
+    .f-ig:hover .f-ig-cta svg { transform: translateX(3px); }
 
     /* ===== Photo ===== */
     .f-photo-wrap {
@@ -205,7 +247,7 @@
       flex-direction: column;
       gap: 18px;
     }
-    .f-letter-head .f-h2 { max-width: 12ch; }
+          .f-letter-head .f-h2 { max-width: 12ch; }
     .f-letter-body { display: flex; flex-direction: column; gap: 26px; }
     .f-letter-body > p {
       font-size: clamp(17px, 1.25vw, 19px);
@@ -276,7 +318,10 @@
     /* ===== Mobile ===== */
     @media (max-width: 960px) {
       .f-hero { padding-top: calc(env(safe-area-inset-top, 0px) + 130px); text-align: center; align-items: center; }
-      .f-hero .f-display { max-width: 12ch; }
+            .f-hero .f-display { max-width: 12ch; }
+      .f-hero { grid-template-columns: 1fr; row-gap: 40px; }
+      .f-hero-copy { align-items: center; }
+      .f-ig { justify-self: center; text-align: left; }
       .f-photo { border-radius: 16px; }
       .f-photo figcaption { font-size: 12px; gap: 8px 12px; }
       .f-pillars-inner, .f-letter { grid-template-columns: 1fr; }
@@ -300,10 +345,15 @@
     .nav button,.menu button{font:inherit;color:inherit}
 .nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:24px;
   padding:calc(env(safe-area-inset-top,0px) + 18px) var(--pad) 18px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand svg{width:30px;height:auto}
-.brand svg circle{fill:rgb(var(--fg-rgb));transition:fill .45s}
-.brand b{font-weight:500;font-size:15px;letter-spacing:.28em}
+/* ===== Brand logo: fixed colour dots + larger wordmark ===== */
+@font-face{font-family:'Alta';src:url('Alta-Regular.woff2') format('woff2'),url('Alta-Regular.otf') format('opentype');font-weight:400 600;font-display:swap}
+.brand{display:flex;align-items:center;gap:.6em;text-decoration:none;font-size:clamp(17px,1.55vw,24px)}
+.brand svg{width:1.4em;height:auto;flex:none;overflow:visible}
+.brand svg circle:nth-child(1){fill:#039866}  /* top: green */
+.brand svg circle:nth-child(2){fill:#311FE5}  /* left: blue */
+.brand svg circle:nth-child(3){fill:#C30498}  /* right: magenta */
+.brand b{font-family:'Alta','Jost',sans-serif;font-weight:500;font-size:1em;line-height:1;letter-spacing:.22em;white-space:nowrap}
+/* ===== /Brand logo ===== */
 .nav nav{display:flex;gap:30px;margin-left:auto}
 .nav nav a{text-decoration:none;font-size:14px;opacity:.72;transition:opacity .25s}
 .nav nav a:hover{opacity:1}
@@ -369,9 +419,8 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
   .nav{gap:10px}
   .nav > .btn.sm{margin-left:auto;height:44px;padding:0 20px}
   .nav-book .long{display:none}
-  .brand b{letter-spacing:.22em}
-  .menu-btn{display:block}
-  .brand b{font-size:13px}
+    .menu-btn{display:block}
+  .brand{font-size:clamp(14px,4.2vw,17px)}
   .foot{grid-template-columns:1fr}
     }
     @media (prefers-reduced-motion: reduce){ .nav *,.menu *{transition:none!important} }
@@ -386,7 +435,6 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
     <b>ALUMA.SALON</b>
   </a>
   <nav aria-label="Main">
-    <a href="founder.html">About</a>
     <a href="founder.html" aria-current="page">Founder Story</a>
     <a href="index.html#experience">Experience</a>
     <a href="index.html#services">Services</a>
@@ -407,7 +455,6 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
 </header>
 <div id="menu" class="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden="">
   <nav aria-label="Mobile">
-    <a href="founder.html"><small>01</small>About</a>
     <a href="founder.html" aria-current="page"><small>02</small>Founder Story</a>
     <a href="index.html#experience"><small>03</small>Experience</a>
     <a href="index.html#services"><small>04</small>Services</a>
@@ -429,9 +476,26 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
 
     <!-- HERO: About Aluma -->
     <section class="f-hero">
-      <p class="f-eyebrow reveal">About Aluma</p>
-      <h1 class="f-display reveal">Redefining the <em>Salon Experience.</em></h1>
-      <p class="f-lead reveal">ALUMA is a technology-enabled salon brand built to make grooming and self-care more convenient, accessible, and rewarding. We combine professional expertise, transparent pricing, and smart technology to create a better salon experience.</p>
+            <div class="f-hero-copy">
+        <p class="f-eyebrow reveal">About Aluma</p>
+        <h1 class="f-display reveal">Redefining the <em>Salon Experience.</em></h1>
+        <p class="f-lead reveal">ALUMA is a technology-enabled salon brand built to make grooming and self-care more convenient, accessible, and rewarding. We combine professional expertise, transparent pricing, and smart technology to create a better salon experience.</p>
+      </div>
+
+      <!-- Instagram card (whole card opens the profile) -->
+      <a class="f-ig reveal" href="https://www.instagram.com/alumadaddy/" target="_blank" rel="noopener" aria-label="Open @alumadaddy on Instagram">
+        <div class="f-ig-top">
+          <span class="f-ig-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <div>
+            <p class="f-ig-kick">Follow us on Instagram</p>
+            <p class="f-ig-user">@alumadaddy</p>
+          </div>
+        </div>
+        <p class="f-ig-msg">Connect with us for more information, our latest looks, offers and behind-the-scenes from the Aluma team.</p>
+        <span class="f-ig-cta">Visit profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
     </section>
 
     <!-- FOUNDERS IMAGE -->

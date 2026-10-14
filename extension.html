@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Luxury Hair Extensions · Bengaluru | Aluma Salon</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
+
 
   <style>
     * {
@@ -17,7 +20,8 @@
       padding: 0;
     }
 
-    html, body {
+    html,
+    body {
       width: 100%;
       background: #080808;
       color: #F4F1EA;
@@ -76,7 +80,17 @@
       }
     }
 
+        /* Desktop only: let the headings stick while the images scroll.
+       overflow-x:hidden on <body> turns it into its own scroll box, which stops position:sticky working.
+       <html> keeps overflow-x:hidden, so the page still never scrolls sideways. */
+    @media (min-width: 961px) {
+      body {
+        overflow-x: visible;
+      }
+    }
+
     /* Desktop Sticky Scroll Section Structure */
+
     .story-scroll-section {
       position: relative;
       width: 100%;
@@ -93,7 +107,7 @@
       direction: rtl;
     }
 
-    .story-scroll-section.reverse > * {
+    .story-scroll-section.reverse>* {
       direction: ltr;
     }
 
@@ -128,6 +142,7 @@
         text-align: center !important;
         align-items: center !important;
       }
+
       .mobile-head-group {
         text-align: center !important;
         align-items: center !important;
@@ -184,7 +199,7 @@
       display: block;
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
+
 
     .story-product-desc {
       font-size: clamp(21px, 1.20vw, 23px);
@@ -256,144 +271,596 @@
         object-fit: cover;
       }
     }
-  
+
     /* ===== Shared Header + Footer (copied from index.html) ===== */
-    :root{ --pad:clamp(20px,4vw,60px); --fg-rgb:244,241,234; --bgc:#080808; }
-    .nav,.menu{color:rgb(var(--fg-rgb));transition:color .45s ease}
-    .nav a,.menu a,footer a,.brand{color:inherit}
-    .nav button,.menu button{font:inherit;color:inherit}
-.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:24px;
-  padding:calc(env(safe-area-inset-top,0px) + 18px) var(--pad) 18px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand svg{width:30px;height:auto}
-.brand svg circle{fill:rgb(var(--fg-rgb));transition:fill .45s}
-.brand b{font-weight:500;font-size:15px;letter-spacing:.28em}
-.nav nav{display:flex;gap:30px;margin-left:auto}
-.nav nav a{text-decoration:none;font-size:14px;opacity:.72;transition:opacity .25s}
-.nav nav a:hover{opacity:1}
-.menu-btn{display:none;position:relative;flex:none;width:44px;height:44px;border-radius:50%;border:1px solid rgba(var(--fg-rgb),.4);background:transparent;cursor:pointer}
-.menu-btn i{position:absolute;left:13px;right:13px;height:1.5px;background:rgb(var(--fg-rgb));transition:transform .35s ease}
-.menu-btn i:first-child{top:17px}
-.menu-btn i:last-child{top:25px}
-.menu-open .menu-btn i:first-child{transform:translateY(4px) rotate(45deg)}
-.menu-open .menu-btn i:last-child{transform:translateY(-4px) rotate(-45deg)}
-/* ===== Founder Story + Hair dropdown ===== */
-.nav nav{align-items:center}
-.nav-drop{position:relative;display:flex;align-items:center}
-.nav-drop-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:0;margin:0;font:inherit;font-size:14px;color:inherit;opacity:.72;cursor:pointer;transition:opacity .25s}
-.nav-drop-btn svg{width:10px;height:10px;transition:transform .3s ease}
-.nav-drop-menu{position:absolute;top:100%;left:50%;padding-top:16px;transform:translate(-50%,8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s}
-.nav-drop-panel{display:flex;flex-direction:column;min-width:190px;padding:8px;border-radius:16px;background:var(--bgc);border:1px solid rgba(var(--fg-rgb),.16);box-shadow:0 18px 40px rgba(0,0,0,.35)}
-.nav .nav-drop-panel a{display:block;padding:11px 14px;border-radius:10px;font-size:14px;white-space:nowrap;text-decoration:none;color:inherit;opacity:.8;transition:opacity .2s,background .2s}
-.nav .nav-drop-panel a:hover{opacity:1;background:rgba(var(--fg-rgb),.08)}
-.nav-drop.open .nav-drop-btn,.nav-drop:has(:focus-visible) .nav-drop-btn{opacity:1}
-.nav-drop.open .nav-drop-btn svg{transform:rotate(180deg)}
-.nav-drop.open .nav-drop-menu,.nav-drop:has(:focus-visible) .nav-drop-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0);transition-delay:0s}
-@media (hover:hover){
-  .nav-drop:hover .nav-drop-btn{opacity:1}
-  .nav-drop:hover .nav-drop-btn svg{transform:rotate(180deg)}
-  .nav-drop:hover .nav-drop-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0);transition-delay:0s}
-}
-/* keep the longer desktop nav on one line */
-@media (max-width:1300px){ .nav nav{gap:20px} .nav-book .long{display:none} }
-@media (max-width:1080px){ .nav nav{gap:14px} .nav nav a,.nav-drop-btn{font-size:13px} }
-@media (max-width:960px){ .nav nav{display:none} .nav{gap:10px} .nav > .btn.sm{margin-left:auto} .menu-btn{display:block} }
-/* ===== /Founder Story + Hair dropdown ===== */
-.menu-open .nav{--fg-rgb:244,241,234;--bgc:#080808}
-.menu{position:fixed;inset:0;z-index:19;background:#080808;color:#F4F1EA;display:flex;flex-direction:column;justify-content:space-between;
-  padding:calc(env(safe-area-inset-top,0px) + 96px) var(--pad) calc(env(safe-area-inset-bottom,0px) + 28px);overflow-y:auto;--fg-rgb:244,241,234;--bgc:#080808}
-.menu[hidden]{display:none}
-.menu nav{display:flex;flex-direction:column}
-.menu nav a{display:flex;align-items:baseline;gap:16px;text-decoration:none;font-weight:300;font-size:clamp(34px,9.5vw,56px);letter-spacing:-.02em;line-height:1.15;padding:10px 0;border-bottom:1px solid rgba(244,241,234,.12)}
-.menu nav a small{font-size:12px;font-weight:400;letter-spacing:.1em;opacity:.45;min-width:22px}
-.menu-foot{display:grid;gap:12px;margin-top:32px}
-.menu-foot .stores .btn{flex:1}
-.menu-foot .small{margin-top:6px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;height:48px;padding:0 24px;border-radius:999px;
-  font:500 15px/1 'Jost',sans-serif;letter-spacing:.01em;text-decoration:none;cursor:pointer;white-space:nowrap;
-  border:1px solid rgba(var(--fg-rgb),.55);background:transparent;color:rgb(var(--fg-rgb));transition:background .3s,color .3s,border-color .3s}
-.btn:hover{border-color:rgb(var(--fg-rgb))}
-.btn.solid{background:rgb(var(--fg-rgb));color:var(--bgc);border-color:rgb(var(--fg-rgb))}
-.btn.solid:hover{opacity:.88}
-.btn.sm{height:40px;padding:0 18px;font-size:14px}
-.btn[disabled]{opacity:.35;cursor:not-allowed}
-.btn svg{width:16px;height:16px;flex:none}
-.small{font-size:13px;line-height:1.45;opacity:.7}
-.ph{border-bottom:1px dashed currentColor;opacity:.85;cursor:help}
-.stores{display:flex;gap:10px;flex-wrap:wrap}
-footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(var(--fg-rgb),.14)}
-.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px;max-width:1440px;margin:0 auto}
-.foot ul{list-style:none;display:grid;gap:8px}
-.foot a{text-decoration:none;opacity:.75}
-.foot a:hover{opacity:1}
-.foot h4{font-weight:500;font-size:14px;margin-bottom:12px;opacity:.55}
-.legal{max-width:1440px;margin:56px auto 0;font-size:13px;opacity:.5}
-    @media (max-aspect-ratio: 9/10), (max-width: 760px){
-  .nav nav{display:none}
-  .nav{gap:10px}
-  .nav > .btn.sm{margin-left:auto;height:44px;padding:0 20px}
-  .nav-book .long{display:none}
-  .brand b{letter-spacing:.22em}
-  .menu-btn{display:block}
-  .brand b{font-size:13px}
-  .foot{grid-template-columns:1fr}
+    :root {
+      --pad: clamp(20px, 4vw, 60px);
+      --fg-rgb: 244, 241, 234;
+      --bgc: #080808;
     }
-    @media (prefers-reduced-motion: reduce){ .nav *,.menu *{transition:none!important} }
+
+    .nav,
+    .menu {
+      color: rgb(var(--fg-rgb));
+      transition: color .45s ease
+    }
+
+    .nav a,
+    .menu a,
+    footer a,
+    .brand {
+      color: inherit
+    }
+
+    .nav button,
+    .menu button {
+      font: inherit;
+      color: inherit
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: calc(env(safe-area-inset-top, 0px) + 18px) var(--pad) 18px
+    }
+
+    /* ===== Brand logo: fixed colour dots + larger wordmark ===== */
+    @font-face {
+      font-family: 'Alta';
+      src: url('Alta-Regular.woff2') format('woff2'), url('Alta-Regular.otf') format('opentype');
+      font-weight: 400 600;
+      font-display: swap
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .6em;
+      text-decoration: none;
+      font-size: clamp(17px, 1.55vw, 24px)
+    }
+
+    .brand svg {
+      width: 1.4em;
+      height: auto;
+      flex: none;
+      overflow: visible
+    }
+
+    .brand svg circle:nth-child(1) {
+      fill: #039866
+    }
+
+    /* top: green */
+    .brand svg circle:nth-child(2) {
+      fill: #311FE5
+    }
+
+    /* left: blue */
+    .brand svg circle:nth-child(3) {
+      fill: #C30498
+    }
+
+    /* right: magenta */
+    .brand b {
+      font-family: 'Alta', 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 1em;
+      line-height: 1;
+      letter-spacing: .22em;
+      white-space: nowrap
+    }
+
+    /* ===== /Brand logo ===== */
+    .nav nav {
+      display: flex;
+      gap: 30px;
+      margin-left: auto
+    }
+
+    .nav nav a {
+      text-decoration: none;
+      font-size: 14px;
+      opacity: .72;
+      transition: opacity .25s
+    }
+
+    .nav nav a:hover {
+      opacity: 1
+    }
+
+    .menu-btn {
+      display: none;
+      position: relative;
+      flex: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(var(--fg-rgb), .4);
+      background: transparent;
+      cursor: pointer
+    }
+
+    .menu-btn i {
+      position: absolute;
+      left: 13px;
+      right: 13px;
+      height: 1.5px;
+      background: rgb(var(--fg-rgb));
+      transition: transform .35s ease
+    }
+
+    .menu-btn i:first-child {
+      top: 17px
+    }
+
+    .menu-btn i:last-child {
+      top: 25px
+    }
+
+    .menu-open .menu-btn i:first-child {
+      transform: translateY(4px) rotate(45deg)
+    }
+
+    .menu-open .menu-btn i:last-child {
+      transform: translateY(-4px) rotate(-45deg)
+    }
+
+    /* ===== Founder Story + Hair dropdown ===== */
+    .nav nav {
+      align-items: center
+    }
+
+    .nav-drop {
+      position: relative;
+      display: flex;
+      align-items: center
+    }
+
+    .nav-drop-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      font-size: 14px;
+      color: inherit;
+      opacity: .72;
+      cursor: pointer;
+      transition: opacity .25s
+    }
+
+    .nav-drop-btn svg {
+      width: 10px;
+      height: 10px;
+      transition: transform .3s ease
+    }
+
+    .nav-drop-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      padding-top: 16px;
+      transform: translate(-50%, 8px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s
+    }
+
+    .nav-drop-panel {
+      display: flex;
+      flex-direction: column;
+      min-width: 190px;
+      padding: 8px;
+      border-radius: 16px;
+      background: var(--bgc);
+      border: 1px solid rgba(var(--fg-rgb), .16);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .35)
+    }
+
+    .nav .nav-drop-panel a {
+      display: block;
+      padding: 11px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      white-space: nowrap;
+      text-decoration: none;
+      color: inherit;
+      opacity: .8;
+      transition: opacity .2s, background .2s
+    }
+
+    .nav .nav-drop-panel a:hover {
+      opacity: 1;
+      background: rgba(var(--fg-rgb), .08)
+    }
+
+    .nav-drop.open .nav-drop-btn,
+    .nav-drop:has(:focus-visible) .nav-drop-btn {
+      opacity: 1
+    }
+
+    .nav-drop.open .nav-drop-btn svg {
+      transform: rotate(180deg)
+    }
+
+    .nav-drop.open .nav-drop-menu,
+    .nav-drop:has(:focus-visible) .nav-drop-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate(-50%, 0);
+      transition-delay: 0s
+    }
+
+    @media (hover:hover) {
+      .nav-drop:hover .nav-drop-btn {
+        opacity: 1
+      }
+
+      .nav-drop:hover .nav-drop-btn svg {
+        transform: rotate(180deg)
+      }
+
+      .nav-drop:hover .nav-drop-menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translate(-50%, 0);
+        transition-delay: 0s
+      }
+    }
+
+    /* keep the longer desktop nav on one line */
+    @media (max-width:1300px) {
+      .nav nav {
+        gap: 20px
+      }
+
+      .nav-book .long {
+        display: none
+      }
+    }
+
+    @media (max-width:1080px) {
+      .nav nav {
+        gap: 14px
+      }
+
+      .nav nav a,
+      .nav-drop-btn {
+        font-size: 13px
+      }
+    }
+
+    @media (max-width:960px) {
+      .nav nav {
+        display: none
+      }
+
+      .nav {
+        gap: 10px
+      }
+
+      .nav>.btn.sm {
+        margin-left: auto
+      }
+
+      .menu-btn {
+        display: block
+      }
+    }
+
+    /* ===== /Founder Story + Hair dropdown ===== */
+    .menu-open .nav {
+      --fg-rgb: 244, 241, 234;
+      --bgc: #080808
+    }
+
+    .menu {
+      position: fixed;
+      inset: 0;
+      z-index: 19;
+      background: #080808;
+      color: #F4F1EA;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: calc(env(safe-area-inset-top, 0px) + 96px) var(--pad) calc(env(safe-area-inset-bottom, 0px) + 28px);
+      overflow-y: auto;
+      --fg-rgb: 244, 241, 234;
+      --bgc: #080808
+    }
+
+    .menu[hidden] {
+      display: none
+    }
+
+    .menu nav {
+      display: flex;
+      flex-direction: column
+    }
+
+    .menu nav a {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      text-decoration: none;
+      font-weight: 300;
+      font-size: clamp(34px, 9.5vw, 56px);
+      letter-spacing: -.02em;
+      line-height: 1.15;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(244, 241, 234, .12)
+    }
+
+    .menu nav a small {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .1em;
+      opacity: .45;
+      min-width: 22px
+    }
+
+    .menu-foot {
+      display: grid;
+      gap: 12px;
+      margin-top: 32px
+    }
+
+    .menu-foot .stores .btn {
+      flex: 1
+    }
+
+    .menu-foot .small {
+      margin-top: 6px
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6em;
+      height: 48px;
+      padding: 0 24px;
+      border-radius: 999px;
+      font: 500 15px/1 'Jost', sans-serif;
+      letter-spacing: .01em;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      border: 1px solid rgba(var(--fg-rgb), .55);
+      background: transparent;
+      color: rgb(var(--fg-rgb));
+      transition: background .3s, color .3s, border-color .3s
+    }
+
+    .btn:hover {
+      border-color: rgb(var(--fg-rgb))
+    }
+
+    .btn.solid {
+      background: rgb(var(--fg-rgb));
+      color: var(--bgc);
+      border-color: rgb(var(--fg-rgb))
+    }
+
+    .btn.solid:hover {
+      opacity: .88
+    }
+
+    .btn.sm {
+      height: 40px;
+      padding: 0 18px;
+      font-size: 14px
+    }
+
+    .btn[disabled] {
+      opacity: .35;
+      cursor: not-allowed
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+      flex: none
+    }
+
+    .small {
+      font-size: 13px;
+      line-height: 1.45;
+      opacity: .7
+    }
+
+    .ph {
+      border-bottom: 1px dashed currentColor;
+      opacity: .85;
+      cursor: help
+    }
+
+    .stores {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    footer {
+      position: relative;
+      z-index: 2;
+      padding: 80px var(--pad) calc(40px + env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid rgba(var(--fg-rgb), .14)
+    }
+
+    .foot {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 40px;
+      max-width: 1440px;
+      margin: 0 auto
+    }
+
+    .foot ul {
+      list-style: none;
+      display: grid;
+      gap: 8px
+    }
+
+    .foot a {
+      text-decoration: none;
+      opacity: .75
+    }
+
+    .foot a:hover {
+      opacity: 1
+    }
+
+    .foot h4 {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 12px;
+      opacity: .55
+    }
+
+    .legal {
+      max-width: 1440px;
+      margin: 56px auto 0;
+      font-size: 13px;
+      opacity: .5
+    }
+
+    @media (max-aspect-ratio: 9/10),
+    (max-width: 760px) {
+      .nav nav {
+        display: none
+      }
+
+      .nav {
+        gap: 10px
+      }
+
+      .nav>.btn.sm {
+        margin-left: auto;
+        height: 44px;
+        padding: 0 20px
+      }
+
+      .nav-book .long {
+        display: none
+      }
+
+      .menu-btn {
+        display: block
+      }
+
+      .brand {
+        font-size: clamp(14px, 4.2vw, 17px)
+      }
+
+      .foot {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .nav *,
+      .menu * {
+        transition: none !important
+      }
+    }
+
+/* Responsive Video Display Helpers */
+    .desktop-vid { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .mobile-vid { display: none; width: 100%; height: 100%; object-fit: cover; }
+
+    @media (max-width: 960px) {
+      .desktop-vid { display: none !important; }
+      .mobile-vid { display: block !important; }
+    }
+
     /* ===== /Shared Header + Footer ===== */
   </style>
 </head>
+
 <body>
 
   <header class="nav">
-  <a class="brand" href="index.html" aria-label="Aluma, back to top">
-    <svg viewBox="0 0 116 96" aria-hidden="true"><circle cx="58" cy="25" r="23"></circle><circle cx="25" cy="71" r="23"></circle><circle cx="91" cy="71" r="23"></circle></svg>
-    <b>ALUMA.SALON</b>
-  </a>
+    <a class="brand" href="index.html" aria-label="Aluma, back to top">
+      <svg viewBox="0 0 116 96" aria-hidden="true">
+        <circle cx="58" cy="25" r="23"></circle>
+        <circle cx="25" cy="71" r="23"></circle>
+        <circle cx="91" cy="71" r="23"></circle>
+      </svg>
+      <b>ALUMA.SALON</b>
+    </a>
     <nav aria-label="Main">
-    <a href="founder.html">About</a>
-    <a href="founder.html">Founder Story</a>
-    <a href="index.html#experience">Experience</a>
-    <a href="index.html#services">Services</a>
-    <div class="nav-drop">
-      <button class="nav-drop-btn" type="button" aria-haspopup="true" aria-expanded="false">Hair <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 3.5 5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
-      <div class="nav-drop-menu"><div class="nav-drop-panel">
-        <a href="extension.html">Hair Extension</a>
-        <a href="patch.html">Hair Patch</a>
-      </div></div>
-    </div>
-    <a href="index.html#locations">Locations</a>
-    <a href="menu.html">Menu</a>
-    <a href="passes.html">Passes</a>
-    <a href="index.html#app">App</a>
-  </nav>
-  <a class="btn sm solid nav-book" href="index.html#book">Book<span class="long"> appointment</span></a>
-  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
-</header>
-<div id="menu" class="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden="">
+      <a href="founder.html">Founder Story</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#services">Services</a>
+      <div class="nav-drop">
+        <button class="nav-drop-btn" type="button" aria-haspopup="true" aria-expanded="false">Hair <svg
+            viewBox="0 0 10 10" aria-hidden="true">
+            <path d="M1.5 3.5 5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4" />
+          </svg></button>
+        <div class="nav-drop-menu">
+          <div class="nav-drop-panel">
+            <a href="extension.html">Hair Extension</a>
+            <a href="patch.html">Hair Patch</a>
+          </div>
+        </div>
+      </div>
+      <a href="index.html#locations">Locations</a>
+      <a href="menu.html">Menu</a>
+      <a href="passes.html">Passes</a>
+      <a href="index.html#app">App</a>
+    </nav>
+    <a class="btn sm solid nav-book" href="index.html#book">Book<span class="long"> appointment</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"
+      aria-label="Open menu"><i></i><i></i></button>
+  </header>
+  <div id="menu" class="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden="">
     <nav aria-label="Mobile">
-    <a href="founder.html"><small>01</small>About</a>
-    <a href="founder.html"><small>02</small>Founder Story</a>
-    <a href="index.html#experience"><small>03</small>Experience</a>
-    <a href="index.html#services"><small>04</small>Services</a>
-    <a href="extension.html"><small>05</small>Hair Extension</a>
-    <a href="patch.html"><small>06</small>Hair Patch</a>
-    <a href="index.html#locations"><small>07</small>Locations</a>
-    <a href="menu.html"><small>08</small>Menu</a>
-    <a href="passes.html"><small>09</small>Passes</a>
-    <a href="index.html#app"><small>10</small>App</a>
-  </nav>
-  <div class="menu-foot">
-    <a class="btn solid" href="index.html#book">Book an appointment</a>
-    <div class="stores"><a class="btn solid" href="https://play.google.com/store/apps/details?id=com.aluma.salon" target="_blank" rel="noopener">Google Play</a><a class="btn" href="https://apps.apple.com/in/app/aluma-salon/id6498151574" target="_blank" rel="noopener">App Store</a></div>
-    <p class="small">One membership for hair and beauty. Now live in Bengaluru.</p>
+      <a href="founder.html"><small>02</small>Founder Story</a>
+      <a href="index.html#experience"><small>03</small>Experience</a>
+      <a href="index.html#services"><small>04</small>Services</a>
+      <a href="extension.html"><small>05</small>Hair Extension</a>
+      <a href="patch.html"><small>06</small>Hair Patch</a>
+      <a href="index.html#locations"><small>07</small>Locations</a>
+      <a href="menu.html"><small>08</small>Menu</a>
+      <a href="passes.html"><small>09</small>Passes</a>
+      <a href="index.html#app"><small>10</small>App</a>
+    </nav>
+    <div class="menu-foot">
+      <a class="btn solid" href="index.html#book">Book an appointment</a>
+      <div class="stores"><a class="btn solid" href="https://play.google.com/store/apps/details?id=com.aluma.salon"
+          target="_blank" rel="noopener">Google Play</a><a class="btn"
+          href="https://apps.apple.com/in/app/aluma-salon/id6498151574" target="_blank" rel="noopener">App Store</a>
+      </div>
+      <p class="small">One membership for hair and beauty. Now live in Bengaluru.</p>
+    </div>
   </div>
-</div>
 
   <main>
-    <!-- Top Full-Frame Video Hero -->
+   <!-- Top Full-Frame Video Hero (Desktop & Mobile Responsive) -->
     <section class="extension-hero-video-wrap">
-      <video autoplay muted loop playsinline preload="auto">
+      <!-- Desktop Video -->
+      <video class="desktop-vid" autoplay muted loop playsinline preload="auto">
         <source src="extensionvideo.mp4" type="video/mp4">
+      </video>
+      <!-- Mobile Video (Ensure the src matches your exact file name) -->
+      <video class="mobile-vid" autoplay muted loop playsinline preload="auto">
+        <source src="extension.mobile.mp4" type="video/mp4">
       </video>
       <div class="extension-hero-overlay"></div>
     </section>
@@ -416,15 +883,18 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <div class="scrolling-stack-col">
         <div class="stack-item">
           <div class="story-img-box"><img src="extenion-2ABC.jpg" alt="Tape-In View 1"></div>
-          <p class="story-product-desc">Ultra-thin, lightweight medical-grade tape tabs that lay completely flat against your scalp for instant length and natural body.</p>
+          <p class="story-product-desc">Ultra-thin, lightweight medical-grade tape tabs that lay completely flat against
+            your scalp for instant length and natural body.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="extension-1B.jpg" alt="Tape-In View 2"></div>
-          <p class="story-product-desc">Designed with skin-like transparent base weaving so hair movement mimics natural growth effortlessly.</p>
+          <p class="story-product-desc">Designed with skin-like transparent base weaving so hair movement mimics natural
+            growth effortlessly.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="extension-1C.jpg" alt="Tape-In View 3"></div>
-          <p class="story-product-desc">Seamlessly contoured to blend invisibly even when worn in high styling configurations.</p>
+          <p class="story-product-desc">Seamlessly contoured to blend invisibly even when worn in high styling
+            configurations.</p>
         </div>
       </div>
     </section>
@@ -437,15 +907,18 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <div class="scrolling-stack-col">
         <div class="stack-item">
           <div class="story-img-box"><img src="micro-1A.jpg" alt="Micro-Ring View 1"></div>
-          <p class="story-product-desc">Applied strand-by-strand using tiny, color-matched copper rings with zero heat, glue, or harsh chemical bonds.</p>
+          <p class="story-product-desc">Applied strand-by-strand using tiny, color-matched copper rings with zero heat,
+            glue, or harsh chemical bonds.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="micro-1B.jpg" alt="Micro-Ring View 2"></div>
-          <p class="story-product-desc">Exceptionally secure and fully re-adjustable, ideal for clients maintaining an active daily lifestyle.</p>
+          <p class="story-product-desc">Exceptionally secure and fully re-adjustable, ideal for clients maintaining an
+            active daily lifestyle.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="micro-1C.jpg" alt="Micro-Ring View 3"></div>
-          <p class="story-product-desc">Seamlessly distributes weight across the head for feather-light comfort day and night.</p>
+          <p class="story-product-desc">Seamlessly distributes weight across the head for feather-light comfort day and
+            night.</p>
         </div>
       </div>
     </section>
@@ -458,11 +931,13 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <div class="scrolling-stack-col">
         <div class="stack-item">
           <div class="story-img-box"><img src="weft-1A.jpg" alt="Weft View 1"></div>
-          <p class="story-product-desc">Custom-measured beaded rows created specifically for dense hair types seeking supreme volume and rich texture.</p>
+          <p class="story-product-desc">Custom-measured beaded rows created specifically for dense hair types seeking
+            supreme volume and rich texture.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="weft-1C.jpg" alt="Weft View 2"></div>
-          <p class="story-product-desc">Hand-crafted thin seams lie flush against your hairline for an undetectable, full-bodied look.</p>
+          <p class="story-product-desc">Hand-crafted thin seams lie flush against your hairline for an undetectable,
+            full-bodied look.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="weft1B.jpg" alt="Weft View 3"></div>
@@ -479,11 +954,13 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <div class="scrolling-stack-col">
         <div class="stack-item">
           <div class="story-img-box"><img src="keratin-2A.jpg" alt="Keratin View 1"></div>
-          <p class="story-product-desc">Italian keratin protein tips thermally sealed into microscopic bonds for ultimate holding strength.</p>
+          <p class="story-product-desc">Italian keratin protein tips thermally sealed into microscopic bonds for
+            ultimate holding strength.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="karatin-1B.jpg" alt="Keratin View 2"></div>
-          <p class="story-product-desc">Enables complete 360-degree natural hair movement, high ponytails, and effortless styling versatility.</p>
+          <p class="story-product-desc">Enables complete 360-degree natural hair movement, high ponytails, and
+            effortless styling versatility.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="extension-3ABC.jpg" alt="Keratin View 3"></div>
@@ -500,15 +977,18 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <div class="scrolling-stack-col">
         <div class="stack-item">
           <div class="story-img-box"><img src="color-blending-1A.jpg" alt="Color View 1"></div>
-          <p class="story-product-desc">Master colorists custom-root and tone extensions to match your exact natural shade gradient.</p>
+          <p class="story-product-desc">Master colorists custom-root and tone extensions to match your exact natural
+            shade gradient.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="color-blending-1B.jpg" alt="Color View 2"></div>
-          <p class="story-product-desc">Multi-tonal dimension created to eliminate artificial lines and create a flawless sun-kissed finish.</p>
+          <p class="story-product-desc">Multi-tonal dimension created to eliminate artificial lines and create a
+            flawless sun-kissed finish.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="color-blending-1C.jpg" alt="Color View 3"></div>
-          <p class="story-product-desc">Gloss treatments applied to lock in radiance and preserve vibrant depth between salon visits.</p>
+          <p class="story-product-desc">Gloss treatments applied to lock in radiance and preserve vibrant depth between
+            salon visits.</p>
         </div>
       </div>
     </section>
@@ -521,15 +1001,18 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <div class="scrolling-stack-col">
         <div class="stack-item">
           <div class="story-img-box"><img src="hair-care-1A.jpg" alt="Maintenance View 1"></div>
-          <p class="story-product-desc">Scheduled salon check-ups including professional tightening, hydration masks, and scalp care.</p>
+          <p class="story-product-desc">Scheduled salon check-ups including professional tightening, hydration masks,
+            and scalp care.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="hair-care-1B.jpg" alt="Maintenance View 2"></div>
-          <p class="story-product-desc">Safe professional removal and reapplication processes designed to protect your natural hair integrity.</p>
+          <p class="story-product-desc">Safe professional removal and reapplication processes designed to protect your
+            natural hair integrity.</p>
         </div>
         <div class="stack-item">
           <div class="story-img-box"><img src="hair-care-1C.jpg" alt="Maintenance View 3"></div>
-          <p class="story-product-desc">Personalized home-care regimens and specialized brushes to maintain tangle-free locks.</p>
+          <p class="story-product-desc">Personalized home-care regimens and specialized brushes to maintain tangle-free
+            locks.</p>
         </div>
       </div>
     </section>
@@ -542,7 +1025,8 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
       <div class="mobile-swiper-container">
         <div class="mobile-swiper-slide">
           <div class="mobile-slide-img"><img src="extenion-2ABC.jpg" alt="Tape 1"></div>
-          <p class="story-product-desc">Ultra-thin, lightweight medical-grade tape tabs that lay flat against your scalp.</p>
+          <p class="story-product-desc">Ultra-thin, lightweight medical-grade tape tabs that lay flat against your
+            scalp.</p>
         </div>
         <div class="mobile-swiper-slide">
           <div class="mobile-slide-img"><img src="extension-1B.jpg" alt="Tape 2"></div>
@@ -657,102 +1141,118 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
   </main>
 
   <footer>
-  <div class="foot">
-    <div>
-      <a class="brand" href="index.html" aria-label="Aluma, back to top"><svg viewBox="0 0 116 96" aria-hidden="true"><circle cx="58" cy="25" r="23"></circle><circle cx="25" cy="71" r="23"></circle><circle cx="91" cy="71" r="23"></circle></svg><b>ALUMA.SALON</b></a>
-      <p class="small" style="margin-top:16px;max-width:32ch">One membership for hair and beauty. Now live in Bengaluru.</p>
+    <div class="foot">
+      <div>
+        <a class="brand" href="index.html" aria-label="Aluma, back to top"><svg viewBox="0 0 116 96" aria-hidden="true">
+            <circle cx="58" cy="25" r="23"></circle>
+            <circle cx="25" cy="71" r="23"></circle>
+            <circle cx="91" cy="71" r="23"></circle>
+          </svg><b>ALUMA.SALON</b></a>
+        <p class="small" style="margin-top:16px;max-width:32ch">One membership for hair and beauty. Now live in
+          Bengaluru.</p>
+      </div>
+      <div>
+        <h4>Get the app</h4>
+        <ul>
+          <li><a href="https://play.google.com/store/apps/details?id=com.aluma.salon" target="_blank"
+              rel="noopener">Google Play</a></li>
+          <li><a href="https://apps.apple.com/in/app/aluma-salon/id6498151574" target="_blank" rel="noopener">App
+              Store</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Aluma</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/aluma.salon/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://aluma.salon/#/privacy" target="_blank" rel="noopener">Privacy policy</a></li>
+          <li><span class="ph" title="Placeholder: confirm contact email with Aluma">Contact email</span></li>
+        </ul>
+      </div>
     </div>
-    <div><h4>Get the app</h4><ul>
-      <li><a href="https://play.google.com/store/apps/details?id=com.aluma.salon" target="_blank" rel="noopener">Google Play</a></li>
-      <li><a href="https://apps.apple.com/in/app/aluma-salon/id6498151574" target="_blank" rel="noopener">App Store</a></li></ul></div>
-    <div><h4>Aluma</h4><ul>
-      <li><a href="https://www.instagram.com/aluma.salon/" target="_blank" rel="noopener">Instagram</a></li>
-      <li><a href="https://aluma.salon/#/privacy" target="_blank" rel="noopener">Privacy policy</a></li>
-      <li><span class="ph" title="Placeholder: confirm contact email with Aluma">Contact email</span></li></ul></div>
-  </div>
-  <p class="legal">© 2026 Aluma</p>
-</footer>
+    <p class="legal">© 2026 Aluma</p>
+  </footer>
 
 
-<script>
-/* Shared header mobile menu (from index.html) */
-(function(){
-  var menu = document.getElementById('menu'), menuBtn = document.querySelector('.menu-btn');
-  if(!menu || !menuBtn) return;
-  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var root = document.documentElement;
-  var isOpen = function(){ return root.classList.contains('menu-open'); };
-  function setMenu(open){
-    root.classList.toggle('menu-open', open);
-    menuBtn.setAttribute('aria-expanded', String(open));
-    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    menu.hidden = !open;
-    if(typeof tint === 'function') tint();
-    document.body.style.overflow = open ? 'hidden' : '';
-    if(open){
-      if(!reduced && menu.animate){
-        menu.querySelectorAll('nav a, .menu-foot > *').forEach(function(el,i){
-          el.animate([{transform:'translateY(28px)',opacity:0},{transform:'translateY(0)',opacity:1}],
-            {duration:600, delay:i*45, easing:'cubic-bezier(.215,.61,.355,1)', fill:'backwards'});
-        });
+  <script>
+    /* Shared header mobile menu (from index.html) */
+    (function () {
+      var menu = document.getElementById('menu'), menuBtn = document.querySelector('.menu-btn');
+      if (!menu || !menuBtn) return;
+      var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var root = document.documentElement;
+      var isOpen = function () { return root.classList.contains('menu-open'); };
+      function setMenu(open) {
+        root.classList.toggle('menu-open', open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        menu.hidden = !open;
+        if (typeof tint === 'function') tint();
+        document.body.style.overflow = open ? 'hidden' : '';
+        if (open) {
+          if (!reduced && menu.animate) {
+            menu.querySelectorAll('nav a, .menu-foot > *').forEach(function (el, i) {
+              el.animate([{ transform: 'translateY(28px)', opacity: 0 }, { transform: 'translateY(0)', opacity: 1 }],
+                { duration: 600, delay: i * 45, easing: 'cubic-bezier(.215,.61,.355,1)', fill: 'backwards' });
+            });
+          }
+          menu.querySelector('a').focus();
+        }
       }
-      menu.querySelector('a').focus();
-    }
-  }
-  /* adaptive header colour: dark text over light sections, light text over dark ones (as on index.html) */
-  var nav = document.querySelector('header.nav');
-  function bgUnder(el){
-    for(var n = el; n && n.nodeType === 1; n = n.parentElement){
-      var tag = n.tagName;
-      if(tag === 'IMG' || tag === 'VIDEO' || tag === 'CANVAS') return null;
-      var c = getComputedStyle(n).backgroundColor, m = c.match(/[\d.]+/g);
-      if(m && m.length >= 3 && (m.length < 4 || parseFloat(m[3]) > 0.5)) return [+m[0], +m[1], +m[2]];
-    }
-    return null;
-  }
-  function tint(){
-    if(!nav) return;
-    if(isOpen()){ nav.style.removeProperty('--fg-rgb'); nav.style.removeProperty('--bgc'); return; }
-    var els = document.elementsFromPoint(Math.round(innerWidth/2), Math.round(nav.offsetHeight + 4)), bg = null;
-    for(var i = 0; i < els.length; i++){
-      if(nav.contains(els[i]) || menu.contains(els[i]) || els[i] === document.documentElement) continue;
-      bg = bgUnder(els[i]); break;
-    }
-    var light = bg && (0.2126*bg[0] + 0.7152*bg[1] + 0.0722*bg[2]) > 150;
-    if(light){ nav.style.setProperty('--fg-rgb','8,8,8'); nav.style.setProperty('--bgc','rgb('+bg.join(',')+')'); }
-    else { nav.style.removeProperty('--fg-rgb'); nav.style.removeProperty('--bgc'); }
-  }
-  var tick = false;
-  function queue(){ if(tick) return; tick = true; requestAnimationFrame(function(){ tick = false; tint(); }); }
-  document.addEventListener('scroll', queue, {passive:true, capture:true});
-  addEventListener('resize', queue); addEventListener('load', queue); queue();
-  menuBtn.addEventListener('click', function(){ var o = !isOpen(); setMenu(o); if(!o) menuBtn.focus(); });
-  menu.addEventListener('click', function(e){ if(e.target.closest('a')) setMenu(false); });
-  addEventListener('keydown', function(e){
-    if(!isOpen()) return;
-    if(e.key === 'Escape'){ setMenu(false); menuBtn.focus(); return; }
-    if(e.key === 'Tab'){
-      var f = [menuBtn].concat([].slice.call(menu.querySelectorAll('a'))), i = f.indexOf(document.activeElement);
-      if(e.shiftKey && i <= 0){ e.preventDefault(); f[f.length-1].focus(); }
-      else if(!e.shiftKey && i === f.length-1){ e.preventDefault(); f[0].focus(); }
-    }
-  });
-})();
-</script>
+      /* adaptive header colour: dark text over light sections, light text over dark ones (as on index.html) */
+      var nav = document.querySelector('header.nav');
+      function bgUnder(el) {
+        for (var n = el; n && n.nodeType === 1; n = n.parentElement) {
+          var tag = n.tagName;
+          if (tag === 'IMG' || tag === 'VIDEO' || tag === 'CANVAS') return null;
+          var c = getComputedStyle(n).backgroundColor, m = c.match(/[\d.]+/g);
+          if (m && m.length >= 3 && (m.length < 4 || parseFloat(m[3]) > 0.5)) return [+m[0], +m[1], +m[2]];
+        }
+        return null;
+      }
+      function tint() {
+        if (!nav) return;
+        if (isOpen()) { nav.style.removeProperty('--fg-rgb'); nav.style.removeProperty('--bgc'); return; }
+        var els = document.elementsFromPoint(Math.round(innerWidth / 2), Math.round(nav.offsetHeight + 4)), bg = null;
+        for (var i = 0; i < els.length; i++) {
+          if (nav.contains(els[i]) || menu.contains(els[i]) || els[i] === document.documentElement) continue;
+          bg = bgUnder(els[i]); break;
+        }
+        var light = bg && (0.2126 * bg[0] + 0.7152 * bg[1] + 0.0722 * bg[2]) > 150;
+        if (light) { nav.style.setProperty('--fg-rgb', '8,8,8'); nav.style.setProperty('--bgc', 'rgb(' + bg.join(',') + ')'); }
+        else { nav.style.removeProperty('--fg-rgb'); nav.style.removeProperty('--bgc'); }
+      }
+      var tick = false;
+      function queue() { if (tick) return; tick = true; requestAnimationFrame(function () { tick = false; tint(); }); }
+      document.addEventListener('scroll', queue, { passive: true, capture: true });
+      addEventListener('resize', queue); addEventListener('load', queue); queue();
+      menuBtn.addEventListener('click', function () { var o = !isOpen(); setMenu(o); if (!o) menuBtn.focus(); });
+      menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+      addEventListener('keydown', function (e) {
+        if (!isOpen()) return;
+        if (e.key === 'Escape') { setMenu(false); menuBtn.focus(); return; }
+        if (e.key === 'Tab') {
+          var f = [menuBtn].concat([].slice.call(menu.querySelectorAll('a'))), i = f.indexOf(document.activeElement);
+          if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+          else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+        }
+      });
+    })();
+  </script>
 
-<script>
-/* Hair dropdown: hover opens it on desktop (CSS); click/tap toggles it on touch screens */
-(function(){
-  document.querySelectorAll('.nav-drop').forEach(function(drop){
-    var btn = drop.querySelector('.nav-drop-btn');
-    function set(open){ drop.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); }
-    btn.addEventListener('click', function(e){ e.stopPropagation(); set(!drop.classList.contains('open')); });
-    drop.addEventListener('mouseleave', function(){ set(false); });
-    document.addEventListener('click', function(e){ if(!drop.contains(e.target)) set(false); });
-    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && drop.classList.contains('open')){ set(false); btn.focus(); } });
-  });
-})();
-</script>
+  <script>
+    /* Hair dropdown: hover opens it on desktop (CSS); click/tap toggles it on touch screens */
+    (function () {
+      document.querySelectorAll('.nav-drop').forEach(function (drop) {
+        var btn = drop.querySelector('.nav-drop-btn');
+        function set(open) { drop.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); }
+        btn.addEventListener('click', function (e) { e.stopPropagation(); set(!drop.classList.contains('open')); });
+        drop.addEventListener('mouseleave', function () { set(false); });
+        document.addEventListener('click', function (e) { if (!drop.contains(e.target)) set(false); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && drop.classList.contains('open')) { set(false); btn.focus(); } });
+      });
+    })();
+  </script>
 
 </body>
+
 </html>

@@ -147,7 +147,37 @@
         radial-gradient(circle at 15% 20%, rgba(191,196,199,0.18) 0%, transparent 40%);
     }
 
+        /* ===== Cover logo: same as the site header (colour dots + Alta wordmark) ===== */
+    @font-face {
+      font-family: 'Alta';
+      src: url('Alta-Regular.woff2') format('woff2'), url('Alta-Regular.otf') format('opentype');
+      font-weight: 400 600;
+      font-display: swap;
+    }
+    .cover-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6em;
+      font-size: clamp(18px, 2.4vw, 30px);
+      color: #080808;
+    }
+    .cover-logo svg { width: 1.4em; height: auto; flex: none; overflow: visible; }
+    .cover-logo svg circle:nth-child(1) { fill: #039866; } /* top: green */
+    .cover-logo svg circle:nth-child(2) { fill: #311FE5; } /* left: blue */
+    .cover-logo svg circle:nth-child(3) { fill: #C30498; } /* right: magenta */
+    .cover-logo b {
+      font-family: 'Alta', 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 1em;
+      line-height: 1;
+      letter-spacing: .22em;
+      white-space: nowrap;
+    }
+    /* ===== /Cover logo ===== */
+
     /* Paper curl cue at edge */
+
     .edge-curl {
       position: absolute;
       right: 0;
@@ -348,7 +378,6 @@
         tag: "WOMEN'S GROOMING",
         title: "ALUMA",
         subtitle: "One membership for hair and beauty",
-        salonRef: "Bengaluru Salons",
         footer: "WWW.ALUMA.SALON"
       },
       // Spread 2: Hair Cut, Wash & Style + Threading
@@ -573,8 +602,7 @@
         type: 'cover',
         tag: "MEN'S GROOMING",
         title: "ALUMA",
-        subtitle: "Gentlemen's Barbershop & Spa",
-        salonRef: "Bengaluru Salons",
+        subtitle: "One membership for hair and beauty",
         footer: "WWW.ALUMA.SALON"
       },
       // Spread 2: Hair Cut, Wash & Style + Face Care
@@ -825,12 +853,14 @@ let activeCatalog = 'women';
         <div class="w-full h-full paper-cover-light flex flex-col justify-between p-8 md:p-12 text-center relative border border-[#CBB892]/40">
           <div class="pt-6"><span class="inline-block text-[11px] uppercase tracking-[0.28em] px-4 py-1 rounded-full border border-[#CBB892]/50 text-[#8E7951] bg-[#F4F1EA]/80 font-medium">${c.tag}</span></div>
           <div class="my-auto py-4">
-            <h1 class="text-5xl md:text-6xl font-serif-title tracking-wider text-[#080808] font-normal mb-3">${c.title}</h1>
-            <div class="w-12 h-[1px] bg-[#CBB892] mx-auto mb-3"></div>
+                    <h1 class="cover-logo mb-4" aria-label="Aluma Salon">
+              <svg viewBox="0 0 116 96" aria-hidden="true"><circle cx="58" cy="25" r="23"></circle><circle cx="25" cy="71" r="23"></circle><circle cx="91" cy="71" r="23"></circle></svg>
+              <b>ALUMA.SALON</b>
+            </h1>
+            
             <p class="text-xs uppercase tracking-[0.24em] text-[#080808]/75 font-light">${c.subtitle}</p>
           </div>
           <div class="pb-4">
-            <p class="text-[10px] tracking-[0.2em] text-[#8E7951] uppercase mb-1">${c.salonRef}</p>
             <p class="text-[9px] tracking-[0.2em] text-[#080808]/40 uppercase">${c.footer}</p>
           </div>
           <div class="edge-curl"></div>
