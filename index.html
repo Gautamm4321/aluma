@@ -498,6 +498,10 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
 .loc-panel h3{margin:4px 0 16px}
 .loc-panel dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px;margin-bottom:20px}
 .loc-panel dt{opacity:.55}
+/* phones: a live backdrop blur on a moving panel is very heavy; use a solid tint that looks the same */
+@media (max-width: 760px), (pointer: coarse){
+  .loc-panel{-webkit-backdrop-filter:none;backdrop-filter:none;background:color-mix(in srgb, rgb(var(--fg-rgb)) 7%, var(--bgc))}
+}
 .loc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
 
 /* ---------- FAQ Section ---------- */
@@ -750,7 +754,7 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
     <b>ALUMA.SALON</b>
   </a>
     <nav aria-label="Main">
-    <a href="#about">About</a>
+    <a href="founder.html">About</a>
     <a href="founder.html">Founder Story</a>
     <a href="#experience">Experience</a>
     <a href="#services">Services</a>
@@ -770,7 +774,7 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
 </header><div id="menu" class="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden="">
     <nav aria-label="Mobile">
-    <a href="#about"><small>01</small>About</a>
+    <a href="founder.html"><small>01</small>About</a>
     <a href="founder.html"><small>02</small>Founder Story</a>
     <a href="#experience"><small>03</small>Experience</a>
     <a href="#services"><small>04</small>Services</a>
@@ -1375,7 +1379,9 @@ function measure(){
     s.end = s.start + Math.max(0, s.el.offsetHeight - VH);
   });
 }
+
 function positionLayers(y){
+  const dpr = window.devicePixelRatio || 1;
   for(const s of SEC){
     if(!s.pinned) continue;
     let ty = 0;
@@ -1383,18 +1389,29 @@ function positionLayers(y){
     else if(y > s.end) ty = s.end - y;
     s.ty = ty;
     const vis = Math.abs(ty) < VH;
-    const op = 1 - smooth(clamp(Math.abs(ty)/(VH*0.75)));
+    // snap to whole device pixels: half-pixel offsets are what make moving text look blurry on phones
+    const tyPx = Math.round(ty*dpr)/dpr;
+    if(!vis){
+      // off-screen: hide once, then stop touching the DOM until it comes back
+      if(s.vis === false) continue;
+      s.vis = false; s.tyDom = tyPx; s.opDom = '0';
+      for(const L of s.layers){ L.style.transform = `translate3d(0,${tyPx}px,0)`; L.style.opacity = '0'; L.style.visibility = 'hidden'; }
+      continue;
+    }
+    const op = (1 - smooth(clamp(Math.abs(ty)/(VH*0.75)))).toFixed(3);
+    if(s.vis === true && s.tyDom === tyPx && s.opDom === op) continue;   // nothing changed this frame
+    s.vis = true; s.tyDom = tyPx; s.opDom = op;
     for(const L of s.layers){
-      L.style.transform = `translate3d(0,${ty.toFixed(1)}px,0)`;
-      L.style.opacity = op.toFixed(3);
-      L.style.visibility = vis ? 'visible' : 'hidden';
+      L.style.transform = `translate3d(0,${tyPx}px,0)`;
+      L.style.opacity = op;
+      L.style.visibility = 'visible';
     }
   }
 }
 
 /* cached rects (in pinned-state coordinates) */
 const R = {cutY:0.5, map:null, pins:[], labels:[]};
-function relRect(el, s){ const r = el.getBoundingClientRect(); return {l:r.left, t:r.top - s.ty, w:r.width, h:r.height}; }
+function relRect(el, s){ const r = el.getBoundingClientRect(); return {l:r.left, t:r.top - (s.tyDom ?? s.ty), w:r.width, h:r.height}; }
 function cacheRects(){
   const sa = byId.about; const cr = relRect($('#cutline'), sa);
   R.cutY = cr.t + cr.h*0.52;
@@ -1417,7 +1434,7 @@ let THREE = window.THREE, renderer = null, scene, camera, envOK = false;
 let keyL = null, rimL = null, hemiL = null, MATS = null, avatar = null;
 try{
   if(!THREE) throw new Error('three missing');
-  renderer = new THREE.WebGLRenderer({canvas: $('#gl'), antialias: !lowPower, alpha: true, powerPreference: 'high-performance'});
+  renderer = new THREE.WebGLRenderer({canvas: $('#gl'), antialias: true, alpha: true, powerPreference: 'high-performance'});
   renderer.setClearColor(0x000000, 0);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -2362,7 +2379,7 @@ function resize(force){
   vsSetSrc();
   if(force || Math.abs(innerHeight - VH) > 140 || W !== oldW || P !== oldP) VH = innerHeight;
   if(renderer){
-    prCap = Math.min(prCap, Math.min(devicePixelRatio || 1, lowPower ? 1.5 : 2));
+    prCap = Math.min(prCap, Math.min(devicePixelRatio || 1, 2));
     renderer.setPixelRatio(prCap);
     renderer.setSize(W, H, false);
     camera.aspect = W/H; camera.updateProjectionMatrix();
@@ -2378,7 +2395,8 @@ function adaptQuality(dt){
   if(!renderer || document.hidden || T < 4 || $('#loader')) return;
   perfN++; perfT += dt;
   if(perfN >= 90){
-    if(perfT/perfN > 1/40 && prCap > 1){ prCap = Math.max(1, prCap - 0.25); renderer.setPixelRatio(prCap); renderer.setSize(W, H, false); }
+    const prMin = Math.min(devicePixelRatio || 1, 1.5);
+    if(perfT/perfN > 1/40 && prCap > prMin){ prCap = Math.max(prMin, prCap - 0.25); renderer.setPixelRatio(prCap); renderer.setSize(W, H, false); }
     perfN = 0; perfT = 0;
   }
 }
@@ -2420,8 +2438,9 @@ function frame(now){
   sectionDOM(y);
   const docH = document.documentElement.scrollHeight - H;
   const progress = clamp(y/Math.max(1,docH));
-  rail.style.transform = `scaleY(${progress.toFixed(4)})`;
-  rail.parentElement.setAttribute('aria-valuenow', String(Math.round(progress*100)));
+    const railS = `scaleY(${progress.toFixed(4)})`, railV = String(Math.round(progress*100));
+  if(railS !== rail._s){ rail._s = railS; rail.style.transform = railS; }
+  if(railV !== rail._v){ rail._v = railV; rail.parentElement.setAttribute('aria-valuenow', railV); }
 
   const out = evaluate(y);
   const bs = `rgb(${out.bg.map(v=>Math.round(v)).join(',')})`;
