@@ -1827,6 +1827,146 @@
     }
 
     /* ===== /Shared Header + Footer ===== */
+
+    /* ===== Style Studio: scroll to try 12 hairstyles on a bald head ===== */
+    .hp-styler { position: relative; background: #F4F1EA; color: #080808; height: 1400vh; }
+    .hp-styler .btn.solid { background: #080808; color: #F4F1EA; border-color: #080808; }
+    .hp-stage {
+      position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
+      display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center;
+      gap: clamp(24px, 4vw, 72px); padding: 96px clamp(20px, 5vw, 80px) 48px;
+    }
+    .hp-stage::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(42% 60% at 50% 55%, rgba(203, 184, 146, .22) 0%, rgba(203, 184, 146, 0) 70%);
+    }
+    .hp-copy { position: relative; z-index: 2; max-width: 420px; }
+    .hp-kick { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: #CBB892; margin-bottom: 18px; }
+    .hp-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: clamp(30px, 3.4vw, 50px); line-height: 1.05; letter-spacing: -.015em; }
+    .hp-title em { font-style: italic; font-weight: 400; color: #8C7346; }
+    .hp-sub { margin-top: 16px; font-size: 16px; line-height: 1.6; opacity: .68; max-width: 36ch; }
+    .hp-now { margin-top: 34px; padding-top: 24px; border-top: 1px solid rgba(8, 8, 8, .12); min-height: 132px; }
+    .hp-count { font-size: 13px; letter-spacing: .2em; opacity: .55; }
+    .hp-count b { font-weight: 500; color: #F4F1EA; opacity: 1; }
+    .hp-name { margin-top: 8px; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.1; }
+    .hp-note { margin-top: 8px; font-size: 15px; opacity: .62; max-width: 34ch; }
+    .hp-now.swap .hp-name, .hp-now.swap .hp-note { animation: hpSwap .55s cubic-bezier(.16, 1, .3, 1); }
+    @keyframes hpSwap { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    .hp-cta { margin-top: 28px; }
+
+    .hp-frame { position: relative; z-index: 1; height: min(72vh, 640px); aspect-ratio: 478 / 582; }
+    .hp-head, .hp-hair { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .hp-hair { opacity: 0; will-change: transform, opacity; transform-origin: 50% 22%; }
+    .hp-head .hd-skull, .hp-head .hd-ear { fill: #F6F1EA; stroke: #1A1410; stroke-width: 2.2; }
+    .hp-head .hd-brow { fill: #1A1410; }
+    .hp-head .hd-irisr { fill: none; stroke: #1A1410; stroke-width: 1.4; }
+    .hp-head .hd-ear-in, .hp-head .hd-thin { fill: none; stroke: #1A1410; stroke-width: 1.5; stroke-linecap: round; }
+    .hp-head .hd-line { fill: none; stroke: #1A1410; stroke-width: 2; stroke-linecap: round; }
+    .hp-head .hd-iris { fill: #1A1410; }
+    .hp-head .hd-faint { fill: none; stroke: #1A1410; stroke-opacity: .22; stroke-width: 1.4; }
+    .hp-head .hd-neck, .hp-head .hd-sh { fill: none; stroke: #1A1410; stroke-width: 2.2; stroke-linecap: round; }
+    .hp-hint {
+      position: absolute; left: 50%; bottom: -34px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px;
+      font-size: 11px; letter-spacing: .28em; text-transform: uppercase; opacity: .6; transition: opacity .4s ease;
+    }
+    .hp-hint i { width: 34px; height: 1px; background: currentColor; transform-origin: left; animation: hpHint 1.8s ease-in-out infinite; }
+    @keyframes hpHint { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); transform-origin: right; } }
+    .hp-hint.off { opacity: 0; }
+
+    .hp-rail { position: relative; z-index: 2; justify-self: end; list-style: none; display: grid; grid-auto-flow: column; grid-template-rows: repeat(12, auto); column-gap: 28px; row-gap: 2px; }
+    .hp-rail button {
+      display: flex; align-items: baseline; gap: 14px; width: 100%; padding: 3px 0; white-space: nowrap; background: none; border: 0; cursor: pointer;
+      font: inherit; font-size: 13px; color: #080808; opacity: .38; text-align: left; transition: opacity .3s ease, transform .3s ease;
+    }
+    .hp-rail button small { font-size: 11px; letter-spacing: .12em; opacity: .7; width: 20px; }
+    .hp-rail button:hover { opacity: .75; }
+    .hp-rail button.on { opacity: 1; transform: translateX(-6px); }
+    .hp-rail button.on small { color: #CBB892; opacity: 1; }
+    .hp-bar { display: none; }
+
+    /* laptops / small desktops */
+    @media (max-width: 1240px) and (min-width: 961px) {
+      .hp-stage { gap: 28px; padding-left: 32px; padding-right: 32px; }
+      .hp-copy { max-width: 300px; }
+      .hp-title { font-size: 32px; }
+      .hp-frame { height: min(60vh, 520px); }
+      .hp-rail { column-gap: 18px; }
+      .hp-rail button { font-size: 12px; }
+    }
+
+    @media (max-width: 960px) {
+      .hp-styler { height: 1300vh; }
+      .hp-stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto auto; justify-items: center; align-items: start; text-align: center; gap: 12px; padding: 78px 0 22px; }
+      .hp-copy { display: contents; }
+      .hp-kick, .hp-title, .hp-sub, .hp-cta { display: none; }
+      .hp-frame { grid-row: 2; align-self: center; height: min(48svh, 580px); max-width: 86vw; }
+      .hp-now { grid-row: 3; margin: 0; padding: 0 20px; border: 0; min-height: 84px; }
+      .hp-name { font-size: 26px; margin-top: 0; }
+      .hp-note { margin-left: auto; margin-right: auto; font-size: 14px; }
+      .hp-rail {
+        grid-row: 4; justify-self: stretch; display: flex; gap: 8px; overflow-x: auto; padding: 4px 20px; scroll-snap-type: x proximity;
+        scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+      }
+      .hp-rail::-webkit-scrollbar { display: none; }
+      .hp-rail li { flex: none; scroll-snap-align: center; }
+      .hp-rail button { padding: 8px 14px; border: 1px solid rgba(8, 8, 8, .16); border-radius: 999px; font-size: 13px; opacity: .7; }
+      .hp-rail button.on { transform: none; background: #080808; color: #F4F1EA; border-color: #080808; opacity: 1; }
+      .hp-bar { display: block; grid-row: 1; width: min(240px, 60vw); height: 2px; background: rgba(8, 8, 8, .12); border-radius: 2px; overflow: hidden; margin-top: 8px; }
+      .hp-bar i { display: block; height: 100%; background: #080808; transform-origin: left; transform: scaleX(0); }
+      .hp-hint { bottom: -22px; }
+    }
+    @media (max-width: 960px) and (max-height: 700px) {
+      .hp-frame { height: 40svh; }
+      .hp-now { min-height: 70px; }
+      .hp-note { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { .hp-hint i { animation: none; } .hp-now.swap .hp-name, .hp-now.swap .hp-note { animation: none; } }
+
+    /* ===== Key insights: 2x2 cards between full before / after portraits ===== */
+    .hp-insights {
+      --h: min(clamp(600px, 92vh, 880px), calc((100vw - 600px) / 1.042));
+      position: relative; overflow: hidden; background: #0B0B0A; color: #F4F1EA; height: var(--h);
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* each side shows one full half of firstframe-img.jpg (600 x 1151 per half) */
+    .hp-ins-side { position: absolute; top: 0; bottom: 0; width: calc(var(--h) * .521); pointer-events: none;
+      background: url('firstframe-img.jpg') no-repeat; background-size: 200% 100%; filter: grayscale(1) contrast(1.1) brightness(.9); }
+    .hp-ins-side.l { left: 0; background-position: 0 0; transform: scaleX(-1);
+      -webkit-mask-image: linear-gradient(270deg, #000 85%, transparent); mask-image: linear-gradient(270deg, #000 85%, transparent); }
+    .hp-ins-side.r { right: 0; background-position: 100% 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%); mask-image: linear-gradient(90deg, transparent, #000 15%); }
+    .hp-ins-wrap { position: relative; z-index: 1; width: min(560px, calc(100vw - var(--h) * 1.042 - 40px)); }
+    .hp-ins-title { text-align: center; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: clamp(28px, 2.8vw, 42px); line-height: 1.08; letter-spacing: -.015em; }
+    .hp-ins-title em { font-style: italic; font-weight: 400; color: #C9D8C5; }
+    .hp-ins-grid { margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hp-ins-card {
+      min-height: 168px; padding: 22px 20px; border-radius: 18px; background: #1C1C1A; border: 1.5px solid rgba(201, 216, 197, .75);
+      box-shadow: 0 0 24px rgba(201, 216, 197, .06);
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+      font-size: 16px; line-height: 1.45; font-weight: 300;
+      opacity: 0; transform: translateY(22px); transition: opacity .9s ease, transform 1s cubic-bezier(.16, 1, .3, 1), border-color .3s ease;
+    }
+    .hp-ins-card:hover { border-color: #C9D8C5; }
+    .hp-ins-card b { display: block; font-weight: 400; color: #C9D8C5; font-size: 14px; letter-spacing: .02em; margin-bottom: 6px; }
+    .hp-ins-card ul { list-style: none; text-align: left; }
+    .hp-ins-card li { position: relative; padding-left: 18px; margin: 3px 0; }
+    .hp-ins-card li::before { content: ""; position: absolute; left: 3px; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: #F4F1EA; }
+    .hp-insights.in .hp-ins-card { opacity: 1; transform: none; }
+    .hp-insights.in .hp-ins-card:nth-child(2) { transition-delay: .1s; }
+    .hp-insights.in .hp-ins-card:nth-child(3) { transition-delay: .2s; }
+    .hp-insights.in .hp-ins-card:nth-child(4) { transition-delay: .3s; }
+    @media (max-width: 860px) {
+      .hp-insights { height: auto; display: block; padding: calc(50vw / .521 + 28px) 16px 64px; }
+      .hp-ins-side { width: 50%; height: calc(50vw / .521); bottom: auto; }
+      .hp-ins-side.l { -webkit-mask-image: linear-gradient(0deg, transparent, #000 25%); mask-image: linear-gradient(0deg, transparent, #000 25%); }
+      .hp-ins-side.r { -webkit-mask-image: linear-gradient(0deg, transparent, #000 25%); mask-image: linear-gradient(0deg, transparent, #000 25%); }
+      .hp-ins-wrap { width: auto; max-width: 560px; margin: 0 auto; }
+      .hp-ins-grid { gap: 12px; margin-top: 24px; }
+      .hp-ins-card { min-height: 150px; padding: 18px 14px; font-size: 14.5px; border-radius: 16px; }
+      .hp-ins-card b { font-size: 13px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .hp-ins-card { opacity: 1; transform: none; transition: none; } }
   </style>
 </head>
 
@@ -1868,15 +2008,15 @@
   </header>
   <div id="menu" class="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden="">
     <nav aria-label="Mobile">
-      <a href="founder.html"><small>02</small>Founder Story</a>
-      <a href="index.html#experience"><small>03</small>Experience</a>
-      <a href="index.html#services"><small>04</small>Services</a>
-      <a href="extension.html"><small>05</small>Hair Extension</a>
-      <a href="patch.html"><small>06</small>Hair Patch</a>
-      <a href="index.html#locations"><small>07</small>Locations</a>
-      <a href="menu.html"><small>08</small>Menu</a>
-      <a href="passes.html"><small>09</small>Passes</a>
-      <a href="index.html#app"><small>10</small>App</a>
+      <a href="founder.html">Founder Story</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#services">Services</a>
+      <a href="extension.html">Hair Extension</a>
+      <a href="patch.html">Hair Patch</a>
+      <a href="index.html#locations">Locations</a>
+      <a href="menu.html">Menu</a>
+      <a href="passes.html">Passes</a>
+      <a href="index.html#app">App</a>
     </nav>
     <div class="menu-foot">
       <a class="btn solid" href="index.html#book">Book an appointment</a>
@@ -1914,603 +2054,41 @@
 
   </section>
 
-  <!-- SECTION 2: Clean Inline Stats Strip -->
-  <section class="stats-sage-strip">
-    <div class="stats-inline-grid">
-
-      <!-- Stat 1 -->
-      <div class="stat-item">
-        <h3 class="stat-headline">60 Min</h3>
-        <p class="stat-sub">CHAIR-TO-MIRROR MAKEOVER</p>
+  <!-- SECTION 2: Style Studio (scroll to try 12 hairstyles on) -->
+  <section class="hp-styler" id="styles" aria-labelledby="hp-styler-title">
+    <div class="hp-stage">
+      <div class="hp-copy">
+        <h2 id="hp-styler-title" class="hp-title">Pick the look.<br><em>We'll match the patch.</em></h2>
+        <p class="hp-sub">A hair patch is cut and styled like your own hair. Keep scrolling to try each look on.</p>
+        <div class="hp-now" aria-live="polite">
+          <p class="hp-name" id="hpName">Your canvas</p>
+          <p class="hp-note" id="hpNote">Scroll down and watch each style land.</p>
+        </div>
+        <a class="btn solid hp-cta" href="index.html#book">Book a free demo</a>
       </div>
 
-      <!-- Stat 2 -->
-      <div class="stat-item">
-        <h3 class="stat-headline">100% Natural</h3>
-        <p class="stat-sub">HUMAN HAIR, REAL SCALP MATCH</p>
+      <div class="hp-frame">
+        <svg class="hp-head" viewBox="0 -60 478 582" aria-hidden="true"><defs><linearGradient id="laWash" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CDBFA9"/><stop offset=".6" stop-color="#DCD1C0"/><stop offset="1" stop-color="#E6DDCF"/></linearGradient></defs><image href="bold-face.png" x="0" y="0" width="478" height="522"/></svg>
+        <div class="hp-hint" id="hpHint"><span>Scroll</span><i></i></div>
       </div>
 
-      <!-- Stat 3 -->
-      <div class="stat-item">
-        <h3 class="stat-headline">Zero Downtime</h3>
-        <p class="stat-sub">WASH, STYLE, SWIM THE SAME DAY</p>
-      </div>
-
-      <!-- Stat 4 -->
-      <div class="stat-item">
-        <h3 class="stat-headline">Fully Reversible</h3>
-        <p class="stat-sub">NO CUTS, NO MEDICATION</p>
-      </div>
-
+      <ol class="hp-rail" id="hpRail" aria-label="Hairstyles"><li><button type="button">Crew Cut</button></li><li><button type="button">Short Spiky</button></li><li><button type="button">Side Part</button></li><li><button type="button">French Crop</button></li><li><button type="button">Middle Part</button></li><li><button type="button">Classic Taper</button></li><li><button type="button">Textured Crop</button></li><li><button type="button">Undercut</button></li><li><button type="button">Slick Back</button></li><li><button type="button">Quiff</button></li><li><button type="button">Messy Hair</button></li><li><button type="button">Curly Hair</button></li><li><button type="button">Long Layered</button></li><li><button type="button">Mullet</button></li><li><button type="button">Wolf Cut</button></li><li><button type="button">Curtain Haircut</button></li><li><button type="button">Shag Cut</button></li><li><button type="button">Man Bun</button></li><li><button type="button">Ponytail</button></li><li><button type="button">Dreadlocks</button></li><li><button type="button">High Fade</button></li><li><button type="button">Low Fade</button></li><li><button type="button">Skin Fade</button></li><li><button type="button">Afro</button></li></ol>
+      <div class="hp-bar" aria-hidden="true"><i id="hpBar"></i></div>
     </div>
   </section>
 
-  <!-- SECTION 3: What It Is (Content Left, Image Right) -->
-  <section class="what-it-is-section">
-    <div class="what-it-is-container">
-
-      <!-- Left Side: Content & Expandable Drawer -->
-      <div class="what-content-col">
-        <div class="what-eyebrow">
-          <span>WHAT IT IS</span>
-        </div>
-
-        <h2 class="what-title">Real hair, bonded to a second skin.</h2>
-
-        <div class="what-lead-paragraphs">
-          <p>
-            A hair patch is a custom-made base of ultra-thin, breathable skin material, hand-knotted with human hair
-            matched to your natural colour, texture and density.
-          </p>
-          <p>
-            It's measured to your scalp, cut to follow your own hairline, and bonded with a skin-friendly adhesive. Once
-            fitted, it washes, dries and combs exactly like your own hair.
-          </p>
-        </div>
-
-        <!-- Toggle Trigger -->
-        <div class="expand-drawer-box" id="materialDrawer">
-          <button type="button" class="drawer-toggle-btn" id="drawerBtn" aria-expanded="false">
-            <span class="drawer-plus-icon">+</span>
-            <span>LEARN MORE ABOUT THE MATERIAL &amp; FIT</span>
-          </button>
-
-          <!-- Hidden Content Area -->
-          <div class="drawer-expand-body" id="drawerBody">
-            <div class="drawer-inner-text">
-              <p>
-                The base is chosen for your scalp sensitivity and lifestyle — thin skin bases give the most natural,
-                undetectable finish, while mesh bases offer extra breathability for Bengaluru's humidity.
-              </p>
-              <p>
-                Hair is 100% remy human hair, hand-knotted strand by strand so it falls exactly like natural growth.
-                Density, direction and grey percentage are customised to you.
-              </p>
-              <p>
-                Unlike a transplant, there's no surgery and no months-long wait — you leave with a complete head of
-                hair, and the look can be redesigned later if you want a change.
-              </p>
-            </div>
-          </div>
-        </div>
+  <!-- SECTION 3: Key insights -->
+  <section class="hp-insights" aria-labelledby="hp-ins-title">
+    <div class="hp-ins-side l" aria-hidden="true"></div>
+    <div class="hp-ins-side r" aria-hidden="true"></div>
+    <div class="hp-ins-wrap">
+      <h2 id="hp-ins-title" class="hp-ins-title">Why a hair patch <em>works.</em></h2>
+      <div class="hp-ins-grid">
+        <div class="hp-ins-card"><p>Results the same day. Fitted, cut and styled in about 60 minutes.</p></div>
+        <div class="hp-ins-card"><div><b>What you get</b><ul><li>100% natural human hair</li><li>Zero downtime</li><li>Fully reversible</li></ul></div></div>
+        <div class="hp-ins-card"><p>No cuts, needles or anaesthesia, and no recovery time.</p></div>
+        <div class="hp-ins-card"><p>A touch-up every 3–5 weeks. Each system lasts 6–12 months.</p></div>
       </div>
-
-      <!-- Right Side: Image Diagram Box -->
-      <div class="what-img-col">
-        <div class="what-img-card">
-          <img src="patch.1.png" alt="Hair Patch Micro-Skin Diagram and Bonding Line" class="what-diagram-img">
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 4: Three Pillars (01, 02, 03 Grid) -->
-  <section class="pillars-section">
-    <div class="pillars-container">
-
-      <!-- Column 01 -->
-      <div class="pillar-col">
-        <span class="pillar-num">01</span>
-        <h3 class="pillar-title">Certified Stylists</h3>
-        <p class="pillar-desc">
-          Every fitting is done by trained hair-system specialists, not general stylists.
-        </p>
-      </div>
-
-      <!-- Column 02 -->
-      <div class="pillar-col">
-        <span class="pillar-num">02</span>
-        <h3 class="pillar-title">Premium Human Hair</h3>
-        <p class="pillar-desc">
-          100% remy human hair, matched strand-for-strand to your own colour and texture.
-        </p>
-      </div>
-
-      <!-- Column 03 -->
-      <div class="pillar-col">
-        <span class="pillar-num">03</span>
-        <h3 class="pillar-title">Natural, Lasting Finish</h3>
-        <p class="pillar-desc">
-          A hairline and density that holds up in person, in photos, and in daily life.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 5: The Aluma Method (Image Left, Content Right) -->
-  <section class="method-section">
-    <div class="method-container">
-
-      <!-- Left Side: Clean Image Without Any Background -->
-      <div class="method-img-col">
-        <img src="patch.2.png" alt="The Aluma Method 60 Minute Hair Session" class="method-clean-img">
-      </div>
-
-      <!-- Right Side: Content & Steps Breakdown -->
-      <div class="method-content-col">
-        <div class="what-eyebrow">
-          <span>THE ALUMA METHOD</span>
-        </div>
-
-        <h2 class="what-title">Your makeover, mapped to the hour.</h2>
-
-        <!-- 3 Time Steps -->
-        <div class="method-steps-list">
-
-          <div class="method-step-row">
-            <div class="method-time-badge">
-              <span class="badge-num">01</span>
-              <span class="badge-time">~15 min</span>
-            </div>
-            <div class="method-step-info">
-              <h3 class="method-step-title">Consultation &amp; scalp mapping</h3>
-              <p class="method-step-desc">
-                We assess your hair loss pattern and scalp condition, then match a base and hair type to your colour,
-                texture and grain.
-              </p>
-            </div>
-          </div>
-
-          <div class="method-step-row">
-            <div class="method-time-badge">
-              <span class="badge-num">02</span>
-              <span class="badge-time">~30 min</span>
-            </div>
-            <div class="method-step-info">
-              <h3 class="method-step-title">Custom fit, bond &amp; blend</h3>
-              <p class="method-step-desc">
-                The patch is trimmed to your hairline and bonded with a skin-friendly adhesive, then blended with your
-                existing hair.
-              </p>
-            </div>
-          </div>
-
-          <div class="method-step-row">
-            <div class="method-time-badge">
-              <span class="badge-num">03</span>
-              <span class="badge-time">~15 min</span>
-            </div>
-            <div class="method-step-info">
-              <h3 class="method-step-title">Cut &amp; style</h3>
-              <p class="method-step-desc">
-                Our stylist cuts and styles the new hair into your chosen look. Same hour, complete transformation.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Aftercare Expandable Drawer -->
-        <div class="expand-drawer-box" id="aftercareDrawer">
-          <button type="button" class="drawer-toggle-btn" id="aftercareBtn" aria-expanded="false">
-            <span class="drawer-plus-icon">+</span>
-            <span>LEARN MORE ABOUT AFTERCARE &amp; WHAT TO EXPECT</span>
-          </button>
-
-          <!-- Collapsible Content -->
-          <div class="drawer-expand-body" id="aftercareBody">
-            <div class="drawer-inner-text">
-              <p>
-                <b>First few days:</b> slight tightness at the bonded edge is normal and settles within 3–4 days — it
-                isn't painful.
-              </p>
-              <p>
-                <b>Daily care:</b> wash with a sulphate-free shampoo 2–3 times a week, pat dry, brush gently from the
-                ends upward.
-              </p>
-              <p>
-                <b>Touch-ups:</b> return every 3–5 weeks for rebonding. A single unit typically lasts 6–12 months before
-                replacement.
-              </p>
-              <p>
-                <b>Lifestyle:</b> workouts, swimming and Bengaluru's humidity are all fine — the bond holds through
-                sweat and daily activity.
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 6: Real Transformations (2 Videos Grid) -->
-  <section class="transformations-section">
-    <div class="transformations-container">
-
-      <!-- Header -->
-      <div class="transformations-head">
-        <div class="what-eyebrow">
-          <span>REAL TRANSFORMATIONS</span>
-        </div>
-        <h2 class="what-title">Before the chair. After the hour.</h2>
-      </div>
-
-      <!-- 2 Videos Grid -->
-      <div class="transformations-grid">
-
-        <!-- Video 1 (Left) -->
-        <div class="trans-item">
-          <div class="trans-media-frame">
-            <video src="hair-patch-v1.mp4" playsinline loop muted autoplay controls preload="metadata"></video>
-          </div>
-          <div class="trans-caption-bar">
-            <span class="trans-session-title">CLIENT SESSION — FULL CROWN</span>
-            <span class="trans-session-time">60 MIN</span>
-          </div>
-        </div>
-
-        <!-- Video 2 (Right) -->
-        <div class="trans-item">
-          <div class="trans-media-frame">
-            <video src="patch-video-v2.mp4" playsinline loop muted autoplay controls preload="metadata"></video>
-          </div>
-          <div class="trans-caption-bar">
-            <span class="trans-session-title">CLIENT SESSION — HAIRLINE FILL</span>
-            <span class="trans-session-time">60 MIN</span>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 7: Patch vs. Transplant -->
-  <section class="comparison-section">
-    <div class="comparison-container">
-
-      <!-- Header -->
-      <div class="comparison-head">
-        <div class="what-eyebrow">
-          <span>PATCH VS. TRANSPLANT</span>
-        </div>
-        <h2 class="what-title">Why most clients choose non-surgical first.</h2>
-      </div>
-
-      <!-- Comparison Table Card -->
-      <div class="comparison-card">
-        <div class="comparison-grid">
-
-          <!-- Left Column: Aluma Hair Patch -->
-          <div class="compare-col">
-            <div class="compare-col-header">
-              <span class="compare-brand-tag">Aluma</span>
-              <h3 class="compare-heading">Hair Patch</h3>
-            </div>
-
-            <ul class="compare-features-list">
-              <li>Results visible the same day</li>
-              <li>No cuts, needles or anaesthesia</li>
-              <li>No recovery time</li>
-              <li>Fully reversible, restyle anytime</li>
-              <li>Touch-up every 3–5 weeks; lasts 6–12 months</li>
-              <li>Significantly lower upfront cost</li>
-            </ul>
-          </div>
-
-          <!-- Right Column: Surgical Transplant -->
-          <div class="compare-col">
-            <div class="compare-col-header">
-              <h3 class="compare-heading">Surgical Transplant</h3>
-            </div>
-
-            <ul class="compare-features-list">
-              <li>Results take 6–12 months to mature</li>
-              <li>Follicle extraction &amp; implantation surgery</li>
-              <li>Days of downtime</li>
-              <li>Permanent — cannot be redesigned</li>
-              <li>Limited by available donor hair</li>
-              <li>Higher upfront cost</li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Expandable Drawer -->
-      <div class="expand-drawer-box" id="compareDrawer">
-        <button type="button" class="drawer-toggle-btn" id="compareBtn" aria-expanded="false">
-          <span class="drawer-plus-icon">+</span>
-          <span>LEARN MORE ABOUT CHOOSING BETWEEN THE TWO</span>
-        </button>
-
-        <!-- Collapsible Content -->
-        <div class="drawer-expand-body" id="compareBody">
-          <div class="drawer-inner-text">
-            <p>
-              A transplant relocates your own follicles from the back or sides of the scalp — a genuine medical
-              procedure with real recovery time, and results depend on available donor hair.
-            </p>
-            <p>
-              A hair patch doesn't touch your biology — it's a precision-fitted system, the better starting point if you
-              want an immediate result or prefer a non-invasive option long-term.
-            </p>
-            <p>
-              Many clients use both across their journey: a patch for immediate confidence now, with surgery an option
-              to explore later.
-            </p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 8: Who It's For (4 Columns Strip) -->
-  <section class="who-section">
-    <div class="who-container">
-
-      <!-- Header -->
-      <div class="who-head">
-        <div class="what-eyebrow">
-          <span>WHO IT'S FOR</span>
-        </div>
-        <h2 class="what-title">Built for every stage of hair loss.</h2>
-      </div>
-
-      <!-- 4 Columns Grid -->
-      <div class="who-grid">
-
-        <!-- Column A -->
-        <div class="who-col">
-          <span class="who-letter">A</span>
-          <h3 class="who-col-title">Early thinning</h3>
-          <p class="who-col-desc">
-            Subtle density boost at the crown or temples before it becomes noticeable.
-          </p>
-        </div>
-
-        <!-- Column B -->
-        <div class="who-col">
-          <span class="who-letter">B</span>
-          <h3 class="who-col-title">Receding hairline</h3>
-          <p class="who-col-desc">
-            A custom front edge that follows your natural growth pattern exactly.
-          </p>
-        </div>
-
-        <!-- Column C -->
-        <div class="who-col">
-          <span class="who-letter">C</span>
-          <h3 class="who-col-title">Advanced baldness</h3>
-          <p class="who-col-desc">
-            Full-crown systems for complete coverage, indistinguishable from natural growth.
-          </p>
-        </div>
-
-        <!-- Column D -->
-        <div class="who-col">
-          <span class="who-letter">D</span>
-          <h3 class="who-col-title">Not ready for surgery</h3>
-          <p class="who-col-desc">
-            An immediate, non-invasive option while you decide on longer-term treatment.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 9: Visit Us (Two Studios) -->
-  <section class="visit-section">
-    <div class="visit-container">
-
-      <!-- Header -->
-      <div class="visit-head">
-        <div class="what-eyebrow">
-          <span>VISIT US · FREE DEMO ON NOW</span>
-        </div>
-        <h2 class="what-title">Two studios, both in East Bengaluru.</h2>
-      </div>
-
-      <!-- Studio Branch Cards Grid -->
-      <div class="branches-grid">
-
-        <!-- Studio 1: Sarjapur Road -->
-        <div class="branch-card">
-          <div class="branch-top-row">
-            <h3 class="branch-name">Sarjapur Road</h3>
-            <span class="badge-free-demo">FREE DEMO</span>
-          </div>
-
-          <p class="branch-address">
-            13A, Aluma Salon, Bloomingdell Layout, Sarjapur Main Road, opp. Wipro Technologies, Kasavanahalli, Bengaluru
-            560035
-          </p>
-
-          <div class="branch-details">
-            <p><span class="detail-label">Hours —</span> Tue–Sun, 10:00 AM – 8:00 PM</p>
-            <p><span class="detail-label">Best for —</span> First-time consultations &amp; free demo fittings</p>
-          </div>
-
-          <div class="branch-actions-row">
-            <a href="https://maps.google.com/?q=Aluma+Salon+Sarjapur+Road" target="_blank" rel="noopener"
-              class="branch-btn btn-outline">GET DIRECTIONS</a>
-            <a href="tel:+919019555087" class="branch-btn btn-outline">CALL</a>
-            <a href="https://wa.me/919019555087?text=Hi%20Aluma,%20I%20would%20like%20to%20book%20a%20Free%20Demo%20at%20Sarjapur%20Road"
-              target="_blank" rel="noopener" class="branch-btn btn-whatsapp">WHATSAPP</a>
-          </div>
-        </div>
-
-        <!-- Studio 2: Whitefield -->
-        <div class="branch-card">
-          <div class="branch-top-row">
-            <h3 class="branch-name">Whitefield</h3>
-            <span class="badge-free-demo">FREE DEMO</span>
-          </div>
-
-          <p class="branch-address">
-            Aluma Salon X Hair Revive Studio, 3rd Floor, Shubhtaa Towers, near Hope Farm Signal, ITPL, Whitefield Main
-            Road, Bengaluru 560066
-          </p>
-
-          <div class="branch-details">
-            <p><span class="detail-label">Hours —</span> Tue–Sun, 10:00 AM – 8:00 PM</p>
-            <p><span class="detail-label">Best for —</span> Touch-ups, rebonding &amp; maintenance visits</p>
-          </div>
-
-          <div class="branch-actions-row">
-            <a href="https://maps.google.com/?q=Aluma+Salon+Whitefield" target="_blank" rel="noopener"
-              class="branch-btn btn-outline">GET DIRECTIONS</a>
-            <a href="tel:+917892962859" class="branch-btn btn-outline">CALL</a>
-            <a href="https://wa.me/917892962859?text=Hi%20Aluma,%20I%20would%20like%20to%20book%20a%20Free%20Demo%20at%20Whitefield"
-              target="_blank" rel="noopener" class="branch-btn btn-whatsapp">WHATSAPP</a>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 10: FAQ Section -->
-  <section class="patch-faq-section" id="faq">
-    <div class="faq-container">
-
-      <div class="faq-head">
-        <div class="what-eyebrow">
-          <span>QUESTIONS, ANSWERED</span>
-        </div>
-        <h2 class="what-title">Before you walk in.</h2>
-      </div>
-
-      <div class="faq-list">
-
-        <!-- Question 1 -->
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-title">Does it damage my natural hair or scalp?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>No. The patch sits on top of your scalp and existing hair rather than penetrating it, so your natural
-              hair underneath is left completely undisturbed.</p>
-          </div>
-        </div>
-
-        <!-- Question 2 -->
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-title">Will people be able to tell?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Not with a well-fitted, well-matched system. We hand-select hair colour, texture and density to blend
-              with your own, and shape the hairline to sit exactly where it should.</p>
-          </div>
-        </div>
-
-        <!-- Question 3 -->
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-title">Can I wash, swim or work out with it?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Yes. Once bonded, a quality system holds through washing, swimming, sweat and daily activity.</p>
-          </div>
-        </div>
-
-        <!-- Question 4 -->
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-title">How often does it need maintenance?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Most clients return every 3–5 weeks for a rebonding and clean-up. With proper care, a unit typically
-              lasts 6–12 months.</p>
-          </div>
-        </div>
-
-        <!-- Question 5 -->
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-title">Is the procedure painful?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>No. There's no cutting, injecting or anaesthesia involved — the fitting is painless from consultation to
-              final style.</p>
-          </div>
-        </div>
-
-        <!-- Question 6 -->
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-title">What does the free demo include?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>A scalp assessment, a hair &amp; base match, and a live demo fitting so you can see and feel the result
-              before committing — no charge, no obligation.</p>
-          </div>
-        </div>
-
-        <!-- Question 7 -->
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-title">Do I need an appointment or can I walk in?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Walk-ins are always welcome at both branches. Booking ahead on WhatsApp just guarantees you a slot at
-              your preferred time.</p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 11: Final Call to Action -->
-  <section class="final-cta-section">
-    <div class="final-cta-box">
-
-      <!-- Colored Dots & Subheading -->
-      <div class="cta-dots-tag">
-        <span class="dot-bubble dot-green"></span>
-        <span class="dot-bubble dot-blue"></span>
-        <span class="dot-bubble dot-pink"></span>
-        <span class="cta-sub-brand">ALUMA SALON · SARJAPUR ROAD &amp; WHITEFIELD</span>
-      </div>
-
-      <!-- Main Headline -->
-      <h2 class="final-cta-heading">Your new hairline is one walk-in away.</h2>
-
-      <!-- Action Buttons -->
-      <div class="final-btn-group">
-        <a href="tel:+919019555087" class="cta-pill-btn btn-call">CALL +91 90195 55087</a>
-        <a href="https://wa.me/919019555087?text=Hi%20Aluma,%20I%20would%20like%20to%20know%20more%20about%20the%20hair%20patch%20service"
-          target="_blank" rel="noopener" class="cta-pill-btn btn-whatsapp-cta">WHATSAPP US</a>
-      </div>
-
     </div>
   </section>
 
@@ -2613,69 +2191,6 @@
     })();
   </script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Reusable helper function for all collapsible drawers
-      function initDrawer(btnId, boxId, bodyId) {
-        const btn = document.getElementById(btnId);
-        const box = document.getElementById(boxId);
-        const body = document.getElementById(bodyId);
-
-        if (btn && box && body) {
-          btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-
-            if (isExpanded) {
-              btn.setAttribute('aria-expanded', 'false');
-              box.classList.remove('active');
-              body.style.maxHeight = null;
-            } else {
-              btn.setAttribute('aria-expanded', 'true');
-              box.classList.add('active');
-              body.style.maxHeight = (body.scrollHeight + 30) + 'px';
-            }
-          });
-        }
-      }
-
-      // Initialize Section 3 Drawer (Material & Fit)
-      initDrawer('drawerBtn', 'materialDrawer', 'drawerBody');
-
-      // Initialize Section 5 Drawer (Aftercare)
-      initDrawer('aftercareBtn', 'aftercareDrawer', 'aftercareBody');
-
-      // Initialize Section 7 Drawer (Choosing Between The Two)
-      initDrawer('compareBtn', 'compareDrawer', 'compareBody');
-    });
-
-    // FAQ Single-Open Accordion Logic
-    const faqButtons = document.querySelectorAll('.patch-faq-section .faq-question');
-    faqButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
-        const answer = item.querySelector('.faq-answer');
-        const isCurrentlyExpanded = btn.getAttribute('aria-expanded') === 'true';
-
-        // Close all other open items
-        faqButtons.forEach((otherBtn) => {
-          const otherItem = otherBtn.closest('.faq-item');
-          const otherAnswer = otherItem.querySelector('.faq-answer');
-          otherBtn.setAttribute('aria-expanded', 'false');
-          otherItem.classList.remove('active');
-          otherAnswer.style.maxHeight = null;
-        });
-
-        // Toggle clicked item
-        if (!isCurrentlyExpanded) {
-          btn.setAttribute('aria-expanded', 'true');
-          item.classList.add('active');
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
-      });
-    });
-
-  </script>
 
   <script>
     /* Hair dropdown: hover opens it on desktop (CSS); click/tap toggles it on touch screens */
@@ -2691,6 +2206,524 @@
     })();
   </script>
 
+  <script>
+    /* Style Studio hair: 24 line-art hairstyles drawn in the browser, aligned to bold-face.png (478x522) */
+    (function () {
+const K = (function(){
+// Line-art hair kit, drawn directly in bold-face.png coordinates (478 x 522, centre x = 239)
+const CX = 239;
+const SKULL = [[239,0],[215,1],[195,5],[180,10],[158,20],[143,30],[131,40],[121,50],[113,60],[106,70],[100,80],[95,90],[91,100],[88,110],[85,120],[83,130],[82,140],[81,150],[81,160],[81,170],[82,180],[83,190],[84,200],[86,210],[87,220],[89,230],[90,240],[91,250]];
+const GUIDE = [[239,93],[225,90],[205,84],[181,80],[160,80],[145,84],[135,90],[126,100],[121,110],[117,120],[115,130],[114,145],[113,160],[109,170],[104,180],[101,190],[98,200],[97,210],[96,220],[95,230],[94,240],[94,250]];
+
+function param(poly){
+  const L=[0]; for(let i=1;i<poly.length;i++){ const dx=poly[i][0]-poly[i-1][0], dy=poly[i][1]-poly[i-1][1]; L.push(L[i-1]+Math.hypot(dx,dy)); }
+  const T=L[L.length-1];
+  return function(s){ // returns point & outward normal (left side: outward = left/up)
+    s=Math.max(0,Math.min(1,s)); const d=s*T; let i=1; while(i<L.length-1 && L[i]<d) i++;
+    const t=(d-L[i-1])/((L[i]-L[i-1])||1), a=poly[i-1], b=poly[i];
+    const x=a[0]+(b[0]-a[0])*t, y=a[1]+(b[1]-a[1])*t, tx=b[0]-a[0], ty=b[1]-a[1], n=Math.hypot(tx,ty)||1;
+    return {x,y,nx:-ty/n,ny:tx/n}; // rotate tangent (pointing down-left) -> outward
+  };
+}
+const SK = param(SKULL), GD = param(GUIDE);
+// point on skull at s, pushed outward by off
+const sk = (s,off=0)=>{ const p=SK(s); return [p.x+p.nx*off, p.y+p.ny*off]; };
+// point on hairline guide at s, pushed onto the face (inward/down) by off
+const gd = (s,off=0)=>{ const p=GD(s); return [p.x-p.nx*off, p.y-p.ny*off]; };
+const mir = p=>[2*CX-p[0], p[1]];
+
+function catmull(P, closed=true, tension=1){
+  const n=P.length; if(n<2) return '';
+  const g=i=> closed ? P[(i+n)%n] : P[Math.max(0,Math.min(n-1,i))];
+  let d=`M${P[0][0].toFixed(1)},${P[0][1].toFixed(1)}`;
+  const last = closed ? n : n-1;
+  for(let i=0;i<last;i++){
+    const p0=g(i-1),p1=g(i),p2=g(i+1),p3=g(i+2);
+    const k1 = p1[2] ? .15 : tension, k2 = p2[2] ? .15 : tension;
+    const c1=[p1[0]+(p2[0]-p0[0])/6*k1, p1[1]+(p2[1]-p0[1])/6*k1];
+    const c2=[p2[0]-(p3[0]-p1[0])/6*k2, p2[1]-(p3[1]-p1[1])/6*k2];
+    d+=` C${c1[0].toFixed(1)},${c1[1].toFixed(1)} ${c2[0].toFixed(1)},${c2[1].toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
+  }
+  return d+(closed?' Z':'');
+}
+// quadratic centreline helpers
+function qpt(a,c,b,t){ const u=1-t; return [u*u*a[0]+2*u*t*c[0]+t*t*b[0], u*u*a[1]+2*u*t*c[1]+t*t*b[1]]; }
+function ctrl(a,b,bend){ const m=[(a[0]+b[0])/2,(a[1]+b[1])/2], dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1; return [m[0]-dy/L*bend, m[1]+dx/L*bend]; }
+// tapered ribbon (used for strands and locks); w = max half width; shape: 'leaf' (thin both ends) or 'root' (wide at a, sharp at b)
+function ribbon(a,b,bend,w,shape='leaf',N=18){
+  const c=ctrl(a,b,bend), L=[],R=[];
+  for(let i=0;i<=N;i++){
+    const t=i/N, p=qpt(a,c,b,t), p2=qpt(a,c,b,Math.min(1,t+.01)), p1=qpt(a,c,b,Math.max(0,t-.01));
+    const dx=p2[0]-p1[0], dy=p2[1]-p1[1], n=Math.hypot(dx,dy)||1;
+    const k = shape==='root' ? Math.pow(1-t,.85)*(t<.12? .55+t*3.7 : 1) : Math.pow(Math.sin(Math.PI*t),.75);
+    L.push([p[0]-dy/n*w*k, p[1]+dx/n*w*k]); R.push([p[0]+dy/n*w*k, p[1]-dx/n*w*k]);
+  }
+  const pts=L.concat(R.reverse());
+  return 'M'+pts.map(p=>(+p[0].toFixed(1))+','+(+p[1].toFixed(1))).join('L')+'Z';
+}
+let SEED=1; const rnd=()=>{ SEED=(SEED*16807)%2147483647; return SEED/2147483647-.5; };
+// ribbon with explicit control point
+function ribbonC(a,c,b,w,N=16){
+  const L=[],R=[];
+  for(let i=0;i<=N;i++){ const t=i/N, p=qpt(a,c,b,t), p2=qpt(a,c,b,Math.min(1,t+.01)), p1=qpt(a,c,b,Math.max(0,t-.01));
+    const dx=p2[0]-p1[0], dy=p2[1]-p1[1], n=Math.hypot(dx,dy)||1, k=Math.pow(Math.sin(Math.PI*t),.7);
+    L.push([p[0]-dy/n*w*k, p[1]+dx/n*w*k]); R.push([p[0]+dy/n*w*k, p[1]-dx/n*w*k]); }
+  return 'M'+L.concat(R.reverse()).map(p=>(+p[0].toFixed(1))+','+(+p[1].toFixed(1))).join('L')+'Z';
+}
+// partial sub-curve of a quadratic (blossom) -> [a,c,b]
+function sub(P0,C,P2,t0,t1){
+  const bl=(u,v)=>[(1-u)*(1-v)*P0[0]+((1-u)*v+u*(1-v))*C[0]+u*v*P2[0], (1-u)*(1-v)*P0[1]+((1-u)*v+u*(1-v))*C[1]+u*v*P2[1]];
+  return [bl(t0,t0), bl(t0,t1), bl(t1,t1)];
+}
+
+return {ribbonC, sub, CX, sk, gd, mir, catmull, ribbon, ctrl, qpt, rnd, setSeed:s=>{SEED=s;}};
+})();
+const {CX, sk, gd, mir, catmull, ribbon, ribbonC, sub, ctrl, rnd} = K;
+const INK = '#16120E';
+const lerp=(a,b,t)=>[a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t];
+const mirP = p=>{ const q=mir(p); if(p[2]) q.push(1); return q; };
+const rng=(n)=>Array.from({length:n},(_,i)=>i/(n-1));
+
+// ---------- silhouette ----------
+// cap: symmetric unless volR / innerR given. tufts: {s0,s1,count,depth,lean} on outer (outT) or hairline (inT)
+function edgeOuter(vol, s1, n, T){
+  const pts=[]; const m = n;
+  for(let i=0;i<m;i++){ const s=s1*(1-i/(m-1)); pts.push(sk(s,vol(s))); }   // side -> top
+  if(!T) return pts;
+  const out=[]; const tips=[];
+  for(let j=0;j<T.count;j++){ const s=T.s0+(T.s1-T.s0)*(j+.5)/T.count; const d=T.depth*(.7+rnd()*.6); const b=sk(s,vol(s)+d); tips.push({s,p:[b[0]+(T.lean||0)*(1+rnd()*.5), b[1]+(T.leanY||0), 1]}); }
+  // merge tips into the side->top list by s (descending)
+  const all=pts.map((p,i)=>({s:s1*(1-i/(m-1)),p})).concat(tips).sort((a,b)=>b.s-a.s);
+  return all.map(o=>o.p);
+}
+function edgeInner(inner, s1, n, T){ // top -> side
+  const pts=[]; for(let i=0;i<n;i++){ const s=s1*i/(n-1); pts.push({s,p:gd(s,inner(s))}); }
+  if(T) for(let j=0;j<T.count;j++){ const s=T.s0+(T.s1-T.s0)*(j+.5)/T.count; const d=T.depth*(.65+rnd()*.7); const b=gd(s,inner(s)+d); pts.push({s,p:[b[0]+(T.lean||0)*(.6+rnd()*.8), b[1], 1]}); }
+  return pts.sort((a,b)=>a.s-b.s).map(o=>o.p);
+}
+function cap(o){
+  const s1=o.s1??1, n=o.n??14, iS1=o.innerS1??s1, inner=o.inner||(()=>0);
+  const oL=edgeOuter(o.vol, s1, n, o.outT);
+  const oR=(o.volR? edgeOuter(o.volR, o.s1R??s1, n, o.outTR) : edgeOuter(o.vol, s1, n, o.outTR||o.outT)).map(mirP).reverse().slice(1); // top -> side
+  const iL=edgeInner(inner, iS1, n, o.inT);
+  const iR=edgeInner(o.innerR||inner, iS1, n, o.inTR||(o.inT && {...o.inT, lean:-(o.inT.lean||0)})).map(mirP).reverse(); // side -> top
+  return catmull(oL.concat(oR).concat(iR.slice(0,-1)).concat(iL));
+}
+const poly = (half, sym=true)=> catmull(sym ? half.concat(half.slice(1,-1).reverse().map(mirP)) : half);
+const band = (s,f,vol=0)=> lerp(gd(s,0), sk(s,vol), f);
+
+// ---------- strokes ----------
+function hatch(A,B,n,bend,{w=1.15,t0=.35,minL=.45,jit=3}={}){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const t=Math.min(1,Math.max(0,(i+.5+rnd()*.8)/n)), a=A(t), b=B(t);
+    const aa=[a[0]+rnd()*jit,a[1]+rnd()*jit], bb=[b[0]+rnd()*jit,b[1]+rnd()*jit], c=ctrl(aa,bb,bend*(1+rnd()*.5));
+    const u0=Math.max(0,(rnd()+.5)*t0), u1=Math.min(1,u0+minL+(rnd()+.5)*(1-u0-minL));
+    const [p,q,r]=sub(aa,c,bb,u0,u1); out.push(ribbonC(p,q,r,w*(.55+(rnd()+.5)*.9),9));
+  }
+  return out;
+}
+const hatchM=(A,B,n,bend,o)=>hatch(A,B,n,bend,o).concat(hatch(t=>mir(A(t)),t=>mir(B(t)),n,-bend,o));
+function texture({s0=0,s1=.6,f0=.1,f1=.95,n=40,len=10,ang=-1.6,spread=.4,w=.85,vol=()=>0,sym=true,mirAng=true}){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const s=s0+(s1-s0)*(rnd()+.5), f=f0+(f1-f0)*(rnd()+.5), p=band(s,f,vol(s));
+    const a=ang+rnd()*spread*2, L=len*(.7+rnd()*.6), q=[p[0]+Math.cos(a)*L, p[1]+Math.sin(a)*L];
+    out.push(ribbon(p,q,rnd()*3,w*(.7+rnd()*.6),'leaf',6));
+    if(sym){ const q2 = mirAng ? mir(q) : [mir(p)[0]+Math.cos(a)*L, q[1]]; out.push(ribbon(mir(p),q2,-rnd()*3,w*(.7+rnd()*.6),'leaf',6)); }
+  }
+  return out;
+}
+function stipple(s0,s1,n,r=.8,pw=1.35){
+  let d='';
+  for(let i=0;i<n;i++){ const t=Math.pow(rnd()+.5,pw), s=s0+(s1-s0)*t, f=rnd()+.5;
+    const p=lerp(gd(s,0), sk(s,1.2), f*.92+.04);
+    for(const q of [p, mir(p)]) d+=`M${q[0].toFixed(1)} ${q[1].toFixed(1)}h.1`; }
+  return d;
+}
+function coil(c,r,rot=0,turns=1.6){
+  let d=''; const N=13;
+  for(let i=0;i<=N;i++){ const t=i/N, a=rot+t*Math.PI*2*turns, rr=r*(1-.6*t); d+=(i?'L':'M')+(c[0]+Math.cos(a)*rr).toFixed(1)+','+(c[1]+Math.sin(a)*rr*.85).toFixed(1); }
+  return d;
+}
+function bumpy(base, amp){ // base open polyline -> adds rounded bumps between points
+  const out=[base[0]];
+  for(let i=0;i<base.length-1;i++){ const a=base[i], b=base[i+1], m=lerp(a,b,.5), dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1;
+    out.push([m[0]+dy/L*amp*(.7+(rnd()+.5)*.6), m[1]-dx/L*amp*(.7+(rnd()+.5)*.6)]); out.push(b); }
+  return out;
+}
+
+// ---------- 24 styles ----------
+const ST=[]; const add=(name,note,fn)=>ST.push({name,note,fn});
+
+add('Crew Cut','Short, neat and easy to maintain.', ()=>{
+  const v=s=>10-6*s;
+  return { mass:[cap({vol:v, outT:{s0:0,s1:.6,count:16,depth:4}, inT:{s0:0,s1:.36,count:12,depth:5,lean:3}})],
+    strands: texture({s0:0,s1:.98,n:120,len:9,ang:-1.75,spread:.35,vol:v}) };
+});
+add('Short Spiky','Short top styled up into sharp spikes.', ()=>{
+  const v=s=>12-8*s;
+  return { mass:[cap({vol:v, outT:{s0:0,s1:.58,count:9,depth:24,lean:6,leanY:-4}, inT:{s0:0,s1:.32,count:7,depth:4,lean:2}})],
+    strands: hatchM(t=>band(t*.55,.15,0), t=>sk(t*.55,v(t*.55)+18), 40, -6, {t0:.2,minL:.5}).concat(texture({s0:.58,s1:.98,n:40,len:8,ang:-1.8,spread:.3,vol:v})) };
+});
+add('Side Part','Classic side part, combed neatly across.', ()=>{
+  const v=s=>20-13*s, vr=s=>16-11*s;
+  const P0=gd(.34,0), P1=sk(.2,2);
+  const partA=t=>lerp(P0,P1,t);
+  return { mass:[cap({vol:v, volR:vr, inner:s=>0, innerR:s=>s<.25?8:0, inTR:{s0:.02,s1:.3,count:5,depth:6,lean:-6}})],
+    strands: hatch(partA, t=>mir(band(.05+t*.85,.5,vr(.5))), 60, -30, {w:.85,t0:.3})
+      .concat(hatch(partA, t=>band(.42+t*.5,.5,v(.6)), 20, 14, {w:.85,t0:.3})),
+    lines:[`M${P0[0].toFixed(1)},${P0[1].toFixed(1)} Q${(P0[0]+3).toFixed(1)},${((P0[1]+P1[1])/2).toFixed(1)} ${P1[0].toFixed(1)},${P1[1].toFixed(1)}`] };
+});
+add('French Crop','Short textured top with a blunt fringe.', ()=>{
+  const v=s=>12-7*s;
+  const inner=s=> s<.46 ? Math.max(0, 34 - s*40) : 0;
+  return { mass:[cap({vol:v, inner, outT:{s0:0,s1:.55,count:14,depth:4}, inT:{s0:0,s1:.42,count:11,depth:6,lean:2}})],
+    strands: texture({s0:0,s1:.5,n:90,len:13,ang:1.45,spread:.25,vol:v,mirAng:true}).concat(texture({s0:.5,s1:.98,n:40,len:8,ang:-1.75,spread:.3,vol:v})) };
+});
+add('Middle Part','Centre part with soft lengths to the ears.', ()=>{
+  const half=[[239,-20],[198,-17],[156,-4],[120,22],[94,58],[76,104],[66,152],[62,198],[60,236],[62,262,1],[74,250],[80,270,1],[90,252],[96,268,1],[102,240],[106,200],[116,160],[134,122],[164,88],[204,58],[239,46]];
+  return { mass:[poly(half)],
+    strands: hatchM(t=>[234-t*8,-12+t*58], t=>[70+t*36,256-t*100], 44, 34, {w:.85,t0:.3}),
+    lines:['M239,-18 L239,46'] };
+});
+add('Classic Taper','Tidy top, sides tapered short.', ()=>{
+  const v=s=>16-11*s;
+  return { mass:[cap({vol:v, s1:.74, innerS1:.74, outT:{s0:.0,s1:.2,count:4,depth:3}})], fade: stipple(.6,1,520,.75),
+    strands: hatch(t=>gd(.02+t*.7,2), t=>mir(sk(.05+t*.4,v(.3)*.4)), 34, -26, {w:.85,t0:.3}).concat(hatch(t=>mir(gd(.05+t*.65,2)), t=>mir(sk(.2+t*.45,v(.4)*.4)), 20, 16, {w:1.05})) };
+});
+add('Textured Crop','Choppy fringe, short faded sides.', ()=>{
+  const v=s=>14-9*s; const inner=s=> s<.44 ? Math.max(0, 30 - s*34) : 0;
+  return { mass:[cap({vol:v, s1:.62, innerS1:.62, inner, outT:{s0:0,s1:.5,count:12,depth:7,lean:4}, inT:{s0:0,s1:.42,count:9,depth:14,lean:8}})], fade: stipple(.54,1,560,.75),
+    strands: texture({s0:0,s1:.5,n:80,len:15,ang:1.25,spread:.45,vol:v}) };
+});
+add('Undercut','Long top swept back, clean short sides.', ()=>{
+  const v=s=>34-24*s;
+  return { mass:[cap({vol:v, s1:.5, innerS1:.42, outT:{s0:.05,s1:.35,count:6,depth:5,lean:-4}})], fade: stipple(.4,1,300,.65,1.1),
+    strands: hatchM(t=>gd(.0+t*.42,1), t=>sk(t*.4,v(t*.4)*.6), 34, -22, {w:1.2}) };
+});
+add('Slick Back','Smooth, glossy and swept straight back.', ()=>{
+  const v=s=>13-7*s;
+  return { mass:[cap({vol:v})],
+    strands: hatchM(t=>gd(.0+t*.98,1.5), t=>sk(t*.45,v(0)*.25), 46, -12, {w:1.05,t0:.15,minL:.6,jit:1.5}) };
+});
+add('Quiff','Volume brushed up and back at the front.', ()=>{
+  const v=s=> s<.42 ? 40+12*Math.sin(s/.42*Math.PI)*.6 : 40*(1-(s-.42)/.58)*.9+6;
+  const vr=s=> v(s)*.8;
+  return { mass:[cap({vol:v, volR:vr, outT:{s0:.02,s1:.38,count:7,depth:9,lean:6,leanY:-3}, outTR:{s0:.02,s1:.3,count:5,depth:7,lean:-4}})],
+    strands: hatch(t=>gd(.0+t*.45,1), t=>sk(.05+t*.3,v(.2)-6), 32, -34, {w:1.25,t0:.2})
+      .concat(hatch(t=>mir(gd(.0+t*.45,1)), t=>[170+t*60,-36+t*4], 32, 26, {w:1.25,t0:.2}))
+      .concat(texture({s0:.55,s1:.98,n:30,len:8,ang:-1.8,spread:.3,vol:v})) };
+});
+add('Messy Hair','Relaxed, tousled texture all over.', ()=>{
+  const v=s=>22-12*s; const inner=s=> s<.4 ? 18-s*30 : 0;
+  return { mass:[cap({vol:v, inner, outT:{s0:0,s1:.9,count:18,depth:12,lean:8}, inT:{s0:0,s1:.38,count:8,depth:20,lean:10}, outTR:{s0:0,s1:.9,count:18,depth:12,lean:-10}})],
+    strands: hatch(t=>band(t*.5,.85,v(.2)), t=>band(t*.42,0,0), 30, 16, {w:1.2}).concat(hatch(t=>mir(band(t*.5,.85,v(.2))), t=>mir(band(t*.42,0,0)), 30, -10, {w:1.2}))
+      .concat(texture({s0:.45,s1:.98,n:44,len:12,ang:-1.9,spread:.7,vol:v})) };
+});
+add('Curly Hair','Natural curls with soft volume.', ()=>{
+  const v=s=>30-16*s;
+  const top=[]; for(let i=0;i<=12;i++){ const s=1-i/12; top.push(sk(s,v(s))); }   // left side -> top
+  const outerL=bumpy(top,10), outer=outerL.concat(outerL.slice(0,-1).reverse().map(mir));
+  const inner=s=> s<.42 ? 16-s*20 : 0;
+  const inL=[]; for(let i=0;i<=10;i++){ const s=i/10; inL.push(gd(s,inner(s))); }
+  const inB=bumpy(inL,-7);
+  const shape=outer.concat(inB.slice(0,-1).reverse().map(mir).reverse().reverse()).concat([]);
+  const hair=outer.concat(inB.map(mir).reverse().slice(1)).concat(inB.slice(1,-1));
+  let coils=''; for(let i=0;i<120;i++){ const s=(rnd()+.5)*.95, f=.08+(rnd()+.5)*.88, c=band(s,f,v(s)); const cc = rnd()>0 ? c : mir(c); coils+=coil(cc,5+(rnd()+.5)*4,(rnd()+.5)*6); }
+  return { mass:[catmull(hair)], coils };
+});
+add('Long Layered','Shoulder-length layers with movement.', ()=>{
+  const half=[[239,-20],[194,-16],[150,-2],[114,26],[88,64],[72,112],[62,164],[56,218],[52,276],[50,336],[54,392],[60,430,1],[70,412],[76,438,1],[86,410],[92,428,1],[98,396],[100,340],[100,290],[98,248],[100,204],[110,156],[132,112],[166,80],[204,62],[226,58,1],[239,64]];
+  return { mass:[poly(half)],
+    strands: hatchM(t=>[228-t*40,-14+t*30], t=>[60+t*36,420-t*60], 50, 34, {w:.9,t0:.3}).concat(hatchM(t=>band(.15+t*.3,.2,6), t=>[66+t*30,330+t*60], 14, 10, {w:1.1})),
+    lines:['M226,-16 Q220,24 210,60'] };
+});
+add('Mullet','Short on top and sides, longer at the back.', ()=>{
+  const v=s=>15-9*s; const inner=s=> s<.42 ? 22-s*30 : 0;
+  const back=[[72,252],[62,300],[58,356],[62,412,1],[72,396],[80,420,1],[88,390],[94,340],[92,290],[86,262]];
+  return { behind:[catmull(back), catmull(back.map(mirP).reverse())],
+    behindStrands: hatchM(t=>[74+t*14,262], t=>[62+t*26,404], 12, 8, {w:1.1}),
+    mass:[cap({vol:v, inner, outT:{s0:0,s1:.6,count:12,depth:5,lean:4}, inT:{s0:0,s1:.4,count:9,depth:10,lean:5}})],
+    strands: texture({s0:0,s1:.9,n:80,len:13,ang:1.3,spread:.45,vol:v}) };
+});
+add('Wolf Cut','Shaggy layers with a curtain fringe.', ()=>{
+  const half=[[239,-18],[196,-14],[150,0],[110,30],[84,72],[68,120],[58,172],[52,228,1],[60,214],[56,272,1],[66,262],[64,320,1],[76,300],[82,342,1],[88,300],[92,250],[98,206],[112,166],[134,140,1],[146,150],[166,126,1],[180,134],[200,112,1],[216,116],[239,96]];
+  return { mass:[poly(half)],
+    strands: hatchM(t=>[230-t*40,-12+t*40], t=>[64+t*80,320-t*190], 52, 30, {w:.9,t0:.3}) };
+});
+add('Curtain Haircut','Centre part, curtains framing the face.', ()=>{
+  const half=[[239,-16],[196,-12],[152,2],[114,30],[90,70],[76,116],[70,160],[68,204],[70,238,1],[82,226],[90,250,1],[98,224],[104,196],[114,160],[136,124],[170,96],[210,70],[239,54]];
+  return { mass:[poly(half)],
+    strands: hatchM(t=>[234,-8+t*60], t=>[76+t*44,240-t*110], 48, 34, {w:.9,t0:.3}),
+    lines:['M239,-14 L239,54'] };
+});
+add('Shag Cut','Choppy layers with a feathered fringe.', ()=>{
+  const half=[[239,-16],[194,-12],[148,2],[108,32],[82,76],[68,126],[60,178],[56,232],[54,286,1],[66,270],[66,320,1],[78,300],[86,330,1],[90,286],[94,236],[100,194],[114,156],[128,140,1],[142,150],[156,130,1],[174,152],[190,128,1],[206,150],[222,132,1],[239,146]];
+  return { mass:[poly(half)],
+    strands: hatchM(t=>[230-t*40,-10+t*36], t=>[62+t*44,300-t*150], 48, 26, {w:.9,t0:.3}).concat(hatchM(t=>[150+t*70,70+t*10], t=>[134+t*80,140+t*4], 16, 6, {w:1.1})) };
+});
+add('Man Bun','Pulled back and tied into a bun on top.', ()=>{
+  const v=s=>9-5*s;
+  const bun=[[239,-66],[210,-62],[192,-44],[194,-20],[212,-4],[239,1],[266,-4],[284,-20],[286,-44],[268,-62]];
+  let bunL=''; for(let i=0;i<5;i++){ const y=-56+i*11; bunL+=`M${200+i*2},${y} Q239,${y-14} ${278-i*2},${y} `; }
+  return { mass:[cap({vol:v})], bun: catmull(bun), bunLines:bunL, tie:'M208,-4 Q239,10 270,-4',
+    strands: hatchM(t=>gd(.0+t*.98,1.5), t=>[224+t*10,4], 40, -16, {w:1.05,t0:.12,minL:.6,jit:1.5}) };
+});
+add('Ponytail','Swept back smooth and tied behind.', ()=>{
+  const v=s=>9-5*s;
+  const tail=[[392,226],[414,262],[424,316],[422,374],[412,418,1],[404,392],[400,428,1],[392,380],[396,320],[390,268],[380,240]];
+  return { behind:[catmull(tail)], behindStrands: hatch(t=>[392+t*12,250], t=>[396+t*14,410], 10, -8, {w:1.05}),
+    mass:[cap({vol:v})],
+    strands: hatchM(t=>gd(.0+t*.98,1.5), t=>sk(.15+t*.25,0), 40, -12, {w:1.05,t0:.12,minL:.6,jit:1.5}) };
+});
+add('Dreadlocks','Rope-like locs falling to the shoulders.', ()=>{
+  const v=s=>16-6*s;
+  const locs=[]; // side locs hang outside the face
+  [[.42,10,62,300],[.52,16,56,360],[.62,10,64,420],[.72,4,76,410],[.84,0,84,360],[.95,0,92,330]].forEach(([s,o,x2,y2])=>{ const r=sk(s,o); locs.push([r,[x2,y2]]); });
+  const rows=[]; for(let i=0;i<9;i++){ const s=.02+i*.05; const a=band(s,.05,0), b=sk(s,v(s)*.6); rows.push([a,b]); }
+  return { mass:[cap({vol:v, outT:{s0:0,s1:.4,count:10,depth:6}})], dreads: locs.concat(locs.map(l=>[mir(l[0]),mir(l[1])])), rows: rows.concat(rows.map(l=>[mir(l[0]),mir(l[1])])) };
+});
+add('High Fade','Textured top with sides faded high.', ()=>{
+  const v=s=>16-10*s;
+  return { mass:[cap({vol:v, s1:.46, innerS1:.4, outT:{s0:0,s1:.4,count:10,depth:5,lean:3}, inT:{s0:0,s1:.34,count:8,depth:6,lean:4}})], fade: stipple(.36,1,760,.72,1.6),
+    strands: texture({s0:0,s1:.42,n:70,len:13,ang:-1.55,spread:.5,vol:v}) };
+});
+add('Low Fade','Fuller sides that fade out low at the edges.', ()=>{
+  const v=s=>16-10*s;
+  return { mass:[cap({vol:v, s1:.84, innerS1:.84})], fade: stipple(.78,1,300,.72,1.3),
+    strands: hatch(t=>gd(.02+t*.75,2), t=>mir(sk(.02+t*.42,v(.3)*.35)), 40, -24, {w:.85,t0:.3}).concat(hatch(t=>mir(gd(.05+t*.72,2)), t=>mir(sk(.2+t*.5,v(.4)*.4)), 24, 14, {w:1.05})) };
+});
+add('Skin Fade','Short top with sides fading down to skin.', ()=>{
+  const v=s=>11-7*s; const inner=s=> s<.3 ? 10-s*20 : 0;
+  return { mass:[cap({vol:v, s1:.44, innerS1:.38, inner, outT:{s0:0,s1:.38,count:10,depth:4}, inT:{s0:0,s1:.3,count:8,depth:7,lean:3}})], fade: stipple(.34,.86,420,.62,1.9),
+    strands: texture({s0:0,s1:.4,n:70,len:11,ang:1.35,spread:.45,vol:v}) };
+});
+add('Afro','Full, rounded natural volume.', ()=>{
+  const base=[]; for(let i=0;i<=22;i++){ const t=i/22, a=Math.PI*(1.12-1.24*t); base.push([239+Math.cos(a)*205, 150-Math.sin(a)*185]); }
+  const outer=bumpy(base,12);
+  const iR=[]; for(let i=0;i<=12;i++){ iR.push(mir(gd(1-i/12,0))); }
+  const iL=[]; for(let i=1;i<=12;i++){ iL.push(gd(i/12,0)); }
+  const shape=[[gd(1)[0]-10,266]].concat(outer).concat([[mir(gd(1))[0]+10,266]]).concat(iR).concat(iL);
+  let coils=''; for(let i=0;i<230;i++){ const a=Math.PI*(1.1-1.2*(rnd()+.5)), r=.15+(rnd()+.5)*.82; const c=[239-Math.cos(a)*200*r, 150-Math.sin(a)*180*r]; coils+=coil(c,4+(rnd()+.5)*3.5,(rnd()+.5)*6); }
+  return { mass:[catmull(shape)], coils };
+});
+
+
+// ---------- refinements ----------
+const replace=(name,fn)=>{ const i=ST.findIndex(x=>x.name===name); ST[i].fn=fn; };
+// across-the-head helpers: u 0..1 runs left side -> centre -> right side
+const H=(a0,a1,off=2)=>u=> u<.5 ? gd(a0*(1-2*u),off) : mir(gd(a1*(2*u-1),off));
+const O=(a0,a1,vol,k=.5)=>u=> u<.5 ? sk(a0*(1-2*u),vol(a0*(1-2*u))*k) : mir(sk(a1*(2*u-1),vol(a1*(2*u-1))*k));
+function sweep(v,a0,a1,b0,b1,n,bend,w=.85){ // strands from hairline (front) to outer edge, shifted towards the right/back
+  const A=H(a0,a1), B=O(b0,b1,v,.45);
+  return hatch(t=>A(t), t=>B(Math.min(1,t*.85+.15)), n, bend, {w,t0:.25,minL:.5});
+}
+// long hair: strands from the crown arc down to the ends
+function fall(top0,top1,bot0,bot1,n,bend,w=.72){ return hatchM(t=>lerp(top0,top1,t), t=>lerp(bot0,bot1,t), n, bend*.45, {w,t0:.22,minL:.5,jit:3}); }
+
+replace('Side Part', ()=>{
+  const v=s=>20-13*s, vr=s=>16-11*s;
+  const P0=gd(.34,0), P1=sk(.18,3);
+  return { mass:[cap({vol:v, volR:vr, innerR:s=>s<.25?6:0, inTR:{s0:.02,s1:.28,count:4,depth:5,lean:-5}})],
+    strands: hatch(t=>H(.34,.7)(t*.98), t=>O(.18,.92,vr,.5)(Math.min(1,.12+t*.88)), 70, -14, {w:.8,t0:.2,minL:.55})
+      .concat(hatch(t=>lerp(P0,P1,t), t=>band(.45+t*.5,.6,v(.6)), 14, 8, {w:.8,t0:.2})),
+    lines:[`M${P0[0].toFixed(1)},${P0[1].toFixed(1)} Q${(P0[0]+3).toFixed(1)},${((P0[1]+P1[1])/2).toFixed(1)} ${P1[0].toFixed(1)},${P1[1].toFixed(1)}`] };
+});
+replace('Classic Taper', ()=>{
+  const v=s=>16-11*s;
+  return { mass:[cap({vol:v, s1:.74, innerS1:.74, outT:{s0:.0,s1:.2,count:4,depth:3}})], fade: stipple(.6,1,520,.75),
+    strands: sweep(v,.7,.7,.4,.74,72,-12) };
+});
+replace('Low Fade', ()=>{
+  const v=s=>16-10*s;
+  return { mass:[cap({vol:v, s1:.84, innerS1:.84})], fade: stipple(.78,1,300,.72,1.3),
+    strands: sweep(v,.8,.8,.45,.84,78,-12) };
+});
+replace('Middle Part', ()=>{
+  const half=[[239,-20],[198,-17],[156,-4],[120,22],[94,58],[76,104],[66,152],[62,198],[60,236],[62,262,1],[74,250],[80,270,1],[90,252],[96,268,1],[102,240],[106,200],[114,160],[130,124],[160,100],[204,92],[239,96]];
+  return { mass:[poly(half)], strands: fall([232,-12],[120,26],[100,250],[64,250],56,26),
+    lines:['M239,-18 L239,96'] };
+});
+replace('Long Layered', ()=>{
+  const half=[[239,-20],[194,-16],[150,-2],[114,26],[88,64],[72,112],[62,164],[56,218],[52,276],[50,336],[54,392],[60,430,1],[70,412],[76,438,1],[86,410],[92,428,1],[98,396],[100,340],[100,290],[98,248],[100,204],[108,160],[124,120],[156,98],[200,92],[226,96,1],[239,98]];
+  return { mass:[poly(half)], strands: fall([228,-14],[110,30],[96,420],[56,420],64,30).concat(fall([200,96],[120,130],[98,300],[90,380],10,6)),
+    lines:['M226,-16 Q222,40 226,96'] };
+});
+replace('Curtain Haircut', ()=>{
+  const half=[[239,-16],[196,-12],[152,2],[114,30],[90,70],[76,116],[70,160],[68,204],[70,238,1],[82,226],[90,250,1],[98,224],[104,196],[114,160],[132,128],[160,108],[200,98],[239,96]];
+  return { mass:[poly(half)], strands: fall([232,-10],[120,28],[98,236],[70,236],56,30), lines:['M239,-14 L239,96'] };
+});
+replace('Wolf Cut', ()=>{
+  const half=[[239,-18],[196,-14],[150,0],[110,30],[84,72],[68,120],[58,172],[52,228,1],[60,214],[56,272,1],[66,262],[64,320,1],[76,300],[82,342,1],[88,300],[92,250],[98,206],[110,170],[126,146,1],[140,150],[158,128,1],[176,138],[196,118,1],[214,124],[239,104]];
+  return { mass:[poly(half)], strands: fall([232,-12],[110,30],[88,330],[58,300],60,28).concat(fall([230,10],[180,20],[200,118],[140,148],16,8)) };
+});
+replace('Shag Cut', ()=>{
+  const half=[[239,-16],[194,-12],[148,2],[108,32],[82,76],[68,126],[60,178],[56,232],[54,286,1],[66,270],[66,320,1],[78,300],[86,330,1],[90,286],[94,236],[100,194],[112,160],[126,142,1],[140,150],[154,130,1],[172,150],[188,128,1],[204,148],[222,130,1],[239,144]];
+  return { mass:[poly(half)], strands: fall([232,-10],[108,32],[88,316],[58,290],56,26).concat(hatchM(t=>[150+t*70,40+t*20], t=>[132+t*84,142+t*2], 18, 6, {w:.8,t0:.15})) };
+});
+replace('Curly Hair', ()=>{
+  const v=s=>32-16*s;
+  const top=[]; for(let i=0;i<=12;i++){ const s=1-i/12; top.push(sk(s,v(s))); }
+  const outerL=bumpy(top,11), outer=outerL.concat(outerL.slice(0,-1).reverse().map(mir));
+  const inner=s=> s<.42 ? 16-s*20 : 0;
+  const inL=[]; for(let i=0;i<=10;i++){ const s=i/10; inL.push(gd(s,inner(s))); }
+  const inB=bumpy(inL,-8);
+  const hair=outer.concat(inB.map(mir).reverse().slice(1)).concat(inB.slice(1,-1));
+  let coils=''; for(let i=0;i<190;i++){ const s=(rnd()+.5)*.98, f=.05+(rnd()+.5)*.95, c=band(s,f,v(s)); coils+=coil(i%2?c:mir(c),6+(rnd()+.5)*5,(rnd()+.5)*6,1.3); }
+  return { mass:[catmull(hair)], coils };
+});
+replace('Afro', ()=>{
+  const base=[]; for(let i=0;i<=22;i++){ const t=i/22, a=Math.PI*(1.12-1.24*t); base.push([239+Math.cos(a)*205, 150-Math.sin(a)*185]); }
+  const outer=bumpy(base,13);
+  const iR=[]; for(let i=0;i<=12;i++) iR.push(mir(gd(1-i/12,0)));
+  const iL=[]; for(let i=1;i<=12;i++) iL.push(gd(i/12,0));
+  const shape=[[gd(1)[0]-10,266]].concat(outer).concat([[mir(gd(1))[0]+10,266]]).concat(iR).concat(iL);
+  let coils=''; for(let i=0;i<360;i++){ const a=Math.PI*(1.12-1.24*(rnd()+.5)), r=Math.sqrt(.05+(rnd()+.5)*.95); const c=[239+Math.cos(a)*205*r, 150-Math.sin(a)*185*r]; coils+=coil(c,6+(rnd()+.5)*5,(rnd()+.5)*6,1.3); }
+  return { mass:[catmull(shape)], coils };
+});
+replace('Mullet', ()=>{
+  const v=s=>15-9*s; const inner=s=> s<.42 ? 22-s*30 : 0;
+  const back=[[76,294],[66,336],[64,390],[72,440,1],[84,420],[94,452,1],[104,424],[114,444,1],[118,408],[110,378],[98,350],[92,312]];
+  return { behind:[catmull(back), catmull(back.map(mirP).reverse())],
+    behindStrands: fall([78,300],[94,312],[110,430],[72,430],12,6),
+    mass:[cap({vol:v, inner, outT:{s0:0,s1:.6,count:12,depth:5,lean:4}, inT:{s0:0,s1:.4,count:9,depth:10,lean:5}})],
+    strands: texture({s0:0,s1:.9,n:80,len:13,ang:1.3,spread:.45,vol:v}) };
+});
+replace('Ponytail', ()=>{
+  const v=s=>9-5*s;
+  const tail=[[398,300],[418,330],[430,390],[428,452],[418,500,1],[406,476],[396,512,1],[386,466],[384,404],[388,346]];
+  return { behind:[catmull(tail)], behindStrands: hatch(t=>[392+t*22,312], t=>[392+t*24,494], 16, -6, {w:.75,t0:.1}),
+    mass:[cap({vol:v})], tieBand:'M392,312 Q406,300 420,318',
+    strands: hatchM(t=>gd(.0+t*.98,1.5), t=>sk(.15+t*.25,0), 40, -12, {w:1.05,t0:.12,minL:.6,jit:1.5}) };
+});
+replace('Man Bun', ()=>{
+  const v=s=>9-5*s;
+  const bun=[[239,-74],[208,-68],[190,-48],[192,-22],[210,-4],[239,2],[268,-4],[286,-22],[288,-48],[270,-68]];
+  return { mass:[cap({vol:v})], bun: catmull(bun), bunStrands: hatch(t=>[196+t*80,-30-Math.sin(t*Math.PI)*36], t=>[214+t*50,-4-Math.sin(t*Math.PI)*8], 30, 18, {w:.8,t0:.1}), tie:'M206,-6 Q239,10 272,-6',
+    strands: hatchM(t=>gd(.0+t*.98,1.5), t=>[224+t*10,4], 40, -16, {w:1.05,t0:.12,minL:.6,jit:1.5}) };
+});
+replace('Dreadlocks', ()=>{
+  const v=s=>18-6*s;
+  const locs=[];
+  [[.36,14,70,300],[.44,16,58,350],[.52,14,54,410],[.6,10,66,440],[.7,6,78,430],[.8,2,88,390],[.9,0,94,350]].forEach(([s,o,x2,y2])=>locs.push([sk(s,o),[x2,y2]]));
+  const top=[]; for(let i=0;i<5;i++){ const s=.04+i*.085; top.push([band(s,.05,0), sk(s*.5,v(s)*.4)]); }
+  return { mass:[cap({vol:v, outT:{s0:0,s1:.42,count:12,depth:7}})],
+    dreads: locs.concat(locs.map(l=>[mir(l[0]),mir(l[1])])), topLocs: top.concat(top.map(l=>[mir(l[0]),mir(l[1])])) };
+});
+
+// ---------- render ----------
+function render(st,k){
+  K.setSeed(11+k*97);
+  const r=st.fn(); const cid='laC'+k; let o='';
+  const P=(d,extra='')=>`<path d="${d}" ${extra}/>`;
+  const MASS=`fill="url(#laWash)" stroke="${INK}" stroke-width="2.6" stroke-linejoin="round"`;
+  (r.behind||[]).forEach(d=> o+=P(d,MASS));
+  if(r.behindStrands) o+=P(r.behindStrands.join(' '),`fill="${INK}"`);
+  if(r.fade) o+=P(r.fade,`fill="none" stroke="${INK}" stroke-opacity=".6" stroke-width="1.7" stroke-linecap="round"`);
+  (r.dreads||[]).forEach(([a,b])=>{ o+=P(ribbon(a,b,8,8.5,'leaf',22),`fill="url(#laWash)" stroke="${INK}" stroke-width="1.7"`);
+    const N=Math.floor(Math.hypot(b[0]-a[0],b[1]-a[1])/11); let d=''; for(let i=1;i<N;i++){ const p=lerp(a,b,i/N); d+=`M${(p[0]-5).toFixed(1)},${(p[1]-2).toFixed(1)} q5,4.5 10,0`; } o+=P(d,`fill="none" stroke="${INK}" stroke-width="1.1"`); });
+  o+=`<clipPath id="${cid}">${(r.mass||[]).map(d=>P(d)).join('')}</clipPath>`;
+  (r.mass||[]).forEach(d=> o+=P(d,MASS));
+  if(r.strands && r.strands.length) o+=`<g clip-path="url(#${cid})">${P(r.strands.join(' '),`fill="${INK}"`)}</g>`;
+  if(r.coils) o+=`<g clip-path="url(#${cid})">${P(r.coils,`fill="none" stroke="${INK}" stroke-width="1.1" stroke-linecap="round"`)}</g>`;
+  if(r.rows){ let d=''; r.rows.forEach(([a,b])=>{ const N=6; for(let i=0;i<N;i++){ const p=lerp(a,b,(i+.5)/N); d+=`M${(p[0]-6).toFixed(1)},${(p[1]+2).toFixed(1)} q6,-6 12,0`; } }); o+=`<g clip-path="url(#${cid})">${P(d,`fill="none" stroke="${INK}" stroke-width="1.3" stroke-linecap="round"`)}</g>`; }
+  (r.lines||[]).forEach(d=> o+=P(d,`fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"`));
+  if(r.topLocs) r.topLocs.forEach(([a,b])=>{ o+=P(ribbon(a,b,4,10,'leaf',18),`fill="url(#laWash)" stroke="${INK}" stroke-width="1.5"`); const N=5; let d=''; for(let i=1;i<N;i++){ const p=lerp(a,b,i/N); d+=`M${(p[0]-5).toFixed(1)},${(p[1]+1).toFixed(1)} q5,-4 10,0`; } o+=P(d,`fill="none" stroke="${INK}" stroke-width="1"`); });
+  if(r.tieBand) o+=P(r.tieBand,`fill="none" stroke="${INK}" stroke-width="3.2" stroke-linecap="round"`);
+  if(r.bun){ o+=`<clipPath id="${cid}b">${P(r.bun)}</clipPath>`+P(r.bun,MASS); if(r.bunLines) o+=P(r.bunLines,`fill="none" stroke="${INK}" stroke-width="1.3"`); if(r.bunStrands) o+=`<g clip-path="url(#${cid}b)">${P(r.bunStrands.join(' '),`fill="${INK}"`)}</g>`; o+=P(r.tie,`fill="none" stroke="${INK}" stroke-width="3.2" stroke-linecap="round"`); }
+  return o;
+}
+const DEFS = `<linearGradient id="laWash" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CDBFA9"/><stop offset=".6" stop-color="#DCD1C0"/><stop offset="1" stop-color="#E6DDCF"/></linearGradient>`;
+
+var frame = document.querySelector('.hp-styler .hp-head'); if (!frame) return;
+var html = ''; ST.forEach(function (s, k) { html += '<svg class="hp-hair" data-i="' + (k + 1) + '" viewBox="0 -60 478 582" aria-hidden="true">' + render(s, k) + '</svg>'; });
+frame.insertAdjacentHTML('afterend', html);
+    })();
+  </script>
+  <script>
+    /* Style Studio: each scroll step flies one hairstyle in from the right and sets it on the bald head */
+    (function () {
+      var sec = document.querySelector('.hp-styler'); if (!sec) return;
+      var STY = [{"n": "Crew Cut", "t": "Short, neat and easy to maintain."}, {"n": "Short Spiky", "t": "Short top styled up into sharp spikes."}, {"n": "Side Part", "t": "Classic side part, combed neatly across."}, {"n": "French Crop", "t": "Short textured top with a blunt fringe."}, {"n": "Middle Part", "t": "Centre part with soft lengths to the ears."}, {"n": "Classic Taper", "t": "Tidy top, sides tapered short."}, {"n": "Textured Crop", "t": "Choppy fringe, short faded sides."}, {"n": "Undercut", "t": "Long top swept back, clean short sides."}, {"n": "Slick Back", "t": "Smooth, glossy and swept straight back."}, {"n": "Quiff", "t": "Volume brushed up and back at the front."}, {"n": "Messy Hair", "t": "Relaxed, tousled texture all over."}, {"n": "Curly Hair", "t": "Natural curls with soft volume."}, {"n": "Long Layered", "t": "Shoulder-length layers with movement."}, {"n": "Mullet", "t": "Short on top and sides, longer at the back."}, {"n": "Wolf Cut", "t": "Shaggy layers with a curtain fringe."}, {"n": "Curtain Haircut", "t": "Centre part, curtains framing the face."}, {"n": "Shag Cut", "t": "Choppy layers with a feathered fringe."}, {"n": "Man Bun", "t": "Pulled back and tied into a bun on top."}, {"n": "Ponytail", "t": "Swept back smooth and tied behind."}, {"n": "Dreadlocks", "t": "Rope-like locs falling to the shoulders."}, {"n": "High Fade", "t": "Textured top with sides faded high."}, {"n": "Low Fade", "t": "Fuller sides that fade out low at the edges."}, {"n": "Skin Fade", "t": "Short top with sides fading down to skin."}, {"n": "Afro", "t": "Full, rounded natural volume."}];
+      var N = STY.length, hairs = [].slice.call(sec.querySelectorAll('.hp-hair'));
+      var frame = sec.querySelector('.hp-frame'), now = sec.querySelector('.hp-now');
+      var idxEl = document.getElementById('hpIdx'), nameEl = document.getElementById('hpName'), noteEl = document.getElementById('hpNote');
+      var hint = document.getElementById('hpHint'), bar = document.getElementById('hpBar'), rail = document.getElementById('hpRail');
+      var btns = [].slice.call(rail.querySelectorAll('button'));
+      var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+      var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+      var shown = -1;
+
+      function progress() {
+        /* raw 0..N across the sticky run; each step rests at both ends so a style holds on the head */
+        var r = sec.getBoundingClientRect(), run = sec.offsetHeight - innerHeight;
+        var raw = clamp(-r.top / Math.max(1, run), 0, 1) * N, i = Math.min(N - 1, Math.floor(raw)), f = raw - i;
+        if (raw >= N) return N;
+        return i + ease(clamp((f - .12) / .72, 0, 1));
+      }
+
+      function setText(k) {
+        if (k === shown) return; shown = k;
+        
+        nameEl.textContent = k ? STY[k - 1].n : 'Your canvas';
+        noteEl.textContent = k ? STY[k - 1].t : 'Scroll down and watch each style land.';
+        now.classList.remove('swap'); void now.offsetWidth; now.classList.add('swap');
+        btns.forEach(function (b, j) { b.classList.toggle('on', j === k - 1); });
+        /* mobile: keep the active chip centred in the swipeable row */
+        if (k && rail.scrollWidth > rail.clientWidth + 2) {
+          var c = btns[k - 1].parentNode;
+          rail.scrollTo({ left: c.offsetLeft - rail.clientWidth / 2 + c.offsetWidth / 2, behavior: still ? 'auto' : 'smooth' });
+        }
+      }
+
+      function draw() {
+        var p = progress(), fw = frame.offsetWidth, travel = innerWidth / 2 + fw * 1.1;
+        for (var k = 1; k <= N; k++) {
+          var el = hairs[k - 1], a = clamp(p - (k - 1), 0, 1), e = k < N ? clamp((p - k) / .45, 0, 1) : 0;
+          if (a <= 0 || e >= 1) { if (el._v) { el._v = 0; el.style.opacity = 0; el.style.visibility = 'hidden'; } continue; }
+          el._v = 1; el.style.visibility = 'visible';
+          var tx, ty, rot, sc, op;
+          if (still) { tx = 0; ty = 0; rot = 0; sc = 1; op = a * (1 - e); }
+          else if (e > 0) { tx = -e * fw * .35; ty = -e * fw * .22; rot = -e * 10; sc = 1 + e * .04; op = 1 - e; }
+          else { var q = 1 - a; tx = q * travel; ty = -Math.sin(a * Math.PI) * fw * .16; rot = q * 22; sc = 1 + q * .18; op = clamp(a * 3, 0, 1); }
+          el.style.opacity = op.toFixed(3);
+          el.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0) rotate(' + rot.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+        }
+        setText(clamp(Math.round(p - .2), 0, N));
+        hint.classList.toggle('off', p > .15);
+        bar.style.transform = 'scaleX(' + (p / N).toFixed(4) + ')';
+      }
+
+      var ticking = false;
+      function queue() { if (ticking) return; ticking = true; requestAnimationFrame(function () { ticking = false; draw(); }); }
+      document.addEventListener('scroll', queue, { passive: true, capture: true });
+      addEventListener('resize', queue); addEventListener('load', queue); draw();
+
+      /* rail: jump to a style (this page scrolls inside <body>, so scroll whichever element actually scrolls) */
+      function scroller() {
+        var b = document.body;
+        return (b.scrollHeight > b.clientHeight + 1 && getComputedStyle(b).overflowY !== 'visible') ? b : (document.scrollingElement || document.documentElement);
+      }
+      btns.forEach(function (b, j) {
+        b.addEventListener('click', function () {
+          var run = sec.offsetHeight - innerHeight, target = (j + 1) / N * run - run / N * .05;
+          scroller().scrollBy({ top: sec.getBoundingClientRect().top + target, behavior: still ? 'auto' : 'smooth' });
+        });
+      });
+    })();
+  </script>
+
+  <script>
+    /* Key insights: reveal the cards when the section scrolls into view */
+    (function () {
+      var sec = document.querySelector('.hp-insights'); if (!sec) return;
+      if (!('IntersectionObserver' in window)) { sec.classList.add('in'); return; }
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { sec.classList.add('in'); io.disconnect(); } }, { threshold: .2 });
+      io.observe(sec);
+    })();
+  </script>
 </body>
 
 </html>
