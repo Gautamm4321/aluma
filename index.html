@@ -197,251 +197,47 @@ h3{font-weight:400;font-size:clamp(21px,1.8vw,28px);line-height:1.2;letter-spaci
 .salon-copy h2{margin-bottom:24px;max-width:7em}
 
 
-/* ---------- Nails Section ---------- */
-#nails {
-  position: relative;
-  width: 100%;
-  background: #E6D5CA;
-  color: #080808;
-  padding: clamp(40px, 6vh, 60px) var(--pad) clamp(40px, 6vh, 60px); /* Reduced desktop top/bottom padding */
-  overflow: hidden;
-  display: block;
+/* ---------- Nails: 3D photo ring + floating glossy nails ---------- */
+#nails.nx{position:relative;z-index:2;height:560vh;color:#F4F1EA}
+.nx-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.nx-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.nx-head{position:absolute;left:var(--pad);top:calc(env(safe-area-inset-top,0px) + 108px);z-index:2;pointer-events:none;max-width:9em}
+.nx-head .kick{text-transform:uppercase;letter-spacing:.24em;font-size:12px;opacity:.6;margin-bottom:14px}
+.nx-head h2{font-size:clamp(40px,5.4vw,92px);text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.nx-head h2 em{font-style:normal;color:#E7B7B0}
+.nx-foot{position:absolute;left:var(--pad);right:var(--pad);bottom:calc(var(--pad) + 6px);z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;pointer-events:none}
+.nx-cap{max-width:30ch}
+.nx-name{font-size:clamp(22px,2vw,30px);font-weight:300;letter-spacing:.01em}
+.nx-note{margin-top:4px;font-size:15px;opacity:.62}
+.nx-cap.swap .nx-name,.nx-cap.swap .nx-note{animation:nxSwap .6s cubic-bezier(.16,1,.3,1)}
+@keyframes nxSwap{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.nx-foot .btn{pointer-events:auto;background:#F4F1EA;color:#080808;border-color:#F4F1EA}
+.nx-dots{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;gap:10px}
+.nx-dots i{display:block;width:6px;height:6px;border-radius:50%;background:rgba(244,241,234,.28);transition:background .3s,transform .3s}
+.nx-dots i.on{background:#E7B7B0;transform:scale(1.5)}
+/* no-WebGL fallback: a simple swipe strip of the photos */
+.nx-flat{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);display:none;gap:16px;overflow-x:auto;padding:0 var(--pad)}
+.nx-flat img{height:46vh;border-radius:18px;flex:none}
+#nails.nx.no3d{height:auto;min-height:100vh}
+#nails.nx.no3d .nx-stage{position:relative;min-height:100vh}
+#nails.nx.no3d .nx-flat{display:flex}
+#nails.nx.no3d .nx-gl,#nails.nx.no3d .nx-dots{display:none}
+@media (max-width:760px), (max-aspect-ratio: 9/10){
+  #nails.nx{height:520vh}
+  .nx-head{top:calc(env(safe-area-inset-top,0px) + 84px);max-width:none;right:var(--pad)}
+  .nx-head .kick{margin-bottom:8px;font-size:11px}
+  .nx-head h2{font-size:clamp(30px,8.8vw,46px);line-height:1}
+  .nx-foot{flex-direction:column;align-items:stretch;gap:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px)}
+  .nx-cap{max-width:none;text-align:center}
+  .nx-name{font-size:21px}
+  .nx-note{font-size:13.5px;margin-top:2px}
+  .nx-foot .btn{height:46px}
+  .nx-dots{display:none}
+  .nx-flat img{height:52vh}
 }
-
-.nails-container {
-  max-width: 1360px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-/* Side Editorial Text Elements (Desktop Only) */
-.nails-side-text {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  font-family: 'Jost', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #080808;
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 1;
-}
-
-.nails-side-left {
-  left: 2vw;
-  text-align: left;
-}
-
-.nails-side-right {
-  right: 2vw;
-  text-align: right;
-}
-
-/* Hide side text on mobile/tablets */
-@media (max-width: 1024px) {
-  .nails-side-text {
-    display: none;
-  }
-}
-
-.nails-head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: clamp(16px, 2.5vh, 28px); /* Reduced bottom margin to tighten vertical footprint */
-  width: 100%;
-}
-
-.nails-head h2 {
-  font-family: 'Jost', sans-serif;
-  font-weight: 200;
-  font-size: clamp(34px, 4.5vw, 68px);
-  line-height: 1.1;
-  color: #080808;
-  white-space: nowrap;
-  letter-spacing: -0.02em;
-}
-
-/* 360-degree Rotating Stage */
-.nails-wheel-stage {
-  position: relative;
-  width: clamp(280px, 40vw, 460px); /* Slightly reduced width footprint for desktop */
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto clamp(20px, 3vh, 32px); /* Tighter spacing around wheel */
-}
-
-.nails-container {
-  max-width: 1360px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-/* Side Editorial Text Elements (Desktop Only) */
-.nails-side-text {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  font-family: 'Jost', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #080808;
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 1;
-}
-
-.nails-side-left {
-  left: 2vw;
-  text-align: left;
-}
-
-.nails-side-right {
-  right: 2vw;
-  text-align: right;
-}
-
-/* Hide side text on mobile/tablets */
-@media (max-width: 1024px) {
-  .nails-side-text {
-    display: none;
-  }
-}
-
-.nails-head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: clamp(36px, 5vh, 56px);
-  width: 100%;
-}
-
-.nails-head h2 {
-  font-family: 'Jost', sans-serif;
-  font-weight: 200;
-  font-size: clamp(34px, 4.5vw, 68px);
-  line-height: 1.1;
-  color: #080808;
-  white-space: nowrap;
-  letter-spacing: -0.02em;
-}
-
-/* 360-degree Rotating Stage */
-.nails-wheel-stage {
-  position: relative;
-  width: clamp(340px, 52vw, 600px);
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px auto clamp(36px, 5vh, 52px);
-}
-
-.nails-orbit-ring {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  animation: nailsRotateWheel 60s linear infinite;
-  will-change: transform;
-}
-
-.nails-orbit-ring:hover {
-  animation-play-state: paused;
-}
-
-/* Card Slot distance */
-.nail-card-slot {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  transform: rotate(var(--angle)) translate(clamp(140px, 19vw, 220px)) rotate(calc(-1 * var(--angle)));
-}
-
-/* 1:1 Square Card */
-.nail-card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(120px, 15vw, 175px);
-  aspect-ratio: 1 / 1;
-  border-radius: 20px;
-  overflow: hidden;
-  background: #FFFFFF;
-  border: 1px solid rgba(8, 8, 8, 0.12);
-  box-shadow: 0 18px 36px rgba(8, 8, 8, 0.16);
-  animation: nailsCounterRotate 60s linear infinite;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-  cursor: pointer;
-  will-change: transform;
-}
-
-
-
-.nail-card:hover {
-  transform: translate(-50%, -50%) scale(1.12);
-  box-shadow: 0 24px 44px rgba(8, 8, 8, 0.22);
-  border-color: rgba(8, 8, 8, 0.4);
-  z-index: 20;
-}
-
-.nail-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  pointer-events: none;
-}
-
-@keyframes nailsRotateWheel {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes nailsCounterRotate {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(-360deg); }
-}
-
-.nails-action {
-  position: relative;
-  z-index: 2;
-}
-
-#nails .btn.solid {
-  background: #080808;
-  color: #F4F1EA;
-  border-color: #080808;
-}
-
-#nails .btn.solid:hover {
-  opacity: 0.85;
+@media (max-width:760px) and (max-height:680px){
+  .nx-head .kick{display:none}
+  .nx-note{display:none}
 }
 
 /* ---------- Locations ---------- */
@@ -892,107 +688,22 @@ footer{position:relative;z-index:2;padding:80px var(--pad) calc(40px + env(safe-
   </div>
 </section>
 
-<!-- 05b NAILS SECTION -->
-<section id="nails" class="flow" aria-labelledby="h-nails">
-  <div class="nails-container">
-    
-    <!-- Left Side Desktop Editorial Text (Brand & Style) -->
-    <div class="nails-side-text nails-side-left">
-      <span>ALUMA SIGNATURE</span>
-      <span>HAND-CRAFTED ARTISTRY</span>
-      <span>PRISTINE GEL OVERLAYS</span>
-      <span>BESPOKE FINISHES</span>
-      <span>LUXURY NAIL CARE</span>
-      <span>SUSTAINABLE GLOW</span>
-      <span>EXPERT TECHNICIANS</span>
-      <span>TIMELESS ELEGANCE</span>
+<!-- 05b NAILS SECTION: 3D photo ring + floating glossy nails -->
+<section id="nails" class="flow nx" aria-labelledby="h-nails">
+  <div class="nx-stage">
+    <canvas class="nx-gl" aria-hidden="true"></canvas>
+    <div class="nx-head">
+      <p class="kick">Nail Studio</p>
+      <h2 id="h-nails">Precision <em>nail couture.</em></h2>
     </div>
-
-    <!-- Right Side Desktop Editorial Text (Nail Couture) -->
-    <div class="nails-side-text nails-side-right">
-      <span>CHROME GLOW</span>
-      <span>MATTE VELVET</span>
-      <span>INTATE DETAILS</span>
-      <span>VIBRANT SHADES</span>
-      <span>POLISHED PERFECTION</span>
-      <span>STYLISH EXTENSIONS</span>
-      <span>FLAWLESS CUTICLES</span>
-      <span>COUTURE NAILS</span>
-    </div>
-
-    <!-- Single Line Heading -->
-    <div class="nails-head">
-      <h2 id="h-nails">Precision nail couture.</h2>
-    </div>
-
-    <!-- 360 Degree Rotating Circular Stage -->
-    <div class="nails-wheel-stage">
-      <div class="nails-orbit-ring">
-        
-        <!-- Card 1 (0 deg) -->
-        <div class="nail-card-slot" style="--angle: 0deg;">
-          <div class="nail-card">
-            <img src="nail-1.jpg" alt="Aluma Nail Art Style 1">
-          </div>
-        </div>
-
-        <!-- Card 2 (45 deg) -->
-        <div class="nail-card-slot" style="--angle: 45deg;">
-          <div class="nail-card">
-            <img src="nail-2.jpg" alt="Aluma Nail Art Style 2">
-          </div>
-        </div>
-
-        <!-- Card 3 (90 deg) -->
-        <div class="nail-card-slot" style="--angle: 90deg;">
-          <div class="nail-card">
-            <img src="nail-3.jpg" alt="Aluma Nail Art Style 3">
-          </div>
-        </div>
-
-        <!-- Card 4 (135 deg) -->
-        <div class="nail-card-slot" style="--angle: 135deg;">
-          <div class="nail-card">
-            <img src="nail-7.jpg" alt="Aluma Nail Art Style 4">
-          </div>
-        </div>
-
-        <!-- Card 5 (180 deg) -->
-        <div class="nail-card-slot" style="--angle: 180deg;">
-          <div class="nail-card">
-            <img src="nail-5.jpg" alt="Aluma Nail Art Style 5">
-          </div>
-        </div>
-
-        <!-- Card 6 (225 deg) -->
-        <div class="nail-card-slot" style="--angle: 225deg;">
-          <div class="nail-card">
-            <img src="nail-6.jpg" alt="Aluma Nail Art Style 6">
-          </div>
-        </div>
-
-        <!-- Card 7 (270 deg) -->
-        <div class="nail-card-slot" style="--angle: 270deg;">
-          <div class="nail-card">
-            <img src="nail-4.jpg" alt="Aluma Nail Art Style 7">
-          </div>
-        </div>
-
-        <!-- Card 8 (315 deg) -->
-        <div class="nail-card-slot" style="--angle: 315deg;">
-          <div class="nail-card">
-            <img src="nail-8.jpg" alt="Aluma Nail Art Style 8">
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Bottom Action Button -->
-    <div class="nails-action">
+    <div class="nx-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="nx-foot">
+      <div class="nx-cap" aria-live="polite"><p class="nx-name" id="nxName">Wine Red Gloss</p><p class="nx-note" id="nxNote">Deep red lacquer with a mirror finish.</p></div>
       <a class="btn solid" href="#book">Book your nails</a>
     </div>
-
+    <div class="nx-flat">
+      <img src="nail-1.jpg" alt="Red gloss nails holding a wine glass" loading="lazy"><img src="nail-2.jpg" alt="Red almond nails with a playing card" loading="lazy"><img src="nail-3.jpg" alt="Copper nude nails with an autumn leaf" loading="lazy"><img src="nail-4.jpg" alt="Red stiletto nails holding cherries" loading="lazy"><img src="nail-5.jpg" alt="Red lacquer close-up" loading="lazy"><img src="nail-6.jpg" alt="Red almond nails with sunglasses" loading="lazy"><img src="nail-7.jpg" alt="Nude nails with gold charms" loading="lazy"><img src="nail-8.jpg" alt="Black almond nails" loading="lazy">
+    </div>
   </div>
 </section>
 
@@ -2066,7 +1777,8 @@ const FN = {
     return o;
   },
   nails(p){
-    const o = base(C.nude, 'd');
+    // deep plum-black so the red lacquer and glossy 3D nails glow; light header text
+    const o = base([16,10,12], 'l', [176,62,72]);
     return o;
   },
   locations(p){
@@ -2653,6 +2365,215 @@ Promise.race([fontsReady, new Promise(r => setTimeout(r, 3000))]).then(start);
     vis = es[0].isIntersecting;
     if(vis && !raf){ prev = 0; raf = requestAnimationFrame(loop); }
   }, {threshold:.2}).observe(dial);
+})();
+</script>
+<script>
+/* ================= Nails: 3D photo ring + floating glossy press-on nails =================
+   Own WebGL canvas (alpha) inside a sticky stage; scroll turns the ring one photo at a time. */
+(function(){
+  const sec = document.getElementById('nails'); if(!sec || !sec.classList.contains('nx')) return;
+  const canvas = sec.querySelector('.nx-gl');
+  const nameEl = document.getElementById('nxName'), noteEl = document.getElementById('nxNote'), cap = sec.querySelector('.nx-cap');
+  const dots = [].slice.call(sec.querySelectorAll('.nx-dots i'));
+  const PH = [
+    ['nail-1.jpg','Wine Red Gloss','Deep red lacquer with a mirror finish.'],
+    ['nail-2.jpg','Signature Red','Classic almond shape, high-shine gel.'],
+    ['nail-3.jpg','Copper Nude','Warm metallic nude for every season.'],
+    ['nail-4.jpg','Cherry Stiletto','Long, sharp and glossy red.'],
+    ['nail-5.jpg','Lacquer Studio','Flawless cuticles, perfect coat.'],
+    ['nail-6.jpg','Red Almond','Bold colour, clean shape.'],
+    ['nail-7.jpg','Gold Charm Nude','Soft nude with hand-set gold details.'],
+    ['nail-8.jpg','Black Almond','Glossy black, timeless elegance.']
+  ];
+  const N = PH.length;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let renderer;
+  try { if(!window.THREE) throw 0; renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true, powerPreference:'high-performance'}); }
+  catch(e){ sec.classList.add('no3d'); return; }
+
+  const coarse = matchMedia('(pointer: coarse)').matches;
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, coarse ? 1.5 : 1.75));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x0b0709, 9, 17);
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 60);
+
+  /* studio reflections: softboxes in a dark room -> PMREM environment */
+  (function(){
+    const es = new THREE.Scene();
+    es.add(new THREE.Mesh(new THREE.SphereGeometry(20, 32, 16), new THREE.MeshBasicMaterial({color:0x0c0a0b, side:THREE.BackSide})));
+    const box = (w,h,x,y,z,c,k) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w,h), new THREE.MeshBasicMaterial({color:new THREE.Color(c).multiplyScalar(k), side:THREE.DoubleSide})); m.position.set(x,y,z); m.lookAt(0,0,0); es.add(m); };
+    box(10,3,0,9,2,0xffffff,3.2); box(2,9,-9,1,3,0xffe6e0,2.2); box(2,9,9,0,3,0xffd9d0,1.6); box(6,2,0,-6,6,0xff6b6b,.9); box(4,4,0,2,-9,0xffffff,1.2);
+    const pm = new THREE.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(es, 0.03).texture;
+  })();
+  scene.add(new THREE.AmbientLight(0xffffff, .25));
+  const key = new THREE.DirectionalLight(0xfff1ea, 1.4); key.position.set(3,5,6); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xff8a80, 1.1); rim.position.set(-5,2,-4); scene.add(rim);
+
+  /* ---------- photo ring ---------- */
+  const R = 3.3, STEP = Math.PI*2/N, ARC = STEP*.64, PW = R*ARC, PHt = PW*1.5;
+  const ring = new THREE.Group(); scene.add(ring);
+  function maskTex(fade){
+    const c = document.createElement('canvas'); c.width = 256; c.height = 384; const g = c.getContext('2d');
+    g.fillStyle = '#000'; g.fillRect(0,0,256,384);
+    const r = 26; g.beginPath(); g.moveTo(r,0); g.arcTo(256,0,256,384,r); g.arcTo(256,384,0,384,r); g.arcTo(0,384,0,0,r); g.arcTo(0,0,256,0,r); g.closePath();
+    if(fade){ const gr = g.createLinearGradient(0,0,0,384); gr.addColorStop(0,'#000'); gr.addColorStop(.55,'#000'); gr.addColorStop(1,'#5a5a5a'); g.fillStyle = gr; }
+    else g.fillStyle = '#fff';
+    g.fill(); const t = new THREE.CanvasTexture(c); return t;
+  }
+  const mask = maskTex(false), rmask = maskTex(true);
+  const loader = new THREE.TextureLoader();
+  const aniso = renderer.capabilities.getMaxAnisotropy();
+  const panels = [];
+  PH.forEach((ph, i) => {
+    const geo = new THREE.CylinderGeometry(R, R, PHt, 28, 1, true, i*STEP - ARC/2, ARC);
+    const mat = new THREE.MeshBasicMaterial({color:0x222222, alphaMap:mask, transparent:true, side:THREE.DoubleSide});
+    const m = new THREE.Mesh(geo, mat); ring.add(m);
+    // glossy glass skin that catches the studio lights as the ring turns
+    const glass = new THREE.Mesh(new THREE.CylinderGeometry(R+.012, R+.012, PHt, 28, 1, true, i*STEP - ARC/2, ARC),
+      new THREE.MeshStandardMaterial({color:0xffffff, metalness:1, roughness:.12, transparent:true, opacity:.10, alphaMap:mask, depthWrite:false}));
+    ring.add(glass);
+    // soft floor reflection
+    const refl = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({color:0x222222, alphaMap:rmask, transparent:true, opacity:.16, depthWrite:false, side:THREE.DoubleSide}));
+    refl.scale.y = -1; refl.position.y = -PHt - .1; ring.add(refl);
+    loader.load(ph[0], t => {
+      t.encoding = THREE.sRGBEncoding; t.anisotropy = aniso;
+      const ia = t.image.width / t.image.height, pa = PW / PHt;
+      if(ia > pa){ t.repeat.set(pa/ia, 1); t.offset.set((1 - pa/ia)/2, 0); } else { t.repeat.set(1, ia/pa); t.offset.set(0, (1 - ia/pa)/2); }
+      [mat, refl.material].forEach(mm => { mm.map = t; mm.color.set(0xffffff); mm.needsUpdate = true; });
+      kick();
+    });
+    panels.push({m, glass, refl});
+  });
+
+  /* ---------- glossy 3D press-on nails ---------- */
+  function nailGeo(w, L, curve){
+    const s = new THREE.Shape();
+    s.moveTo(-w/2, 0);
+    s.bezierCurveTo(-w/2, L*.55, -w*.2, L*.93, 0, L);
+    s.bezierCurveTo(w*.2, L*.93, w/2, L*.55, w/2, 0);
+    s.quadraticCurveTo(0, -w*.16, -w/2, 0);
+    const g = new THREE.ExtrudeGeometry(s, {depth:.028, bevelEnabled:true, bevelThickness:.022, bevelSize:.02, bevelSegments:5, curveSegments:28});
+    const p = g.attributes.position;
+    for(let i=0;i<p.count;i++){ const x = p.getX(i), y = p.getY(i); p.setZ(i, p.getZ(i) - curve*x*x*6 - .12*y*y); }
+    g.computeVertexNormals(); g.translate(0, -L/2, 0);
+    return g;
+  }
+  const NG = [nailGeo(.36,.62,1.1), nailGeo(.30,.86,1.2), nailGeo(.38,.52,1.0)];
+  const P = (c, o) => new THREE.MeshPhysicalMaterial(Object.assign({color:c, roughness:.22, metalness:0, clearcoat:1, clearcoatRoughness:.04, envMapIntensity:1.25}, o||{}));
+  const NM = [P(0x9b0e1a), P(0x4a0812), P(0xd8a497,{roughness:.3}), P(0xe9e9ec,{metalness:1, roughness:.07}), P(0xe2b09a,{metalness:1, roughness:.14}), P(0x0a0a0a,{roughness:.18}), P(0xf1e4dd,{roughness:.35})];
+  const nails = new THREE.Group(); scene.add(nails);
+  const NL = [];
+  let seed = 7; const rnd = () => { seed = (seed*16807) % 2147483647; return seed/2147483647; };
+  const COUNT = coarse ? 16 : 24;
+  for(let i=0;i<COUNT;i++){
+    const m = new THREE.Mesh(NG[i%3], NM[i%NM.length]);
+    m.rotation.set(rnd()*6.28, rnd()*6.28, rnd()*6.28);
+    nails.add(m);
+    const side = rnd() < .5 ? -1 : 1;
+    NL.push({ m,
+      u: rnd(),                                  // orbit radius factor
+      th: rnd()*Math.PI*2,                       // orbit angle (0 = in front of the camera)
+      w: (.10 + rnd()*.16) * (rnd() < .82 ? 1 : -1),   // most swirl the same way, a few against
+      y0: (rnd() - .5),                          // resting height factor
+      ey: side * (.62 + rnd()*.45),              // escape height (over / under the front photo)
+      tilt: (rnd() - .5) * .5,                   // orbit inclination
+      sz: rnd(), ph: rnd()*6.28,
+      sp: [(rnd()-.5)*.9, (rnd()-.5)*1.1, (rnd()-.5)*.7] });
+  }
+
+  /* ---------- layout ---------- */
+  const head = sec.querySelector('.nx-head'), foot = sec.querySelector('.nx-foot');
+  let W = 1, H = 1, portrait = false;
+  function resize(){
+    W = sec.clientWidth; H = innerHeight; portrait = W / H < .9;
+    renderer.setSize(W, H, false); camera.aspect = W / H;
+    const t = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
+    let d;
+    if(portrait){
+      // fit the ring into the free band between the heading and the caption
+      const top = head.offsetTop + head.offsetHeight + 14, bot = foot.offsetTop - 14, band = Math.max(160, bot - top);
+      d = Math.max(PHt / ((band * .9 / H) * 2 * t), PW / (.64 * 2 * t * camera.aspect));
+      camera.setViewOffset(W, H, 0, H/2 - (top + bot)/2, W, H);
+    } else {
+      d = Math.max(PHt / (.6 * 2 * t), PW / (.34 * 2 * t * camera.aspect));
+      camera.clearViewOffset();
+    }
+    camera.userData.z = R + d; camera.userData.t = t; camera.updateProjectionMatrix(); kick();
+  }
+
+  /* ---------- scroll / pointer ---------- */
+  const clamp = (v,a,b) => v < a ? a : v > b ? b : v;
+  const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+  const sstep = (a,b,x) => { const t = clamp((x - a)/(b - a), 0, 1); return t*t*(3 - 2*t); };
+  function progress(){ // 0..N-1, resting on each photo
+    const r = sec.getBoundingClientRect(), run = sec.offsetHeight - innerHeight;
+    const raw = clamp(-r.top / Math.max(1, run), 0, 1) * (N - 1), i = Math.min(N - 2, Math.floor(raw)), f = raw - i;
+    return raw >= N - 1 ? N - 1 : i + ease(clamp((f - .15) / .7, 0, 1));
+  }
+  const mouse = {x:0, y:0, tx:0, ty:0};
+  sec.addEventListener('pointermove', e => { if(e.pointerType !== 'mouse') return; mouse.tx = e.clientX / W * 2 - 1; mouse.ty = e.clientY / H * 2 - 1; });
+  sec.addEventListener('pointerleave', () => { mouse.tx = mouse.ty = 0; });
+
+  let shown = -1, burst = 0;
+  function caption(k){
+    if(k === shown) return; if(shown !== -1) burst = 1; shown = k;
+    nameEl.textContent = PH[k][1]; noteEl.textContent = PH[k][2];
+    cap.classList.remove('swap'); void cap.offsetWidth; cap.classList.add('swap');
+    dots.forEach((d, j) => d.classList.toggle('on', j === k));
+  }
+
+  /* ---------- loop (only while the section is on screen) ---------- */
+  let vis = false, raf = 0, last = 0, T = 0, rot = 0, dirty = true, swirl = 0;
+  function kick(){ dirty = true; if(vis && !raf) raf = requestAnimationFrame(frame); }
+  function frame(now){
+    raf = 0; const dt = last ? Math.min(.05, (now - last)/1000) : .016; last = now; T += dt;
+    const p = progress(), target = p * STEP, prev = rot;
+    rot += (target - rot) * (1 - Math.exp(-10*dt));
+    // scroll speed makes the nails swirl faster, then they calm down
+    swirl += (Math.min(6, Math.abs(rot - prev) / Math.max(dt, .001) * 4) - swirl) * (1 - Math.exp(-3*dt));
+    burst *= Math.exp(-2.2*dt);
+    mouse.x += (mouse.tx - mouse.x) * (1 - Math.exp(-4*dt)); mouse.y += (mouse.ty - mouse.y) * (1 - Math.exp(-4*dt));
+    ring.rotation.y = -rot + mouse.x*.12;
+    ring.position.x = nails.position.x = portrait ? 0 : Math.min(1.1, (W / H - 1.2) * 1.4);
+    ring.rotation.x = mouse.y*.05;
+    const cz = camera.userData.z || 10;
+    if(portrait){ camera.position.set(mouse.x*.3, .12, cz); camera.lookAt(0, .08, 0); }
+    else { camera.position.set(mouse.x*.6, .35 - mouse.y*.3, cz); camera.lookAt(0, .05, 0); }
+    nails.rotation.x = mouse.y*.06; nails.rotation.z = -mouse.x*.04;
+
+    const r0 = portrait ? R + .2 : R + .45, r1 = portrait ? R + 1.1 : R + 1.9;
+    const halfH = PHt/2, sMin = portrait ? .5 : .55, sMax = portrait ? .92 : 1.05;
+    const tt = camera.userData.t || .3, off = nails.position.x;
+    const pulse = 1 + .28 * burst * Math.sin(Math.min(1, 1 - burst) * Math.PI + .5);
+    NL.forEach(n => {
+      if(!reduced) n.th += n.w * dt * (1 + swirl);
+      const r = (r0 + (r1 - r0) * n.u) * pulse;
+      const z = Math.cos(n.th) * r, xr = Math.sin(n.th) * r;
+      // squeeze the orbit so it stays inside the visible width at this depth (smoothly, no hard edge)
+      const hv = (cz - z) * tt * camera.aspect, lim = Math.max(.6, (xr > 0 ? hv - off : hv + off) * .9);
+      const x = Math.sign(xr) * lim * Math.tanh(Math.abs(xr) / lim);
+      const front = sstep(.45, .92, Math.cos(n.th)) * sstep(PW*.5 + .9, PW*.5 - .2, Math.abs(x));
+      const yRest = n.y0 * (portrait ? halfH * 2.5 : halfH * 2.4) + Math.sin(n.th) * r * n.tilt;
+      const y = yRest + (n.ey * halfH * 1.55 - yRest) * front + (reduced ? 0 : Math.sin(T*.9 + n.ph) * .14);
+      n.m.position.set(x, y, z);
+      n.m.scale.setScalar(sMin + (sMax - sMin) * n.sz);
+      if(!reduced){ const k = dt * (1 + swirl * .8 + burst * 3); n.m.rotation.x += n.sp[0]*k; n.m.rotation.y += n.sp[1]*k; n.m.rotation.z += n.sp[2]*k; }
+    });
+    caption(((Math.round(rot/STEP) % N) + N) % N);
+    renderer.render(scene, camera);
+    const moving = Math.abs(target - rot) > .0005 || Math.abs(mouse.tx - mouse.x) > .001 || Math.abs(mouse.ty - mouse.y) > .001;
+    if(vis && (!reduced || moving || dirty)) raf = requestAnimationFrame(frame);
+    dirty = false;
+  }
+  new IntersectionObserver(es => { vis = es[0].isIntersecting; if(vis){ last = 0; kick(); } }, {rootMargin:'100px'}).observe(sec);
+  document.addEventListener('scroll', kick, {passive:true, capture:true});
+  addEventListener('resize', resize);
+  resize();
 })();
 </script>
 </body></html>
