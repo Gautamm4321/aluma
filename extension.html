@@ -790,6 +790,72 @@
     }
 
     /* ===== /Shared Header + Footer ===== */
+
+    /* ===== Before / After comparison slider ===== */
+    .ba { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; background: #080808; overflow: hidden;
+      padding: 120px clamp(20px, 5vw, 80px) 72px; }
+    .ba::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(45% 55% at 68% 50%, rgba(203, 184, 146, .14) 0%, rgba(203, 184, 146, 0) 70%),
+                  radial-gradient(35% 45% at 10% 90%, rgba(201, 216, 197, .06) 0%, rgba(201, 216, 197, 0) 70%); }
+    .ba-wrap { position: relative; width: 100%; max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(32px, 6vw, 96px); align-items: center; }
+    .ba-kick { font-size: 12px; letter-spacing: .26em; text-transform: uppercase; color: #CBB892; margin-bottom: 18px; }
+    .ba-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: clamp(38px, 4.6vw, 68px); line-height: 1.02; letter-spacing: -.015em; color: #F4F1EA; }
+    .ba-title em { font-style: italic; font-weight: 400; color: #CBB892; }
+    .ba-sub { margin-top: 18px; font-size: 16px; line-height: 1.65; color: rgba(244, 241, 234, .66); max-width: 38ch; }
+    .ba-meta { margin-top: 34px; padding-top: 22px; border-top: 1px solid rgba(244, 241, 234, .12); min-height: 96px; }
+    .ba-name { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(22px, 2vw, 28px); color: #F4F1EA; }
+    .ba-note { margin-top: 6px; font-size: 15px; color: rgba(244, 241, 234, .6); }
+    .ba-meta.swap .ba-name, .ba-meta.swap .ba-note { animation: baSwap .6s cubic-bezier(.16, 1, .3, 1); }
+    @keyframes baSwap { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .ba-cta { display: inline-flex; align-items: center; justify-content: center; height: 50px; padding: 0 28px; margin-top: 26px; border-radius: 999px;
+      background: #F4F1EA; color: #080808; font-size: 15px; font-weight: 500; text-decoration: none; transition: opacity .25s ease; }
+    .ba-cta:hover { opacity: .88; }
+
+    .ba-stage { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+    .ba-frame { position: relative; width: min(46vw, 560px, calc((100svh - 260px) * .8)); aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden;
+      background: #141414; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: ew-resize;
+      box-shadow: 0 50px 100px -30px rgba(0, 0, 0, .8), 0 0 0 1px rgba(244, 241, 234, .1), 0 0 0 9px rgba(244, 241, 234, .03); }
+    .ba-slides, .ba-slide, .ba-img { position: absolute; inset: 0; }
+    .ba-slide { opacity: 0; transform: scale(1.04); transition: opacity .7s ease, transform 1.1s cubic-bezier(.16, 1, .3, 1); }
+    .ba-slide.on { opacity: 1; transform: none; }
+    /* each photo holds before (left half) and after (right half) side by side */
+    .ba-img { background-repeat: no-repeat; background-size: 200% auto; }
+    .ba-img.after { background-position: 100% var(--fy, 22%); }
+    .ba-img.before { background-position: 0% var(--fy, 22%); clip-path: inset(0 calc(100% - var(--x)) 0 0); }
+    .ba-tag { position: absolute; top: 18px; z-index: 3; padding: 7px 14px; border-radius: 999px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+      color: #F4F1EA; background: rgba(8, 8, 8, .42); border: 1px solid rgba(244, 241, 234, .22); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); pointer-events: none; }
+    .ba-tag.l { left: 18px; } .ba-tag.r { right: 18px; }
+    .ba-line { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; margin-left: -1px; z-index: 2; background: #F4F1EA; box-shadow: 0 0 18px rgba(0, 0, 0, .35); pointer-events: none; }
+    .ba-handle { position: absolute; top: 50%; left: var(--x); z-index: 4; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; cursor: ew-resize;
+      display: grid; place-items: center; color: #080808; background: rgba(244, 241, 234, .92); border: 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .45), 0 0 0 6px rgba(244, 241, 234, .18); transition: transform .25s ease, box-shadow .25s ease; }
+    .ba-handle svg { width: 22px; height: 22px; }
+    .ba-frame:hover .ba-handle, .ba-frame.drag .ba-handle { transform: scale(1.08); box-shadow: 0 10px 30px rgba(0, 0, 0, .45), 0 0 0 10px rgba(244, 241, 234, .16); }
+    .ba-handle:focus-visible { outline: 2px solid #CBB892; outline-offset: 4px; }
+    .ba-nav { display: flex; align-items: center; gap: 18px; }
+    .ba-arrow { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #F4F1EA; background: transparent;
+      border: 1px solid rgba(244, 241, 234, .25); cursor: pointer; transition: background .25s ease, border-color .25s ease; }
+    .ba-arrow:hover { background: rgba(244, 241, 234, .08); border-color: rgba(244, 241, 234, .5); }
+    .ba-arrow svg { width: 18px; height: 18px; }
+    .ba-dots { display: flex; gap: 10px; }
+    .ba-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: rgba(244, 241, 234, .28); cursor: pointer; transition: width .35s ease, background .35s ease; }
+    .ba-dots button[aria-selected="true"] { width: 26px; background: #CBB892; }
+
+    @media (max-width: 900px) {
+      .ba { padding: 96px 16px 48px; align-items: flex-start; }
+      .ba-wrap { grid-template-columns: 1fr; gap: 26px; text-align: center; }
+      .ba-copy { display: contents; }
+      .ba-kick { order: 1; margin-bottom: -14px; }
+      .ba-title { order: 2; font-size: clamp(32px, 9vw, 44px); }
+      .ba-sub { order: 3; margin: -10px auto 0; font-size: 14.5px; }
+      .ba-stage { order: 4; }
+      .ba-meta { order: 5; margin-top: 0; padding-top: 0; border: 0; min-height: 70px; }
+      .ba-cta { order: 6; margin: 0 auto; width: 100%; max-width: 420px; }
+      .ba-frame { width: min(100%, 460px, calc((100svh - 150px) * .8)); border-radius: 22px; }
+      .ba-handle { width: 46px; height: 46px; margin: -23px 0 0 -23px; }
+      .ba-tag { top: 12px; font-size: 10px; padding: 6px 11px; } .ba-tag.l { left: 12px; } .ba-tag.r { right: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .ba-slide { transition: opacity .2s linear; transform: none; } }
   </style>
 </head>
 
@@ -806,7 +872,6 @@
     </a>
     <nav aria-label="Main">
       <a href="founder.html">Founder Story</a>
-      <a href="index.html#experience">Experience</a>
       <a href="index.html#services">Services</a>
       <div class="nav-drop">
         <button class="nav-drop-btn" type="button" aria-haspopup="true" aria-expanded="false">Hair <svg
@@ -832,14 +897,13 @@
   <div id="menu" class="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden="">
     <nav aria-label="Mobile">
       <a href="founder.html"><small>02</small>Founder Story</a>
-      <a href="index.html#experience"><small>03</small>Experience</a>
-      <a href="index.html#services"><small>04</small>Services</a>
-      <a href="extension.html"><small>05</small>Hair Extension</a>
-      <a href="patch.html"><small>06</small>Hair Patch</a>
-      <a href="index.html#locations"><small>07</small>Locations</a>
-      <a href="menu.html"><small>08</small>Menu</a>
-      <a href="passes.html"><small>09</small>Passes</a>
-      <a href="index.html#app"><small>10</small>App</a>
+      <a href="index.html#services"><small>03</small>Services</a>
+      <a href="extension.html"><small>04</small>Hair Extension</a>
+      <a href="patch.html"><small>05</small>Hair Patch</a>
+      <a href="index.html#locations"><small>06</small>Locations</a>
+      <a href="menu.html"><small>07</small>Menu</a>
+      <a href="passes.html"><small>08</small>Passes</a>
+      <a href="index.html#app"><small>09</small>App</a>
     </nav>
     <div class="menu-foot">
       <a class="btn solid" href="index.html#book">Book an appointment</a>
@@ -852,292 +916,38 @@
   </div>
 
   <main>
-   <!-- Top Full-Frame Video Hero (Desktop & Mobile Responsive) -->
-    <section class="extension-hero-video-wrap">
-      <!-- Desktop Video -->
-      <video class="desktop-vid" autoplay muted loop playsinline preload="auto">
-        <source src="extensionvideo.mp4" type="video/mp4">
-      </video>
-      <!-- Mobile Video (Ensure the src matches your exact file name) -->
-      <video class="mobile-vid" autoplay muted loop playsinline preload="auto">
-        <source src="extension.mobile.mp4" type="video/mp4">
-      </video>
-      <div class="extension-hero-overlay"></div>
-    </section>
-
-    <!-- 2-Line Desktop / 4-Line Mobile Description Strip -->
-    <section class="extension-intro-strip">
-      <p class="extension-intro-text">
-        Luxurious length, seamless volume, and flawless color integration.<br>
-        Discover Bengaluru’s premier professional hair extension studio experience.
-      </p>
-    </section>
-
-    <!-- DESKTOP STICKY SCROLL SEQUENCE (6 Items Alternating Left/Right) -->
-
-    <!-- SECTION BLOCK 1 (Heading Left, 3 Images Right) -->
-    <section class="story-scroll-section">
-      <div class="sticky-heading-col">
-        <h2 class="story-main-title">Seamless Tape-In <br>Extensions</h2>
-      </div>
-      <div class="scrolling-stack-col">
-        <div class="stack-item">
-          <div class="story-img-box"><img src="extenion-2ABC.jpg" alt="Tape-In View 1"></div>
-          <p class="story-product-desc">Ultra-thin, lightweight medical-grade tape tabs that lay completely flat against
-            your scalp for instant length and natural body.</p>
+    <!-- Before / After: drag the line to compare -->
+    <section class="ba" aria-labelledby="ba-title">
+      <div class="ba-wrap">
+        <div class="ba-copy">
+          <p class="ba-kick">Hair Extensions · Bengaluru</p>
+          <h1 id="ba-title" class="ba-title">Real extensions.<br><em>Real results.</em></h1>
+          <p class="ba-sub">Length, volume and colour that blend with your own hair. Drag the line to see the difference.</p>
+          <div class="ba-meta" aria-live="polite">
+            <p class="ba-name" id="baName">Glossy Brunette Waves</p>
+            <p class="ba-note" id="baNote">Shoulder length to waist-length waves.</p>
+          </div>
+          <a class="ba-cta" href="index.html#book">Book a free consultation</a>
         </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="extension-1B.jpg" alt="Tape-In View 2"></div>
-          <p class="story-product-desc">Designed with skin-like transparent base weaving so hair movement mimics natural
-            growth effortlessly.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="extension-1C.jpg" alt="Tape-In View 3"></div>
-          <p class="story-product-desc">Seamlessly contoured to blend invisibly even when worn in high styling
-            configurations.</p>
+
+        <div class="ba-stage">
+          <div class="ba-frame" id="baFrame" style="--x:50%">
+            <div class="ba-slides" id="baSlides"></div>
+            <span class="ba-tag l">Before</span>
+            <span class="ba-tag r">After</span>
+            <div class="ba-line" aria-hidden="true"></div>
+            <button class="ba-handle" id="baHandle" type="button" role="slider" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="ba-nav">
+            <button class="ba-arrow" id="baPrev" type="button" aria-label="Previous transformation"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="ba-dots" id="baDots" role="tablist" aria-label="Transformations"></div>
+            <button class="ba-arrow" id="baNext" type="button" aria-label="Next transformation"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
         </div>
       </div>
     </section>
-
-    <!-- SECTION BLOCK 2 (3 Images Left, Heading Right - Reversed) -->
-    <section class="story-scroll-section reverse">
-      <div class="sticky-heading-col">
-        <h2 class="story-main-title">Invisible Micro-Ring <br>Strand Rings</h2>
-      </div>
-      <div class="scrolling-stack-col">
-        <div class="stack-item">
-          <div class="story-img-box"><img src="micro-1A.jpg" alt="Micro-Ring View 1"></div>
-          <p class="story-product-desc">Applied strand-by-strand using tiny, color-matched copper rings with zero heat,
-            glue, or harsh chemical bonds.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="micro-1B.jpg" alt="Micro-Ring View 2"></div>
-          <p class="story-product-desc">Exceptionally secure and fully re-adjustable, ideal for clients maintaining an
-            active daily lifestyle.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="micro-1C.jpg" alt="Micro-Ring View 3"></div>
-          <p class="story-product-desc">Seamlessly distributes weight across the head for feather-light comfort day and
-            night.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION BLOCK 3 (Heading Left, 3 Images Right) -->
-    <section class="story-scroll-section">
-      <div class="sticky-heading-col">
-        <h2 class="story-main-title">Hand-Tied Luxury <br>Weft Rows</h2>
-      </div>
-      <div class="scrolling-stack-col">
-        <div class="stack-item">
-          <div class="story-img-box"><img src="weft-1A.jpg" alt="Weft View 1"></div>
-          <p class="story-product-desc">Custom-measured beaded rows created specifically for dense hair types seeking
-            supreme volume and rich texture.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="weft-1C.jpg" alt="Weft View 2"></div>
-          <p class="story-product-desc">Hand-crafted thin seams lie flush against your hairline for an undetectable,
-            full-bodied look.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="weft1B.jpg" alt="Weft View 3"></div>
-          <p class="story-product-desc">Engineered for long-term durability and enduring volume wash after wash.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION BLOCK 4 (3 Images Left, Heading Right - Reversed) -->
-    <section class="story-scroll-section reverse">
-      <div class="sticky-heading-col">
-        <h2 class="story-main-title">Keratin Bond <br>Fusion Studio</h2>
-      </div>
-      <div class="scrolling-stack-col">
-        <div class="stack-item">
-          <div class="story-img-box"><img src="keratin-2A.jpg" alt="Keratin View 1"></div>
-          <p class="story-product-desc">Italian keratin protein tips thermally sealed into microscopic bonds for
-            ultimate holding strength.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="karatin-1B.jpg" alt="Keratin View 2"></div>
-          <p class="story-product-desc">Enables complete 360-degree natural hair movement, high ponytails, and
-            effortless styling versatility.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="extension-3ABC.jpg" alt="Keratin View 3"></div>
-          <p class="story-product-desc">Resistant to humidity and daily styling heat to keep your look immaculate.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION BLOCK 5 (Heading Left, 3 Images Right) -->
-    <section class="story-scroll-section">
-      <div class="sticky-heading-col">
-        <h2 class="story-main-title">Bespoke Color <br>Blending & Toning</h2>
-      </div>
-      <div class="scrolling-stack-col">
-        <div class="stack-item">
-          <div class="story-img-box"><img src="color-blending-1A.jpg" alt="Color View 1"></div>
-          <p class="story-product-desc">Master colorists custom-root and tone extensions to match your exact natural
-            shade gradient.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="color-blending-1B.jpg" alt="Color View 2"></div>
-          <p class="story-product-desc">Multi-tonal dimension created to eliminate artificial lines and create a
-            flawless sun-kissed finish.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="color-blending-1C.jpg" alt="Color View 3"></div>
-          <p class="story-product-desc">Gloss treatments applied to lock in radiance and preserve vibrant depth between
-            salon visits.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION BLOCK 6 (3 Images Left, Heading Right - Reversed) -->
-    <section class="story-scroll-section reverse">
-      <div class="sticky-heading-col">
-        <h2 class="story-main-title">Maintenance & <br>Professional Care</h2>
-      </div>
-      <div class="scrolling-stack-col">
-        <div class="stack-item">
-          <div class="story-img-box"><img src="hair-care-1A.jpg" alt="Maintenance View 1"></div>
-          <p class="story-product-desc">Scheduled salon check-ups including professional tightening, hydration masks,
-            and scalp care.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="hair-care-1B.jpg" alt="Maintenance View 2"></div>
-          <p class="story-product-desc">Safe professional removal and reapplication processes designed to protect your
-            natural hair integrity.</p>
-        </div>
-        <div class="stack-item">
-          <div class="story-img-box"><img src="hair-care-1C.jpg" alt="Maintenance View 3"></div>
-          <p class="story-product-desc">Personalized home-care regimens and specialized brushes to maintain tangle-free
-            locks.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- MOBILE VIEW (Clean Stacked Swipable Cards with 3 images each) -->
-    <div class="mobile-story-card">
-      <div class="mobile-head-group">
-        <h2 class="story-main-title" style="font-size: 28px;">Seamless Tape-In Extensions</h2>
-      </div>
-      <div class="mobile-swiper-container">
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="extenion-2ABC.jpg" alt="Tape 1"></div>
-          <p class="story-product-desc">Ultra-thin, lightweight medical-grade tape tabs that lay flat against your
-            scalp.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="extension-1B.jpg" alt="Tape 2"></div>
-          <p class="story-product-desc">Transparent base weaving so hair movement mimics natural growth.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="extension-1C.jpg" alt="Tape 3"></div>
-          <p class="story-product-desc">Seamlessly contoured to blend invisibly in high-styling configurations.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mobile-story-card">
-      <div class="mobile-head-group">
-        <h2 class="story-main-title" style="font-size: 28px;">Invisible Micro-Ring Rings</h2>
-      </div>
-      <div class="mobile-swiper-container">
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="micro-1A.jpg" alt="Micro 1"></div>
-          <p class="story-product-desc">Applied strand-by-strand using tiny copper rings with zero heat or glue.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="micro-1B.jpg" alt="Micro 2"></div>
-          <p class="story-product-desc">Exceptionally secure and fully re-adjustable for active lifestyles.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="micro-1C.jpg" alt="Micro 3"></div>
-          <p class="story-product-desc">Seamless weight distribution for feather-light comfort.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mobile-story-card">
-      <div class="mobile-head-group">
-        <h2 class="story-main-title" style="font-size: 28px;">Hand-Tied Luxury Weft Rows</h2>
-      </div>
-      <div class="mobile-swiper-container">
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="weft-1A.jpg" alt="Weft 1"></div>
-          <p class="story-product-desc">Custom-measured beaded rows created for dense hair seeking rich volume.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="weft-1C.jpg" alt="Weft 2"></div>
-          <p class="story-product-desc">Hand-crafted thin seams lie flush against your natural hairline.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="weft1B.jpg" alt="Weft 3"></div>
-          <p class="story-product-desc">Engineered for long-term durability wash after wash.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mobile-story-card">
-      <div class="mobile-head-group">
-        <h2 class="story-main-title" style="font-size: 28px;">Keratin Bond Fusion Studio</h2>
-      </div>
-      <div class="mobile-swiper-container">
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="keratin-2A.jpg" alt="Keratin 1"></div>
-          <p class="story-product-desc">Italian keratin protein tips thermally sealed into microscopic bonds.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="karatin-1B.jpg" alt="Keratin 2"></div>
-          <p class="story-product-desc">Enables complete 360-degree natural styling versatility.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="extension-3ABC.jpg" alt="Keratin 3"></div>
-          <p class="story-product-desc">Resistant to humidity and daily styling heat.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mobile-story-card">
-      <div class="mobile-head-group">
-        <h2 class="story-main-title" style="font-size: 28px;">Bespoke Color Blending</h2>
-      </div>
-      <div class="mobile-swiper-container">
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="color-blending-1A.jpg" alt="Color 1"></div>
-          <p class="story-product-desc">Master colorists custom-root and tone extensions to match your gradient.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="color-blending-1B.jpg" alt="Color 2"></div>
-          <p class="story-product-desc">Multi-tonal dimension created to eliminate artificial lines.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="color-blending-1C.jpg" alt="Color 3"></div>
-          <p class="story-product-desc">Gloss treatments applied to lock in lasting radiance.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mobile-story-card">
-      <div class="mobile-head-group">
-        <h2 class="story-main-title" style="font-size: 28px;">Professional Maintenance</h2>
-      </div>
-      <div class="mobile-swiper-container">
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="hair-care-1A.jpg" alt="Main 1"></div>
-          <p class="story-product-desc">Scheduled check-ups including professional tightening and care.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="hair-care-1B.jpg" alt="Main 2"></div>
-          <p class="story-product-desc">Safe professional removal processes protecting natural hair.</p>
-        </div>
-        <div class="mobile-swiper-slide">
-          <div class="mobile-slide-img"><img src="hair-care-1C.jpg" alt="Main 3"></div>
-          <p class="story-product-desc">Personalized home-care regimens and specialized brushes.</p>
-        </div>
-      </div>
-    </div>
   </main>
 
   <footer>
@@ -1253,6 +1063,75 @@
     })();
   </script>
 
+  <script>
+    /* Before / After slider: drag the line (mouse, touch or arrow keys), arrows + dots switch transformations */
+    (function () {
+      var frame = document.getElementById('baFrame'); if (!frame) return;
+      var SL = [
+        { src: 'ex-1.jpeg', fy: '24%', n: 'Glossy Brunette Waves', t: 'Mid-length to long, soft voluminous waves.' },
+        { src: 'ex-3.jpeg', fy: '30%', n: 'Honey Blonde Volume', t: 'Fuller, bouncier lengths with a seamless blend.' },
+        { src: 'ex-4.jpeg', fy: '22%', n: 'Sleek Jet Black', t: 'Thicker, glass-straight length down the back.' },
+        { src: 'ex-5.jpeg', fy: '24%', n: 'Rich Chestnut Length', t: 'Thin ends transformed into glossy, even length.' },
+        { src: 'ex-6.jpeg', fy: '26%', n: 'Rose-Gold Balayage', t: 'Colour-matched length with flowing waves.' },
+        { src: 'ex-7.jpeg', fy: '22%', n: 'Blonde Ombre Waves', t: 'Fine hair to a full, luminous mane.' }
+      ];
+      var slides = document.getElementById('baSlides'), dots = document.getElementById('baDots'), handle = document.getElementById('baHandle');
+      var meta = document.querySelector('.ba-meta'), nameEl = document.getElementById('baName'), noteEl = document.getElementById('baNote');
+      var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var cur = 0, x = 50, anim = 0;
+
+      SL.forEach(function (s, i) {
+        var d = document.createElement('div'); d.className = 'ba-slide' + (i ? '' : ' on'); d.style.setProperty('--fy', s.fy);
+        var bg = "url('" + s.src + "')";
+        d.innerHTML = '<div class="ba-img after" style="background-image:' + bg + '" role="img" aria-label="' + s.n + ', after"></div>' +
+                      '<div class="ba-img before" style="background-image:' + bg + '" role="img" aria-label="' + s.n + ', before"></div>';
+        slides.appendChild(d);
+        var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-label', s.n);
+        b.setAttribute('aria-selected', i ? 'false' : 'true'); b.addEventListener('click', function () { go(i); });
+        dots.appendChild(b);
+      });
+
+      function set(v) { x = Math.max(0, Math.min(100, v)); frame.style.setProperty('--x', x + '%'); handle.setAttribute('aria-valuenow', Math.round(x)); }
+      function sweep() { // gentle hint: line glides left, right, then rests in the middle
+        if (reduced) { set(50); return; }
+        cancelAnimationFrame(anim); var t0 = performance.now(), from = x;
+        var keys = [[0, from], [.35, 28], [.75, 72], [1, 50]];
+        (function step(now) {
+          var t = Math.min(1, (now - t0) / 2200), i = 1; while (i < keys.length - 1 && keys[i][0] < t) i++;
+          var a = keys[i - 1], b = keys[i], k = (t - a[0]) / (b[0] - a[0]), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+          set(a[1] + (b[1] - a[1]) * e); if (t < 1) anim = requestAnimationFrame(step);
+        })(t0);
+      }
+      function go(i) {
+        i = (i + SL.length) % SL.length; if (i === cur) return; cur = i;
+        [].forEach.call(slides.children, function (s, j) { s.classList.toggle('on', j === i); });
+        [].forEach.call(dots.children, function (b, j) { b.setAttribute('aria-selected', j === i ? 'true' : 'false'); });
+        nameEl.textContent = SL[i].n; noteEl.textContent = SL[i].t;
+        meta.classList.remove('swap'); void meta.offsetWidth; meta.classList.add('swap');
+        sweep();
+      }
+      document.getElementById('baPrev').addEventListener('click', function () { go(cur - 1); });
+      document.getElementById('baNext').addEventListener('click', function () { go(cur + 1); });
+
+      // drag anywhere on the frame
+      var dragging = false;
+      function fromEvent(e) { var r = frame.getBoundingClientRect(); set((e.clientX - r.left) / r.width * 100); }
+      frame.addEventListener('pointerdown', function (e) { dragging = true; cancelAnimationFrame(anim); frame.classList.add('drag'); frame.setPointerCapture(e.pointerId); fromEvent(e); });
+      frame.addEventListener('pointermove', function (e) { if (dragging) fromEvent(e); });
+      function end() { dragging = false; frame.classList.remove('drag'); }
+      frame.addEventListener('pointerup', end); frame.addEventListener('pointercancel', end);
+      handle.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); cancelAnimationFrame(anim); set(x + (e.key === 'ArrowLeft' ? -5 : 5)); }
+        if (e.key === 'Home') { e.preventDefault(); set(0); } if (e.key === 'End') { e.preventDefault(); set(100); }
+      });
+
+      // hint sweep the first time the slider comes into view
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { sweep(); io.disconnect(); } }, { threshold: .4 });
+        io.observe(frame);
+      }
+    })();
+  </script>
 </body>
 
 </html>

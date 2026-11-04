@@ -132,6 +132,48 @@ body{
   border-color:rgba(203,184,146,.9);
 }
 
+/* ===== Metal passes: dark black gradient + brand colour (men #311FE5, women #C30498) ===== */
+.metal{
+  --acc:49,31,229; --acc-hex:#311FE5; --acc-soft:#A9A2FF;
+  background:
+    radial-gradient(120% 70% at 0% 0%, rgba(var(--acc),.55) 0%, rgba(var(--acc),0) 60%),
+    radial-gradient(90% 60% at 100% 100%, rgba(var(--acc),.28) 0%, rgba(var(--acc),0) 65%),
+    linear-gradient(160deg, #1B1B1F 0%, #0C0C0E 48%, #050506 100%);
+  border:1.5px solid rgba(var(--acc),.55);
+  box-shadow:
+    0 30px 60px -14px rgba(8,8,8,.45),
+    0 0 0 1px rgba(255,255,255,.04),
+    0 18px 50px -20px rgba(var(--acc),.55),
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(0,0,0,.6);
+  backdrop-filter:none; -webkit-backdrop-filter:none;
+  color:#F4F1EA;
+  overflow:hidden;
+}
+.metal.women{ --acc:195,4,152; --acc-hex:#C30498; --acc-soft:#F59BDF; }
+/* brushed-metal grain + a soft diagonal light sweep */
+.metal::before,.metal::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0}
+.metal::before{
+  background:repeating-linear-gradient(90deg, rgba(255,255,255,.022) 0 1px, rgba(255,255,255,0) 1px 3px);
+  mix-blend-mode:overlay;
+}
+.metal::after{
+  background:linear-gradient(115deg, rgba(255,255,255,0) 28%, rgba(255,255,255,.10) 42%, rgba(255,255,255,.02) 50%, rgba(255,255,255,0) 62%);
+}
+.metal > *{position:relative;z-index:1}
+.metal .m-chip{color:#F4F1EA;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16)}
+.metal .m-icon{color:rgba(244,241,234,.9);background:rgba(255,255,255,.06);border-color:rgba(var(--acc),.6)}
+.metal .m-title{color:#FFFFFF}
+.metal .m-sub{color:var(--acc-soft)}
+.metal .m-list{color:rgba(244,241,234,.88)}
+.metal .m-dot{background:var(--acc-soft);box-shadow:0 0 8px rgba(var(--acc),.9)}
+.metal .m-strike{color:rgba(244,241,234,.45)}
+.metal .m-price{color:#FFFFFF}
+.metal .m-per{color:rgba(244,241,234,.6)}
+.metal .m-badge{color:var(--acc-soft);background:rgba(var(--acc),.18);border-color:rgba(var(--acc),.55)}
+.metal .m-btn{background:#F4F1EA;color:#080808;box-shadow:0 10px 24px -10px rgba(var(--acc),.8)}
+.metal .m-btn:hover{background:#FFFFFF}
+
 .stage-card.slot-center{
   transform:translate3d(0,0,70px) scale(1) rotateY(0deg);
   opacity:1;
@@ -167,6 +209,8 @@ body{
   z-index:1;
 }
 
+.stage-card.metal.slot-prev,.stage-card.metal.slot-next{opacity:.96;filter:blur(.5px) brightness(.72)}
+
 @media(max-width:768px){
   .carousel-stage{
     height:440px;
@@ -187,6 +231,7 @@ body{
     transform:translate3d(165px,0,-130px) scale(.82) rotateY(-18deg);
     opacity:.4;
   }
+  .stage-card.metal.slot-prev,.stage-card.metal.slot-next{opacity:.6;filter:blur(.5px) brightness(.6)}
 }
 </style>
 </head>
@@ -211,11 +256,6 @@ body{
 
   <div class="bg-white/60 backdrop-blur-md border border-[#080808]/10 p-1 rounded-full flex items-center shadow-sm">
 
-    <button id="pillAll"
-      onclick="setFilter('all')"
-      class="px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 bg-[#080808] text-[#F4F1EA] shadow-sm">
-      All (6)
-    </button>
 
     <button id="pillWomens"
       onclick="setFilter('womens')"
@@ -352,7 +392,7 @@ function renderStage(){
   filteredList.forEach((pass,idx)=>{
     const card=document.createElement('div');
 
-    card.className=`stage-card glass-pill ${pass.tint} p-7 flex flex-col justify-between text-[#080808]`;
+    card.className=`stage-card metal ${pass.gender==='womens' ? 'women' : 'men'} p-7 flex flex-col justify-between`;
     card.id=`card-${idx}`;
 
     card.onclick=()=>{
@@ -361,28 +401,28 @@ function renderStage(){
 
     card.innerHTML=`
       <div class="flex items-center justify-between">
-        <span class="text-xs uppercase tracking-[0.24em] font-semibold text-[#080808] bg-black/5 px-3.5 py-1.5 rounded-full border border-black/10">
+        <span class="m-chip text-xs uppercase tracking-[0.24em] font-semibold px-3.5 py-1.5 rounded-full border">
           ${pass.genderLabel}
         </span>
 
-        <div class="w-8 h-8 rounded-full border border-black/15 flex items-center justify-center text-sm font-bold text-[#080808]/80 bg-white/40">
+        <div class="m-icon w-8 h-8 rounded-full border flex items-center justify-center text-sm font-bold">
           ${pass.icon}
         </div>
       </div>
 
       <div class="my-auto py-2">
-        <h2 class="text-3xl md:text-4xl font-serif-title font-semibold tracking-tight text-[#080808] mb-1">
+        <h2 class="m-title text-3xl md:text-4xl font-serif-title font-semibold tracking-tight mb-1">
           ${pass.tier}
         </h2>
 
-        <p class="text-xs uppercase tracking-widest text-[#8E7951] font-semibold mb-3">
+        <p class="m-sub text-xs uppercase tracking-widest font-semibold mb-3">
           Unlimited Treatments
         </p>
 
-        <ul class="space-y-2 text-sm text-[#080808]/90 font-medium">
+        <ul class="m-list space-y-2 text-sm font-medium">
           ${pass.features.map(f=>`
             <li class="flex items-center gap-2.5">
-              <span class="w-2 h-2 rounded-full bg-[#080808] flex-shrink-0"></span>
+              <span class="m-dot w-2 h-2 rounded-full flex-shrink-0"></span>
               <span>${f}</span>
             </li>
           `).join('')}
@@ -393,24 +433,24 @@ function renderStage(){
         <div class="flex items-baseline justify-between mb-3">
 
           <div>
-            <span class="text-xs text-[#080808]/50 line-through">
+            <span class="m-strike text-xs line-through">
               ₹${pass.strike}
             </span>
 
-            <div class="text-2xl md:text-3xl font-bold text-[#080808] leading-tight">
+            <div class="m-price text-2xl md:text-3xl font-bold leading-tight">
               ₹${pass.price}
-              <span class="text-xs font-normal text-[#080808]/70">/ year</span>
+              <span class="m-per text-xs font-normal">/ year</span>
             </div>
           </div>
 
-          <span class="text-[10px] tracking-widest font-semibold uppercase text-emerald-900 bg-emerald-600/15 px-3 py-1 rounded-full border border-emerald-600/30">
+          <span class="m-badge text-[10px] tracking-widest font-semibold uppercase px-3 py-1 rounded-full border">
             Active Pass
           </span>
 
         </div>
 
         <a href="index.html#book"
-          class="w-full py-3.5 rounded-2xl bg-[#080808] hover:bg-[#202020] text-[#F4F1EA] text-sm font-semibold uppercase tracking-wider text-center block transition-all shadow-md active:scale-[0.98]">
+          class="m-btn w-full py-3.5 rounded-2xl text-sm font-semibold uppercase tracking-wider text-center block transition-all active:scale-[0.98]">
           Buy Now →
         </a>
       </div>
@@ -476,19 +516,17 @@ function jumpToCard(idx){
 }
 
 function setFilter(filter){
-  if(currentFilter===filter)return;
+  if(currentFilter===filter) filter='all';   // tap the active pill again to see every pass
 
   currentFilter=filter;
   currentIndex=0;
 
-  const pAll=document.getElementById('pillAll');
   const pW=document.getElementById('pillWomens');
   const pM=document.getElementById('pillMens');
 
   const on='px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 bg-[#080808] text-[#F4F1EA] shadow-sm';
   const off='px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 text-[#080808]/70 hover:text-[#080808]';
 
-  pAll.className=filter==='all'?on:off;
   pW.className=filter==='womens'?on:off;
   pM.className=filter==='mens'?on:off;
 
