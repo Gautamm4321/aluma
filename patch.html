@@ -1829,7 +1829,7 @@
     /* ===== /Shared Header + Footer ===== */
 
     /* ===== Style Studio: scroll to try 12 hairstyles on a bald head ===== */
-    .hp-styler { position: relative; background: #F4F1EA; color: #080808; height: 1400vh; }
+    .hp-styler { position: relative; background: #F4F1EA; color: #080808; height: 600vh; }
     .hp-styler .btn.solid { background: #080808; color: #F4F1EA; border-color: #080808; }
     .hp-stage {
       position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
@@ -1873,7 +1873,7 @@
     @keyframes hpHint { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); transform-origin: right; } }
     .hp-hint.off { opacity: 0; }
 
-    .hp-rail { position: relative; z-index: 2; justify-self: end; list-style: none; display: grid; grid-auto-flow: column; grid-template-rows: repeat(12, auto); column-gap: 28px; row-gap: 2px; }
+    .hp-rail { position: relative; z-index: 2; justify-self: end; list-style: none; display: grid; grid-auto-flow: column; grid-template-rows: repeat(3, auto); column-gap: 28px; row-gap: 2px; }
     .hp-rail button {
       display: flex; align-items: baseline; gap: 14px; width: 100%; padding: 3px 0; white-space: nowrap; background: none; border: 0; cursor: pointer;
       font: inherit; font-size: 13px; color: #080808; opacity: .38; text-align: left; transition: opacity .3s ease, transform .3s ease;
@@ -1895,7 +1895,7 @@
     }
 
     @media (max-width: 960px) {
-      .hp-styler { height: 1300vh; }
+      .hp-styler { height: 560vh; }
       .hp-stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto auto; justify-items: center; align-items: start; text-align: center; gap: 12px; padding: 78px 0 22px; }
       .hp-copy { display: contents; }
       .hp-kick, .hp-title, .hp-sub, .hp-cta { display: none; }
@@ -2070,7 +2070,7 @@
         <div class="hp-hint" id="hpHint"><span>Scroll</span><i></i></div>
       </div>
 
-      <ol class="hp-rail" id="hpRail" aria-label="Hairstyles"><li><button type="button">Crew Cut</button></li><li><button type="button">Short Spiky</button></li><li><button type="button">Side Part</button></li><li><button type="button">French Crop</button></li><li><button type="button">Middle Part</button></li><li><button type="button">Classic Taper</button></li><li><button type="button">Textured Crop</button></li><li><button type="button">Undercut</button></li><li><button type="button">Slick Back</button></li><li><button type="button">Quiff</button></li><li><button type="button">Messy Hair</button></li><li><button type="button">Curly Hair</button></li><li><button type="button">Long Layered</button></li><li><button type="button">Mullet</button></li><li><button type="button">Wolf Cut</button></li><li><button type="button">Curtain Haircut</button></li><li><button type="button">Shag Cut</button></li><li><button type="button">Man Bun</button></li><li><button type="button">Ponytail</button></li><li><button type="button">Dreadlocks</button></li><li><button type="button">High Fade</button></li><li><button type="button">Low Fade</button></li><li><button type="button">Skin Fade</button></li><li><button type="button">Afro</button></li></ol>
+      <ol class="hp-rail" id="hpRail" aria-label="Hairstyles"><li><button type="button">Crew Cut</button></li><li><button type="button">Side Part</button></li><li><button type="button">Classic Taper</button></li><li><button type="button">Curly Hair</button></li><li><button type="button">Ponytail</button></li><li><button type="button">Man Bun</button></li></ol>
       <div class="hp-bar" aria-hidden="true"><i id="hpBar"></i></div>
     </div>
   </section>
@@ -2635,7 +2635,8 @@ function render(st,k){
 const DEFS = `<linearGradient id="laWash" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CDBFA9"/><stop offset=".6" stop-color="#DCD1C0"/><stop offset="1" stop-color="#E6DDCF"/></linearGradient>`;
 
 var frame = document.querySelector('.hp-styler .hp-head'); if (!frame) return;
-var html = ''; ST.forEach(function (s, k) { html += '<svg class="hp-hair" data-i="' + (k + 1) + '" viewBox="0 -60 478 582" aria-hidden="true">' + render(s, k) + '</svg>'; });
+const KEEP = ["Crew Cut", "Side Part", "Classic Taper", "Curly Hair", "Ponytail", "Man Bun"];
+var html = ''; KEEP.map(function (n) { return ST.find(function (x) { return x.name === n; }); }).forEach(function (s, k) { html += '<svg class="hp-hair" data-i="' + (k + 1) + '" viewBox="0 -60 478 582" aria-hidden="true">' + render(s, ST.indexOf(s)) + '</svg>'; });
 frame.insertAdjacentHTML('afterend', html);
     })();
   </script>
@@ -2643,7 +2644,7 @@ frame.insertAdjacentHTML('afterend', html);
     /* Style Studio: each scroll step flies one hairstyle in from the right and sets it on the bald head */
     (function () {
       var sec = document.querySelector('.hp-styler'); if (!sec) return;
-      var STY = [{"n": "Crew Cut", "t": "Short, neat and easy to maintain."}, {"n": "Short Spiky", "t": "Short top styled up into sharp spikes."}, {"n": "Side Part", "t": "Classic side part, combed neatly across."}, {"n": "French Crop", "t": "Short textured top with a blunt fringe."}, {"n": "Middle Part", "t": "Centre part with soft lengths to the ears."}, {"n": "Classic Taper", "t": "Tidy top, sides tapered short."}, {"n": "Textured Crop", "t": "Choppy fringe, short faded sides."}, {"n": "Undercut", "t": "Long top swept back, clean short sides."}, {"n": "Slick Back", "t": "Smooth, glossy and swept straight back."}, {"n": "Quiff", "t": "Volume brushed up and back at the front."}, {"n": "Messy Hair", "t": "Relaxed, tousled texture all over."}, {"n": "Curly Hair", "t": "Natural curls with soft volume."}, {"n": "Long Layered", "t": "Shoulder-length layers with movement."}, {"n": "Mullet", "t": "Short on top and sides, longer at the back."}, {"n": "Wolf Cut", "t": "Shaggy layers with a curtain fringe."}, {"n": "Curtain Haircut", "t": "Centre part, curtains framing the face."}, {"n": "Shag Cut", "t": "Choppy layers with a feathered fringe."}, {"n": "Man Bun", "t": "Pulled back and tied into a bun on top."}, {"n": "Ponytail", "t": "Swept back smooth and tied behind."}, {"n": "Dreadlocks", "t": "Rope-like locs falling to the shoulders."}, {"n": "High Fade", "t": "Textured top with sides faded high."}, {"n": "Low Fade", "t": "Fuller sides that fade out low at the edges."}, {"n": "Skin Fade", "t": "Short top with sides fading down to skin."}, {"n": "Afro", "t": "Full, rounded natural volume."}];
+      var STY = [{"n": "Crew Cut", "t": "Short, neat and easy to maintain."}, {"n": "Side Part", "t": "Classic side part, combed neatly across."}, {"n": "Classic Taper", "t": "Tidy top, sides tapered short."}, {"n": "Curly Hair", "t": "Natural curls with soft volume."}, {"n": "Ponytail", "t": "Swept back smooth and tied behind."}, {"n": "Man Bun", "t": "Pulled back and tied into a bun on top."}];
       var N = STY.length, hairs = [].slice.call(sec.querySelectorAll('.hp-hair'));
       var frame = sec.querySelector('.hp-frame'), now = sec.querySelector('.hp-now');
       var idxEl = document.getElementById('hpIdx'), nameEl = document.getElementById('hpName'), noteEl = document.getElementById('hpNote');
@@ -2676,8 +2677,10 @@ frame.insertAdjacentHTML('afterend', html);
         }
       }
 
-      function draw() {
-        var p = progress(), fw = frame.offsetWidth, travel = innerWidth / 2 + fw * 1.1;
+      var cur = 0, raf = 0, last = 0;
+
+      function draw(p) {
+        var fw = frame.offsetWidth, travel = innerWidth / 2 + fw * 1.1;
         for (var k = 1; k <= N; k++) {
           var el = hairs[k - 1], a = clamp(p - (k - 1), 0, 1), e = k < N ? clamp((p - k) / .45, 0, 1) : 0;
           if (a <= 0 || e >= 1) { if (el._v) { el._v = 0; el.style.opacity = 0; el.style.visibility = 'hidden'; } continue; }
@@ -2694,10 +2697,18 @@ frame.insertAdjacentHTML('afterend', html);
         bar.style.transform = 'scaleX(' + (p / N).toFixed(4) + ')';
       }
 
-      var ticking = false;
-      function queue() { if (ticking) return; ticking = true; requestAnimationFrame(function () { ticking = false; draw(); }); }
+      /* smooth: each frame the animation glides toward the scroll position (frame-rate independent) */
+      function step(now) {
+        raf = 0; var dt = last ? Math.min(.05, (now - last) / 1000) : .016; last = now;
+        var target = progress();
+        cur = still ? target : cur + (target - cur) * (1 - Math.exp(-7 * dt));
+        if (Math.abs(target - cur) < .0008) cur = target;
+        draw(cur);
+        if (cur !== target) raf = requestAnimationFrame(step); else last = 0;
+      }
+      function queue() { if (!raf) raf = requestAnimationFrame(step); }
       document.addEventListener('scroll', queue, { passive: true, capture: true });
-      addEventListener('resize', queue); addEventListener('load', queue); draw();
+      addEventListener('resize', queue); addEventListener('load', queue); cur = progress(); draw(cur);
 
       /* rail: jump to a style (this page scrolls inside <body>, so scroll whichever element actually scrolls) */
       function scroller() {

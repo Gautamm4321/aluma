@@ -132,47 +132,48 @@ body{
   border-color:rgba(203,184,146,.9);
 }
 
-/* ===== Metal passes: dark black gradient + brand colour (men #311FE5, women #C30498) ===== */
+/* ===== Pass colours: men = blue palette, women = Harvard / Legally / Delta Nu ===== */
 .metal{
-  --acc:49,31,229; --acc-hex:#311FE5; --acc-soft:#A9A2FF;
+  /* defaults (overridden per gender + tier below) */
+  --bg:#00033D; --ink:#FFFFFF; --ink-rgb:255,255,255; --acc:#977DFF; --btn:#FFFFFF; --btn-ink:#00033D;
   background:
-    radial-gradient(120% 70% at 0% 0%, rgba(var(--acc),.55) 0%, rgba(var(--acc),0) 60%),
-    radial-gradient(90% 60% at 100% 100%, rgba(var(--acc),.28) 0%, rgba(var(--acc),0) 65%),
-    linear-gradient(160deg, #1B1B1F 0%, #0C0C0E 48%, #050506 100%);
-  border:1.5px solid rgba(var(--acc),.55);
+    radial-gradient(120% 70% at 0% 0%, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 55%),
+    linear-gradient(165deg, var(--bg) 0%, var(--bg) 60%, color-mix(in srgb, var(--bg) 86%, #000) 100%);
+  border:1px solid rgba(var(--ink-rgb),.16);
   box-shadow:
-    0 30px 60px -14px rgba(8,8,8,.45),
-    0 0 0 1px rgba(255,255,255,.04),
-    0 18px 50px -20px rgba(var(--acc),.55),
-    inset 0 1px 0 rgba(255,255,255,.14),
-    inset 0 -1px 0 rgba(0,0,0,.6);
+    0 34px 60px -22px color-mix(in srgb, var(--bg) 70%, rgba(8,8,8,.6)),
+    0 10px 22px -12px rgba(8,8,8,.25),
+    inset 0 1px 0 rgba(255,255,255,.22);
   backdrop-filter:none; -webkit-backdrop-filter:none;
-  color:#F4F1EA;
+  color:var(--ink);
   overflow:hidden;
 }
-.metal.women{ --acc:195,4,152; --acc-hex:#C30498; --acc-soft:#F59BDF; }
-/* brushed-metal grain + a soft diagonal light sweep */
-.metal::before,.metal::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0}
-.metal::before{
-  background:repeating-linear-gradient(90deg, rgba(255,255,255,.022) 0 1px, rgba(255,255,255,0) 1px 3px);
-  mix-blend-mode:overlay;
-}
-.metal::after{
-  background:linear-gradient(115deg, rgba(255,255,255,0) 28%, rgba(255,255,255,.10) 42%, rgba(255,255,255,.02) 50%, rgba(255,255,255,0) 62%);
-}
+/* Men's */
+.metal.men.royal  { --bg:#00033D; --ink:#FFFFFF; --ink-rgb:255,255,255; --acc:#977DFF; --btn:#FFFFFF; --btn-ink:#00033D; }
+.metal.men.elite  { --bg:#0033FF; --ink:#FFFFFF; --ink-rgb:255,255,255; --acc:#EAEDF8; --btn:#FFFFFF; --btn-ink:#0033FF; }
+.metal.men.classic{ --bg:#977DFF; --ink:#FFFFFF; --ink-rgb:255,255,255; --acc:#00033D; --btn:#00033D; --btn-ink:#FFFFFF; }
+/* Women's */
+.metal.women.royal  { --bg:#E3E2D7; --ink:#E1146C; --ink-rgb:225,20,108; --acc:#E1146C; --btn:#E1146C; --btn-ink:#FFFFFF; }
+.metal.women.elite  { --bg:#E1146C; --ink:#FFFFFF; --ink-rgb:255,255,255; --acc:#D3DC2A; --btn:#D3DC2A; --btn-ink:#E1146C; }
+.metal.women.classic{ --bg:#FF76A8; --ink:#FFFFFF; --ink-rgb:255,255,255; --acc:#E1146C; --btn:#FFFFFF; --btn-ink:#E1146C; }
+.metal.women.royal .m-list{ color:#5A1430; }
+.metal.women.elite .m-title{ color:#D3DC2A; }
+/* soft diagonal light sweep */
+.metal::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:linear-gradient(118deg, rgba(255,255,255,0) 32%, rgba(255,255,255,.12) 45%, rgba(255,255,255,0) 58%)}
 .metal > *{position:relative;z-index:1}
-.metal .m-chip{color:#F4F1EA;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16)}
-.metal .m-icon{color:rgba(244,241,234,.9);background:rgba(255,255,255,.06);border-color:rgba(var(--acc),.6)}
-.metal .m-title{color:#FFFFFF}
-.metal .m-sub{color:var(--acc-soft)}
-.metal .m-list{color:rgba(244,241,234,.88)}
-.metal .m-dot{background:var(--acc-soft);box-shadow:0 0 8px rgba(var(--acc),.9)}
-.metal .m-strike{color:rgba(244,241,234,.45)}
-.metal .m-price{color:#FFFFFF}
-.metal .m-per{color:rgba(244,241,234,.6)}
-.metal .m-badge{color:var(--acc-soft);background:rgba(var(--acc),.18);border-color:rgba(var(--acc),.55)}
-.metal .m-btn{background:#F4F1EA;color:#080808;box-shadow:0 10px 24px -10px rgba(var(--acc),.8)}
-.metal .m-btn:hover{background:#FFFFFF}
+.metal .m-chip{color:var(--ink);background:rgba(var(--ink-rgb),.08);border-color:rgba(var(--ink-rgb),.28)}
+.metal .m-icon{color:var(--ink);background:rgba(var(--ink-rgb),.08);border-color:rgba(var(--ink-rgb),.3)}
+.metal .m-title{color:var(--ink)}
+.metal .m-sub{color:var(--acc);letter-spacing:.24em}
+.metal .m-list{color:rgba(var(--ink-rgb),.92)}
+.metal .m-dot{background:var(--acc);width:7px;height:7px}
+.metal .m-strike{color:rgba(var(--ink-rgb),.55)}
+.metal .m-price{color:var(--ink)}
+.metal .m-per{color:rgba(var(--ink-rgb),.7)}
+.metal .m-badge{color:var(--ink);background:rgba(var(--ink-rgb),.1);border-color:rgba(var(--ink-rgb),.4)}
+.metal .m-btn{background:var(--btn);color:var(--btn-ink);box-shadow:0 10px 22px -12px rgba(8,8,8,.45)}
+.metal .m-btn:hover{filter:brightness(1.06)}
 
 .stage-card.slot-center{
   transform:translate3d(0,0,70px) scale(1) rotateY(0deg);
@@ -209,7 +210,7 @@ body{
   z-index:1;
 }
 
-.stage-card.metal.slot-prev,.stage-card.metal.slot-next{opacity:.96;filter:blur(.5px) brightness(.72)}
+.stage-card.metal.slot-prev,.stage-card.metal.slot-next{opacity:.94;filter:blur(.5px) brightness(.9)}
 
 @media(max-width:768px){
   .carousel-stage{
@@ -231,7 +232,7 @@ body{
     transform:translate3d(165px,0,-130px) scale(.82) rotateY(-18deg);
     opacity:.4;
   }
-  .stage-card.metal.slot-prev,.stage-card.metal.slot-next{opacity:.6;filter:blur(.5px) brightness(.6)}
+  .stage-card.metal.slot-prev,.stage-card.metal.slot-next{opacity:.6;filter:blur(.5px) brightness(.92)}
 }
 </style>
 </head>
@@ -392,7 +393,7 @@ function renderStage(){
   filteredList.forEach((pass,idx)=>{
     const card=document.createElement('div');
 
-    card.className=`stage-card metal ${pass.gender==='womens' ? 'women' : 'men'} p-7 flex flex-col justify-between`;
+    card.className=`stage-card metal ${pass.gender==='womens' ? 'women' : 'men'} ${pass.tier.toLowerCase()} p-7 flex flex-col justify-between`;
     card.id=`card-${idx}`;
 
     card.onclick=()=>{
