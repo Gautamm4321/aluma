@@ -104,10 +104,11 @@ a{color:inherit}
 .eco{position:relative;z-index:2;height:520vh}
 .epin{position:sticky;top:0;height:100vh;height:100svh}
 .ewin{position:absolute;inset:0;border-radius:0;overflow:hidden;background:#050507;perspective:1400px;isolation:isolate}
-.half{position:absolute;inset:0;z-index:4;will-change:transform;transform-style:preserve-3d}
+.half{position:absolute;inset:-6%;z-index:4;will-change:transform;transform-style:preserve-3d}
 .half .tex{position:absolute;inset:-4%;background:url(eco/hair-split.jpg) center/cover no-repeat;will-change:transform}
 .half::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.55));pointer-events:none}
-.half.top{transform-origin:0 50%;clip-path:inset(0 0 50% 0)}.half.bot{transform-origin:0 50%;clip-path:inset(50% 0 0 0)}
+.half.top,.half.bot{transform-origin:0 50%;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.hairc{position:absolute;inset:0;z-index:5;width:100%;height:100%;pointer-events:none}
 .half.top::before,.half.bot::before{content:"";position:absolute;left:0;right:0;height:10%;z-index:1;pointer-events:none}
 .half.top::before{bottom:50%;background:linear-gradient(180deg,transparent,rgba(0,0,0,.45))}.half.bot::before{top:50%;background:linear-gradient(0deg,transparent,rgba(0,0,0,.45))}
 .crackl{display:none!important}
@@ -115,10 +116,11 @@ a{color:inherit}
 .crackl path{fill:none;stroke:#E9FFF4;stroke-width:2.2;stroke-linejoin:round;filter:drop-shadow(0 0 6px #2CE0A0) drop-shadow(0 0 16px #2CE0A0)}
 .etitle{position:absolute;left:0;right:0;top:50%;z-index:2;text-align:center;padding:0 24px;will-change:transform,opacity}
 .etitle .ey{font-size:12px;letter-spacing:.34em;text-transform:uppercase;font-weight:600;color:#fff;opacity:.75}
-.etitle h2{margin-top:14px;font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:clamp(38px,6.4vw,104px);line-height:1;letter-spacing:-.01em;
+.etitle h2{margin-top:10px;font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:clamp(38px,6.4vw,104px);line-height:1;letter-spacing:-.01em;
   color:#fff;text-shadow:0 0 30px rgba(255,255,255,.18),0 0 80px rgba(255,255,255,.1)}
 .etitle h2 em{font-style:italic;font-weight:500;color:#fff}
-.etitle .sub{margin-top:16px;font-size:clamp(14px,1.25vw,18px);opacity:.7}
+.etitle .kick{margin-top:16px;font-size:clamp(17px,1.9vw,28px);font-weight:500;color:#fff;opacity:.92}
+.etitle .sub{display:inline-block;margin-top:22px;padding:10px 24px;border:1.5px solid rgba(255,255,255,.55);border-radius:999px;font-size:clamp(13px,1.15vw,17px);color:#fff;opacity:.9}
 .eglow{position:absolute;left:50%;top:50%;width:70vmax;height:40vmax;margin:-20vmax 0 0 -35vmax;z-index:1;border-radius:50%;
   background:radial-gradient(closest-side,rgba(3,152,102,.42),rgba(49,31,229,.12) 60%,transparent);filter:blur(20px);opacity:0}
 
@@ -162,9 +164,9 @@ a{color:inherit}
 .lb::before{content:"";width:calc(var(--u) * 8);height:1px;background:currentColor;opacity:.4}
 
 /* 3D 3: bonsai hand in a green circle with leaves orbiting */
-.gc{position:absolute;width:calc(var(--u) * 60);height:calc(var(--u) * 60);margin:calc(var(--u) * -30) 0 0 calc(var(--u) * -30);border-radius:50%;transform:translateZ(calc(var(--u) * -30));
+.gc{position:absolute;width:calc(var(--u) * 78);height:calc(var(--u) * 78);margin:calc(var(--u) * -39) 0 0 calc(var(--u) * -39);border-radius:50%;transform:translateZ(calc(var(--u) * -38));
   background:radial-gradient(circle at 40% 35%,#22C58C,#039866 55%,#06704C);box-shadow:inset -14px -20px 40px rgba(0,0,0,.25)}
-.ht{position:absolute;width:calc(var(--u) * 78);height:calc(var(--u) * 72);margin:calc(var(--u) * -40) 0 0 calc(var(--u) * -39);transform-style:preserve-3d;animation:rock 6s ease-in-out infinite alternate}
+.ht{position:absolute;width:calc(var(--u) * 100);height:calc(var(--u) * 92);margin:calc(var(--u) * -51) 0 0 calc(var(--u) * -50);transform-style:preserve-3d;animation:rock 6s ease-in-out infinite alternate}
 .ht img{width:100%;height:100%;object-fit:contain}
 @keyframes rock{from{transform:rotateY(-16deg) translateY(4px)}to{transform:rotateY(16deg) translateY(-4px)}}
 .lorb{transform-style:preserve-3d;transform:rotateX(72deg)}
@@ -178,6 +180,9 @@ a{color:inherit}
 .c3 .disc{animation:dtilt 7s ease-in-out infinite alternate}
 @keyframes dtilt{from{transform:rotateY(-18deg) rotateX(6deg)}to{transform:rotateY(18deg) rotateX(-6deg)}}
 #strands{position:absolute;left:0;top:0;transform-style:preserve-3d}
+.bin{position:absolute;width:calc(var(--u) * 62);height:calc(var(--u) * 84.6);margin:calc(var(--u) * -37) 0 0 calc(var(--u) * -31);transform:translateZ(calc(var(--u) * 10));transform-style:preserve-3d}
+.bin::before{content:"";position:absolute;left:8%;right:8%;bottom:-5%;height:12%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.4),transparent);transform:translateZ(-1px)}
+.bin img{position:relative;width:100%;height:100%;object-fit:contain;animation:rock 7s ease-in-out infinite alternate}
 .hs{position:absolute;left:0;top:0;width:calc(var(--u) * 6);height:calc(var(--u) * 32);margin:calc(var(--u) * -16) 0 0 calc(var(--u) * -3);opacity:0;will-change:transform,opacity}
 .hs svg{width:100%;height:100%;overflow:visible}
 @keyframes hfall{0%{opacity:0;transform:translate3d(calc(var(--x) * var(--u)),calc(var(--u) * -70),calc(var(--z) * var(--u))) rotateZ(var(--r)) rotateY(0deg)}
@@ -186,6 +191,11 @@ a{color:inherit}
 /* 3D 2 (new): Aluma fertilizer jar with a ring of particles turning hair-brown to green */
 .jar{position:absolute;width:calc(var(--u) * 42);height:calc(var(--u) * 61.5);margin:calc(var(--u) * -32) 0 0 calc(var(--u) * -21);transform-style:preserve-3d;animation:rock 6s ease-in-out infinite alternate}
 .jar img{width:100%;height:100%;object-fit:contain}
+.mound{position:absolute;width:calc(var(--u) * 112);height:calc(var(--u) * 111.6);margin:calc(var(--u) * -61) 0 0 calc(var(--u) * -56);transform-style:preserve-3d;animation:mfloat 6s ease-in-out infinite alternate}
+.mound img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.mound .sprout{transform-origin:55.3% 42.6%;animation:sway 3.4s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-6deg) scale(.96)}to{transform:rotate(5deg) scale(1.04)}}
+@keyframes mfloat{from{transform:rotateY(-12deg) translateY(4px)}to{transform:rotateY(12deg) translateY(-4px)}}
 .porb{transform-style:preserve-3d;transform:rotateX(74deg) rotateY(-10deg)}
 .pspin{transform-style:preserve-3d;animation:lz 9s linear infinite}
 .pt{position:absolute;width:calc(var(--u) * var(--s));height:calc(var(--u) * var(--s));margin:calc(var(--u) * var(--s) / -2) 0 0 calc(var(--u) * var(--s) / -2);transform-style:preserve-3d}
@@ -243,22 +253,23 @@ a{color:inherit}
     <div class="ewin" id="ewin">
       <div class="eglow" id="eglow"></div>
       <div class="etitle" id="etitle">
-        <p class="ey">Highlights · Aluma's Eco-Friendly Mission</p>
-        <h2>Transforming beauty<br>into <em>green.</em></h2>
-        <p class="sub">A sustainable future through hair recycling</p>
+        <p class="ey">Highlights</p>
+        <p class="kick">Transforming Beauty into Green</p>
+        <h2>Aluma's <em>Eco-Friendly</em> Mission</h2>
+        <p class="sub">A Sustainable Future through Hair Recycling</p>
       </div>
       <div class="steps" id="steps">
         <article class="st g">
           <span class="num">01</span>
           <div class="stage"><div class="c3">
-            <div class="disc"><svg viewBox="0 0 116 96" aria-hidden="true"><circle cx="58" cy="25" r="23" fill="#039866"/><circle cx="25" cy="71" r="23" fill="#311FE5"/><circle cx="91" cy="71" r="23" fill="#C30498"/></svg></div>
             <div id="strands"></div>
+            <div class="bin"><img src="eco/hair-bin.webp" alt="Hair collection bin"></div>
           </div></div>
           <div class="stx"><span class="k">Step 1</span><h3>Collection</h3><p>We start by collecting human hair from our salons. What was once waste now becomes a resource.</p></div>
         </article>
         <article class="st">
           <span class="num">02</span>
-          <div class="stage"><div class="c3"><div class="porb"><div class="pspin" id="parts"></div></div><div class="jar"><img src="grow/jar-aluma.webp" alt=""></div></div></div>
+          <div class="stage"><div class="c3"><div class="porb"><div class="pspin" id="parts"></div></div><div class="mound"><img src="eco/soil-mound.webp" alt="Hair turning into fertilizer soil"><img class="sprout" src="eco/soil-sprout.webp" alt=""></div></div></div>
           <div class="stx"><span class="k">Step 2</span><h3>Recycling</h3><p>The hair is rich in nitrogen, a vital nutrient for plants. We recycle it into nutrient-rich fertilizer, perfect for soil enrichment.</p></div>
         </article>
         <article class="st">
@@ -273,6 +284,7 @@ a{color:inherit}
       </div>
       <div class="half top" id="hTop"><div class="tex"></div></div>
       <div class="half bot" id="hBot"><div class="tex"></div></div>
+      <canvas class="hairc" id="hairc" aria-hidden="true"></canvas>
       <svg class="crackl" id="crackl" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><path id="crackp" d=""/></svg>
     </div>
   </div>
@@ -410,19 +422,60 @@ a{color:inherit}
   /* card 2: particle ring around the jar, hair-brown turning green */
   var PT=$('parts'), pc=['#4A2A1C','#6B3A22','#8A5A2B','#8F7A35','#5E8A3A','#2FA060','#039866','#22C58C'];
   for(var k=0;k<16;k++){ var a=k*22.5, e=document.createElement('div'); e.className='pt'; var c=pc[Math.round((k<8?k:15-k)*7/7)];
-    e.style.cssText='--a:'+a+'deg;--c:'+c+';--s:'+(3+(k%3)*1.6)+';transform:rotateZ('+a+'deg) translateX(calc(var(--u) * '+(k%2?36:31)+')) translateZ(calc(var(--u) * '+(k%2?4:-3)+'))';
+    e.style.cssText='--a:'+a+'deg;--c:'+c+';--s:'+(3+(k%3)*1.6)+';transform:rotateZ('+a+'deg) translateX(calc(var(--u) * '+(k%2?50:43)+')) translateZ(calc(var(--u) * '+(k%2?4:-3)+'))';
     e.innerHTML='<i></i>'; PT.appendChild(e); }
   var LV=$('leaves');
   for(var j=0;j<8;j++){ var a=j*45, d=document.createElement('div'); d.className='lf';
-    d.style.transform='rotateZ('+a+'deg) translateX(calc(var(--u) * '+(j%2?40:34)+')) translateZ(calc(var(--u) * '+(j%2?6:-4)+'))';
+    d.style.transform='rotateZ('+a+'deg) translateX(calc(var(--u) * '+(j%2?52:44)+')) translateZ(calc(var(--u) * '+(j%2?6:-4)+'))';
     d.innerHTML='<img src="grow/leaf-'+(j%6+1)+'.webp" alt="">'; LV.appendChild(d); }
 
   var W,H,mob,WW,WH;
   function size(){ W=innerWidth; H=innerHeight; mob=W<=820; WW=ewin.clientWidth; WH=ewin.clientHeight;
     steps.style.setProperty('--sth',(mob?Math.min(WH*.66,560):clamp(WH*.62,300,600))+'px');
-    st.forEach(function(s){ var g=s.querySelector('.stage'), u=Math.min(g.clientWidth,g.clientHeight)/100; s.style.setProperty('--u',u+'px'); });
+    st.forEach(function(s){ var g=s.querySelector('.stage'), u=Math.min(g.clientWidth*.8,g.clientHeight)/100; s.style.setProperty('--u',u+'px'); });
   }
-  addEventListener('resize',size); size(); setTimeout(size,300);
+
+  /* ===== hair parting: wispy strand edges + single strands that stretch across the gap and snap ===== */
+  var hc=$('hairc'), hx=hc.getContext('2d'), DPR=1, SNS=[];
+  function rnd(a,b){return a+Math.random()*(b-a)}
+  function edgeMask(top){
+    var d='M0 '+(top?0:1000)+' L1000 '+(top?0:1000), pts=[];
+    for(var x=1000;x>=0;x-=25){ pts.push(x+' '+(500+(top?1:-1)*(Math.sin(x*.03)*4+rnd(-4,4))).toFixed(1)); }
+    d+=' L'+pts.join(' L')+' Z';
+    var g='';
+    for(var i=0;i<70;i++){ var x0=rnd(-50,1000), len=rnd(60,340), y0=500+(top?1:-1)*rnd(2,26), w=rnd(1.2,4.2);
+      g+='<path d="M'+x0.toFixed(0)+' '+(500-(top?2:-2))+' C'+(x0+len*.3).toFixed(0)+' '+y0.toFixed(1)+' '+(x0+len*.7).toFixed(0)+' '+(y0+(top?1:-1)*rnd(0,6)).toFixed(1)+' '+(x0+len).toFixed(0)+' '+(y0+(top?1:-1)*rnd(2,10)).toFixed(1)+'" stroke="#fff" stroke-width="'+w.toFixed(2)+'" fill="none" stroke-linecap="round"/>'; }
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="none"><path d="'+d+'" fill="#fff"/>'+g+'</svg>';
+    return 'url("data:image/svg+xml;utf8,'+encodeURIComponent(svg)+'")';
+  }
+  [[hT,1],[hB,0]].forEach(function(h){ var m=edgeMask(h[1]); h[0].style.webkitMaskImage=m; h[0].style.maskImage=m; });
+  var HC=['#6e4545','#8a5f5a','#9c6e64','#7a4b48','#b08070','#5c3a3a'];
+  function seedStrands(){ SNS=[]; var nb=innerWidth<=820?26:52, k=Math.max(.6,WH/900);
+    for(var b=0;b<nb;b++){ var bx=rnd(0,1)*WW, bdx=rnd(-40,40)*k, bL=(30+Math.pow(Math.random(),1.4)*320)*k, bw=rnd(-1,1), m=4+(Math.random()*6|0);
+      for(var i=0;i<m;i++) SNS.push({x:bx+rnd(-14,14)*k, dx:bdx+rnd(-10,10)*k, L:bL*rnd(.75,1.25), w:rnd(.9,2.2), c:HC[(Math.random()*HC.length*Math.random())|0], wv:bw+rnd(-.3,.3), cl:rnd(.6,1.4)}); } }
+  function sizeC(){ DPR=Math.min(2,devicePixelRatio||1); hc.width=WW*DPR; hc.height=WH*DPR; seedStrands(); }
+  function drawStrands(a,ty,o2){
+    hx.setTransform(DPR,0,0,DPR,0,0); hx.clearRect(0,0,WW,WH);
+    if(o2>.6) return;
+    var sa=Math.sin(a), ca=Math.cos(a), mid=WH/2, ox=WW*.06; hx.lineCap='round';
+    SNS.forEach(function(s){
+      var X=s.x+ox, X2=s.x+s.dx+ox, tx=-ox+X*ca, tyy=mid-X*sa-ty, bx=-ox+X2*ca, by=mid+X2*sa+ty;
+      var dX=bx-tx, dY=by-tyy, d=Math.sqrt(dX*dX+dY*dY); if(d<1.5) return;
+      hx.strokeStyle=s.c; hx.lineWidth=s.w;
+      if(d<s.L){ var t=d/s.L, sag=(1-t)*(1-t)*26*s.wv;           /* stretched strand, slack while short, taut near snapping */
+        hx.beginPath(); hx.moveTo(tx,tyy); hx.bezierCurveTo(tx+sag+dX*.1,tyy+dY*.35, bx-sag-dX*.1,by-dY*.35, bx,by);
+        hx.globalAlpha=.95; hx.strokeStyle='#1a0d10'; hx.lineWidth=s.w*1.7; hx.stroke();
+        hx.globalAlpha=.55; hx.strokeStyle=s.c; hx.lineWidth=s.w*.7; hx.stroke();
+      } else { var r=(d-s.L)/(70*s.cl); if(r>=1) return;          /* snapped: both ends curl back and fade */
+        var len=s.L*.5*(1-r*.6), cu=(10+r*30)*s.wv;
+        [['#1a0d10',1.7,.9],[s.c,.7,.55]].forEach(function(st){ hx.strokeStyle=st[0]; hx.lineWidth=s.w*st[1]; hx.globalAlpha=st[2]*(1-r);
+          hx.beginPath(); hx.moveTo(tx,tyy); hx.bezierCurveTo(tx+cu,tyy+len*.5, tx+cu*2,tyy+len*.7, tx+cu*1.4,tyy+len*(1-r*.5)); hx.stroke();
+          hx.beginPath(); hx.moveTo(bx,by); hx.bezierCurveTo(bx-cu,by-len*.5, bx-cu*2,by-len*.7, bx-cu*1.4,by-len*(1-r*.5)); hx.stroke(); });
+      }
+    });
+    hx.globalAlpha=1;
+  }
+  addEventListener('resize',function(){size();sizeC();}); size(); sizeC(); setTimeout(function(){size();sizeC();},300);
 
   function raw(){ var r=eco.getBoundingClientRect(), run=eco.offsetHeight-H; return clamp(-r.top/Math.max(1,run),0,1); }
   var q=raw(), seg=document.getElementById('seg');
@@ -435,9 +488,10 @@ a{color:inherit}
     var o1=eio(sg(q,.03,.2)), o2=eio(sg(q,.17,.38)), o=o2; /* o1: wedge opens from the right side, o2: halves separate */
     crackl.style.opacity=(1-sg(q,.1,.2)).toFixed(3);
     crackl.style.transform='scaleY('+(1+o*3)+')';
-    var ang=o1*11+o2*14, sc=1+o2*.18;
-    hT.style.transform='translate('+(-o2*8)+'%,'+(-o2*62)+'%) rotateZ('+(-ang)+'deg) rotateX('+(o2*22)+'deg) rotateY('+(-o1*6)+'deg) scale('+sc+')';
-    hB.style.transform='translate('+(-o2*8)+'%,'+(o2*62)+'%) rotateZ('+ang+'deg) rotateX('+(-o2*22)+'deg) rotateY('+(-o1*6)+'deg) scale('+sc+')';
+    var ang=o1*4.5+o2*9, ty=o2*WH*.62, fly=sg(o2,.45,1), sc=1+fly*.15;
+    hT.style.transform='translateY('+(-ty).toFixed(1)+'px) rotate('+(-ang).toFixed(3)+'deg) rotateX('+(fly*20).toFixed(2)+'deg) scale('+sc.toFixed(3)+')';
+    hB.style.transform='translateY('+ty.toFixed(1)+'px) rotate('+ang.toFixed(3)+'deg) rotateX('+(-fly*20).toFixed(2)+'deg) scale('+sc.toFixed(3)+')';
+    drawStrands(ang*Math.PI/180, ty, o2);
     hT.firstChild.style.transform=hB.firstChild.style.transform='scale('+(1.08-o*.08)+')';
     hT.style.visibility=hB.style.visibility=o>=.999?'hidden':'visible';
     /* 3. the title glows up behind it */
@@ -463,7 +517,7 @@ a{color:inherit}
     var U=parseFloat(st[0].style.getPropertyValue('--u'))||3, tt=performance.now()/1000;
     if(!reduced) HS.forEach(function(h){ var f=((tt+h.o)/h.t)%1, op=f<.15?f/.15:f>.72?(1-f)/.28:1;
       h.el.style.opacity=op.toFixed(3);
-      h.el.style.transform='translate3d('+(lerp(h.x,h.x*.25,f)*U).toFixed(1)+'px,'+(lerp(-70,6,f)*U).toFixed(1)+'px,'+(lerp(h.z,h.z*.3,f)*U).toFixed(1)+'px) rotateZ('+lerp(h.r,-h.r,f).toFixed(1)+'deg) rotateY('+(f*540).toFixed(1)+'deg) scale('+lerp(1,.7,f).toFixed(3)+')'; });
+      h.el.style.transform='translate3d('+(lerp(h.x,h.x*.25,f)*U).toFixed(1)+'px,'+(lerp(-90,-24,f)*U).toFixed(1)+'px,'+(lerp(h.z*.4,0,f)*U).toFixed(1)+'px) rotateZ('+lerp(h.r,-h.r,f).toFixed(1)+'deg) rotateY('+(f*540).toFixed(1)+'deg) scale('+lerp(1,.7,f).toFixed(3)+')'; });
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
