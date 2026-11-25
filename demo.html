@@ -15,23 +15,18 @@ body{background:var(--ink);color:var(--ivory);font-family:'Jost',system-ui,sans-
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 a{color:inherit}
 
-/* ===== edge light (like the reference): a bright colour field behind a blurred, rounded dark "screen" ===== */
+/* ===== edge light (matched to ORYZO): a full-spectrum hue wheel turning once every 1.2s behind a soft, rounded dark screen ===== */
 @property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
-.neon{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:#0D0A10}
-/* bright colour field (two layers turning opposite ways so each edge keeps changing colour) */
-.neon::before,.neon::after{content:"";position:absolute;inset:0}
-.neon::before{background:conic-gradient(from var(--a) at 50% 50%,#00F5A0 0deg,#33E0FF 60deg,#3B5BFF 120deg,#8B3BFF 180deg,#FF2BD6 240deg,#7A4BFF 300deg,#00F5A0 360deg);
-  animation:ang 6s linear infinite;filter:saturate(1.3) brightness(1.25)}
-.neon::after{background:conic-gradient(from var(--b) at 50% 50%,#FF2BD6 0deg,transparent 80deg,#00F5A0 160deg,transparent 230deg,#3B5BFF 300deg,#FF2BD6 360deg);
-  mix-blend-mode:screen;opacity:.8;animation:angb 4.2s linear infinite}
-@property --b{syntax:'<angle>';inherits:false;initial-value:360deg}
+.neon{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:#0E0A0B}
+.neon::before{content:"";position:absolute;inset:-25%;
+  background:conic-gradient(from var(--a) at 50% 50%,#FF2D3C 0deg,#FF8A1E 30deg,#FFE62E 62deg,#9BFF3C 100deg,#2EFFA8 145deg,#2EE6FF 185deg,#4B6BFF 225deg,#8C42FF 262deg,#F02BFF 300deg,#FF2B9A 335deg,#FF2D3C 360deg);
+  animation:ang 1.2s linear infinite;filter:saturate(1.3) brightness(1.3)}
 @keyframes ang{to{--a:360deg}}
-@keyframes angb{to{--b:0deg}}
-/* one soft dark screen: bright right at the screen edge, fading out within ~30px, big rounded corners */
-.bloom{position:fixed;inset:var(--gl);z-index:1;pointer-events:none;border-radius:var(--gr);
-  background:#08080A;filter:blur(var(--gb))}
-.screen{display:none}
-:root{--gl:14px;--gb:16px;--gr:56px}
+/* thin, hot band right at the screen edge (lets ~10% of the colour wash through) */
+.bloom{position:fixed;inset:var(--gl);z-index:1;pointer-events:none;border-radius:var(--gr);background:rgba(43,26,21,.9);filter:blur(var(--gb))}
+/* wide soft wash: the colour of each edge tints ~150px into the screen, centre stays dark */
+.screen{display:block;position:fixed;inset:var(--gw);z-index:1;pointer-events:none;border-radius:calc(var(--gr) * 3);background:rgba(43,26,21,.88);filter:blur(var(--gwb))}
+:root{--gl:9px;--gb:18px;--gr:46px;--gw:120px;--gwb:160px}
 /* ===== header ===== */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:60;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:calc(var(--gl) + 22px) calc(var(--gl) + clamp(16px,2.4vw,36px)) 0}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;justify-self:start;font-weight:600;letter-spacing:.22em;font-size:14px}
@@ -61,9 +56,9 @@ a{color:inherit}
 
 /* section heading for the passes */
 .sh{position:absolute;left:0;right:0;top:calc(var(--gl) + 86px);z-index:6;text-align:center;opacity:0;will-change:transform,opacity}
-.sh h2{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:clamp(30px,3.6vw,56px);line-height:1}
-.sh h2 em{font-style:italic;font-weight:500;color:#fff}
-.sh p{margin-top:10px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;opacity:.6}
+.sh h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#fff;font-size:clamp(30px,3.6vw,56px);line-height:1}
+.sh h2 em{font-style:italic;font-weight:700;color:#fff}
+.sh p{margin-top:12px;font-size:14px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:#fff}
 
 /* ===== cards ===== */
 .deck{position:absolute;left:50%;top:56%;width:0;height:0;z-index:8;perspective:1600px}
@@ -71,27 +66,47 @@ a{color:inherit}
 .card .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.25,.9,.3,1.15)}
 .face{position:absolute;inset:0;border-radius:calc(var(--cw) * .07);overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 /* back: Aluma pattern like the reference */
-.back{background:#311FE5;border:1.5px solid rgba(255,255,255,.85);box-shadow:0 30px 60px -24px rgba(0,0,0,.7)}
+.back{background:var(--bbg,#311FE5);color:var(--bfg,#fff);border:1.5px solid rgba(255,255,255,.7);box-shadow:0 30px 60px -24px rgba(0,0,0,.7)}
 .back svg{position:absolute;inset:0;width:100%;height:100%}
 /* front: the pass */
 .front{transform:rotateY(180deg);background:var(--bgc);color:var(--fg);padding:calc(var(--cw) * .08);display:flex;flex-direction:column;
   box-shadow:0 30px 60px -24px rgba(0,0,0,.75),inset 0 0 0 1px rgba(255,255,255,.2)}
-.front .top{display:flex;justify-content:space-between;align-items:center;font-size:calc(var(--cw) * .036);letter-spacing:.22em;text-transform:uppercase;font-weight:700}
-.front .top span{padding:5px 11px;border:1.5px solid currentColor;border-radius:999px}
-.front .top i{font-style:normal;width:calc(var(--cw) * .1);height:calc(var(--cw) * .1);border-radius:50%;display:grid;place-items:center;border:1.5px solid currentColor;letter-spacing:0}
-.front h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:calc(var(--cw) * .17);line-height:1;margin-top:calc(var(--cw) * .1)}
-.front .sub{font-size:calc(var(--cw) * .034);letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-top:8px}
-.front ul{list-style:none;margin-top:calc(var(--cw) * .05);display:grid;gap:calc(var(--cw) * .018);font-size:calc(var(--cw) * .046);font-weight:600}
-.front li{display:flex;gap:8px;align-items:center}
-.front li::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
-.front .bot{margin-top:auto}
-.front .pr{font-weight:700;font-size:calc(var(--cw) * .1);line-height:1}
-.front .pr s{display:block;font-size:calc(var(--cw) * .036);font-weight:500;opacity:.6;margin-bottom:4px}
-.front .pr em{font-style:normal;font-size:calc(var(--cw) * .036);font-weight:500;opacity:.75}
-.front a.buy{margin-top:calc(var(--cw) * .045);display:flex;align-items:center;justify-content:center;height:calc(var(--cw) * .14);border-radius:calc(var(--cw) * .04);
-  background:var(--fg);color:var(--bgc);text-decoration:none;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:calc(var(--cw) * .04)}
-.front .d3{position:absolute;right:calc(var(--cw) * .08);bottom:calc(var(--cw) * .26);display:flex;gap:4px}
-.front .d3 b{width:7px;height:7px;border-radius:50%}
+.front .pat{position:absolute;inset:0;opacity:.16;pointer-events:none;color:var(--fg)}
+.front .pat svg{width:100%;height:100%}
+.front>*:not(.pat){position:relative}
+.front .top{display:flex;justify-content:flex-end;align-items:center}
+.front .top span{font-size:calc(var(--cw) * .034);letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:5px 11px;border:1.5px solid currentColor;border-radius:999px}
+.front .lg{display:flex;align-items:center;gap:calc(var(--cw) * .025)}
+.front .lg svg{width:calc(var(--cw) * .1)}
+.front .lg b{font-size:calc(var(--cw) * .05);letter-spacing:.24em;font-weight:700}
+.front .mid{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center}
+.back .nm{color:var(--bfg);position:absolute!important;left:6%;right:6%;top:50%;transform:translateY(-50%);text-align:center;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-style:italic;
+  font-size:calc(var(--cw) * .2);line-height:1;word-break:break-word;opacity:.7;text-shadow:0 1px 0 rgba(255,255,255,.6),0 -1px 0 rgba(0,0,0,.25);cursor:text;outline:none;border-radius:10px;padding:4px 0;min-height:1em}
+.back .nm:focus{opacity:1;background:rgba(255,255,255,.18)}
+.front .acc{display:inline-block;padding:calc(var(--cw) * .022) calc(var(--cw) * .05);border-radius:999px;background:var(--fg);color:var(--btx);
+  font-size:calc(var(--cw) * .045);font-weight:700;letter-spacing:.06em}
+.front .bot{display:flex;justify-content:space-between;align-items:flex-end}
+.front h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:calc(var(--cw) * .11);line-height:1}
+.front .pr{margin-top:6px;font-weight:700;font-size:calc(var(--cw) * .05)}
+.front .pr em{font-style:normal;font-weight:500;opacity:.7;font-size:.8em}
+.front .tap{font-size:calc(var(--cw) * .034);font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+/* selected pass: details panel */
+.card{cursor:pointer}
+.dt{position:absolute;z-index:12;top:50%;width:min(420px,34vw);transform:translateY(-50%);opacity:0;pointer-events:none;transition:opacity .45s;color:#fff}
+.dt.show{opacity:1;pointer-events:auto}
+.dt .dx{position:absolute;z-index:3;cursor:pointer;right:0;top:-54px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.35);font-size:20px;line-height:1;color:#fff}
+.dt .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:26px 12px}
+.dt .sg div{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;font-size:13px;font-weight:600;line-height:1.3}
+.dt .sg i{width:54px;height:54px;border-radius:50%;border:1.3px solid rgba(255,255,255,.35);display:grid;place-items:center;transition:background .3s,color .3s,border-color .3s}
+.dt .sg svg{width:24px;height:24px}
+.dt .sg div:hover i{border-color:transparent;background:var(--dbg);color:var(--dfg)}
+.dt .dp{margin-top:34px;display:flex;align-items:baseline;gap:10px}
+.dt .dp s{font-size:16px;opacity:.5}
+.dt .dp b{font-size:32px;font-weight:700}
+.dt .dp em{font-style:normal;font-size:14px;opacity:.7}
+.dt input{display:block;width:100%;margin-top:14px;height:48px;padding:0 16px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font:inherit;font-size:16px;outline:none}
+.dt input:focus{border-color:#fff}
+.dt a.buy{margin-top:12px;display:flex;align-items:center;justify-content:center;height:52px;border-radius:12px;background:var(--dbg);color:var(--dfg);text-decoration:none;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:14px}
 .card.open .in{transform:rotateY(180deg)}
 
 /* mobile tabs under cards */
@@ -210,19 +225,24 @@ a{color:inherit}
   .tw{left:34%}
   .half .tex{background-image:url(eco/hair-split-m.jpg);inset:-2%}
   .hdr{grid-template-columns:auto 1fr auto;gap:10px;padding:calc(var(--gl) + 14px) calc(var(--gl) + 12px) 0}
-  :root{--gl:8px;--gb:11px;--gr:34px}
+  :root{--gl:6px;--gb:11px;--gr:30px;--gw:60px;--gwb:90px}
   .brand span{display:none}
   .seg{justify-self:center}.seg button{height:32px;padding:0 16px;font-size:13px}
   .pill{height:38px;padding:0 16px;font-size:13px}
   .mtabs{display:flex}
+  .dt{width:auto;right:14px;max-height:calc(100% - 150px);overflow:auto;padding-top:4px}
+  .dt .dx{position:relative;top:auto;margin:0 0 12px auto;display:block;width:32px;height:32px}
+  .dt .sg{grid-template-columns:repeat(2,1fr);gap:16px 6px}.dt .sg div{font-size:11px;gap:6px}.dt .sg i{width:44px;height:44px}.dt .sg svg{width:20px;height:20px}
+  .dt .dp{margin-top:20px;flex-wrap:wrap;gap:6px}.dt .dp b{font-size:22px}.dt .dp s{font-size:13px}.dt .dp em{font-size:12px}
+  .dt input{height:42px;font-size:14px;margin-top:10px}.dt a.buy{height:44px;font-size:12px}
 }
-@media (prefers-reduced-motion:reduce){.neon::before,.neon::after{animation:none}.cue i{animation:none}}
+@media (prefers-reduced-motion:reduce){.neon::before{animation-duration:12s}.cue i{animation:none}}
 </style>
 </head>
 <body>
 
 <div class="bloom" id="bloom" aria-hidden="true"></div>
-<div class="screen" aria-hidden="true"></div>
+<div class="screen" id="screen" aria-hidden="true"></div>
 <div class="neon" id="neon" aria-hidden="true"></div>
 
 <header class="hdr">
@@ -246,6 +266,7 @@ a{color:inherit}
     <div class="sh" id="sh"><h2>Choose your <em>pass.</em></h2><p id="shSub">Men's yearly passes</p></div>
     <div class="deck" id="deck"></div>
     <div class="mtabs" id="mtabs"></div>
+    <div class="dt" id="dt" role="dialog" aria-label="Pass details"></div>
   </div>
 </section>
 <section class="eco" id="eco" aria-label="Aluma's eco-friendly mission">
@@ -294,21 +315,21 @@ a{color:inherit}
 (function(){
   var PASSES={
     mens:[
-      {gl:"Men's",tier:'Elite',icon:'✦',price:'6,999',strike:'30,000',f:['Hair Cut','Beard & Shave','Head Massage'],bg:'#F5DABF',fg:'#6C151E'},
-      {gl:"Men's",tier:'Classic',icon:'⦿',price:'14,999',strike:'40,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up'],bg:'#0F3D3A',fg:'#F5DABF'},
-      {gl:"Men's",tier:'Royal',icon:'♛',price:'19,999',strike:'60,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up','Pedicure & Manicure'],bg:'#6C151E',fg:'#F5DABF'}],
+      {gl:"Men's",tier:'Elite',acc:'50%',icon:'✦',price:'6,999',strike:'30,000',f:['Hair Cut','Beard & Shave','Head Massage'],bg:'linear-gradient(135deg,#F6F7F9 0%,#CDD1D7 42%,#F1F3F6 58%,#A7ADB5 100%)',fg:'#1C2026',bt:'#EEF0F3'},
+      {gl:"Men's",tier:'Classic',acc:'80%',icon:'⦿',price:'14,999',strike:'40,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up'],bg:'linear-gradient(135deg,#F8E6A8 0%,#D4AF37 42%,#F4DA80 58%,#B5862A 100%)',fg:'#2A1C04',bt:'#F4DA80'},
+      {gl:"Men's",tier:'Royal',acc:'100%',icon:'♛',price:'19,999',strike:'60,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(135deg,#F8D8CD 0%,#C98B7B 42%,#F0C5B6 58%,#A6685A 100%)',fg:'#3A1611',bt:'#F4CFC2'}],
     womens:[
-      {gl:"Women's",tier:'Elite',icon:'✦',price:'7,999',strike:'32,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax'],bg:'#F4D9CC',fg:'#321622'},
-      {gl:"Women's",tier:'Classic',icon:'⦿',price:'15,999',strike:'42,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up'],bg:'#653B4E',fg:'#F4D9CC'},
-      {gl:"Women's",tier:'Royal',icon:'♛',price:'20,999',strike:'65,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up','Pedicure & Manicure'],bg:'#321622',fg:'#F4D9CC'}]
+      {gl:"Women's",tier:'Elite',acc:'50%',icon:'✦',price:'7,999',strike:'32,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax'],bg:'linear-gradient(135deg,#F6F7F9 0%,#CDD1D7 42%,#F1F3F6 58%,#A7ADB5 100%)',fg:'#1C2026',bt:'#EEF0F3'},
+      {gl:"Women's",tier:'Classic',acc:'80%',icon:'⦿',price:'15,999',strike:'42,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up'],bg:'linear-gradient(135deg,#F8E6A8 0%,#D4AF37 42%,#F4DA80 58%,#B5862A 100%)',fg:'#2A1C04',bt:'#F4DA80'},
+      {gl:"Women's",tier:'Royal',acc:'100%',icon:'♛',price:'20,999',strike:'65,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(135deg,#F8D8CD 0%,#C98B7B 42%,#F0C5B6 58%,#A6685A 100%)',fg:'#3A1611',bt:'#F4CFC2'}]
   };
   /* card back art: line pattern + Aluma logo (Lusion style) */
-  var BACK='<svg viewBox="0 0 200 280" preserveAspectRatio="none"><g fill="none" stroke="#fff" stroke-width="1.3" opacity=".9">'+
+  var BACK='<svg viewBox="0 0 200 280" preserveAspectRatio="none"><g fill="none" stroke="currentColor" stroke-width="1.3" opacity=".75">'+
     '<rect x="10" y="10" width="180" height="260" rx="12"/><rect x="18" y="18" width="164" height="244" rx="8" opacity=".6"/>'+
     '<path d="M18 18 L100 110 L182 18 M18 262 L100 170 L182 262 M18 140 L60 140 M140 140 L182 140" opacity=".7"/>'+
     '<circle cx="100" cy="140" r="44"/><circle cx="100" cy="140" r="36" opacity=".6"/>'+
     '<path d="M36 40 q14 14 0 28 q-14 14 0 28 M164 40 q-14 14 0 28 q14 14 0 28 M36 184 q14 14 0 28 q-14 14 0 28 M164 184 q-14 14 0 28 q14 14 0 28" opacity=".55"/></g>'+
-    '<g transform="translate(78 120) scale(.38)"><circle cx="58" cy="25" r="23" fill="#2CE0A0"/><circle cx="25" cy="71" r="23" fill="#fff"/><circle cx="91" cy="71" r="23" fill="#FF4FD2"/></g></svg>';
+    '<g transform="translate(78 120) scale(.38)"><circle cx="58" cy="25" r="23" fill="#039866"/><circle cx="25" cy="71" r="23" fill="#311FE5"/><circle cx="91" cy="71" r="23" fill="#C30498"/></g></svg>';
   var $=function(i){return document.getElementById(i)};
   var deck=$('deck'), hero=$('hero'), sh=$('sh'), seg=$('seg'), neon=$('neon'), bloom=$('bloom'), scene=$('scene'), mtabs=$('mtabs');
   var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -316,23 +337,34 @@ a{color:inherit}
   var eio=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}, eo=function(t){return 1-Math.pow(1-t,3)};
   var flt='mens', focus=1;
 
-  function front(p){ return '<div class="top"><span>'+p.gl+'</span><i>'+p.icon+'</i></div><h3>'+p.tier+'</h3><p class="sub">Unlimited treatments</p>'+
-    '<ul>'+p.f.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><div class="bot"><p class="pr"><s>₹'+p.strike+'</s>₹'+p.price+'<em> / year</em></p>'+
-    '<a class="buy" href="index.html#book">Buy now →</a></div><div class="d3"><b style="background:#039866"></b><b style="background:#311FE5"></b><b style="background:#C30498"></b></div>'; }
+  var PAT=BACK.split('<g transform')[0]+'</svg>', LOGO='<svg viewBox="0 0 116 96" aria-hidden="true"><circle cx="58" cy="25" r="23" fill="#039866"/><circle cx="25" cy="71" r="23" fill="#311FE5"/><circle cx="91" cy="71" r="23" fill="#C30498"/></svg>';
+  /* name on the pass: Gautam for Men, Suhani for Women by default; anyone can clear it and type their own */
+  var NAMES={mens:'Gautam',womens:'Suhani'};
+  try{ NAMES.mens=localStorage.getItem('alumaNameM')||NAMES.mens; NAMES.womens=localStorage.getItem('alumaNameW')||NAMES.womens; }catch(e){}
+  var uname=NAMES.mens;
+  function setName(v,from){ v=String(v).replace(/\s+/g,' ').slice(0,18); NAMES[flt]=v.trim()||(flt==='mens'?'Gautam':'Suhani'); uname=NAMES[flt];
+    try{ localStorage.setItem(flt==='mens'?'alumaNameM':'alumaNameW',v.trim()); }catch(e){}
+    [].forEach.call(document.querySelectorAll('.card .nm'),function(n){ if(n!==from) n.textContent=v.trim()?v:uname; });
+    var inp=document.getElementById('pname'); if(inp&&inp!==from) inp.value=v; }
+  function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]}); }
+  function front(p){ return '<div class="top"><div class="lg">'+LOGO+'<b>ALUMA</b></div></div>'+
+    '<div class="mid"><p class="acc">Aluma Access : '+p.acc+'</p></div>'; }
   var cards=[0,1,2].map(function(i){
     var c=document.createElement('div'); c.className='card';
-    c.innerHTML='<div class="in"><div class="face back">'+BACK+'</div><div class="face front"></div></div>';
-    c.addEventListener('click',function(e){ if(mob&&i!==focus&&!e.target.closest('a')){ focus=i; tabs(); } });
+    c.innerHTML='<div class="in"><div class="face back"><p class="nm" contenteditable="plaintext-only" spellcheck="false" aria-label="Name on pass, tap to edit">'+esc(uname)+'</p></div><div class="face front"></div></div>';
+    var bk=c.querySelector('.back'), tp=PASSES.mens[i]; bk.style.setProperty('--bbg',tp.bg); bk.style.setProperty('--bfg',tp.fg);
+    c.addEventListener('click',function(e){ if(e.target.closest('.nm')) return; if(!ready()) return; if(sel===i){ closeSel(); return; } if(sel>=0) return; if(mob&&i!==focus){ focus=i; tabs(); return; } openSel(i); });
+    var nmEl=c.querySelector('.back .nm'); nmEl.addEventListener('input',function(){ setName(nmEl.textContent,nmEl); }); nmEl.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); nmEl.blur(); } }); nmEl.addEventListener('blur',function(){ if(!nmEl.textContent.trim()) nmEl.textContent=NAMES[flt]; });
     deck.appendChild(c); return {el:c, fr:c.querySelector('.front')};
   });
-  function fillOne(set,i){ var p=PASSES[set][i], f=cards[i].fr; f.style.setProperty('--bgc',p.bg); f.style.setProperty('--fg',p.fg); f.innerHTML=front(p); }
+  function fillOne(set,i){ var p=PASSES[set][i], f=cards[i].fr; f.style.setProperty('--bgc',p.bg); f.style.setProperty('--fg',p.fg); f.style.setProperty('--btx',p.bt); f.innerHTML=front(p); uname=NAMES[set]; var bn=cards[i]&&cards[i].el.querySelector('.back .nm'); if(bn) bn.textContent=uname; }
   function fill(set){ [0,1,2].forEach(function(i){fillOne(set,i)}); }
   fill(flt);
 
   var W,H,CW,CH,mob;
   function size(){ W=innerWidth; H=innerHeight; mob=W<=820;
     CW=mob?Math.min(W*.66,300):clamp(Math.min(W*.21,(H-330)*.7),200,330); CH=CW*1.42;
-    deck.style.setProperty('--cw',CW+'px'); deck.style.setProperty('--ch',CH+'px'); deck.style.top=mob?'54%':'calc(50% + 50px)'; }
+    deck.style.setProperty('--cw',CW+'px'); deck.style.setProperty('--ch',CH+'px'); deck.style.top=mob?'54%':'calc(50% + 50px)'; var d_=document.getElementById('dt'); if(d_) d_.style.top=mob?'54%':'calc(50% + 50px)'; }
   addEventListener('resize',size); size();
 
   /* mobile: dots to pick the card in front */
@@ -340,6 +372,32 @@ a{color:inherit}
   tabs();
   var tx0=0; deck.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX},{passive:true});
   deck.addEventListener('touchend',function(e){ var d=e.changedTouches[0].clientX-tx0; if(Math.abs(d)>40){ focus=clamp(focus+(d<0?1:-1),0,2); tabs(); } },{passive:true});
+
+  /* ===== pick a pass: others step away, services panel opens ===== */
+  var dt=$('dt'), sel=-1, last=1, SP=0;
+  function ready(){ return p>.72 && !window.__ecoOn; }
+  var IC={cut:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/>',
+    shave:'<path d="M4 20l7-7"/><path d="M10 10l4-6 6 6-6 4z"/>',
+    head:'<circle cx="12" cy="9" r="4.5"/><path d="M4.5 21c1-4 4-6 7.5-6s6.5 2 7.5 6"/><path d="M3 9a9 9 0 0 1 2-5.5M21 9a9 9 0 0 0-2-5.5"/>',
+    glow:'<path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>',
+    nail:'<path d="M8 13V6a1.5 1.5 0 0 1 3 0v5M11 11V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-.5a5 5 0 0 1-4-2l-2.7-3.6a1.5 1.5 0 0 1 2.3-1.9L8 15.5"/>',
+    brow:'<path d="M3 8c4-3 10-3 14 0"/><path d="M3.5 15s3-4 8.5-4 8.5 4 8.5 4-3 4-8.5 4-8.5-4-8.5-4z"/><circle cx="12" cy="15" r="2"/>',
+    wax:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/>'};
+  function ico(t){ t=t.toLowerCase(); var k=/cut/.test(t)?'cut':/beard|shave/.test(t)?'shave':/massage/.test(t)?'head':/tan|clean/.test(t)?'glow':/pedicure|manicure/.test(t)?'nail':/thread/.test(t)?'brow':'wax';
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[k]+'</svg>'; }
+  function panel(i){ var q=PASSES[flt][i];
+    dt.style.setProperty('--dbg',q.bg); dt.style.setProperty('--dfg',q.fg);
+    dt.innerHTML='<button class="dx" type="button" aria-label="Close">×</button>'+
+      '<div class="sg">'+q.f.map(function(x){return '<div><i>'+ico(x)+'</i><span>'+x+'</span></div>'}).join('')+'</div>'+
+      '<p class="dp"><s>₹'+q.strike+'</s><b>₹'+q.price+'</b><em>/ year</em></p>'+
+      '<input id="pname" maxlength="18" autocomplete="name" placeholder="Type your name" aria-label="Name on your pass" value="'+esc(NAMES[flt])+'">'+
+      '<a class="buy" href="index.html#book">Buy now →</a>';
+    dt.querySelector('.dx').addEventListener('click',closeSel);
+    dt.querySelector('#pname').addEventListener('input',function(){ setName(this.value,this); });
+  }
+  function openSel(i){ sel=i; last=i; panel(i); dt.classList.add('show'); }
+  function closeSel(){ sel=-1; dt.classList.remove('show'); }
+  addEventListener('keydown',function(e){ if(e.key==='Escape'&&sel>=0) closeSel(); });
 
   /* scroll progress, smoothed */
   function raw(){ var r=scene.getBoundingClientRect(), run=scene.offsetHeight-H; return clamp(-r.top/Math.max(1,run),0,1); }
@@ -349,8 +407,8 @@ a{color:inherit}
     var t=raw(); p=reduced?t:p+(t-p)*.12;
     /* 1. hero: logo + text, light at full */
     var hOut=eio(seg_(p,.06,.2));
-    hero.style.opacity=(1-hOut).toFixed(3); hero.style.transform='translateY('+(-hOut*80)+'px) scale('+(1-hOut*.08)+')';
-    var ecoT=document.getElementById('eco').getBoundingClientRect().top, lt=(1-clamp((H*.7-ecoT)/(H*.7),0,1)).toFixed(3); neon.style.opacity=lt; bloom.style.opacity=lt; /* edge light on hero + cards, fades out as the hair frame comes in */
+    hero.style.opacity=(1-hOut).toFixed(3); hero.style.pointerEvents=hOut>.5?'none':''; hero.style.transform='translateY('+(-hOut*80)+'px) scale('+(1-hOut*.08)+')';
+    var ecoT=document.getElementById('eco').getBoundingClientRect().top, lt=(1-clamp((H*.7-ecoT)/(H*.7),0,1)).toFixed(3); neon.style.opacity=lt; bloom.style.opacity=lt; document.getElementById('screen').style.opacity=lt; /* edge light on hero + cards, fades out as the hair frame comes in */
     /* heading */
     var sIn=eo(seg_(p,.3,.42)); sh.style.opacity=sIn.toFixed(3); sh.style.transform='translateY('+((1-sIn)*30)+'px)';
     /* 2. deck rises */
@@ -369,13 +427,26 @@ a{color:inherit}
       var x=lerp(sx,rx,fan), y=lerp(sy,ry,fan)+midY+(1-rise)*H*.9, z=lerp(0,rz,fan);
       var rot=lerp(sr,rr,fan)+midR + (1-rise)*(k*8-6);
       var tiltX=(1-rise)*30;
-      var flipY=(swapping?180:180*fl);
-      c.el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,'+z.toFixed(1)+'px) rotateX('+tiltX.toFixed(2)+'deg) rotateZ('+rot.toFixed(2)+'deg)';
-      c.el.style.zIndex=mob?10-Math.abs(dk):(fan<.5?3-i:5);
+      var flipY=(swapping?180:180*fl)+((i===last&&SP>.001)?180*SP:0);   /* chosen card turns to show the name side */
+      var ry2=0, sc=1, op=1;
+      if(SP>.001){
+        if(i===last){ var PW=dt.offsetWidth||400;
+          var tx=mob?(W*.38-CW/2-W/2):-(PW+40)/2, tyy=mob?-H*.04:0;
+          x=lerp(x,tx,SP); y=lerp(y,tyy,SP); z=lerp(z,0,SP); rot=lerp(rot,0,SP); ry2=(mob?24:10)*SP; sc=1+(mob?0:.06)*SP;
+        } else { op=1-SP; sc=1-.15*SP; y+= (mob?60:90)*SP; x+=(i<last?-1:1)*W*.08*SP; }
+      }
+      c.el.style.opacity=op.toFixed(3); c.el.style.pointerEvents=op<.5?'none':'';
+      c.el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,'+z.toFixed(1)+'px) rotateX('+tiltX.toFixed(2)+'deg) rotateY('+ry2.toFixed(2)+'deg) rotateZ('+rot.toFixed(2)+'deg) scale('+sc.toFixed(3)+')';
+      c.el.style.zIndex=(SP>.001&&i===last)?20:(mob?10-Math.abs(dk):(fan<.5?3-i:5));
       if(!c.el.classList.contains('swapping')) c.el.querySelector('.in').style.transform='rotateY('+flipY.toFixed(1)+'deg)';
       c.el.querySelector('.in').style.transition=c.el.classList.contains('swapping')?'':'none';
     }
-    var done=p>.72&&!window.__ecoOn; seg.classList.toggle('show',done); mtabs.style.opacity=done&&mob?1:0;
+    if(sel>=0&&!ready()) closeSel();
+    SP+=((sel>=0?1:0)-SP)*(reduced?1:.14); if(Math.abs((sel>=0?1:0)-SP)<.002) SP=sel>=0?1:0;
+    if(SP>.001){ var PW2=dt.offsetWidth||400, cx=W/2+(mob?(W*.38-CW/2-W/2):-(PW2+40)/2);
+      if(mob){ dt.style.left=(W*.4+6)+'px'; } else { dt.style.left=(cx+CW*1.06/2+40)+'px'; }
+      dt.style.transform='translateY(-50%) translateX('+((1-SP)*30).toFixed(1)+'px)'; }
+    var done=p>.72&&!window.__ecoOn&&sel<0; seg.classList.toggle('show',done); mtabs.style.opacity=done&&mob?1:0;
     requestAnimationFrame(frame);
   }
 
