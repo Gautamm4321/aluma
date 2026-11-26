@@ -113,6 +113,25 @@ a{color:inherit}
 .edots{position:absolute;left:0;right:0;bottom:12px;z-index:4;display:none;justify-content:center;gap:8px;opacity:0}
 .edots button{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.3);transition:width .3s,background .3s}
 .edots button.on{width:26px;background:#fff}
+/* pass cards: Alta type, white logo on both faces */
+@font-face{font-family:'Alta';src:url('Alta-Regular.woff2') format('woff2'),url('Alta-Regular.otf') format('opentype');font-weight:400 700;font-display:swap}
+.card .face,.card .face *{font-family:'Alta','Jost',sans-serif}
+.card .face .nm{font-style:normal;letter-spacing:.02em}
+.card .face .lg svg circle{fill:#fff}
+.card .face .lg svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+.card .face .lg b{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.back .top{position:absolute;top:calc(var(--cw) * .08);right:calc(var(--cw) * .08);display:flex}
+.back .lg{display:flex;align-items:center;gap:calc(var(--cw) * .025)}
+.back .lg svg{position:static;inset:auto;width:calc(var(--cw) * .1);height:auto;flex:none}
+.back .lg b{font-size:calc(var(--cw) * .05);letter-spacing:.24em;font-weight:700}
+/* pass text pressed into the metal (debossed), like an engraved access card */
+.card .face .acc,.card .face .nm{font-family:ui-monospace,'SF Mono','Menlo','Consolas','Courier New',monospace!important;text-transform:uppercase;font-style:normal;font-weight:600;
+  background:none!important;padding:0!important;border-radius:0;color:color-mix(in srgb,var(--fg,#000) 48%,transparent)!important;opacity:1!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.42),0 -1px 0 rgba(0,0,0,.28)}
+.card .back .nm{color:color-mix(in srgb,var(--bfg,#000) 48%,transparent)!important}
+.card .face .acc{font-size:calc(var(--cw) * .05);letter-spacing:.14em}
+.card .face .nm{font-size:calc(var(--cw) * .085);letter-spacing:.16em;line-height:1.2}
+.card .face .nm:focus{background:rgba(255,255,255,.12)!important}
 /* mobile left / right arrows under the cards */
 .marr{position:absolute;left:0;right:0;z-index:9;display:none;justify-content:center;gap:64px;opacity:0;pointer-events:none;transition:opacity .5s}
 .marr button{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.28);
@@ -341,13 +360,13 @@ a{color:inherit}
 (function(){
   var PASSES={
     mens:[
-      {gl:"Men's",tier:'Elite',acc:'50%',icon:'✦',price:'6,999',strike:'30,000',f:['Hair Cut','Beard & Shave','Head Massage'],bg:'linear-gradient(135deg,#F6F7F9 0%,#CDD1D7 42%,#F1F3F6 58%,#A7ADB5 100%)',fg:'#1C2026',bt:'#EEF0F3'},
-      {gl:"Men's",tier:'Classic',acc:'80%',icon:'⦿',price:'14,999',strike:'40,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up'],bg:'linear-gradient(135deg,#F8E6A8 0%,#D4AF37 42%,#F4DA80 58%,#B5862A 100%)',fg:'#2A1C04',bt:'#F4DA80'},
-      {gl:"Men's",tier:'Royal',acc:'100%',icon:'♛',price:'19,999',strike:'60,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(135deg,#F8D8CD 0%,#C98B7B 42%,#F0C5B6 58%,#A6685A 100%)',fg:'#3A1611',bt:'#F4CFC2'}],
+      {gl:"Men's",tier:'Elite',acc:'50%',icon:'✦',price:'6,999',strike:'30,000',f:['Hair Cut','Beard & Shave','Head Massage'],bg:'linear-gradient(160deg,#C4C7CC 0%,#A3A7AE 100%)',fg:'#1C2026',bt:'#EEF0F3'},
+      {gl:"Men's",tier:'Classic',acc:'80%',icon:'⦿',price:'14,999',strike:'40,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up'],bg:'linear-gradient(160deg,#D6AE55 0%,#B58A35 100%)',fg:'#2A1C04',bt:'#F4DA80'},
+      {gl:"Men's",tier:'Royal',acc:'100%',icon:'♛',price:'19,999',strike:'60,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(160deg,#D49A8A 0%,#B37565 100%)',fg:'#3A1611',bt:'#F4CFC2'}],
     womens:[
-      {gl:"Women's",tier:'Elite',acc:'50%',icon:'✦',price:'7,999',strike:'32,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax'],bg:'linear-gradient(135deg,#F6F7F9 0%,#CDD1D7 42%,#F1F3F6 58%,#A7ADB5 100%)',fg:'#1C2026',bt:'#EEF0F3'},
-      {gl:"Women's",tier:'Classic',acc:'80%',icon:'⦿',price:'15,999',strike:'42,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up'],bg:'linear-gradient(135deg,#F8E6A8 0%,#D4AF37 42%,#F4DA80 58%,#B5862A 100%)',fg:'#2A1C04',bt:'#F4DA80'},
-      {gl:"Women's",tier:'Royal',acc:'100%',icon:'♛',price:'20,999',strike:'65,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(135deg,#F8D8CD 0%,#C98B7B 42%,#F0C5B6 58%,#A6685A 100%)',fg:'#3A1611',bt:'#F4CFC2'}]
+      {gl:"Women's",tier:'Elite',acc:'50%',icon:'✦',price:'7,999',strike:'32,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax'],bg:'linear-gradient(160deg,#C4C7CC 0%,#A3A7AE 100%)',fg:'#1C2026',bt:'#EEF0F3'},
+      {gl:"Women's",tier:'Classic',acc:'80%',icon:'⦿',price:'15,999',strike:'42,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up'],bg:'linear-gradient(160deg,#D6AE55 0%,#B58A35 100%)',fg:'#2A1C04',bt:'#F4DA80'},
+      {gl:"Women's",tier:'Royal',acc:'100%',icon:'♛',price:'20,999',strike:'65,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(160deg,#D49A8A 0%,#B37565 100%)',fg:'#3A1611',bt:'#F4CFC2'}]
   };
   /* card back art: line pattern + Aluma logo (Lusion style) */
   var BACK='<svg viewBox="0 0 200 280" preserveAspectRatio="none"><g fill="none" stroke="currentColor" stroke-width="1.3" opacity=".75">'+
@@ -374,10 +393,10 @@ a{color:inherit}
     var inp=document.getElementById('pname'); if(inp&&inp!==from) inp.value=v; }
   function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]}); }
   function front(p){ return '<div class="top"><div class="lg">'+LOGO+'<b>ALUMA</b></div></div>'+
-    '<div class="mid"><p class="acc">Aluma Access : '+p.acc+'</p></div>'; }
+    '<div class="mid"><p class="acc">Aluma Access: '+p.acc+'</p></div>'; }
   var cards=[0,1,2].map(function(i){
     var c=document.createElement('div'); c.className='card';
-    c.innerHTML='<div class="in"><div class="face back"><p class="nm" contenteditable="plaintext-only" spellcheck="false" aria-label="Name on pass, tap to edit">'+esc(uname)+'</p></div><div class="face front"></div></div>';
+    c.innerHTML='<div class="in"><div class="face back"><div class="top"><div class="lg">'+LOGO+'<b>ALUMA</b></div></div><p class="nm" contenteditable="plaintext-only" spellcheck="false" aria-label="Name on pass, tap to edit">'+esc(uname)+'</p></div><div class="face front"></div></div>';
     var bk=c.querySelector('.back'), tp=PASSES.mens[i]; bk.style.setProperty('--bbg',tp.bg); bk.style.setProperty('--bfg',tp.fg);
     c.addEventListener('click',function(e){ if(e.target.closest('.nm')) return; if(!ready()) return; if(sel===i){ closeSel(); return; } if(sel>=0) return; if(mob&&i!==focus){ focus=i; tabs(); return; } openSel(i); });
     var nmEl=c.querySelector('.back .nm'); nmEl.addEventListener('input',function(){ setName(nmEl.textContent,nmEl); }); nmEl.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); nmEl.blur(); } }); nmEl.addEventListener('blur',function(){ if(!nmEl.textContent.trim()) nmEl.textContent=NAMES[flt]; });
