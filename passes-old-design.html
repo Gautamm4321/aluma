@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aluma Salon | Unlimited Yearly Passes</title>
+<meta name="description" content="Unlimited salon grooming passes for Men and Women at Aluma Salon. Elite, Classic, and Royal tiers.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<style>
+:root{
+  --ink:#080808;
+  --ivory:#F4F1EA;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+  overscroll-behavior:none;
+}
+
+body{
+  background:#F4F1EA;
+  color:#080808;
+  font-family:'Jost',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  user-select:none;
+  position:relative;
+}
+
+.font-serif-title{
+  font-family:'Playfair Display',Georgia,serif;
+}
+
+/* LIQUID BACKGROUND */
+
+.liquid-canvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+  background:#F4F1EA;
+}
+
+#liquidCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+/* CAROUSEL */
+
+.carousel-stage{
+  perspective:1600px;
+  perspective-origin:50% 50%;
+  position:relative;
+  width:100%;
+  height:460px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.stage-card{
+  position:absolute;
+  width:min(88vw,385px);
+  height:470px;
+  border-radius:48px;
+  transition:
+    transform .65s cubic-bezier(.22,1,.36,1),
+    opacity .65s cubic-bezier(.22,1,.36,1),
+    filter .65s cubic-bezier(.22,1,.36,1);
+  transform-style:preserve-3d;
+  will-change:transform,opacity,filter;
+  cursor:pointer;
+}
+
+.glass-pill{
+  background:rgba(255,255,255,.78);
+  border:1.5px solid rgba(255,255,255,.95);
+  backdrop-filter:blur(28px);
+  -webkit-backdrop-filter:blur(28px);
+  box-shadow:
+    0 24px 50px -12px rgba(8,8,8,.10),
+    0 8px 20px -6px rgba(8,8,8,.06),
+    inset 0 1px 2px rgba(255,255,255,1);
+}
+
+.tint-elite{
+  background:linear-gradient(
+    170deg,
+    rgba(232,240,233,.88) 0%,
+    rgba(255,255,255,.75) 100%
+  );
+  border-color:rgba(201,216,197,.9);
+}
+
+.tint-classic{
+  background:linear-gradient(
+    170deg,
+    rgba(248,235,230,.88) 0%,
+    rgba(255,255,255,.75) 100%
+  );
+  border-color:rgba(232,214,209,.9);
+}
+
+.tint-royal{
+  background:linear-gradient(
+    170deg,
+    rgba(246,238,222,.88) 0%,
+    rgba(255,255,255,.75) 100%
+  );
+  border-color:rgba(203,184,146,.9);
+}
+
+/* ===== Pass colours: men = blue palette, women = Harvard / Legally / Delta Nu ===== */
+.metal{
+  /* defaults (overridden per gender + tier below) */
+  --bg:#00033D; --ink:#FFFFFF; --ink-rgb:255,255,255; --acc:#977DFF; --btn:#FFFFFF; --btn-ink:#00033D;
+  background:var(--bg);
+  border:none;
+  box-shadow:0 24px 50px -24px rgba(8,8,8,.35);
+  backdrop-filter:none; -webkit-backdrop-filter:none;
+  color:var(--ink);
+  overflow:hidden;
+}
+/* Men's: Bordo / Green / Cream */
+.metal.men.royal  { --bg:#6C151E; --ink:#F5DABF; --ink-rgb:245,218,191; --acc:#F5DABF; --btn:#F5DABF; --btn-ink:#6C151E; }
+.metal.men.classic{ --bg:#0F3D3A; --ink:#F5DABF; --ink-rgb:245,218,191; --acc:#F5DABF; --btn:#F5DABF; --btn-ink:#0F3D3A; }
+.metal.men.elite  { --bg:#F5DABF; --ink:#6C151E; --ink-rgb:108,21,30;   --acc:#6C151E; --btn:#6C151E; --btn-ink:#F5DABF; }
+/* Women's: Velvet burgundy / Earthy mauve / Light pink */
+.metal.women.royal  { --bg:#321622; --ink:#F4D9CC; --ink-rgb:244,217,204; --acc:#F4D9CC; --btn:#F4D9CC; --btn-ink:#321622; }
+.metal.women.classic{ --bg:#653B4E; --ink:#F4D9CC; --ink-rgb:244,217,204; --acc:#F4D9CC; --btn:#F4D9CC; --btn-ink:#653B4E; }
+.metal.women.elite  { --bg:#F4D9CC; --ink:#321622; --ink-rgb:50,22,34;    --acc:#321622; --btn:#321622; --btn-ink:#F4D9CC; }
+.metal > *{position:relative;z-index:1}
+.metal .m-chip{color:var(--ink);background:transparent;border-color:var(--ink);font-weight:700}
+.metal .m-icon{color:var(--ink);background:transparent;border-color:var(--ink)}
+.metal .m-title{color:var(--ink);font-weight:700}
+.metal .m-sub{color:var(--ink);letter-spacing:.24em;font-weight:700}
+.metal .m-list{color:var(--ink);font-weight:600}
+.metal .m-dot{background:var(--ink);width:7px;height:7px}
+.metal .m-strike{color:var(--ink);opacity:.75;font-weight:600}
+.metal .m-price{color:var(--ink);font-weight:800}
+.metal .m-per{color:var(--ink);font-weight:600}
+.metal .m-badge{color:var(--ink);background:transparent;border-color:var(--ink);font-weight:700}
+.metal .m-btn{background:var(--btn);color:var(--btn-ink);box-shadow:none;font-weight:800}
+.metal .m-btn:hover{filter:brightness(1.06)}
+
+.stage-card.slot-center{
+  transform:translate3d(0,0,70px) scale(1) rotateY(0deg);
+  opacity:1;
+  filter:blur(0) brightness(1);
+  z-index:20;
+}
+
+.stage-card.slot-prev{
+  transform:translate3d(-270px,0,-110px) scale(.86) rotateY(16deg);
+  opacity:.75;
+  filter:blur(.5px) brightness(.95);
+  z-index:10;
+}
+
+.stage-card.slot-next{
+  transform:translate3d(270px,0,-110px) scale(.86) rotateY(-16deg);
+  opacity:.75;
+  filter:blur(.5px) brightness(.95);
+  z-index:10;
+}
+
+.stage-card.slot-hidden-left{
+  transform:translate3d(-520px,0,-320px) scale(.65) rotateY(26deg);
+  opacity:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.stage-card.slot-hidden-right{
+  transform:translate3d(520px,0,-320px) scale(.65) rotateY(-26deg);
+  opacity:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.stage-card.metal.slot-prev,.stage-card.metal.slot-next{opacity:1;filter:none}
+
+@media(max-width:768px){
+  .carousel-stage{
+    height:440px;
+  }
+
+  .stage-card{
+    width:84vw;
+    height:425px;
+    border-radius:42px;
+  }
+
+  .stage-card.slot-prev{
+    transform:translate3d(-165px,0,-130px) scale(.82) rotateY(18deg);
+    opacity:.4;
+  }
+
+  .stage-card.slot-next{
+    transform:translate3d(165px,0,-130px) scale(.82) rotateY(-18deg);
+    opacity:.4;
+  }
+  .stage-card.metal.slot-prev,.stage-card.metal.slot-next{opacity:1;filter:none}
+}
+
+/* ===== Page now scrolls: story first, passes after ===== */
+html{height:auto;overflow-x:hidden;overflow-y:auto}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto !important}
+.lenis.lenis-stopped{overflow:hidden}
+body{height:auto;overflow:visible;display:block;background:#06100B;user-select:auto}
+.liquid-canvas{display:none}
+header.hdr{position:fixed;top:0;left:0;right:0;z-index:60;padding-bottom:12px;pointer-events:none}
+header.hdr > *{pointer-events:auto}
+header.hdr .hdr-pills{transition:opacity .4s ease,transform .4s ease}
+body:not(.at-passes) header.hdr .hdr-pills{opacity:0;transform:translateY(-8px);pointer-events:none}
+header.hdr .hdr-book{background:#F4F1EA;color:#080808}
+header.hdr .hdr-book:hover{background:#fff}
+
+/* ===== Grow story ===== */
+.gs{position:relative;height:620vh;color:#F4F1EA}
+.gs-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--gsbg,#0B0D0C);perspective:1400px}
+.gs-glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(40% 55% at var(--gx,62%) 55%, rgba(var(--gc,203,184,146),var(--ga,.16)) 0%, rgba(0,0,0,0) 70%),
+             radial-gradient(120% 90% at 50% 120%, rgba(0,0,0,.55), rgba(0,0,0,0) 60%)}
+.gs-fx{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+.gs-world{position:absolute;inset:0;transform-style:preserve-3d;z-index:2}
+.gs-world > *{position:absolute;left:0;top:0;will-change:transform,opacity;backface-visibility:hidden}
+.gs-hair{filter:drop-shadow(0 0 1px rgba(244,241,234,.6)) drop-shadow(0 0 16px rgba(203,184,146,.3))}
+.gs-trail{opacity:0}
+.gs-jar{filter:drop-shadow(0 40px 60px rgba(0,0,0,.55))}
+.gs-jar img{display:block;width:100%;height:100%;position:relative;z-index:1}
+.gs-soil{position:absolute;left:5%;right:6%;bottom:3.6%;height:calc(var(--soil,0) * 74%);z-index:0;overflow:hidden;
+  border-radius:0 0 14% 14% / 0 0 8% 8%;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.35)),url('grow/soil.jpg') center top/cover #2b1a0e}
+.gs-soil i{position:absolute;left:-10%;right:-10%;top:-14px;height:28px;border-radius:50%;background:#6B4629;box-shadow:inset 0 -6px 10px rgba(0,0,0,.35)}
+.gs-window{border-radius:28px;overflow:hidden;opacity:0;background:#0b1410;
+  box-shadow:0 50px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(201,216,197,.25),0 0 0 8px rgba(201,216,197,.05)}
+.gs-win-img{position:absolute;inset:0;background:url('grow/grow-stages.jpg') no-repeat;background-size:auto 112%;background-position:0% 70%}
+.gs-window::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,16,11,0) 55%,rgba(6,16,11,.7))}
+.gs-win-tag{position:absolute;left:18px;bottom:16px;z-index:2;padding:7px 14px;border-radius:999px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  background:rgba(6,16,11,.5);border:1px solid rgba(201,216,197,.35);color:#E8F0E4;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.gs-tree{opacity:0;filter:drop-shadow(0 40px 70px rgba(0,0,0,.6))}
+
+.gs-caps{position:absolute;left:clamp(20px,5vw,80px);top:50%;transform:translateY(-50%);width:min(440px,36vw);z-index:4;min-height:260px}
+.gs-cap{position:absolute;left:0;top:0;right:0;opacity:0;transform:translateY(24px);filter:blur(6px);pointer-events:none;
+  transition:opacity .7s ease,transform .9s cubic-bezier(.16,1,.3,1),filter .7s ease}
+.gs-cap.on{opacity:1;transform:none;filter:none;pointer-events:auto}
+.gs-kick{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#C9D8C5;margin-bottom:16px}
+.gs-kick b{font-weight:600;color:#F4F1EA;margin-right:10px}
+.gs-h{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:clamp(34px,3.9vw,60px);line-height:1.04;letter-spacing:-.015em}
+.gs-h em{font-style:italic;font-weight:400;color:#B8D4A8}
+.gs-p{margin-top:16px;font-size:16px;line-height:1.65;color:rgba(244,241,234,.7);max-width:36ch}
+.gs-cta{display:inline-flex;align-items:center;gap:10px;margin-top:26px;height:50px;padding:0 26px;border-radius:999px;background:#F4F1EA;color:#06100B;font-weight:500;text-decoration:none}
+.gs-cta:hover{background:#fff}
+.gs-steps{position:absolute;right:clamp(20px,4vw,56px);top:50%;transform:translateY(-50%);z-index:4;display:flex;flex-direction:column;gap:12px}
+.gs-steps i{display:block;width:2px;height:26px;border-radius:2px;background:rgba(244,241,234,.2);transition:background .4s,height .4s}
+.gs-steps i.on{background:#B8D4A8;height:44px}
+.gs-scroll{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;opacity:.6;transition:opacity .4s}
+.gs-scroll i{width:1px;height:34px;background:#F4F1EA;transform-origin:top;animation:gsCue 2.2s ease-in-out infinite}
+@keyframes gsCue{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.gs-scroll.off{opacity:0}
+
+/* ===== Passes section (after the story) ===== */
+.pass-sec{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;padding-top:72px;padding-bottom:16px;
+  background:linear-gradient(180deg,rgba(6,16,11,1) 0%,rgba(6,16,11,.55) 22%,rgba(6,16,11,.72) 100%),url('grow/hands-tree.jpg') center/cover no-repeat}
+.pass-sec main{flex:1;padding-top:0 !important;padding-bottom:0 !important;justify-content:flex-start !important}
+.pass-sec main > .relative.-top-3{top:0;margin:0}
+.pass-sec .carousel-stage{margin:auto 0;height:calc(500px * var(--pk,1));transform:scale(var(--pk,1));transform-origin:50% 50%}
+.pass-sec main > .flex.items-center.gap-4{margin-top:0;margin-bottom:4px}
+.pass-sec h1{color:#F4F1EA !important}
+.pass-sec #cardBadge{color:#F4F1EA !important;background:rgba(6,16,11,.45) !important;border-color:rgba(244,241,234,.25) !important}
+
+@media (max-width:900px),(max-aspect-ratio:9/10){
+  .gs{height:560vh}
+  .gs-caps{left:20px;right:20px;width:auto;top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);transform:none;min-height:190px;text-align:center}
+  .gs-kick{font-size:11px;margin-bottom:10px}
+  .gs-h{font-size:clamp(28px,8vw,40px)}
+  .gs-p{margin:10px auto 0;font-size:14px}
+  .gs-cta{margin-top:16px;height:46px}
+  .gs-steps{top:auto;bottom:auto;top:96px;right:16px;flex-direction:column}
+  .gs-scroll{display:none}
+}
+@media (max-width:900px) and (max-height:700px){ .gs-p{display:none} .gs-caps{min-height:130px} }
+@media (prefers-reduced-motion:reduce){ .gs-cap{transition:opacity .2s linear;transform:none;filter:none} .gs-scroll i{animation:none} }
+</style>
+</head>
+
+<body class="relative">
+
+<!-- LIQUID BACKGROUND -->
+<div class="liquid-canvas" aria-hidden="true">
+  <canvas id="liquidCanvas"></canvas>
+</div>
+
+<!-- HEADER -->
+<header class="hdr z-30 px-5 md:px-10 pt-5 pb-1 flex items-center justify-between flex-none">
+
+  <a href="index.html"
+     class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 hover:bg-white/90 border border-[#080808]/10 text-xs md:text-sm text-[#080808] transition backdrop-blur-md shadow-sm">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+    </svg>
+    <span>Back</span>
+  </a>
+
+
+  <div class="hdr-pills pass-pills bg-white/60 backdrop-blur-md border border-[#080808]/10 p-1 rounded-full flex items-center shadow-sm">
+
+
+    <button id="pillWomens"
+      onclick="setFilter('womens')"
+      class="px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 text-[#080808]/70 hover:text-[#080808]">
+      Womens
+    </button>
+
+    <button id="pillMens"
+      onclick="setFilter('mens')"
+      class="px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 text-[#080808]/70 hover:text-[#080808]">
+      Mens
+    </button>
+
+  </div>
+
+  <a href="index.html#book"
+     class="hdr-book hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs md:text-sm font-medium transition shadow-md">
+    Book Visit
+  </a>
+
+</header>
+
+<!-- MAIN -->
+<!-- ===== Aluma Grow story: hair -> fertilizer jar -> growing plant -> passes ===== -->
+<section class="gs" id="grow" aria-label="The Aluma Grow promise">
+  <div class="gs-stage" id="gsStage">
+    <div class="gs-glow" aria-hidden="true"></div>
+    <canvas class="gs-fx" id="gsFx" aria-hidden="true"></canvas>
+
+    <div class="gs-world" id="gsWorld" aria-hidden="true">
+      <img class="gs-trail" id="gsTrail" src="grow/leaves-trail.webp" alt="">
+      <img class="gs-hair" src="grow/hair-curly.webp" alt="">
+      <img class="gs-hair" src="grow/hair-textured.webp" alt="">
+      <img class="gs-hair" src="grow/hair-shaggy.webp" alt="">
+      <div class="gs-jar" id="gsJar">
+        <div class="gs-soil" id="gsSoil"><i></i></div>
+        <img src="grow/jar-aluma.webp" alt="">
+      </div>
+      <div class="gs-window" id="gsWin"><div class="gs-win-img" id="gsWinImg"></div><span class="gs-win-tag" id="gsWinTag">Day 1</span></div>
+      <img class="gs-tree" id="gsTree" src="grow/hand-tree.webp" alt="">
+    </div>
+
+    <div class="gs-caps">
+      <div class="gs-cap on">
+        <p class="gs-kick"><b>01</b> The Aluma Grow promise</p>
+        <h1 class="gs-h">From your chair, <em>back to the earth.</em></h1>
+        <p class="gs-p">Every cut at Aluma is collected. Nothing goes to waste.</p>
+      </div>
+      <div class="gs-cap">
+        <p class="gs-kick"><b>02</b> Collected with care</p>
+        <h2 class="gs-h">Your hair becomes <em>nourishment.</em></h2>
+        <p class="gs-p">Hair is naturally rich in nitrogen. We turn it into a natural fertilizer, packed in an Aluma jar.</p>
+      </div>
+      <div class="gs-cap">
+        <p class="gs-kick"><b>03</b> Take it home</p>
+        <h2 class="gs-h">Grow something <em>beautiful.</em></h2>
+        <p class="gs-p">Feed your plants at home and watch them thrive, season after season.</p>
+      </div>
+      <div class="gs-cap">
+        <p class="gs-kick"><b>04</b> Look good, give back</p>
+        <h2 class="gs-h">Choose your pass. <em>Grow with us.</em></h2>
+        <p class="gs-p">Unlimited care for you, and a greener home for your plants.</p>
+        <a class="gs-cta" href="#passes">See the passes <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+
+    <div class="gs-steps" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+    <div class="gs-scroll" id="gsScroll" aria-hidden="true"><span>Scroll</span><i></i></div>
+  </div>
+</section>
+
+<section class="pass-sec" id="passes">
+<main class="relative z-20 w-full flex-1 flex flex-col items-center justify-center pt-5 pb-6 overflow-hidden">
+
+  <div class="relative -top-3 text-center mt-0.8 mb-9 px-4 flex-none">
+    <h1 class="text-2xl md:text-4xl font-serif-title tracking-tight text-[#080808]">
+      Select Your Pass
+    </h1>
+  </div>
+
+  <div class="carousel-stage mt-2" id="carouselStage"></div>
+
+  <div class="flex items-center gap-4 mt-6 mb-2 z-30 flex-none">
+
+    <button
+      onclick="prevCard()"
+      class="w-9 h-9 rounded-full bg-white/70 hover:bg-white border border-[#080808]/15 text-[#080808] flex items-center justify-center transition backdrop-blur-md shadow-sm"
+      aria-label="Previous Pass">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <span id="cardBadge"
+      class="text-xs uppercase tracking-widest text-[#080808] px-3 py-1 rounded-full bg-white/60 border border-[#080808]/10 backdrop-blur-md font-mono font-medium">
+      1 / 6
+    </span>
+
+    <button
+      onclick="nextCard()"
+      class="w-9 h-9 rounded-full bg-white/70 hover:bg-white border border-[#080808]/15 text-[#080808] flex items-center justify-center transition backdrop-blur-md shadow-sm"
+      aria-label="Next Pass">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+
+  </div>
+</main>
+</section>
+
+<script>
+const ALL_PASSES=[
+  {
+    gender:'womens',
+    genderLabel:"Women's",
+    tier:'Elite',
+    icon:'✦',
+    tint:'tint-elite',
+    price:'7,999',
+    strike:'32,000',
+    features:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax']
+  },
+  {
+    gender:'womens',
+    genderLabel:"Women's",
+    tier:'Classic',
+    icon:'⦿',
+    tint:'tint-classic',
+    price:'15,999',
+    strike:'42,000',
+    features:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up']
+  },
+  {
+    gender:'womens',
+    genderLabel:"Women's",
+    tier:'Royal',
+    icon:'👑',
+    tint:'tint-royal',
+    price:'20,999',
+    strike:'65,000',
+    features:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up','Pedicure & Manicure']
+  },
+  {
+    gender:'mens',
+    genderLabel:"Men's",
+    tier:'Elite',
+    icon:'✦',
+    tint:'tint-elite',
+    price:'6,999',
+    strike:'30,000',
+    features:['Hair Cut','Beard & Shave','Head Massage']
+  },
+  {
+    gender:'mens',
+    genderLabel:"Men's",
+    tier:'Classic',
+    icon:'⦿',
+    tint:'tint-classic',
+    price:'14,999',
+    strike:'40,000',
+    features:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up']
+  },
+  {
+    gender:'mens',
+    genderLabel:"Men's",
+    tier:'Royal',
+    icon:'👑',
+    tint:'tint-royal',
+    price:'19,999',
+    strike:'60,000',
+    features:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up','Pedicure & Manicure']
+  }
+];
+
+let currentFilter='all';
+let filteredList=[...ALL_PASSES];
+let currentIndex=0;
+
+function renderStage(){
+  const stage=document.getElementById('carouselStage');
+  stage.innerHTML='';
+
+  filteredList.forEach((pass,idx)=>{
+    const card=document.createElement('div');
+
+    card.className=`stage-card metal ${pass.gender==='womens' ? 'women' : 'men'} ${pass.tier.toLowerCase()} p-7 flex flex-col justify-between`;
+    card.id=`card-${idx}`;
+
+    card.onclick=()=>{
+      if(idx!==currentIndex) jumpToCard(idx);
+    };
+
+    card.innerHTML=`
+      <div class="flex items-center justify-between">
+        <span class="m-chip text-xs uppercase tracking-[0.24em] font-semibold px-3.5 py-1.5 rounded-full border">
+          ${pass.genderLabel}
+        </span>
+
+        <div class="m-icon w-8 h-8 rounded-full border flex items-center justify-center text-sm font-bold">
+          ${pass.icon}
+        </div>
+      </div>
+
+      <div class="my-auto py-2">
+        <h2 class="m-title text-3xl md:text-4xl font-serif-title font-semibold tracking-tight mb-1">
+          ${pass.tier}
+        </h2>
+
+        <p class="m-sub text-xs uppercase tracking-widest font-semibold mb-3">
+          Unlimited Treatments
+        </p>
+
+        <ul class="m-list space-y-2 text-sm font-medium">
+          ${pass.features.map(f=>`
+            <li class="flex items-center gap-2.5">
+              <span class="m-dot w-2 h-2 rounded-full flex-shrink-0"></span>
+              <span>${f}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+
+      <div class="pt-3">
+        <div class="flex items-baseline justify-between mb-3">
+
+          <div>
+            <span class="m-strike text-xs line-through">
+              ₹${pass.strike}
+            </span>
+
+            <div class="m-price text-2xl md:text-3xl font-bold leading-tight">
+              ₹${pass.price}
+              <span class="m-per text-xs font-normal">/ year</span>
+            </div>
+          </div>
+
+          <span class="m-badge text-[10px] tracking-widest font-semibold uppercase px-3 py-1 rounded-full border">
+            Active Pass
+          </span>
+
+        </div>
+
+        <a href="index.html#book"
+          class="m-btn w-full py-3.5 rounded-2xl text-sm font-semibold uppercase tracking-wider text-center block transition-all active:scale-[0.98]">
+          Buy Now →
+        </a>
+      </div>
+    `;
+
+    stage.appendChild(card);
+  });
+
+  updateSlots();
+}
+
+function updateSlots(){
+  filteredList.forEach((_,idx)=>{
+    const card=document.getElementById(`card-${idx}`);
+    if(!card)return;
+
+    card.classList.remove(
+      'slot-center',
+      'slot-prev',
+      'slot-next',
+      'slot-hidden-left',
+      'slot-hidden-right'
+    );
+
+    const offset=idx-currentIndex;
+
+    if(offset===0){
+      card.classList.add('slot-center');
+    }else if(
+      offset===-1 ||
+      (currentIndex===0 && idx===filteredList.length-1 && filteredList.length>2)
+    ){
+      card.classList.add('slot-prev');
+    }else if(
+      offset===1 ||
+      (currentIndex===filteredList.length-1 && idx===0 && filteredList.length>2)
+    ){
+      card.classList.add('slot-next');
+    }else if(offset<0){
+      card.classList.add('slot-hidden-left');
+    }else{
+      card.classList.add('slot-hidden-right');
+    }
+  });
+
+  document.getElementById('cardBadge').textContent=
+    `${currentIndex+1} / ${filteredList.length}`;
+}
+
+function nextCard(){
+  currentIndex=(currentIndex+1)%filteredList.length;
+  updateSlots();
+}
+
+function prevCard(){
+  currentIndex=(currentIndex-1+filteredList.length)%filteredList.length;
+  updateSlots();
+}
+
+function jumpToCard(idx){
+  currentIndex=idx;
+  updateSlots();
+}
+
+function setFilter(filter){
+  if(currentFilter===filter) filter='all';   // tap the active pill again to see every pass
+
+  currentFilter=filter;
+  currentIndex=0;
+
+  const pW=document.getElementById('pillWomens');
+  const pM=document.getElementById('pillMens');
+
+  const on='px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 bg-[#080808] text-[#F4F1EA] shadow-sm';
+  const off='px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 text-[#080808]/70 hover:text-[#080808]';
+
+  pW.className=filter==='womens'?on:off;
+  pM.className=filter==='mens'?on:off;
+
+  filteredList=filter==='all'
+    ? [...ALL_PASSES]
+    : ALL_PASSES.filter(p=>p.gender===filter);
+
+  renderStage();
+}
+
+window.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')nextCard();
+  if(e.key==='ArrowLeft')prevCard();
+});
+
+let touchStartX=0;
+
+const passArea=document.getElementById('passes')||window;
+passArea.addEventListener('touchstart',e=>{
+  touchStartX=e.changedTouches[0].screenX;
+},{passive:true});
+
+passArea.addEventListener('touchend',e=>{
+  const diffX=touchStartX-e.changedTouches[0].screenX;
+
+  if(Math.abs(diffX)>45){
+    diffX>0?nextCard():prevCard();
+  }
+},{passive:true});
+
+document.addEventListener('DOMContentLoaded',renderStage);
+
+
+/* LIQUID ANIMATION */
+
+const canvas=document.getElementById('liquidCanvas');
+const ctx=canvas.getContext('2d');
+
+let width=0;
+let height=0;
+let dpr=1;
+
+function resizeCanvas(){
+  width=window.innerWidth;
+  height=window.innerHeight;
+  dpr=Math.min(window.devicePixelRatio||1,2);
+
+  canvas.width=width*dpr;
+  canvas.height=height*dpr;
+  canvas.style.width=width+'px';
+  canvas.style.height=height+'px';
+
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+
+window.addEventListener('resize',resizeCanvas);
+resizeCanvas();
+
+const colors=[
+  [201,216,197],
+  [232,214,209],
+  [203,184,146],
+  [220,232,223],
+  [246,226,218]
+];
+
+const blobs=Array.from({length:7},(_,i)=>({
+  x:Math.random(),
+  y:Math.random(),
+  size:.28+Math.random()*.22,
+  sx:(Math.random()-.5)*.00035,
+  sy:(Math.random()-.5)*.00035,
+  phase:Math.random()*Math.PI*2,
+  phase2:Math.random()*Math.PI*2,
+  color:colors[i%colors.length]
+}));
+
+function drawBlob(blob,time){
+  const x=
+    blob.x*width+
+    Math.sin(time*.00025+blob.phase)*width*.10;
+
+  const y=
+    blob.y*height+
+    Math.cos(time*.00020+blob.phase2)*height*.10;
+
+  const size=
+    Math.min(width,height)*
+    (blob.size+Math.sin(time*.00035+blob.phase)*.035);
+
+  const [r,g,b]=blob.color;
+
+  const gradient=ctx.createRadialGradient(
+    x,y,0,
+    x,y,size
+  );
+
+  gradient.addColorStop(0,`rgba(${r},${g},${b},.72)`);
+  gradient.addColorStop(.3,`rgba(${r},${g},${b},.48)`);
+  gradient.addColorStop(.62,`rgba(${r},${g},${b},.20)`);
+  gradient.addColorStop(1,`rgba(${r},${g},${b},0)`);
+
+  ctx.fillStyle=gradient;
+  ctx.beginPath();
+  ctx.arc(x,y,size,0,Math.PI*2);
+  ctx.fill();
+}
+
+function animateLiquid(time){
+  if(getComputedStyle(canvas.parentNode).display==='none') return; /* hidden in the new design: don't burn frames */
+  ctx.clearRect(0,0,width,height);
+
+  ctx.fillStyle='#F4F1EA';
+  ctx.fillRect(0,0,width,height);
+
+  ctx.filter='blur(55px)';
+
+  blobs.forEach(blob=>{
+    blob.x+=blob.sx;
+    blob.y+=blob.sy;
+
+    if(blob.x<-.25||blob.x>1.25)blob.sx*=-1;
+    if(blob.y<-.25||blob.y>1.25)blob.sy*=-1;
+
+    drawBlob(blob,time);
+  });
+
+  ctx.filter='none';
+
+  const glowX=
+    width*(.5+Math.sin(time*.00015)*.35);
+
+  const glowY=
+    height*(.5+Math.cos(time*.00018)*.30);
+
+  const glow=ctx.createRadialGradient(
+    glowX,glowY,0,
+    glowX,glowY,
+    Math.min(width,height)*.45
+  );
+
+  glow.addColorStop(0,'rgba(255,255,255,.30)');
+  glow.addColorStop(.45,'rgba(255,255,255,.10)');
+  glow.addColorStop(1,'rgba(255,255,255,0)');
+
+  ctx.fillStyle=glow;
+  ctx.fillRect(0,0,width,height);
+
+  requestAnimationFrame(animateLiquid);
+}
+
+requestAnimationFrame(animateLiquid);
+</script>
+
+<script>
+/* ===== Aluma Grow story: scroll-driven 3D scene =====
+   01 hair floats in 3D -> 02 strands fall into the Aluma jar, soil rises -> 03 a plant grows -> 04 hand + tree, leaves swirl -> passes */
+(function(){
+  var sec=document.getElementById('grow'); if(!sec) return;
+  var stage=document.getElementById('gsStage'), world=document.getElementById('gsWorld'), fx=document.getElementById('gsFx'), ctx=fx.getContext('2d');
+  var hairs=[].slice.call(world.querySelectorAll('.gs-hair')), jar=document.getElementById('gsJar'), soil=document.getElementById('gsSoil');
+  var win=document.getElementById('gsWin'), winImg=document.getElementById('gsWinImg'), winTag=document.getElementById('gsWinTag');
+  var tree=document.getElementById('gsTree'), trail=document.getElementById('gsTrail');
+  var caps=[].slice.call(sec.querySelectorAll('.gs-cap')), steps=[].slice.call(sec.querySelectorAll('.gs-steps i')), cue=document.getElementById('gsScroll');
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* buttery page scroll: Lenis eases the wheel/trackpad; the scene reads the eased position every frame */
+  var lenis=null;
+  if(!reduced&&window.Lenis){ try{ lenis=new window.Lenis({lerp:.09,smoothWheel:true,wheelMultiplier:.9,touchMultiplier:1.2}); window.__lenis=lenis; }catch(e){lenis=null} }
+  if(lenis){ (function lr(t){ lenis.raf(t); requestAnimationFrame(lr); })(performance.now()); }
+  var clamp=function(v,a,b){return v<a?a:v>b?b:v}, lerp=function(a,b,t){return a+(b-a)*t};
+  var seg=function(p,a,b){return clamp((p-a)/(b-a),0,1)}, ease=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2};
+  var eo=function(t){return 1-Math.pow(1-t,3)};
+
+  var W=1,H=1,P=false,cx=0,cy=0,jw=0,jh=0,ww=0,wh=0,tw=0,dpr=1;
+  var hw=[0,0,0];
+  function size(){
+    W=stage.clientWidth; H=stage.clientHeight; P=W<=900||W/H<.9;
+    cx=P?W/2:W*.63; cy=P?H*.4:H*.53;
+    jh=P?Math.min(H*.42,420):Math.min(H*.66,600); jw=jh*614/900;
+    wh=P?Math.min(H*.44,440):Math.min(H*.66,600); ww=wh*.8;
+    tw=P?Math.min(W*.78,400):Math.min(H*.86,700);
+    var hb=P?Math.min(W*.42,220):Math.min(W*.2,300);
+    hw=[hb*.95,hb*1.05,hb*1.15];
+    hairs.forEach(function(h,i){h.style.width=hw[i]+'px'});
+    jar.style.width=jw+'px'; jar.style.height=jh+'px';
+    win.style.width=ww+'px'; win.style.height=wh+'px';
+    tree.style.width=tw+'px'; trail.style.width=(tw*.75)+'px';
+    dpr=Math.min(devicePixelRatio||1,1.25); fx.width=W*dpr; fx.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function place(el,x,y,w,h,extra,op){
+    el.style.transform='translate3d('+(x-w/2).toFixed(1)+'px,'+(y-h/2).toFixed(1)+'px,0) '+(extra||'');
+    if(op!=null){ el.style.opacity=op.toFixed(3); var v=op>.004?'visible':'hidden'; if(el._v!==v){ el._v=v; el.style.visibility=v; } }
+  }
+  function progress(){var r=sec.getBoundingClientRect(),run=sec.offsetHeight-H;return clamp(-r.top/Math.max(1,run),0,1)}
+
+  /* deterministic random */
+  var sd=11; function rnd(){sd=(sd*16807)%2147483647;return sd/2147483647}
+  var STR=[]; for(var i=0;i<46;i++) STR.push({x:rnd()*2-1,y:rnd()*2-1,d:rnd()*.55,l:22+rnd()*46,c:(rnd()-.5)*1.4,r:rnd()*6.28,s:rnd()});
+  var SPK=[]; for(i=0;i<60;i++) SPK.push({x:rnd(),y:rnd(),v:.3+rnd()*.7,r:.6+rnd()*1.8,ph:rnd()*6.28});
+  var LV=[]; var leafImgs=[]; for(i=1;i<=8;i++){var im=new Image(); im.src='grow/leaf-'+i+'.webp'; leafImgs.push(im)}
+  for(i=0;i<22;i++) LV.push({a:rnd()*6.28,rad:.35+rnd()*.75,sp:(.25+rnd()*.5)*(rnd()<.8?1:-1),y:(rnd()-.5)*1.1,s:.5+rnd()*.8,rot:rnd()*6.28,rs:(rnd()-.5)*2,img:i%8,z:rnd()});
+
+  var mouse={x:0,y:0,tx:0,ty:0};
+  stage.addEventListener('pointermove',function(e){if(e.pointerType!=='mouse')return; mouse.tx=e.clientX/W*2-1; mouse.ty=e.clientY/H*2-1});
+  stage.addEventListener('pointerleave',function(){mouse.tx=mouse.ty=0});
+
+  var cur=0,last=0,T=0,raf=0,vis=false,shownCap=-1,lastBg='',fxDirty=true;
+  var BG=[[11,13,12],[12,14,12],[6,20,13],[6,16,11]];
+  function frame(now){
+    raf=0; var dt=last?Math.min(.05,(now-last)/1000):.016; last=now; T+=dt;
+    var target=progress(); cur=(reduced||lenis)?target:cur+(target-cur)*(1-Math.exp(-14*dt)); if(Math.abs(target-cur)<.0004) cur=target;
+    mouse.x+=(mouse.tx-mouse.x)*(1-Math.exp(-4*dt)); mouse.y+=(mouse.ty-mouse.y)*(1-Math.exp(-4*dt));
+    draw(cur);
+    if(vis) raf=requestAnimationFrame(frame); else last=0;
+  }
+  function draw(p){
+    var k1=ease(seg(p,.16,.34)),   // hair -> jar
+        kJ=eo(seg(p,.10,.26)),     // jar rises in
+        kS=ease(seg(p,.24,.44)),   // soil fills
+        k3=ease(seg(p,.44,.56)),   // jar steps aside, window opens
+        kG=seg(p,.5,.72),          // plant grows
+        k4=ease(seg(p,.7,.82)),    // tree scene
+        out3=ease(seg(p,.7,.78));
+    var mx=reduced?0:mouse.x, my=reduced?0:mouse.y, t=reduced?0:T;
+
+    /* background + glow colour drift from charcoal/gold to forest/green */
+    /* only touch the background when it visibly changes (each change repaints the whole screen) */
+    var bgK=Math.round((p<.4?0:p<.6?seg(p,.4,.6):1)*20)/20, c0=BG[0], c1=BG[2];
+    var bgs='rgb('+[0,1,2].map(function(j){return Math.round(lerp(c0[j],c1[j],bgK))}).join(',')+')|'+(bgK<.5?'203,184,146':'120,200,110')+'|'+(Math.round((bgK<.5?.16+(1-k1)*.14:.18+k4*.1)*50)/50)+'|'+(cx/W*100).toFixed(0)+'%';
+    if(bgs!==lastBg){ lastBg=bgs; var q=bgs.split('|'); stage.style.setProperty('--gsbg',q[0]); stage.style.setProperty('--gc',q[1]); stage.style.setProperty('--ga',q[2]); stage.style.setProperty('--gx',q[3]); }
+
+    world.style.transform='rotateY('+(mx*6)+'deg) rotateX('+(-my*4)+'deg)';
+
+    /* 01 — three hairstyles orbit in 3D, then dive into the jar mouth */
+    var jarY=lerp(H+jh*.7,cy,kJ), jarX=cx;
+    jarX=lerp(jarX,P?cx:cx-W*.17,k3); jarY=lerp(jarY,P?cy-H*.02:cy+H*.02,k3);
+    var jarS=lerp(1,P?.55:.78,k3), jarOp=1-out3;
+    if(P) jarOp*=1-k3*.92;
+    var mouthY=jarY-jh*jarS*.36;
+    hairs.forEach(function(h,i){
+      var a=i/3*Math.PI*2+t*.35+p*4, R=(P?W*.27:Math.min(W*.17,260));
+      var ox=Math.cos(a)*R*1.1, oy=Math.sin(a)*R*.42-(P?H*.02:H*.04), oz=Math.sin(a)*120;
+      var x=lerp(cx+ox,jarX,k1), y=lerp(cy+oy,mouthY,k1), s=lerp(1+oz/600,.12,k1);
+      var rot='rotateY('+(Math.cos(a)*28*(1-k1))+'deg) rotateZ('+(Math.sin(a+i)*8*(1-k1)+k1*55*(i%2?1:-1))+'deg) scale('+s.toFixed(3)+')';
+      var hh=h.naturalHeight?hw[i]*h.naturalHeight/h.naturalWidth:hw[i]*.7;
+      place(h,x,y,hw[i],hh,'translateZ('+(oz*(1-k1)).toFixed(1)+'px) '+rot,(1-seg(p,.25,.31)));
+      h.style.zIndex=oz>0?5:1;
+    });
+
+    /* 02 — jar + soil */
+    place(jar,jarX,jarY,jw,jh,'scale('+jarS.toFixed(3)+') rotateZ('+((1-kJ)*-8+Math.sin(t*.8)*1.2*(1-k3)).toFixed(2)+'deg)',jarOp);
+    soil.style.setProperty('--soil',(kS*.66).toFixed(3));
+    jar.style.zIndex=3;
+
+    /* 03 — the growth window: pans across seedling -> sapling -> tree */
+    var wx=P?cx:cx+W*.1, wy=P?cy:cy;
+    var wOp=k3*(1-out3);
+    place(win,wx,wy,ww,wh,'translateZ('+lerp(-300,0,k3).toFixed(0)+'px) rotateY('+lerp(-55,-6+mx*-4,k3).toFixed(2)+'deg) scale('+lerp(.85,1,k3).toFixed(3)+')',wOp);
+    winImg.style.backgroundPosition=(kG*100).toFixed(2)+'% 70%';
+    winImg.style.transform='scale('+(1+kG*.08)+')';
+    var day=Math.max(1,Math.round(kG*90)); winTag.textContent= kG<.98 ? 'Day '+day : 'In full bloom';
+    win.style.zIndex=4;
+
+    /* 04 — hand + tree rises, leaves trail spins behind */
+    var tY=lerp(H+tw*.6,P?cy+H*.02:cy+H*.02,eo(k4)), tS=lerp(.8,1,k4);
+    place(tree,P?cx:cx-W*.02,tY,tw,tw*394/430,'scale('+tS.toFixed(3)+') rotateZ('+(Math.sin(t*.6)*1.5).toFixed(2)+'deg)',k4);
+    var trH=tw*.75*1346/736;
+    place(trail,P?cx+tw*.12:cx+tw*.18,(P?cy:cy)-tw*.05,tw*.75,trH,'rotateZ('+lerp(-40,18,k4).toFixed(1)+'deg) scale('+lerp(.6,1,k4).toFixed(3)+')',k4*.85);
+    tree.style.zIndex=6; trail.style.zIndex=2;
+
+    /* particles */
+    var fxOn=(seg(p,.12,.42)>0&&seg(p,.12,.42)<1)||Math.sin(seg(p,.48,.76)*Math.PI)>.01||k4>.01;
+    if(fxOn||fxDirty){ ctx.clearRect(0,0,W,H); fxDirty=fxOn; }
+    // hair strands raining into the jar
+    var sK=seg(p,.12,.42);
+    if(sK>0&&sK<1){
+      ctx.lineCap='round';
+      STR.forEach(function(s){
+        var q=clamp((sK-s.d*.6)/.45,0,1); if(q<=0||q>=1) return;
+        var e=ease(q), sx=cx+s.x*(P?W*.4:W*.22), sy=cy-H*.38+s.y*H*.12;
+        var x=lerp(sx,jarX+s.x*jw*.15,e)+Math.sin(T*2+s.r)*8*(1-e), y=lerp(sy,mouthY+jh*.1,e);
+        var a=s.r+T*(.6+s.s)+e*3, L=s.l*(1-e*.5);
+        ctx.strokeStyle='rgba(28,20,14,'+(Math.sin(q*Math.PI)*.95).toFixed(3)+')'; ctx.lineWidth=1.3;
+        ctx.beginPath(); ctx.moveTo(x-Math.cos(a)*L/2,y-Math.sin(a)*L/2);
+        ctx.quadraticCurveTo(x+Math.cos(a+1.57)*L*s.c*.4,y+Math.sin(a+1.57)*L*s.c*.4,x+Math.cos(a)*L/2,y+Math.sin(a)*L/2); ctx.stroke();
+      });
+    }
+    // golden growth sparks rising in the window
+    var gK=Math.sin(seg(p,.48,.76)*Math.PI);
+    if(gK>.01){
+      SPK.forEach(function(s){
+        var yy=(s.y-T*.05*s.v)%1; if(yy<0) yy+=1;
+        var x=wx-ww*.45+s.x*ww*.9+Math.sin(T+s.ph)*6, y=wy+wh*.5-yy*wh*1.1;
+        ctx.fillStyle='rgba(255,214,120,'+(gK*.75*Math.sin(yy*Math.PI)).toFixed(3)+')';
+        ctx.beginPath(); ctx.arc(x,y,s.r,0,6.283); ctx.fill();
+      });
+    }
+    // leaves swirling round the tree
+    if(k4>.01){
+      LV.forEach(function(l){
+        var im=leafImgs[l.img]; if(!im.complete||!im.naturalWidth) return;
+        var a=l.a+T*l.sp*.6+p*6, R=tw*(.45+l.rad*.4)*(.6+.4*k4);
+        var x=(P?cx:cx-W*.02)+Math.cos(a)*R, y=cy-tw*.05+l.y*tw*.6+Math.sin(a)*R*.25;
+        var sz=(P?26:40)*l.s*(.7+.6*(Math.sin(a)*.5+.5)), w2=sz, h2=sz*im.naturalHeight/im.naturalWidth;
+        ctx.save(); ctx.globalAlpha=k4*(.55+.45*(Math.sin(a)*.5+.5)); ctx.translate(x,y); ctx.rotate(l.rot+T*l.rs*.6);
+        ctx.drawImage(im,-w2/2,-h2/2,w2,h2); ctx.restore();
+      });
+    }
+
+    /* captions + steps */
+    var ci=p<.2?0:p<.46?1:p<.72?2:3;
+    if(ci!==shownCap){shownCap=ci; caps.forEach(function(c,j){c.classList.toggle('on',j===ci)}); steps.forEach(function(s,j){s.classList.toggle('on',j===ci)})}
+    cue.classList.toggle('off',p>.03);
+  }
+
+  function kick(){ if(vis&&!raf) raf=requestAnimationFrame(frame) }
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){vis=es[0].isIntersecting; if(vis){last=0;kick()}},{rootMargin:'80px'}).observe(sec); else vis=true;
+  document.addEventListener('scroll',kick,{passive:true}); if(lenis) lenis.on('scroll',kick);
+  addEventListener('resize',function(){size();kick()});
+  size(); cur=progress(); draw(cur); kick();
+
+  var cta=sec.querySelector('.gs-cta'); if(cta) cta.addEventListener('click',function(e){ var t=document.getElementById('passes'); if(!t) return; e.preventDefault(); if(lenis) lenis.scrollTo(t,{duration:1.6}); else t.scrollIntoView({behavior:'smooth'}); });
+  /* passes: scale the card carousel so pills + title + cards + arrows always fit one screen */
+  function fitPasses(){
+    var ps=document.getElementById('passes'); if(!ps) return;
+    var title=ps.querySelector('h1'), th=title?title.offsetHeight:50;
+    var free=ps.clientHeight-72-16-th-40-36;                 // header row, title, arrows, gaps
+    var byW=innerWidth<768?1:(innerWidth*.92)/1060;          // the three-card spread must fit the width
+    var k=Math.max(.62,Math.min(innerWidth<768?1:1.6,byW,free/510));
+    ps.style.setProperty('--pk',k.toFixed(3));
+  }
+  fitPasses(); addEventListener('resize',fitPasses);
+  /* header pills only once the passes are on screen */
+  var ps=document.getElementById('passes');
+  if(ps&&'IntersectionObserver' in window) new IntersectionObserver(function(es){document.body.classList.toggle('at-passes',es[0].isIntersecting)},{threshold:.35}).observe(ps);
+})();
+</script>
+
+</body>
+</html>

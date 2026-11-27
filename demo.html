@@ -20,7 +20,7 @@ a{color:inherit}
 .neon{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:#0E0A0B}
 .neon::before{content:"";position:absolute;inset:-25%;
   background:conic-gradient(from var(--a) at 50% 50%,#FF2D3C 0deg,#FF8A1E 30deg,#FFE62E 62deg,#9BFF3C 100deg,#2EFFA8 145deg,#2EE6FF 185deg,#4B6BFF 225deg,#8C42FF 262deg,#F02BFF 300deg,#FF2B9A 335deg,#FF2D3C 360deg);
-  animation:ang 1.2s linear infinite;filter:saturate(1.3) brightness(1.3)}
+  animation:ang 4s linear infinite;filter:saturate(1.3) brightness(1.3)}
 @keyframes ang{to{--a:360deg}}
 /* thin, hot band right at the screen edge (lets ~10% of the colour wash through) */
 .bloom{position:fixed;inset:var(--gl);z-index:1;pointer-events:none;border-radius:var(--gr);background:rgba(43,26,21,.9);filter:blur(var(--gb))}
@@ -132,6 +132,16 @@ a{color:inherit}
 .card .face .acc{font-size:calc(var(--cw) * .05);letter-spacing:.14em}
 .card .face .nm{font-size:calc(var(--cw) * .085);letter-spacing:.16em;line-height:1.2}
 .card .face .nm:focus{background:rgba(255,255,255,.12)!important}
+/* card logo: circles and ALUMA wordmark at matching height */
+.card .face .lg{gap:calc(var(--cw) * .024)!important;align-items:center}
+.card .face .lg svg{width:calc(var(--cw) * .062)!important;height:auto!important;display:block}
+.card .face .lg b{font-size:calc(var(--cw) * .06)!important;line-height:1!important;letter-spacing:.2em!important;font-weight:600!important;margin-right:-.2em}
+/* pass cards: squiggly maze metal grain like the reference (static, no shine) */
+.card .face>*{z-index:1}
+.card .face::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:url(pass-texture.png) 0 0/150px 150px repeat;mix-blend-mode:overlay;opacity:.42}
+.card .face::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:url(pass-texture.png) 0 0/150px 150px repeat;mix-blend-mode:multiply;opacity:.08}
 /* mobile left / right arrows under the cards */
 .marr{position:absolute;left:0;right:0;z-index:9;display:none;justify-content:center;gap:64px;opacity:0;pointer-events:none;transition:opacity .5s}
 .marr button{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.28);
@@ -360,13 +370,13 @@ a{color:inherit}
 (function(){
   var PASSES={
     mens:[
-      {gl:"Men's",tier:'Elite',acc:'50%',icon:'✦',price:'6,999',strike:'30,000',f:['Hair Cut','Beard & Shave','Head Massage'],bg:'linear-gradient(160deg,#C4C7CC 0%,#A3A7AE 100%)',fg:'#1C2026',bt:'#EEF0F3'},
-      {gl:"Men's",tier:'Classic',acc:'80%',icon:'⦿',price:'14,999',strike:'40,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up'],bg:'linear-gradient(160deg,#D6AE55 0%,#B58A35 100%)',fg:'#2A1C04',bt:'#F4DA80'},
-      {gl:"Men's",tier:'Royal',acc:'100%',icon:'♛',price:'19,999',strike:'60,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(160deg,#D49A8A 0%,#B37565 100%)',fg:'#3A1611',bt:'#F4CFC2'}],
+      {gl:"Men's",tier:'Elite',acc:'50%',icon:'✦',price:'6,999',strike:'30,000',f:['Hair Cut','Beard & Shave','Head Massage'],bg:'linear-gradient(160deg,#D3D6DB 0%,#B4B8BF 100%)',fg:'#1C2026',bt:'#EEF0F3'},
+      {gl:"Men's",tier:'Classic',acc:'80%',icon:'⦿',price:'14,999',strike:'40,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up'],bg:'linear-gradient(160deg,#E4BC60 0%,#C79A40 100%)',fg:'#2A1C04',bt:'#F4DA80'},
+      {gl:"Men's",tier:'Royal',acc:'100%',icon:'♛',price:'19,999',strike:'60,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(160deg,#E0A898 0%,#C38474 100%)',fg:'#3A1611',bt:'#F4CFC2'}],
     womens:[
-      {gl:"Women's",tier:'Elite',acc:'50%',icon:'✦',price:'7,999',strike:'32,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax'],bg:'linear-gradient(160deg,#C4C7CC 0%,#A3A7AE 100%)',fg:'#1C2026',bt:'#EEF0F3'},
-      {gl:"Women's",tier:'Classic',acc:'80%',icon:'⦿',price:'15,999',strike:'42,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up'],bg:'linear-gradient(160deg,#D6AE55 0%,#B58A35 100%)',fg:'#2A1C04',bt:'#F4DA80'},
-      {gl:"Women's",tier:'Royal',acc:'100%',icon:'♛',price:'20,999',strike:'65,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(160deg,#D49A8A 0%,#B37565 100%)',fg:'#3A1611',bt:'#F4CFC2'}]
+      {gl:"Women's",tier:'Elite',acc:'50%',icon:'✦',price:'7,999',strike:'32,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax'],bg:'linear-gradient(160deg,#D3D6DB 0%,#B4B8BF 100%)',fg:'#1C2026',bt:'#EEF0F3'},
+      {gl:"Women's",tier:'Classic',acc:'80%',icon:'⦿',price:'15,999',strike:'42,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up'],bg:'linear-gradient(160deg,#E4BC60 0%,#C79A40 100%)',fg:'#2A1C04',bt:'#F4DA80'},
+      {gl:"Women's",tier:'Royal',acc:'100%',icon:'♛',price:'20,999',strike:'65,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(160deg,#E0A898 0%,#C38474 100%)',fg:'#3A1611',bt:'#F4CFC2'}]
   };
   /* card back art: line pattern + Aluma logo (Lusion style) */
   var BACK='<svg viewBox="0 0 200 280" preserveAspectRatio="none"><g fill="none" stroke="currentColor" stroke-width="1.3" opacity=".75">'+
