@@ -1,0 +1,382 @@
+<div id="passes" aria-label="Aluma yearly passes">
+
+<div class="bloom" id="bloom" aria-hidden="true"></div>
+<div class="screen" id="screen" aria-hidden="true"></div>
+<div class="neon" id="neon" aria-hidden="true"></div>
+
+
+
+<section class="scene" id="scene">
+  <div class="pin" id="pin">
+    <div class="hero" id="hero">
+      <svg class="logo" viewBox="0 0 116 96" aria-hidden="true"><circle cx="58" cy="25" r="23" fill="#039866"/><circle cx="25" cy="71" r="23" fill="#311FE5"/><circle cx="91" cy="71" r="23" fill="#C30498"/></svg>
+      <p class="word">ALUMA</p>
+      <h1>One pass.<br class="mb"> <em>A whole year.</em></h1>
+      <p>Unlimited salon care for a full year. Scroll to reveal your pass.</p>
+      <div class="pcue" aria-hidden="true">Scroll<i></i></div>
+    </div>
+    <div class="sh" id="sh"><h2>Choose your <em>pass.</em></h2><p id="shSub">Men's yearly passes</p><div class="seg" id="seg" role="tablist" aria-label="Choose passes">
+    <button type="button" data-f="mens" class="on">Men</button>
+    <button type="button" data-f="womens">Women</button>
+  </div></div>
+    <div class="deck" id="deck"></div>
+    <p class="phint" id="hint"><span class="hd">Click on a pass</span><span class="hm">Tap on a pass</span> to see its services</p>
+    <div class="mtabs" id="mtabs"></div>
+    <div class="marr" id="marr"><button type="button" id="mprev" aria-label="Previous pass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" id="mnext" aria-label="Next pass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
+    <div class="dt" id="dt" role="dialog" aria-label="Pass details"></div>
+  </div>
+</section>
+<section class="vidsec" id="vidsec" aria-label="Hair science"><div class="vpin"><video src="pinterest_hair_chem_720w.mp4" autoplay muted loop playsinline preload="auto"></video></div></section>
+<section class="eco" id="eco" aria-label="Aluma's eco-friendly mission">
+  <div class="epin">
+    <div class="ewin" id="ewin">
+      <div class="eglow" id="eglow"></div>
+      <div class="etitle" id="etitle">
+        <p class="ey">Highlights</p>
+        <p class="kick">Transforming Beauty into Green</p>
+        <h2>Aluma's <em>Eco-Friendly</em> Mission</h2>
+        <p class="sub">A Sustainable Future through Hair Recycling</p>
+      </div>
+      <div class="psteps" id="steps">
+        <article class="st">
+          <span class="num">01</span>
+          <div class="stage"><div class="c3">
+            <div id="strands"></div>
+            <div class="bin"><img src="eco/hair-bin.webp" alt="Hair collection bin"></div>
+          </div></div>
+          <div class="stx"><span class="k">Step 1</span><h3>Collection</h3><p>We start by collecting human hair from our salons. What was once waste now becomes a resource.</p></div>
+        </article>
+        <article class="st sv">
+          <span class="num">02</span>
+          <div class="stage stv"><video src="collection-video.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Hair recycling"></video></div>
+          <div class="stx"><span class="k">Step 2</span><h3>Recycling</h3><p>The hair is rich in nitrogen, a vital nutrient for plants. We recycle it into nutrient-rich fertilizer, perfect for soil enrichment.</p></div>
+        </article>
+        <article class="st">
+          <span class="num">03</span>
+          <div class="stage"><div class="c3"><div class="porb"><div class="pspin" id="parts"></div></div><div class="mound"><img src="eco/soil-mound.webp" alt="Hair turning into fertilizer soil"><img class="sprout" src="eco/soil-sprout.webp" alt=""></div></div></div>
+          <div class="stx"><span class="k">Step 3</span><h3>Planting</h3><p>Our mission is to plant more trees using this natural fertilizer, contributing to a greener planet.</p></div>
+        </article>
+      </div>
+      <div class="half top" id="hTop"><div class="tex"></div></div>
+      <div class="half bot" id="hBot"><div class="tex"></div></div>
+      <canvas class="hairc" id="hairc" aria-hidden="true"></canvas>
+      <svg class="crackl" id="crackl" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><path id="crackp" d=""/></svg>
+    </div>
+  </div>
+</section>
+
+
+
+</div>
+<script>
+(function(){
+  var PASSES={
+    mens:[
+      {gl:"Men's",tier:'Elite',acc:'50%',icon:'✦',price:'6,999',strike:'30,000',f:['Hair Cut','Beard & Shave','Head Massage'],bg:'linear-gradient(160deg,#D3D6DB 0%,#B4B8BF 100%)',fg:'#1C2026',bt:'#EEF0F3'},
+      {gl:"Men's",tier:'Classic',acc:'80%',icon:'⦿',price:'14,999',strike:'40,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up'],bg:'linear-gradient(160deg,#E4BC60 0%,#C79A40 100%)',fg:'#2A1C04',bt:'#F4DA80'},
+      {gl:"Men's",tier:'Royal',acc:'100%',icon:'♛',price:'19,999',strike:'60,000',f:['Hair Cut','Beard & Shave','Head Massage','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(160deg,#E0A898 0%,#C38474 100%)',fg:'#3A1611',bt:'#F4CFC2'}],
+    womens:[
+      {gl:"Women's",tier:'Elite',acc:'50%',icon:'✦',price:'7,999',strike:'32,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax'],bg:'linear-gradient(160deg,#D3D6DB 0%,#B4B8BF 100%)',fg:'#1C2026',bt:'#EEF0F3'},
+      {gl:"Women's",tier:'Classic',acc:'80%',icon:'⦿',price:'15,999',strike:'42,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up'],bg:'linear-gradient(160deg,#E4BC60 0%,#C79A40 100%)',fg:'#2A1C04',bt:'#F4DA80'},
+      {gl:"Women's",tier:'Royal',acc:'100%',icon:'♛',price:'20,999',strike:'65,000',f:['Threading','Full Arms Wax','Full Legs Wax','Underarms Wax','D-tan or Clean Up','Pedicure & Manicure'],bg:'linear-gradient(160deg,#E0A898 0%,#C38474 100%)',fg:'#3A1611',bt:'#F4CFC2'}]
+  };
+  /* card back art: line pattern + Aluma logo (Lusion style) */
+  var BACK='<svg viewBox="0 0 200 280" preserveAspectRatio="none"><g fill="none" stroke="currentColor" stroke-width="1.3" opacity=".75">'+
+    '<rect x="10" y="10" width="180" height="260" rx="12"/><rect x="18" y="18" width="164" height="244" rx="8" opacity=".6"/>'+
+    '<path d="M18 18 L100 110 L182 18 M18 262 L100 170 L182 262 M18 140 L60 140 M140 140 L182 140" opacity=".7"/>'+
+    '<circle cx="100" cy="140" r="44"/><circle cx="100" cy="140" r="36" opacity=".6"/>'+
+    '<path d="M36 40 q14 14 0 28 q-14 14 0 28 M164 40 q-14 14 0 28 q14 14 0 28 M36 184 q14 14 0 28 q-14 14 0 28 M164 184 q-14 14 0 28 q14 14 0 28" opacity=".55"/></g>'+
+    '<g transform="translate(78 120) scale(.38)"><circle cx="58" cy="25" r="23" fill="#039866"/><circle cx="25" cy="71" r="23" fill="#311FE5"/><circle cx="91" cy="71" r="23" fill="#C30498"/></g></svg>';
+  var $=function(i){return document.getElementById(i)};
+  var deck=$('deck'), hero=$('hero'), sh=$('sh'), seg=$('seg'), neon=$('neon'), bloom=$('bloom'), scene=$('scene'), mtabs=$('mtabs');
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clamp=function(v,a,b){return v<a?a:v>b?b:v}, lerp=function(a,b,t){return a+(b-a)*t}, seg_=function(p,a,b){return clamp((p-a)/(b-a),0,1)};
+  var eio=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}, eo=function(t){return 1-Math.pow(1-t,3)};
+  var flt='mens', focus=1;
+
+  var PAT=BACK.split('<g transform')[0]+'</svg>', LOGO='<svg viewBox="0 0 116 96" aria-hidden="true"><circle cx="58" cy="25" r="23" fill="#039866"/><circle cx="25" cy="71" r="23" fill="#311FE5"/><circle cx="91" cy="71" r="23" fill="#C30498"/></svg>';
+  /* name on the pass: Gautam for Men, Suhani for Women by default; anyone can clear it and type their own */
+  var NAMES={mens:'Gautam',womens:'Suhani'};
+  try{ NAMES.mens=localStorage.getItem('alumaNameM')||NAMES.mens; NAMES.womens=localStorage.getItem('alumaNameW')||NAMES.womens; }catch(e){}
+  var uname=NAMES.mens;
+  function setName(v,from){ v=String(v).replace(/\s+/g,' ').slice(0,18); NAMES[flt]=v.trim()||(flt==='mens'?'Gautam':'Suhani'); uname=NAMES[flt];
+    try{ localStorage.setItem(flt==='mens'?'alumaNameM':'alumaNameW',v.trim()); }catch(e){}
+    [].forEach.call(document.querySelectorAll('.card .nm'),function(n){ if(n!==from) n.textContent=v.trim()?v:uname; });
+    var inp=document.getElementById('pname'); if(inp&&inp!==from) inp.value=v; }
+  function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]}); }
+  function front(p){ return '<div class="top"><div class="lg">'+LOGO+'<b>ALUMA</b></div></div>'+
+    '<div class="mid"><p class="acc">Aluma Access: '+p.acc+'</p></div>'; }
+  var cards=[0,1,2].map(function(i){
+    var c=document.createElement('div'); c.className='card';
+    c.innerHTML='<div class="in"><div class="face back"><div class="top"><div class="lg">'+LOGO+'<b>ALUMA</b></div></div><p class="nm" contenteditable="plaintext-only" spellcheck="false" aria-label="Name on pass, tap to edit">'+esc(uname)+'</p></div><div class="face front"></div></div>';
+    var bk=c.querySelector('.back'), tp=PASSES.mens[i]; bk.style.setProperty('--bbg',tp.bg); bk.style.setProperty('--bfg',tp.fg);
+    c.addEventListener('click',function(e){ if(e.target.closest('.nm')) return; if(!ready()) return; if(sel===i){ closeSel(); return; } if(sel>=0) return; if(mob&&i!==focus){ focus=i; tabs(); return; } openSel(i); });
+    var nmEl=c.querySelector('.back .nm'); nmEl.addEventListener('input',function(){ setName(nmEl.textContent,nmEl); }); nmEl.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); nmEl.blur(); } }); nmEl.addEventListener('blur',function(){ if(!nmEl.textContent.trim()) nmEl.textContent=NAMES[flt]; });
+    deck.appendChild(c); return {el:c, fr:c.querySelector('.front')};
+  });
+  function fillOne(set,i){ var p=PASSES[set][i], f=cards[i].fr; f.style.setProperty('--bgc',p.bg); f.style.setProperty('--fg',p.fg); f.style.setProperty('--btx',p.bt); f.innerHTML=front(p); uname=NAMES[set]; var bn=cards[i]&&cards[i].el.querySelector('.back .nm'); if(bn) bn.textContent=uname; }
+  function fill(set){ [0,1,2].forEach(function(i){fillOne(set,i)}); }
+  fill(flt);
+
+  var W,H,CW,CH,mob,MTOP=0,MSC=.5;
+  function size(){ W=innerWidth; H=innerHeight; mob=W<=820;
+    CW=mob?Math.min(W*.6,260,(H-330)/1.42):clamp(Math.min(W*.21,(H-390)*.7),200,330); CH=CW*1.42;
+    MSC=mob?Math.min(.62,(H*.34)/(CW*1.42)):1; MTOP=(mob?96:0)+CW*1.42*MSC/2; deck.style.setProperty('--cw',CW+'px'); deck.style.setProperty('--ch',CH+'px'); deck.style.top=mob?'56%':'calc(50% + 70px)'; var d_=document.getElementById('dt'); if(d_) d_.style.top=mob?'56%':'calc(50% + 70px)';
+    var hn=document.getElementById('hint'); if(hn) hn.style.top=(mob? H*.56+CH/2+26+52+18 : H*.5+70+CH/2+28)+'px'; }
+  addEventListener('resize',size); size();
+
+  /* mobile: dots to pick the card in front */
+  function tabs(){ mtabs.innerHTML=''; [0,1,2].forEach(function(i){ var b=document.createElement('button'); b.type='button'; b.className=i===focus?'on':''; b.setAttribute('aria-label','Pass '+(i+1)); b.addEventListener('click',function(){focus=i;tabs()}); mtabs.appendChild(b); }); }
+  tabs();
+  var marr=$('marr');
+  $('mprev').addEventListener('click',function(){ if(focus>0){ focus--; tabs(); } });
+  $('mnext').addEventListener('click',function(){ if(focus<2){ focus++; tabs(); } });
+  var tx0=0; deck.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX},{passive:true});
+  deck.addEventListener('touchend',function(e){ var d=e.changedTouches[0].clientX-tx0; if(Math.abs(d)>40){ focus=clamp(focus+(d<0?1:-1),0,2); tabs(); } },{passive:true});
+
+  /* ===== pick a pass: others step away, services panel opens ===== */
+  var dt=$('dt'), sel=-1, last=1, SP=0;
+  function ready(){ return p>.72 && !window.__ecoOn; }
+  var IC={cut:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/>',
+    shave:'<path d="M4 20l7-7"/><path d="M10 10l4-6 6 6-6 4z"/>',
+    head:'<circle cx="12" cy="9" r="4.5"/><path d="M4.5 21c1-4 4-6 7.5-6s6.5 2 7.5 6"/><path d="M3 9a9 9 0 0 1 2-5.5M21 9a9 9 0 0 0-2-5.5"/>',
+    glow:'<path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>',
+    nail:'<path d="M8 13V6a1.5 1.5 0 0 1 3 0v5M11 11V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-.5a5 5 0 0 1-4-2l-2.7-3.6a1.5 1.5 0 0 1 2.3-1.9L8 15.5"/>',
+    brow:'<path d="M3 8c4-3 10-3 14 0"/><path d="M3.5 15s3-4 8.5-4 8.5 4 8.5 4-3 4-8.5 4-8.5-4-8.5-4z"/><circle cx="12" cy="15" r="2"/>',
+    wax:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/>'};
+  function ico(t){ t=t.toLowerCase(); var k=/cut/.test(t)?'cut':/beard|shave/.test(t)?'shave':/massage/.test(t)?'head':/tan|clean/.test(t)?'glow':/pedicure|manicure/.test(t)?'nail':/thread/.test(t)?'brow':'wax';
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[k]+'</svg>'; }
+  function panel(i){ var q=PASSES[flt][i];
+    dt.style.setProperty('--dbg',q.bg); dt.style.setProperty('--dfg',q.fg);
+    dt.innerHTML='<button class="dx" type="button" aria-label="Close">×</button>'+
+      '<div class="sg">'+q.f.map(function(x){return '<div><i>'+ico(x)+'</i><span>'+x+'</span></div>'}).join('')+'</div>'+
+      '<p class="dp"><s>₹'+q.strike+'</s><b>₹'+q.price+'</b><em>/ year</em></p>'+
+      '<input id="pname" maxlength="18" autocomplete="name" placeholder="Type your name" aria-label="Name on your pass" value="'+esc(NAMES[flt])+'">'+
+      '<a class="buy" href="index.html#book">Buy now →</a>';
+    dt.querySelector('.dx').addEventListener('click',closeSel);
+    dt.querySelector('#pname').addEventListener('input',function(){ setName(this.value,this); });
+  }
+  function openSel(i){ sel=i; last=i; panel(i); dt.classList.add('show'); }
+  function closeSel(){ sel=-1; dt.classList.remove('show'); }
+  addEventListener('keydown',function(e){ if(e.key==='Escape'&&sel>=0) closeSel(); });
+
+  /* scroll progress, smoothed */
+  function raw(){ var r=scene.getBoundingClientRect(), run=scene.offsetHeight-H; return clamp(-r.top/Math.max(1,run),0,1); }
+  var p=raw(), opened=false, swapping=false, F=[0,0,0];
+
+  function frame(){
+    var t=raw(); p=reduced?t:p+(t-p)*.12;
+    /* 1. hero: logo + text, light at full */
+    var hOut=eio(seg_(p,.06,.2));
+    hero.style.opacity=(1-hOut).toFixed(3); hero.style.pointerEvents=hOut>.5?'none':''; hero.style.transform='translateY('+(-hOut*80)+'px) scale('+(1-hOut*.08)+')';
+    var ecoT=document.getElementById('vidsec').getBoundingClientRect().top, lt=((1-clamp((H*.7-ecoT)/(H*.7),0,1))*clamp(1-scene.getBoundingClientRect().top/(H*.6),0,1)).toFixed(3); neon.style.opacity=lt; bloom.style.opacity=lt; document.getElementById('screen').style.opacity=lt; /* edge light on hero + cards, fades out as the hair frame comes in */
+    /* heading */
+    var sIn=eo(seg_(p,.3,.42)); sh.style.opacity=sIn.toFixed(3); sh.style.transform='translateY('+((1-sIn)*30)+'px)';
+    /* 2. deck rises */
+    var rise=eo(seg_(p,.12,.32));
+    /* 3. fan out into a row */
+    var fan=eio(seg_(p,.32,.52));
+    /* 4. flip one by one */
+    for(var i=0;i<3;i++){
+      var c=cards[i], k=i-1, fl=eio(seg_(p,.5+i*.06,.62+i*.06));
+      F[i]=fl;
+      var sx=k*3, sy=-i*3, sr=k*-3+ (i-1)*1;                         // stacked
+      var gap=mob?CW*.9:CW*1.12;
+      var dk=mob?(i-focus):k;                                        // mobile centres the focused card
+      var rx=dk*gap, ry=mob?Math.abs(dk)*14:0, rz=mob?-Math.abs(dk)*140:0, rr=mob?dk*3:0;
+      var midY=Math.sin(fan*Math.PI)*-40, midR=Math.sin(fan*Math.PI)*k*-14;
+      var x=lerp(sx,rx,fan), y=lerp(sy,ry,fan)+midY+(1-rise)*H*.9, z=lerp(0,rz,fan);
+      var rot=lerp(sr,rr,fan)+midR + (1-rise)*(k*8-6);
+      var tiltX=(1-rise)*30;
+      var flipY=(swapping?180:180*fl)+((i===last&&SP>.001)?180*SP:0);   /* chosen card turns to show the name side */
+      var ry2=0, sc=1, op=mob?1-.5*Math.min(1,Math.abs(dk))*fan:1;   /* mobile: side cards dimmed, focus stays clean */
+      if(SP>.001){
+        if(i===last){ var PW=dt.offsetWidth||400;
+          var tx=mob?0:-(PW+40)/2, tyy=mob?(MTOP-H*.54):0;
+          x=lerp(x,tx,SP); y=lerp(y,tyy,SP); z=lerp(z,0,SP); rot=lerp(rot,0,SP); ry2=(mob?0:10)*SP; sc=mob?lerp(1,MSC,SP):1+.06*SP;
+        } else { op=Math.min(op,1-SP); sc=1-.15*SP; y+= (mob?60:90)*SP; x+=(i<last?-1:1)*W*.08*SP; }
+      }
+      c.el.style.opacity=op.toFixed(3); c.el.style.pointerEvents=op<.5?'none':'';
+      c.el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,'+z.toFixed(1)+'px) rotateX('+tiltX.toFixed(2)+'deg) rotateY('+ry2.toFixed(2)+'deg) rotateZ('+rot.toFixed(2)+'deg) scale('+sc.toFixed(3)+')';
+      c.el.style.zIndex=(SP>.001&&i===last)?20:(mob?10-Math.abs(dk):(fan<.5?3-i:5));
+      if(!c.el.classList.contains('swapping')) c.el.querySelector('.in').style.transform='rotateY('+flipY.toFixed(1)+'deg)';
+      c.el.querySelector('.in').style.transition=c.el.classList.contains('swapping')?'':'none';
+    }
+    if(sel>=0&&!ready()) closeSel();
+    if(mob){ var chs=CH*MSC; MTOP=Math.max(92,(H-chs-22-(dt.offsetHeight||300))/2)+chs/2; }   /* mobile: centre card + details as one group */
+    SP+=((sel>=0?1:0)-SP)*(reduced?1:.14); if(Math.abs((sel>=0?1:0)-SP)<.002) SP=sel>=0?1:0;
+    if(SP>.001){ var PW2=dt.offsetWidth||400, cx=W/2-(PW2+40)/2;
+      if(mob){ dt.style.left=''; dt.style.top=(MTOP+CH*MSC/2+22)+'px'; dt.style.transform='translateY('+((1-SP)*24).toFixed(1)+'px)'; sh.style.opacity=(parseFloat(sh.style.opacity||1)*(1-SP)).toFixed(3); }
+      else { dt.style.left=(cx+CW*1.06/2+40)+'px'; dt.style.transform='translateY(-50%) translateX('+((1-SP)*30).toFixed(1)+'px)'; } }
+    var done=p>.72&&!window.__ecoOn&&sel<0; seg.classList.toggle('show',done); document.getElementById('hint').style.opacity=done?.85:0; mtabs.style.opacity=done&&mob?1:0;
+    marr.style.opacity=done&&mob?1:0; marr.style.pointerEvents=done&&mob?'auto':'none'; marr.style.top='calc(56% + '+(CH/2+26).toFixed(0)+'px)';
+    $('mprev').disabled=focus===0; $('mnext').disabled=focus===2;
+    requestAnimationFrame(frame);
+  }
+
+  /* Men / Women: cards flip face-down, swap, flip back up (staggered) */
+  function swap(to){
+    if(to===flt) return; flt=to;
+    [].forEach.call(seg.querySelectorAll('button'),function(b){b.classList.toggle('on',b.dataset.f===to)});
+    $('shSub').textContent=(to==='mens'?"Men's":"Women's")+' yearly passes';
+    cards.forEach(function(c,i){
+      var inn=c.el.querySelector('.in'); c.el.classList.add('swapping');
+      setTimeout(function(){ inn.style.transition='transform .55s cubic-bezier(.5,0,.75,0)'; inn.style.transform='rotateY(360deg) translateY(-30px)'; },i*110);
+      setTimeout(function(){ fillOne(to,i); inn.style.transition='none'; inn.style.transform='rotateY(0deg) translateY(-30px)'; void inn.offsetWidth;
+        inn.style.transition='transform .8s cubic-bezier(.25,.9,.3,1.2)'; inn.style.transform='rotateY(180deg)'; },i*110+560);
+      setTimeout(function(){ c.el.classList.remove('swapping'); },i*110+1400);
+    });
+  }
+  [].forEach.call(seg.querySelectorAll('button'),function(b){ b.addEventListener('click',function(){ swap(b.dataset.f); }); });
+
+  requestAnimationFrame(frame);
+})();
+</script>
+<script>
+/* ===== eco section: hair splits open, then the 3 steps ===== */
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var eco=$('eco'), ewin=$('ewin'), hT=$('hTop'), hB=$('hBot'), crackp=$('crackp'), crackl=$('crackl'), et=$('etitle'), eg=$('eglow'), steps=$('steps');
+  var st=[].slice.call(steps.children), reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clamp=function(v,a,b){return v<a?a:v>b?b:v}, lerp=function(a,b,t){return a+(b-a)*t}, sg=function(p,a,b){return clamp((p-a)/(b-a),0,1)};
+  var eio=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}, eo=function(t){return 1-Math.pow(1-t,3)};
+
+  /* jagged split line across the middle (x 0..1000, y around 500) */
+  var pts=[], n=innerWidth<=820?12:26; for(var i=0;i<=n;i++){ var x=i/n*1000, y=500+(i%2?1:-1)*(8+Math.random()*16)+(Math.random()-.5)*20; if(i===0||i===n) y=500; pts.push([x,y]); }
+  var line=pts.map(function(p){return p[0].toFixed(0)+' '+p[1].toFixed(0)});
+  crackp.setAttribute('d','M'+line.join(' L'));
+  var poly=function(a){return a.map(function(p){return (p[0]/10).toFixed(2)+'% '+(p[1]/10).toFixed(2)+'%'}).join(',')};
+  var len=crackp.getTotalLength(); crackp.style.strokeDasharray=len; crackp.style.strokeDashoffset=len;
+
+  /* 3D bits */
+  /* card 1: hair strands drifting down into the disc */
+  var HS=[], SN=$('strands'), cols=['#E3B77A','#B5652E','#F0D2A0','#8A5A2B','#C98A4B','#6B3A22'];
+  if(SN) for(var m=0;m<18;m++){ var e=document.createElement('div'); e.className='hs'; var w=(m%3)*4+4;
+    HS.push({el:e,x:((m*37)%70)-35,z:((m*53)%40)-20,r:((m*29)%50)-25,t:4.2+(m%4)*.7,o:m*.34});
+    e.innerHTML='<svg viewBox="0 0 20 120"><path d="M10 0 C '+(10-w)+' 22, '+(10+w)+' 40, 10 60 S '+(10-w)+' 100, 10 120" fill="none" stroke="'+cols[m%6]+'" stroke-width="3.2" stroke-linecap="round"/></svg>'; SN.appendChild(e); }
+  /* card 2: particle ring around the jar, hair-brown turning green */
+  var PT=$('parts'), pc=['#4A2A1C','#6B3A22','#8A5A2B','#8F7A35','#5E8A3A','#2FA060','#039866','#22C58C'];
+  for(var k=0;k<16;k++){ var a=k*22.5, e=document.createElement('div'); e.className='pt'; var c=pc[Math.round((k<8?k:15-k)*7/7)];
+    e.style.cssText='--a:'+a+'deg;--c:'+c+';--s:'+(3+(k%3)*1.6)+';transform:rotateZ('+a+'deg) translateX(calc(var(--u) * '+(k%2?50:43)+')) translateZ(calc(var(--u) * '+(k%2?4:-3)+'))';
+    e.innerHTML='<i></i>'; PT.appendChild(e); }
+  var LV=$('leaves');
+  if(LV) for(var j=0;j<8;j++){ var a=j*45, d=document.createElement('div'); d.className='lf';
+    d.style.transform='rotateZ('+a+'deg) translateX(calc(var(--u) * '+(j%2?52:44)+')) translateZ(calc(var(--u) * '+(j%2?6:-4)+'))';
+    d.innerHTML='<img src="grow/leaf-'+(j%6+1)+'.webp" alt="">'; LV.appendChild(d); }
+
+  var W,H,mob,WW,WH;
+  function size(){ W=innerWidth; H=innerHeight; mob=W<=820; WW=ewin.clientWidth; WH=ewin.clientHeight;
+    steps.style.setProperty('--sth',(mob?Math.min(WH*.66,560):clamp(WH*.62,300,600))+'px');
+    st.forEach(function(s){ var g=s.querySelector('.stage'), u=Math.min(g.clientWidth*.8,g.clientHeight)/100; s.style.setProperty('--u',u+'px'); });
+  }
+
+  /* ===== hair parting: wispy strand edges + single strands that stretch across the gap and snap ===== */
+  var hc=$('hairc'), hx=hc.getContext('2d'), DPR=1, SNS=[];
+  function rnd(a,b){return a+Math.random()*(b-a)}
+  function edgeMask(top){
+    var d='M0 '+(top?0:1000)+' L1000 '+(top?0:1000), pts=[];
+    for(var x=1000;x>=0;x-=25){ pts.push(x+' '+(500+(top?1:-1)*(Math.sin(x*.03)*4+rnd(-4,4))).toFixed(1)); }
+    d+=' L'+pts.join(' L')+' Z';
+    var g='';
+    for(var i=0;i<70;i++){ var x0=rnd(-50,1000), len=rnd(60,340), y0=500+(top?1:-1)*rnd(2,26), w=rnd(1.2,4.2);
+      g+='<path d="M'+x0.toFixed(0)+' '+(500-(top?2:-2))+' C'+(x0+len*.3).toFixed(0)+' '+y0.toFixed(1)+' '+(x0+len*.7).toFixed(0)+' '+(y0+(top?1:-1)*rnd(0,6)).toFixed(1)+' '+(x0+len).toFixed(0)+' '+(y0+(top?1:-1)*rnd(2,10)).toFixed(1)+'" stroke="#fff" stroke-width="'+w.toFixed(2)+'" fill="none" stroke-linecap="round"/>'; }
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="none"><path d="'+d+'" fill="#fff"/>'+g+'</svg>';
+    return 'url("data:image/svg+xml;utf8,'+encodeURIComponent(svg)+'")';
+  }
+  /* video split: top and bottom halves of the same clip, kept in sync */
+  hT.style.clipPath='inset(0 0 50% 0)'; hB.style.clipPath='inset(50% 0 0 0)';
+  var vA=hT.querySelector('video'), vB=hB.querySelector('video');
+  setInterval(function(){ if(vA&&vB&&!vA.paused&&Math.abs(vA.currentTime-vB.currentTime)>.06) vB.currentTime=vA.currentTime; },700);
+  [vA,vB].forEach(function(v){ if(!v) return; var pl=v.play(); if(pl&&pl.catch) pl.catch(function(){}); });
+  var HC=['#6e4545','#8a5f5a','#9c6e64','#7a4b48','#b08070','#5c3a3a'];
+  function seedStrands(){ SNS=[]; var nb=innerWidth<=820?26:52, k=Math.max(.6,WH/900);
+    for(var b=0;b<nb;b++){ var bx=rnd(0,1)*WW, bdx=rnd(-40,40)*k, bL=(30+Math.pow(Math.random(),1.4)*320)*k, bw=rnd(-1,1), m=4+(Math.random()*6|0);
+      for(var i=0;i<m;i++) SNS.push({x:bx+rnd(-14,14)*k, dx:bdx+rnd(-10,10)*k, L:bL*rnd(.75,1.25), w:rnd(.9,2.2), c:HC[(Math.random()*HC.length*Math.random())|0], wv:bw+rnd(-.3,.3), cl:rnd(.6,1.4)}); } }
+  function sizeC(){ DPR=Math.min(2,devicePixelRatio||1); hc.width=WW*DPR; hc.height=WH*DPR; seedStrands(); }
+  function drawStrands(a,ty,o2){
+    hx.setTransform(DPR,0,0,DPR,0,0); hx.clearRect(0,0,WW,WH);
+    if(o2>.6) return;
+    var sa=Math.sin(a), ca=Math.cos(a), mid=WH/2, ox=WW*.06; hx.lineCap='round';
+    SNS.forEach(function(s){
+      var X=s.x+ox, X2=s.x+s.dx+ox, tx=-ox+X*ca, tyy=mid-X*sa-ty, bx=-ox+X2*ca, by=mid+X2*sa+ty;
+      var dX=bx-tx, dY=by-tyy, d=Math.sqrt(dX*dX+dY*dY); if(d<1.5) return;
+      hx.strokeStyle=s.c; hx.lineWidth=s.w;
+      if(d<s.L){ var t=d/s.L, sag=(1-t)*(1-t)*26*s.wv;           /* stretched strand, slack while short, taut near snapping */
+        hx.beginPath(); hx.moveTo(tx,tyy); hx.bezierCurveTo(tx+sag+dX*.1,tyy+dY*.35, bx-sag-dX*.1,by-dY*.35, bx,by);
+        hx.globalAlpha=.95; hx.strokeStyle='#1a0d10'; hx.lineWidth=s.w*1.7; hx.stroke();
+        hx.globalAlpha=.55; hx.strokeStyle=s.c; hx.lineWidth=s.w*.7; hx.stroke();
+      } else { var r=(d-s.L)/(70*s.cl); if(r>=1) return;          /* snapped: both ends curl back and fade */
+        var len=s.L*.5*(1-r*.6), cu=(10+r*30)*s.wv;
+        [['#1a0d10',1.7,.9],[s.c,.7,.55]].forEach(function(st){ hx.strokeStyle=st[0]; hx.lineWidth=s.w*st[1]; hx.globalAlpha=st[2]*(1-r);
+          hx.beginPath(); hx.moveTo(tx,tyy); hx.bezierCurveTo(tx+cu,tyy+len*.5, tx+cu*2,tyy+len*.7, tx+cu*1.4,tyy+len*(1-r*.5)); hx.stroke();
+          hx.beginPath(); hx.moveTo(bx,by); hx.bezierCurveTo(bx-cu,by-len*.5, bx-cu*2,by-len*.7, bx-cu*1.4,by-len*(1-r*.5)); hx.stroke(); });
+      }
+    });
+    hx.globalAlpha=1;
+  }
+  addEventListener('resize',function(){size();sizeC();}); size(); sizeC(); setTimeout(function(){size();sizeC();},300);
+
+  function raw(){ var r=eco.getBoundingClientRect(), run=eco.offsetHeight-H; return clamp(-r.top/Math.max(1,run),0,1); }
+  var qs=raw(), seg=document.getElementById('seg');
+  /* mobile: swipe left / right through the 3 cards */
+  var EI=0, EX=0, lastS=0, drag=null, sx0=0, sy0=0, horiz=null;
+  var edots=document.createElement('div'); edots.className='edots'; edots.innerHTML='<button type="button" aria-label="Step 1"></button><button type="button" aria-label="Step 2"></button><button type="button" aria-label="Step 3"></button>';
+  ewin.appendChild(edots); [].forEach.call(edots.children,function(b,k){ b.addEventListener('click',function(){ EI=k; }); });
+  steps.addEventListener('touchstart',function(e){ if(!mob) return; sx0=e.touches[0].clientX; sy0=e.touches[0].clientY; horiz=null; drag=0; },{passive:true});
+  steps.addEventListener('touchmove',function(e){ if(drag===null) return; var dx=e.touches[0].clientX-sx0, dy=e.touches[0].clientY-sy0;
+    if(horiz===null&&(Math.abs(dx)>8||Math.abs(dy)>8)) horiz=Math.abs(dx)>Math.abs(dy);
+    if(horiz){ e.preventDefault(); drag=dx*((EI===0&&dx>0)||(EI===2&&dx<0)?.35:1); } },{passive:false});
+  steps.addEventListener('touchend',function(){ if(drag===null) return; var cw=st[0].offsetWidth+12;
+    if(horiz&&Math.abs(drag)>50) EI=clamp(EI+(drag<0?1:-1),0,2); EX=EX-(drag||0)/cw; drag=null; },{passive:true});
+  function frame(){
+    var t=raw(); qs=reduced?t:qs+(t-qs)*.12; var q=.36+qs*.64;   /* no split any more: start straight at the heading + cards part */
+    var r=document.getElementById('vidsec').getBoundingClientRect(); window.__ecoOn=r.top<H*.5;
+    /* 1. a glowing crack runs across the hair */
+    var c=eo(sg(q,0,.1)); crackp.style.strokeDashoffset=(len*(1-c)).toFixed(1);
+    /* 2. the hair splits open (top up, bottom down, tilting back in 3D) */
+    var o1=eio(sg(q,.03,.2)), o2=eio(sg(q,.17,.38)), o=o2; /* o1: wedge opens from the right side, o2: halves separate */
+    crackl.style.opacity=(1-sg(q,.1,.2)).toFixed(3);
+    crackl.style.transform='scaleY('+(1+o*3)+')';
+    var ang=o1*4.5+o2*9, ty=o2*WH*.62, fly=sg(o2,.45,1), sc=1+fly*.15;
+    hT.style.transform='translateY('+(-ty).toFixed(1)+'px) rotate('+(-ang).toFixed(3)+'deg) rotateX('+(fly*20).toFixed(2)+'deg) scale('+sc.toFixed(3)+')';
+    hB.style.transform='translateY('+ty.toFixed(1)+'px) rotate('+ang.toFixed(3)+'deg) rotateX('+(-fly*20).toFixed(2)+'deg) scale('+sc.toFixed(3)+')';
+    hT.firstChild.style.transform=hB.firstChild.style.transform='scale('+(1.08-o*.08)+')';
+    hT.style.visibility=hB.style.visibility=o>=.999?'hidden':'visible';
+    /* 3. the title glows up behind it */
+    var ti=1;
+    /* 4. title moves up to make room for the cards */
+    var up=eio(sg(q,.4,.56)), sth=steps.offsetHeight, th=et.offsetHeight;
+    var gap=mob?14:Math.max(14,WW*.024), free=WH-sth-gap, targetC=Math.max(th*.62/2+16, free/2+ (mob?6:0));
+    var sc=lerp(1,mob?.78:.62,up), y=lerp(0,targetC-WH/2,up);
+    et.style.opacity=ti.toFixed(3);
+    et.style.transform='translateY(calc(-50% + '+y.toFixed(1)+'px)) scale('+(sc*(.88+ti*.12)).toFixed(4)+')';
+    eg.style.opacity=(ti*(1-up*.55)).toFixed(3);
+    eg.style.transform='translateY('+(y*.8).toFixed(1)+'px) scale('+(.7+ti*.4)+')';
+    /* 5. the 3 cards rise in one by one */
+    for(var i=0;i<3;i++){ var k=eo(sg(q,.5+(mob?0:i*.07),.66+(mob?0:i*.07)));   /* mobile: all 3 land together so a swipe never shows a half-risen card */
+      st[i].style.opacity=Math.min(1,k*1.6).toFixed(3);
+      st[i].style.transform='translateY('+((1-k)*(WH*.7)).toFixed(1)+'px) rotateX('+((1-k)*-28).toFixed(2)+'deg) scale('+(.9+k*.1).toFixed(3)+')';
+    }
+    /* mobile: slide across the 3 cards */
+    if(mob){ var sIdx=Math.round(eio(sg(q,.74,.97))*2); if(sIdx!==lastS){ lastS=sIdx; EI=sIdx; }   /* scroll still moves through the cards… */
+      if(drag===null) EX+=(EI-EX)*(reduced?1:.16);                                             /* …and swipes / dots move them too */
+      var cw=st[0].offsetWidth+12, pos=EX*cw-(drag||0); steps.style.transform='translateX('+(-pos).toFixed(1)+'px)';
+      edots.style.opacity=Math.min(1,eo(sg(q,.66,.74))).toFixed(3); [].forEach.call(edots.children,function(d,k){ d.classList.toggle('on',k===EI); }); }
+    else steps.style.transform='';
+    if(seg&&window.__ecoOn) seg.classList.remove('show');
+    /* falling hair strands (card 1) */
+    var U=parseFloat(st[0].style.getPropertyValue('--u'))||3, tt=performance.now()/1000;
+    if(!reduced) HS.forEach(function(h){ var f=((tt+h.o)/h.t)%1, op=f<.15?f/.15:f>.72?(1-f)/.28:1;
+      h.el.style.opacity=op.toFixed(3);
+      h.el.style.transform='translate3d('+(lerp(h.x,h.x*.25,f)*U).toFixed(1)+'px,'+(lerp(-90,-24,f)*U).toFixed(1)+'px,'+(lerp(h.z*.4,0,f)*U).toFixed(1)+'px) rotateZ('+lerp(h.r,-h.r,f).toFixed(1)+'deg) rotateY('+(f*540).toFixed(1)+'deg) scale('+lerp(1,.7,f).toFixed(3)+')'; });
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+<script>
+/* passes block inside home: hide the 3D scissors + keep nav light while it is on screen */
+(function(){var pp=document.getElementById('passes'),de=document.documentElement;
+  function f(){var r=pp.getBoundingClientRect(),H=innerHeight,on=r.top<H*.5&&r.bottom>H*.5;if(on!==f.o){f.o=on;de.classList.toggle('pp-on',on);}requestAnimationFrame(f);}
+  requestAnimationFrame(f);})();
+</script>
