@@ -900,7 +900,7 @@ html.pp-on .rail{opacity:.4}
         <p class="lead">Book trusted salons, earn cashback and save with Aluma Money. One membership for hair and beauty.</p>
         <div class="ctas">
           <a class="btn solid" href="#book">Book an appointment</a>
-          <a class="btn" href="#about">Explore Aluma Pass</a>
+          <a class="btn" href="#about">Explore Aluma Membership</a>
           <a class="btn gift" href="https://wa.me/917892962859?text=Hey%21%20I%20want%20to%20discuss%20about%20Gift%20Services." target="_blank" rel="noopener">Gift Services</a>
         </div>
       </div>
@@ -959,7 +959,6 @@ html.pp-on .rail{opacity:.4}
     <div class="dt" id="dt" role="dialog" aria-label="Pass details"></div>
   </div>
 </section>
-<section class="vidsec" id="vidsec" aria-label="Hair science"><div class="vpin"><video src="pinterest_hair_chem_720w.mp4" autoplay muted loop playsinline preload="auto"></video></div></section>
 <section class="eco" id="eco" aria-label="Aluma's eco-friendly mission">
   <div class="epin">
     <div class="ewin" id="ewin">
@@ -1102,7 +1101,7 @@ html.pp-on .rail{opacity:.4}
     /* 1. hero: logo + text, light at full */
     var hOut=eio(seg_(p,.06,.2));
     hero.style.opacity=(1-hOut).toFixed(3); hero.style.pointerEvents=hOut>.5?'none':''; hero.style.transform='translateY('+(-hOut*80)+'px) scale('+(1-hOut*.08)+')';
-    var ecoT=document.getElementById('vidsec').getBoundingClientRect().top, lt=((1-clamp((H*.7-ecoT)/(H*.7),0,1))*clamp(1-scene.getBoundingClientRect().top/(H*.6),0,1)).toFixed(3); neon.style.opacity=lt; bloom.style.opacity=lt; document.getElementById('screen').style.opacity=lt; /* edge light on hero + cards, fades out as the hair frame comes in */
+    var ecoT=document.getElementById('eco').getBoundingClientRect().top, lt=((1-clamp((H*.7-ecoT)/(H*.7),0,1))*clamp(1-scene.getBoundingClientRect().top/(H*.6),0,1)).toFixed(3); neon.style.opacity=lt; bloom.style.opacity=lt; document.getElementById('screen').style.opacity=lt; /* edge light on hero + cards, fades out as the hair frame comes in */
     /* heading */
     var sIn=eo(seg_(p,.3,.42)); sh.style.opacity=sIn.toFixed(3); sh.style.transform='translateY('+((1-sIn)*30)+'px)';
     /* 2. deck rises */
@@ -1263,7 +1262,7 @@ html.pp-on .rail{opacity:.4}
     if(horiz&&Math.abs(drag)>50) EI=clamp(EI+(drag<0?1:-1),0,2); EX=EX-(drag||0)/cw; drag=null; },{passive:true});
   function frame(){
     var t=raw(); qs=reduced?t:qs+(t-qs)*.12; var q=.36+qs*.64;   /* no split any more: start straight at the heading + cards part */
-    var r=document.getElementById('vidsec').getBoundingClientRect(); window.__ecoOn=r.top<H*.5;
+    var r=eco.getBoundingClientRect(); window.__ecoOn=r.top<H*.5;
     /* 1. a glowing crack runs across the hair */
     var c=eo(sg(q,0,.1)); crackp.style.strokeDashoffset=(len*(1-c)).toFixed(1);
     /* 2. the hair splits open (top up, bottom down, tilting back in 3D) */

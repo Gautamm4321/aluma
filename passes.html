@@ -41,7 +41,8 @@ a{color:inherit}
 .xb{display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;line-height:20px;white-space:nowrap;text-decoration:none;
   color:#fff;background:rgba(18,18,18,.35);border:1px solid rgba(255,255,255,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .25s,color .25s,border-color .25s}
 .xb:hover{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
-@media (max-width:1180px) and (min-width:821px){.xb{font-size:12.5px;padding:0 11px}.xbs,.hr{gap:6px}}
+@media (max-width:1600px) and (min-width:821px){.xb{font-size:13px;padding:0 12px}.xbs,.hr{gap:6px}}
+@media (max-width:1180px) and (min-width:821px){.xb{font-size:11.5px;padding:0 9px}.xbs,.hr{gap:5px}}
 .pill{justify-self:end;display:inline-flex;align-items:center;height:42px;padding:0 20px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;background:var(--ivory);color:var(--ink)}
 .seg{display:flex;padding:4px;border-radius:999px;background:rgba(244,241,234,.08);border:1px solid rgba(244,241,234,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   opacity:0;transform:translateY(-10px);pointer-events:none;transition:opacity .5s,transform .5s}
@@ -161,6 +162,12 @@ a{color:inherit}
 .hdr .hback,.hdr .pill{height:32px!important;padding:0 14px!important;gap:8px;font-size:14px!important;line-height:20px;font-weight:500}
 .hdr .hback svg{width:14px!important;height:14px!important}
 @media (max-width:767px){.hdr .hback,.hdr .pill{font-size:12px!important;height:28px!important}}
+/* desktop: Men/Women sits beside Back so the plan buttons on the right never crowd it */
+@media (min-width:821px){
+  .hdr{grid-template-columns:auto 1fr auto}
+  .hdr .seg{position:absolute;left:calc(var(--gl) + clamp(16px,2.4vw,36px) + 104px);top:calc(var(--gl) + 22px + 16px);transform:translateY(-50%) translateY(-10px)}
+  .hdr .seg.show{transform:translateY(-50%)}
+}
 /* mobile left / right arrows under the cards */
 .marr{position:absolute;left:0;right:0;z-index:9;display:none;justify-content:center;gap:64px;opacity:0;pointer-events:none;transition:opacity .5s}
 .marr button{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.28);
@@ -308,6 +315,7 @@ a{color:inherit}
   .xbs.show{opacity:1;pointer-events:auto}
   .xb{height:30px;padding:0 11px;font-size:11.5px}
   .mtabs{display:none!important}
+  .cue{bottom:calc(env(safe-area-inset-bottom,0px) + 14px);gap:0}.cue .cuet{display:none}.cue i{height:30px}
   .marr{display:flex}
   .dt{width:auto;left:20px;right:20px;transform:none}
   .dt .dx{top:auto;bottom:calc(100% + 20px);right:0;width:34px;height:34px;font-size:18px}
@@ -335,7 +343,7 @@ a{color:inherit}
     <button type="button" data-f="mens" class="on">Men</button>
     <button type="button" data-f="womens">Women</button>
   </div>
-  <div class="hr"><div class="xbs" id="xbs"><a class="xb" href="https://wa.me/917892962859?text=Hey%21%20I%20want%20to%20discuss%20about%20Join%20Club." target="_blank" rel="noopener">Join Club</a><a class="xb" href="https://wa.me/917892962859?text=Hey%21%20I%20want%20to%20discuss%20about%20Family%20Membership." target="_blank" rel="noopener">Family Membership</a><a class="xb" href="https://wa.me/917892962859?text=Hey%21%20I%20want%20to%20discuss%20about%20Corporate%20Grooming%20Pass." target="_blank" rel="noopener">Corporate Grooming Pass</a></div><a class="pill" href="index.html#book">Book</a></div>
+  <div class="hr"><div class="xbs" id="xbs"><a class="xb" href="https://wa.me/917892962859?text=Hey%21%20I%20want%20to%20discuss%20about%20Aluma%20Family%20Membership." target="_blank" rel="noopener">Aluma Family Membership</a><a class="xb" href="https://wa.me/917892962859?text=Hey%21%20I%20want%20to%20discuss%20about%20Aluma%20Corporate%20Membership." target="_blank" rel="noopener">Aluma Corporate Membership</a><a class="xb" href="https://wa.me/917892962859?text=Hey%21%20I%20want%20to%20discuss%20about%20Join%20Aluma%20Club." target="_blank" rel="noopener">Join Aluma Club</a></div><a class="pill" href="index.html#book">Book</a></div>
 </header>
 
 <section class="scene" id="scene">
@@ -345,7 +353,7 @@ a{color:inherit}
       <p class="word">ALUMA</p>
       <h1>One pass.<br class="mb"> <em>A whole year.</em></h1>
       <p>Unlimited salon care for a full year. Scroll to reveal your pass.</p>
-      <div class="cue" aria-hidden="true">Scroll<i></i></div>
+      <div class="cue" aria-hidden="true"><span class="cuet">Scroll</span><i></i></div>
     </div>
     <div class="sh" id="sh"><h2>Choose your <em>pass.</em></h2><p id="shSub">Men's yearly passes</p></div>
     <div class="deck" id="deck"></div>
@@ -355,7 +363,6 @@ a{color:inherit}
     <div class="dt" id="dt" role="dialog" aria-label="Pass details"></div>
   </div>
 </section>
-<section class="vidsec" id="vidsec" aria-label="Hair science"><div class="vpin"><video src="pinterest_hair_chem_720w.mp4" autoplay muted loop playsinline preload="auto"></video></div></section>
 <section class="eco" id="eco" aria-label="Aluma's eco-friendly mission">
   <div class="epin">
     <div class="ewin" id="ewin">
@@ -495,7 +502,7 @@ a{color:inherit}
     /* 1. hero: logo + text, light at full */
     var hOut=eio(seg_(p,.06,.2));
     hero.style.opacity=(1-hOut).toFixed(3); hero.style.pointerEvents=hOut>.5?'none':''; hero.style.transform='translateY('+(-hOut*80)+'px) scale('+(1-hOut*.08)+')';
-    var ecoT=document.getElementById('vidsec').getBoundingClientRect().top, lt=(1-clamp((H*.7-ecoT)/(H*.7),0,1)).toFixed(3); neon.style.opacity=lt; bloom.style.opacity=lt; document.getElementById('screen').style.opacity=lt; /* edge light on hero + cards, fades out as the hair frame comes in */
+    var ecoT=document.getElementById('eco').getBoundingClientRect().top, lt=(1-clamp((H*.7-ecoT)/(H*.7),0,1)).toFixed(3); neon.style.opacity=lt; bloom.style.opacity=lt; document.getElementById('screen').style.opacity=lt; /* edge light on hero + cards, fades out as the hair frame comes in */
     /* heading */
     var sIn=eo(seg_(p,.3,.42)); sh.style.opacity=sIn.toFixed(3); sh.style.transform='translateY('+((1-sIn)*30)+'px)';
     /* 2. deck rises */
@@ -656,7 +663,7 @@ a{color:inherit}
     if(horiz&&Math.abs(drag)>50) EI=clamp(EI+(drag<0?1:-1),0,2); EX=EX-(drag||0)/cw; drag=null; },{passive:true});
   function frame(){
     var t=raw(); qs=reduced?t:qs+(t-qs)*.12; var q=.36+qs*.64;   /* no split any more: start straight at the heading + cards part */
-    var r=document.getElementById('vidsec').getBoundingClientRect(); window.__ecoOn=r.top<H*.5;
+    var r=eco.getBoundingClientRect(); window.__ecoOn=r.top<H*.5;
     /* 1. a glowing crack runs across the hair */
     var c=eo(sg(q,0,.1)); crackp.style.strokeDashoffset=(len*(1-c)).toFixed(1);
     /* 2. the hair splits open (top up, bottom down, tilting back in 3D) */
